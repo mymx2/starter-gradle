@@ -15,7 +15,6 @@ kover {
     filters {
       excludes {
         classes("**.internal.**")
-        classes("**.internal.**")
         classes("**.codegen.**")
       }
     }

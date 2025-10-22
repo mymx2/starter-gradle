@@ -74,10 +74,12 @@ kspPlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.p
 lombokGradlePlugin = { module = "io.freefair.lombok:io.freefair.lombok.gradle.plugin", version = "9.0.0" }
 # https://plugins.gradle.org/plugin/org.openrewrite.rewrite
 # https://plugins.gradle.org/m2/org/openrewrite/rewrite/org.openrewrite.rewrite.gradle.plugin/maven-metadata.xml
-openrewritePlugin = { module = "org.openrewrite.rewrite:org.openrewrite.rewrite.gradle.plugin", version = "7.18.0" }
+openrewritePlugin = { module = "org.openrewrite.rewrite:org.openrewrite.rewrite.gradle.plugin", version = "7.19.0" }
 # https://plugins.gradle.org/plugin/org.springframework.boot
 # https://plugins.gradle.org/m2/org/springframework/boot/org.springframework.boot.gradle.plugin/maven-metadata.xml
 springBootPlugin = { module = "org.springframework.boot:org.springframework.boot.gradle.plugin", version = "4.0.0-M3" }
+# https://plugins.gradle.org/plugin/org.openapi.generator
+# https://plugins.gradle.org/m2/org/openapi/generator/org.openapi.generator.gradle.plugin/maven-metadata.xml
 openapiGradlePlugin = { module = "org.openapi.generator:org.openapi.generator.gradle.plugin", version = "7.11.0" }
 # https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/maven-metadata.xml
 androidPlugin = { module = "com.android.tools.build:gradle" }

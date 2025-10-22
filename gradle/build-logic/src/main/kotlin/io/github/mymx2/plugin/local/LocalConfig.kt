@@ -25,7 +25,7 @@ object LocalConfig {
     // 项目的group
     GROUP("GROUP", "starter.gradle"),
     // 项目的version
-    VERSION_NAME("VERSION_NAME", "1.1.250101001-SNAPSHOT"),
+    VERSION_NAME("VERSION_NAME", "1.0.0-SNAPSHOT"),
     // gradle远程缓存账户名
     BUILD_CACHE_USER("BUILD_CACHE_USER", ""),
     // gradle远程缓存密码

@@ -1,7 +1,6 @@
 import io.github.mymx2.plugin.environment.EnvAccess
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import net.swiftzer.semver.SemVer
@@ -14,14 +13,6 @@ group = project.getPropOrDefault(LocalConfig.Props.GROUP)
 
 val isCI = EnvAccess.isCi(providers)
 val currVer = SemVer.parse(project.getPropOrDefault(LocalConfig.Props.VERSION_NAME))
-
-currVer.patch.also {
-  require(it.toString().length == 9) { "Patch should be 9 digits, e.g. 250101001" }
-  runCatching {
-      LocalDate.parse(it.toString().substring(0, 6), DateTimeFormatter.ofPattern("yyMMdd"))
-    }
-    .getOrElse { error("Patch should be a valid date, e.g. 250101") }
-}
 
 currVer.preRelease?.also {
   val tags =

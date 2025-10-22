@@ -12,4 +12,6 @@ coverage:
         target: 60%
         threshold: 1%
 ignore:
+  - ".*/codegen/.*"
+  - ".*/internal/.*"
   - "examples/.*"

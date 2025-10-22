@@ -18,7 +18,7 @@ enum class ProjectVersions(val key: String, val value: String, val url: String) 
   ),
   errorprone(
     "com.google.errorprone:error_prone_core",
-    "2.42.0",
+    "2.43.0",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/google/errorprone/error_prone_core/maven-metadata.xml",
   ),
   errorpronePicnicContrib(
