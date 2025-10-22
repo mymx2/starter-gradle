@@ -1,0 +1,40 @@
+name: Publish Release
+on:
+  workflow_dispatch:
+
+env:
+  CI: true
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        # https://github.com/marketplace/actions/checkout
+        uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        # https://github.com/marketplace/actions/setup-node-js-environment
+        with:
+          node-version: "24"
+      - name: Setup Java
+        # https://github.com/marketplace/actions/setup-java-jdk
+        uses: actions/setup-java@v5
+        with:
+          java-version: "25"
+          distribution: "corretto"
+      - name: Setup Gradle
+        # https://github.com/marketplace/actions/build-with-gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          gradle-version: wrapper
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+      - name: Show Gradle version
+        run: ./gradlew --version
+      - name: Build with Gradle
+        env:
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.signingInMemoryKey }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.signingInMemoryKeyPassword }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
+        run: ./gradlew publishToMavenCentral

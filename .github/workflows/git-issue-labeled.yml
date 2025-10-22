@@ -1,0 +1,56 @@
+#file: noinspection UndefinedParamsPresent
+##################################################################
+# issues-helper: https://github.com/actions-cool/issues-helper
+##################################################################
+name: Issue Labeled
+run-name: Auto create and close issues When specific label is added
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: read
+
+jobs:
+  issue-labeled:
+    permissions:
+      issues: write # for actions-cool/issues-helper to update issues
+      pull-requests: write # for actions-cool/issues-helper to update PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🤔 status| waiting-reproduction
+        if: github.event.label.name == 'status| waiting-reproduction'
+        # https://github.com/marketplace/actions/issues-helper
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: create-comment
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hello @${{ github.event.issue.user.login }}, Please provide a link or code to that can reproduce the problem you ran into to help us investigate the issue. It will be closed if no further activity occurs. Thank you for your contributions.
+
+            你好 @${{ github.event.issue.user.login }}，请提供一个可以重现您遇到的问题的链接或代码以便于我们帮你排查问题。如果没有进一步的活动发生，它将被关闭。感谢你的贡献。
+
+            > [what is a minimal reproduction, Why Reproductions are Required?](https://antfu.me/posts/why-reproductions-are-required)
+            > [什么是最小化重现，为什么这是必需的？](https://antfu.me/posts/why-reproductions-are-required-zh)
+
+            ![](https://gw.alipayobjects.com/zos/antfincdn/y9kwg7DVCd/reproduce.gif)
+      - name: 🥴 close| stackoverflow
+        if: github.event.label.name == 'close| stackoverflow'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "create-comment,close-issue"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hello @${{ github.event.issue.user.login }}, this issue has been closed because that's better to ask on [StackOverflow](https://stackoverflow.com).
+
+            你好 @${{ github.event.issue.user.login }}，这个问题已被关闭，这个问题更适合百度搜索或 [StackOverflow](https://stackoverflow.com) 提问。
+      - name: 🤠 remove unconfirmed label
+        if: github.event.label.name != 'unconfirmed'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: remove-labels
+          issue-number: ${{ github.event.issue.number }}
+          labels: unconfirmed

@@ -1,0 +1,34 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["config:recommended", "schedule:weekly", "group:allNonMajor"],
+  labels: ["type| dependency-update"],
+  ignorePaths: ["**/__tests__/**"],
+  ignoreUnstable: false,
+  packageRules: [
+    {
+      matchPackagePatterns: [".*"],
+      allowedVersions: "!/(-rc|-RC|-M|-m|-beta|-Beta|-BETA|-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/",
+    },
+    {
+      matchFileNames: ["**/rcLibs.versions.toml"],
+      allowedVersions: "!/(-M|-m|-beta|-Beta|-BETA|-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/",
+    },
+    {
+      matchFileNames: ["**/betaLibs.versions.toml"],
+      allowedVersions: "!/(-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/",
+    },
+    {
+      matchFileNames: ["**/alphaLibs.versions.toml"],
+      allowedVersions: "!/(-snapshot|-Snapshot|-SNAPSHOT)/",
+    },
+  ],
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["\\.versions.toml$"],
+      matchStrings: ['(^|\n)(?<depName>gradle) *= *"(?<currentValue>.*)"'],
+      depNameTemplate: "gradle",
+      datasourceTemplate: "gradle-version",
+    },
+  ],
+}

@@ -1,0 +1,18 @@
+# https://github.com/gitattributes/gitattributes
+# https://github.com/v8/v8/blob/main/.gitattributes
+
+# Automatically normalize line endings (to LF) for all text-based files.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd eol=crlf
+/gradlew text eol=lf
+*.lockfile eol=crlf
+
+# Do not modify line endings for binary files (which are sometimes auto detected as text files by git).
+*.png binary
+*.jpg binary
+*.ttf binary
+*.war binary
+*.jar binary
+*.db binary
+*.xdb binary

@@ -1,0 +1,25 @@
+# see: https://github.com/detekt/detekt/blob/v2.0.0-alpha.0/detekt-core/src/main/resources/default-detekt-config.yml
+# see: https://detekt.dev/docs/introduction/suppressing-rules
+# see: https://detekt.dev/docs/rules/comments
+config:
+  validation: true
+  warningsAsErrors: false
+  checkExhaustiveness: false
+
+naming:
+  MatchingDeclarationName:
+    active: false
+
+style:
+  ForbiddenComment:
+    active: false
+  UnusedPrivateClass:
+    active: false
+  UnusedParameter:
+    active: false
+  UnusedPrivateProperty:
+    active: false
+  UnusedPrivateFunction:
+    active: false
+  MagicNumber:
+    active: false

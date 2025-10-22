@@ -1,0 +1,29 @@
+#file: noinspection UndefinedParamsPresent
+##################################################################
+# issues-helper: https://github.com/actions-cool/issues-helper
+##################################################################
+name: Close issue
+run-name: Auto close inactive issues with schedule
+
+on:
+  schedule:
+    - cron: "0 0 */7 * *"
+
+permissions:
+  issues: write
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 😞 check the labels and auto close it
+        # https://github.com/marketplace/actions/issues-helper
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: "close-issues"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          labels: "status| waiting-reproduction,status| waiting-feedback"
+          inactive-day: 7
+          body: |
+            Hi, this issue has been closed because it has been inactive for more than 7 days.
+            If you think it should still be open, please reply here.

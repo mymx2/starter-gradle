@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+  <suppress files="(^|[\\/])__[^\\/]*[\\/]" checks=".*" />
+  <suppress files="(^|[\\/])__[^\\/]*$" checks=".*" />
+  <!-- examples -->
+  <suppress files=".*" checks="SummaryJavadoc" />
+  <suppress files=".*" checks="AvoidStarImport" />
+  <suppress files=".+\.(?:jar|zip|war|class|tar|bin)$" checks=".*" />
+  <suppress files=".+\.(?:png|gif|jpg|jpeg)$" checks=".*" />
+  <suppress
+    files=".+\.(?:txt|csv|sh|thrift|html|sql|eot|ttf|woff|css|png)$"
+    checks=".*"
+  />
+</suppressions>

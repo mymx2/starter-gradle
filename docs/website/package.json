@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "vitepress dev src/pages",
+    "preview": "vitepress preview src/pages",
+    "build": "vitepress build src/pages",
+    "up": "taze major -I",
+    "yo": "npm i -g @antfu/ni"
+  },
+  "devDependencies": {
+    "@antfu/utils": "^9.3.0",
+    "taze": "^19.7.0",
+    "vitepress": "^2.0.0-alpha.12"
+  }
+}
