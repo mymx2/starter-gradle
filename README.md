@@ -1,18 +1,18 @@
 <p align="center">
-  <a href="https://maven-badges.sml.io/maven-central/io.github.mymx2/example-kotlin" target="_blank"><img alt="maven-central-version"
+  <a href="https://central.sonatype.com/artifact/io.github.mymx2/example-kotlin" target="_blank"><img alt="maven-central-version"
     src="https://img.shields.io/maven-central/v/io.github.mymx2/example-kotlin?strategy=latestProperty"/></a>
   <a href="https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/example-kotlin/maven-metadata.xml" target="_blank"><img alt="maven-metadata-url"
     src="https://img.shields.io/maven-metadata/v?label=snapshot&metadataUrl=https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/example-kotlin/maven-metadata.xml&strategy=latestProperty"/></a>
-  <a href="https://github.com/mymx2/starter-gradle" target="_blank"><img alt="git-hub-release"
+  <a href="https://github.com/mymx2/starter-gradle/releases" target="_blank"><img alt="git-hub-release"
     src="https://img.shields.io/github/v/release/mymx2/starter-gradle"/></a>
 </p>
 
 <p align="center">
-  <a href="https://app.codacy.com/gh/mymx2/starter-gradle" target="_blank"><img alt="codacy-grade"
-    src="https://img.shields.io/codacy/grade/a2f3fd9b1e564fa3a3b558d1dfaf2a34"/></a>
+  <a href="https://app.codacy.com/gh/mymx2/starter-gradle/dashboard" target="_blank"><img alt="codacy-grade"
+    src="https://img.shields.io/codacy/grade/64109c17cc5c4ea090db54cb773621fe"/></a>
   <a href="https://app.codecov.io/gh/mymx2/starter-gradle" target="_blank"><img alt="codecov"
     src="https://img.shields.io/codecov/c/github/mymx2/starter-gradle"/></a>
-  <a href="https://github.com/mymx2/starter-gradle" target="_blank"><img alt="git-hub-actions-workflow-status"
+  <a href="https://github.com/mymx2/starter-gradle/actions/workflows/pull-request-check.yml" target="_blank"><img alt="git-hub-actions-workflow-status"
     src="https://img.shields.io/github/actions/workflow/status/mymx2/starter-gradle/pull-request-check.yml"/></a>
 </p>
 

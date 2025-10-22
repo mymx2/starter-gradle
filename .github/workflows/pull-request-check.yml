@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Checkout sources
         # https://github.com/marketplace/actions/checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@main
       - uses: actions/setup-node@v6
         # https://github.com/marketplace/actions/setup-node-js-environment
         with:
@@ -43,3 +43,14 @@ jobs:
       - run: ./gradlew testEndToEndSlow
       - run: ./gradlew check
       - run: ./gradlew cyclonedxBom --no-configuration-cache
+      - name: Code Coverage Report
+        run: ./gradlew testCodeCoverageReport
+      - name: Upload coverage reports to Codecov
+        # https://github.com/marketplace/actions/codecov
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true
+          verbose: true
+          files: ./gradle/aggregation/build/reports/coverage/coverage.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

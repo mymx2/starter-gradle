@@ -23,7 +23,7 @@ jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@main
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
