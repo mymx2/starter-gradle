@@ -51,6 +51,9 @@ javaModuleDependenciesPlugin = { module = "org.gradlex:java-module-dependencies"
 # https://plugins.gradle.org/plugin/org.gradlex.extra-java-module-info
 # https://plugins.gradle.org/m2/org/gradlex/extra-java-module-info/maven-metadata.xml
 extraJavaModuleInfoPlugin = { module = "org.gradlex:extra-java-module-info", version = "1.13.1" }
+# https://plugins.gradle.org/plugin/com.gradleup.shadow
+# https://plugins.gradle.org/m2/com.gradleup.shadow/shadow-gradle-plugin/maven-metadata.xml
+shadowGradlePlugin = { module = "com.gradleup.shadow:shadow-gradle-plugin", version = "9.2.2" }
 # https://plugins.gradle.org/plugin/com.vanniktech.maven.publish
 # https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/vanniktech/gradle-maven-publish-plugin/maven-metadata.xml
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.34.0" }
