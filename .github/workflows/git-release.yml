@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v5
       - name: 🌿 Build Changelog
         id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v6
+        uses: mikepenz/release-changelog-builder-action@{latest-release}
         with:
           configuration: ".github/config/changelog.json"
           commitMode: true
