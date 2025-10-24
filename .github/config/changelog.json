@@ -1,5 +1,5 @@
 {
-  "template": "## 📋 What's Changed\n\n#{{CHANGELOG}}\n\n<details>\n<summary>📝 Uncategorized Changes</summary>\n\n#{{UNCATEGORIZED}}\n\n</details>",
+  "template": "## 📢 What's Changed\n\n#{{CHANGELOG}}\n\n<details>\n<summary>🔐 Uncategorized Changes</summary>\n\n#{{UNCATEGORIZED}}\n\n</details>\\n## Contributors:\\n- #{{CONTRIBUTORS}}",
   "commit_template": "- #{{TITLE}} #{{MERGE_SHA}}",
   "pr_template": "- #{{TITLE}} - #{{MERGE_SHA}} - ##{{NUMBER}}",
   "empty_template": "- No changes in this release",
@@ -49,11 +49,11 @@
     },
     {
       "title": "### 🔧 Infrastructure",
-      "labels": ["pr| infra"]
+      "labels": ["pr| infra-no"]
     },
     {
       "title": "### 📦 Dependencies",
-      "labels": ["pr| deps"]
+      "labels": ["pr| deps-no"]
     },
     {
       "title": "### 📘 Documentation",
@@ -61,7 +61,12 @@
     },
     {
       "title": "### 🧩 Misc",
-      "labels": ["pr| chore"]
+      "labels": ["pr| chore-no"]
+    },
+    {
+      "title": "### 🔐 Uncategorized",
+      "labels": [],
+      "exclude_labels": ["pr| changelog-ignore"]
     }
   ],
   "label_extractor": [
@@ -95,6 +100,6 @@
     "on_property": "mergedAt"
   },
   "max_tags_to_fetch": 200,
-  "max_pull_requests": 200,
+  "max_pull_requests": 1000,
   "max_back_track_time_days": 365
 }
