@@ -1,3 +1,4 @@
+#file: noinspection UndefinedParamsPresent,UndefinedAction
 name: Publish Release
 on:
   workflow_dispatch:
@@ -9,29 +10,26 @@ jobs:
   publish-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout sources
-        # https://github.com/marketplace/actions/checkout
+      - name: ✈ Checkout sources
         uses: actions/checkout@v5
-      - uses: actions/setup-node@v6
-        # https://github.com/marketplace/actions/setup-node-js-environment
+      - name: 📦 Setup Node
+        uses: actions/setup-node@v6
         with:
           node-version: "24"
-      - name: Setup Java
-        # https://github.com/marketplace/actions/setup-java-jdk
+      - name: ☕ Setup Java
         uses: actions/setup-java@v5
         with:
           java-version: "25"
           distribution: "corretto"
-      - name: Setup Gradle
-        # https://github.com/marketplace/actions/build-with-gradle
+      - name: 🐘 Setup Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
           gradle-version: wrapper
-      - name: Make Gradle wrapper executable
+      - name: 🔧 Make Gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: Show Gradle version
+      - name: 🔧 Show Gradle version
         run: ./gradlew --version
-      - name: Build with Gradle
+      - name: 👻 Publish to maven central
         env:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.signingInMemoryKey }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.signingInMemoryKeyPassword }}

@@ -1,0 +1,98 @@
+{
+  "template": "## 📋 What's Changed\n\n${{CHANGELOG}}\n\n<details>\n<summary>📝 Uncategorized Changes</summary>\n\n${{UNCATEGORIZED}}\n\n</details>",
+  "commit_template": "- ${{TITLE}} ${{MERGE_SHA}}",
+  "pr_template": "- ${{TITLE}} - ${{MERGE_SHA}} - ##{{NUMBER}}",
+  "empty_template": "- No changes in this release",
+  "exclude_merge_branches": [
+    "qa",
+    "test",
+    "dev",
+    "develop",
+    "staging",
+    "release",
+    "hotfix/temp-*",
+    "owner/qa",
+    "owner/test"
+  ],
+  "tag_resolver": {
+    "method": "semver",
+    "filter": {
+      "pattern": "v(.+)",
+      "target": "$1"
+    }
+  },
+  "ignore_labels": ["pr| changelog-ignore"],
+  "categories": [
+    {
+      "title": "### 🌋 Breaking Changes",
+      "labels": ["pr| breaking-change"]
+    },
+    {
+      "title": "### 🔙 Reverts",
+      "labels": ["pr| revert"]
+    },
+    {
+      "title": "### ✨ Features",
+      "labels": ["pr| feat"]
+    },
+    {
+      "title": "### 🐛 Bug Fixes",
+      "labels": ["pr| fix"]
+    },
+    {
+      "title": "### 🧹 Refactor & Performance",
+      "labels": ["pr| refactor", "pr| perf"]
+    },
+    {
+      "title": "### 🧪 Tests",
+      "labels": ["pr| test"]
+    },
+    {
+      "title": "### 🔧 Infrastructure",
+      "labels": ["pr| infra"]
+    },
+    {
+      "title": "### 📦 Dependencies",
+      "labels": ["pr| deps"]
+    },
+    {
+      "title": "### 📘 Documentation",
+      "labels": ["pr| docs"]
+    },
+    {
+      "title": "### 🧩 Misc",
+      "labels": ["pr| chore"]
+    }
+  ],
+  "label_extractor": [
+    {
+      "pattern": "^(?:revert: )",
+      "label": "pr| revert"
+    },
+    {
+      "pattern": "!!\\s*$",
+      "label": "pr| breaking-change"
+    },
+    {
+      "pattern": "\\.\\.\\s*$",
+      "label": "pr| changelog-ignore"
+    },
+    {
+      "pattern": "^(?!revert: )(feat|fix|refactor|perf|test|infra|deps|docs|chore)(\\(.+\\))?:",
+      "target": "pr| $1"
+    }
+  ],
+  "transformers": [
+    {
+      "pattern": "^.+?:\\s+(.+)",
+      "target": "$1"
+    }
+  ],
+  "sort": {
+    "order": "ASC",
+    "on_property": "mergedAt"
+  },
+  "max_tags_to_fetch": 200,
+  "max_pull_requests": 200,
+  "max_back_track_time_days": 365
+}

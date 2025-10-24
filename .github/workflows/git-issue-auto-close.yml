@@ -1,7 +1,4 @@
-#file: noinspection UndefinedParamsPresent
-##################################################################
-# issues-helper: https://github.com/actions-cool/issues-helper
-##################################################################
+#file: noinspection UndefinedParamsPresent,UndefinedAction
 name: Close issue
 run-name: Auto close inactive issues with schedule
 
@@ -17,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 😞 check the labels and auto close it
-        # https://github.com/marketplace/actions/issues-helper
         uses: actions-cool/issues-helper@v3
         with:
           actions: "close-issues"

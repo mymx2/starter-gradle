@@ -1,3 +1,4 @@
+#file: noinspection UndefinedParamsPresent,UndefinedAction
 name: PR Checks
 on:
   workflow_dispatch:
@@ -14,28 +15,25 @@ jobs:
   pr-checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout sources
-        # https://github.com/marketplace/actions/checkout
+      - name: ✈ Checkout sources
         uses: actions/checkout@v5
-      - uses: actions/setup-node@v6
-        # https://github.com/marketplace/actions/setup-node-js-environment
+      - name: 📦 Setup Node
+        uses: actions/setup-node@v6
         with:
           node-version: "24"
-      - name: Setup Java
-        # https://github.com/marketplace/actions/setup-java-jdk
+      - name: ☕ Setup Java
         uses: actions/setup-java@v5
         with:
           java-version: "25"
           distribution: "corretto"
-      - name: Setup Gradle
-        # https://github.com/marketplace/actions/build-with-gradle
+      - name: 🐘 Setup Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
           gradle-version: wrapper
           cache-read-only: false
-      - name: Make Gradle wrapper executable
+      - name: 🔧 Make Gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: Show Gradle version
+      - name: 🔧 Show Gradle version
         run: ./gradlew --version
       - run: ./gradlew qualityCheck
       - run: ./gradlew test
@@ -43,10 +41,9 @@ jobs:
       - run: ./gradlew testEndToEndSlow
       - run: ./gradlew check
       - run: ./gradlew cyclonedxBom --no-configuration-cache
-      - name: Code Coverage Report
+      - name: 📊 Generate Code Coverage Report
         run: ./gradlew testCodeCoverageReport
-      - name: Upload coverage reports to Codecov
-        # https://github.com/marketplace/actions/codecov
+      - name: 👻 Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true

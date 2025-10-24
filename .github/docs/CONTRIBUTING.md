@@ -26,7 +26,7 @@ Please follow the [GitHub Flow](https://guides.github.com/introduction/flow/) wh
 Messages must be matched by the following regex:
 
 ```regexp
-/^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip)(\(.+\))?: .{1,50}/
+/^(?:revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\(.+\))?: [^\n\r]{1,49}[^\s\n\r]$/
 ```
 
 #### Examples

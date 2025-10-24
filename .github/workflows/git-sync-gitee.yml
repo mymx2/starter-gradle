@@ -1,3 +1,4 @@
+#file: noinspection UndefinedParamsPresent,UndefinedAction
 name: Sync to Gitee
 
 on:
@@ -6,10 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  sync:
+  sync-gitee:
     runs-on: ubuntu-latest
     steps:
-      - name: Sync to Gitee
+      - name: ↪ Sync to Gitee
         uses: wearerequired/git-mirror-action@master
         with:
           source-repo: "git@github.com:mymx2/starter-gradle.git"

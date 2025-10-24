@@ -1,0 +1,163 @@
+# 一、问题类型 (type|)
+- name: type| bug
+  description: A general bug 【BUG 反馈】
+  color: "#6F42C1"
+- name: type| question
+  description: A question 【问题反馈】
+  color: "#6F42C1"
+- name: type| regression
+  description: A regression from a previous release 【版本回归问题】
+  color: "#6F42C1"
+- name: type| task
+  description: A general task 【一般任务】
+  color: "#6F42C1"
+- name: type| enhancement
+  description: A general enhancement 【功能增强】
+  color: "#6F42C1"
+- name: type| docs
+  description: A documentation update 【文档相关】
+  color: "#6F42C1"
+- name: type| epic
+  description: An issue tracking a large piece of work that will be split into smaller issues 【大型任务追踪】
+  color: "#6F42C1"
+- name: type| dependency-upgrade
+  description: A dependency upgrade 【依赖项升级】
+  color: "#6F42C1"
+
+# 二、功能模块 (module|)
+- name: module| code
+  description: Issues related to the code 【代码相关】
+  color: "#0366D6"
+- name: module| testing
+  description: Issues related to testing 【测试相关】
+  color: "#0366D6"
+- name: module| performance
+  description: Issues related to general performance 【性能优化】
+  color: "#0366D6"
+- name: module| config
+  description: Issues related to the configuration system 【配置系统】
+  color: "#0366D6"
+- name: module| plugins
+  description: Issues related to plugins 【插件生态】
+  color: "#0366D6"
+- name: module| observability
+  description: Issues related to observability 【可观测性】
+  color: "#0366D6"
+- name: module| containers
+  description: Testcontainers, Docker Compose and Buildpack features 【容器化功能】
+  color: "#0366D6"
+
+# 三、处理状态 (status|)
+## 待处理
+- name: status| waiting-for-triage
+  description: An issue we've not yet triaged 【待分类】
+  color: "#22863A"
+- name: status| waiting-reproduction
+  description: We need a minimal reproducible example to continue 【需复现】
+  color: "#22863A"
+- name: status| waiting-feedback
+  description: We need additional information before we can continue 【需补充信息】
+  color: "#22863A"
+
+## 阻塞中
+- name: status| blocked-external
+  description: An issue that's blocked on an external project change 【等待外部解决】
+  color: "#22863A"
+- name: status| blocked-internal
+  description: An issue we'd like to discuss as a team to make progress 【等待团队决策】
+  color: "#22863A"
+- name: status| blocked-on-hold
+  description: We can't start working on this issue yet 【主动暂停】
+  color: "#22863A"
+- name: status| blocked-help-wanted
+  description: An issue that can only be worked on by brand new contributors 【需外部协助】
+  color: "#22863A"
+
+## 进行中
+- name: status| progress-planning
+  description: An issue we're planning to work on 【规划中】
+  color: "#22863A"
+- name: status| progress-fixing
+  description: An issue we're actively working on 【处理中】
+  color: "#22863A"
+- name: status| progress-waiting-for-pr
+  description: An issue that a contributor can help us with 【等待 PR】
+  color: "#22863A"
+- name: status| progress-needs-review
+  description: An issue that needs a PR review 【待代码审核】
+  color: "#22863A"
+
+## 待发布
+- name: status| prerelease-port-back
+  description: An issue tracking the back-port of a change made in a later branch 【需向后兼容】
+  color: "#22863A"
+- name: status| prerelease-port-forward
+  description: An issue tracking the forward-port of a change made in an earlier branch 【需向前移植】
+  color: "#22863A"
+
+# 四、终态标签 (close|)
+- name: close| stackoverflow
+  description: A question that's better suited to stackoverflow.com 【更适合在 StackOverflow 上提问】
+  color: "#6A737D"
+- name: close| discussion
+  description: A question that's better suited to a discussion 【更适合作为讨论】
+  color: "#6A737D"
+- name: close| external
+  description: An issue that's not relevant to the project 【跨项目问题】
+  color: "#6A737D"
+- name: close| invalid
+  description: An issue that we don't feel is valid 【无效问题】
+  color: "#6A737D"
+- name: close| duplicate
+  description: An issue that's a duplicate of another issue 【重复问题】
+  color: "#6A737D"
+- name: close| declined
+  description: A suggestion or change that we don't feel we should currently apply 【建议未采纳】
+  color: "#6A737D"
+- name: close| superseded
+  description: An issue that has been superseded by another 【已被替代】
+  color: "#6A737D"
+- name: close| resolved
+  description: An issue that has been resolved 【已解决】
+  color: "#6A737D"
+- name: close| wontfix
+  description: An issue that we don't plan to fix 【暂不修复】
+  color: "#6A737D"
+
+# 五、PR 类型 (pr|)
+- name: pr| revert
+  description: Reverts a previous commit 【回滚提交】
+  color: "#E36209"
+- name: pr| changelog-ignore
+  description: A change that should not be included in the changelog 【无需记录的变更】
+  color: "#E36209"
+- name: pr| breaking-change
+  description: Introduces backward-incompatible changes 【破坏性变更】
+  color: "#E36209"
+- name: pr| feat
+  description: Introduces a new feature 【新增功能】
+  color: "#E36209"
+- name: pr| fix
+  description: Fixes a reported issue or regression 【问题修复】
+  color: "#E36209"
+- name: pr| refactor
+  description: Code changes that neither fix a bug nor add a feature 【代码重构】
+  color: "#E36209"
+- name: pr| perf
+  description: Improves an existing feature 【功能改进】
+  color: "#E36209"
+- name: pr| test
+  description: Adds or updates tests 【测试改进】
+  color: "#E36209"
+- name: pr| infra
+  description: Changes to build system, tooling, or CI/CD infrastructure 【构建系统、工具链或CI/CD相关变更】
+  color: "#E36209"
+- name: pr| deps
+  description: Updates or modifies project dependencies 【依赖更新】
+  color: "#E36209"
+- name: pr| docs
+  description: Documentation-only changes 【文档更新】
+  color: "#E36209"
+- name: pr| chore
+  description: Routine maintenance tasks like formatting or cleanup 【日常维护】
+  color: "#E36209"
