@@ -1,5 +1,5 @@
 #file: noinspection UndefinedParamsPresent,UndefinedAction
-name: Sync labels
+name: Create Github Release
 
 on:
   push:

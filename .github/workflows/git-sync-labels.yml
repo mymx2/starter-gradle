@@ -1,5 +1,5 @@
 #file: noinspection UndefinedParamsPresent,UndefinedAction
-name: Sync labels
+name: Sync Github labels
 
 on:
   push:
