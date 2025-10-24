@@ -1,5 +1,5 @@
 {
-  "template": "## 📢 What's Changed\n\n#{{CHANGELOG}}\n\n<details>\n<summary>🔐 Uncategorized Changes</summary>\n\n#{{UNCATEGORIZED}}\n\n</details>\\n## Contributors:\\n- #{{CONTRIBUTORS}}",
+  "template": "## 📢 What's Changed\n\n#{{CHANGELOG}}\n\n## Contributors:\n- #{{CONTRIBUTORS}}",
   "commit_template": "- #{{TITLE}} #{{MERGE_SHA}}",
   "pr_template": "- #{{TITLE}} - #{{MERGE_SHA}} - ##{{NUMBER}}",
   "empty_template": "- No changes in this release",
@@ -49,11 +49,7 @@
     },
     {
       "title": "### 🔧 Infrastructure",
-      "labels": ["pr| infra-no"]
-    },
-    {
-      "title": "### 📦 Dependencies",
-      "labels": ["pr| deps-no"]
+      "labels": ["pr| infra"]
     },
     {
       "title": "### 📘 Documentation",
@@ -61,12 +57,11 @@
     },
     {
       "title": "### 🧩 Misc",
-      "labels": ["pr| chore-no"]
+      "labels": ["pr| chore"]
     },
     {
-      "title": "### 🔐 Uncategorized",
-      "labels": [],
-      "exclude_labels": ["pr| changelog-ignore"]
+      "title": "### 📦 Dependencies",
+      "labels": ["pr| deps"]
     }
   ],
   "label_extractor": [
