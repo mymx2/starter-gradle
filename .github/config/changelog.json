@@ -1,7 +1,7 @@
 {
-  "template": "## 📋 What's Changed\n\n${{CHANGELOG}}\n\n<details>\n<summary>📝 Uncategorized Changes</summary>\n\n${{UNCATEGORIZED}}\n\n</details>",
-  "commit_template": "- ${{TITLE}} ${{MERGE_SHA}}",
-  "pr_template": "- ${{TITLE}} - ${{MERGE_SHA}} - ##{{NUMBER}}",
+  "template": "## 📋 What's Changed\n\n#{{CHANGELOG}}\n\n<details>\n<summary>📝 Uncategorized Changes</summary>\n\n#{{UNCATEGORIZED}}\n\n</details>",
+  "commit_template": "- #{{TITLE}} #{{MERGE_SHA}}",
+  "pr_template": "- #{{TITLE}} - #{{MERGE_SHA}} - ##{{NUMBER}}",
   "empty_template": "- No changes in this release",
   "exclude_merge_branches": [
     "qa",
@@ -67,21 +67,25 @@
   "label_extractor": [
     {
       "on_property": "title",
+      "method": "regexr",
       "pattern": "^(?:revert: )",
       "target": "pr| revert"
     },
     {
       "on_property": "title",
+      "method": "regexr",
       "pattern": "!!\\s*$",
       "target": "pr| breaking-change"
     },
     {
       "on_property": "title",
+      "method": "regexr",
       "pattern": "\\.\\.\\s*$",
       "target": "pr| changelog-ignore"
     },
     {
       "on_property": "title",
+      "method": "regexr",
       "pattern": "^(?!revert: )(feat|fix|refactor|perf|test|infra|deps|docs|chore)(\\(.+\\))?:",
       "target": "pr| $1"
     }
