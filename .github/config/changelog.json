@@ -67,25 +67,23 @@
   "label_extractor": [
     {
       "pattern": "^(?:revert: )",
+      "on_property": "title",
       "label": "pr| revert"
     },
     {
       "pattern": "!!\\s*$",
+      "on_property": "title",
       "label": "pr| breaking-change"
     },
     {
       "pattern": "\\.\\.\\s*$",
+      "on_property": "title",
       "label": "pr| changelog-ignore"
     },
     {
       "pattern": "^(?!revert: )(feat|fix|refactor|perf|test|infra|deps|docs|chore)(\\(.+\\))?:",
+      "on_property": "title",
       "target": "pr| $1"
-    }
-  ],
-  "transformers": [
-    {
-      "pattern": "^.+?:\\s+(.+)",
-      "target": "$1"
     }
   ],
   "sort": {
