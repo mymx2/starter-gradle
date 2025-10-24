@@ -67,25 +67,21 @@
   "label_extractor": [
     {
       "on_property": "title",
-      "method": "replace",
       "pattern": "^(?:revert: )",
       "target": "pr| revert"
     },
     {
       "on_property": "title",
-      "method": "replace",
       "pattern": "!!\\s*$",
       "target": "pr| breaking-change"
     },
     {
       "on_property": "title",
-      "method": "replace",
       "pattern": "\\.\\.\\s*$",
       "target": "pr| changelog-ignore"
     },
     {
       "on_property": "title",
-      "method": "replace",
       "pattern": "^(?!revert: )(feat|fix|refactor|perf|test|infra|deps|docs|chore)(\\(.+\\))?:",
       "target": "pr| $1"
     }
