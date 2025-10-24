@@ -36,14 +36,14 @@
       <name>net.dreamlu.mica.core.utils.JsonUtil</name>
       <name>net.dreamlu.mica.core.spring.SpringContextUtil</name>
 
-      <!-- org.dromara -->
-      <name>org.dromara.hutool.core.date.DateUtil</name>
-      <name>org.dromara.hutool.core.date.LocalTimeUtil</name>
-      <name>org.dromara.hutool.core.date.SqlDateUtil</name>
-      <name>org.dromara.hutool.core.date.TimeUtil</name>
-      <name>org.dromara.hutool.core.io.file.FileUtil</name>
-      <name>org.dromara.hutool.core.io.file.FileUtil</name>
-      <name>org.dromara.hutool.extra.spring.SpringUtil</name>
+      <!-- cn.hutool.v7 -->
+      <name>cn.hutool.v7.core.date.DateUtil</name>
+      <name>cn.hutool.v7.core.date.LocalTimeUtil</name>
+      <name>cn.hutool.v7.core.date.SqlDateUtil</name>
+      <name>cn.hutool.v7.core.date.TimeUtil</name>
+      <name>cn.hutool.v7.core.io.file.FileUtil</name>
+      <name>cn.hutool.v7.core.io.file.FileUtil</name>
+      <name>cn.hutool.v7.extra.spring.SpringUtil</name>
 
       <!-- org.springframework -->
       <name>org.springframework.data.redis.core.RedisTemplate</name>

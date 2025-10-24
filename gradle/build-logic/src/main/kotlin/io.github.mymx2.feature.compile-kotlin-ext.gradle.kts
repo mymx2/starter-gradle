@@ -6,7 +6,7 @@ plugins {
   id("io.github.mymx2.check.quality-detekt")
   id("org.jetbrains.kotlin.kapt")
   id("com.google.devtools.ksp")
-  id("org.jetbrains.kotlin.plugin.lombok")
+  //  id("org.jetbrains.kotlin.plugin.lombok")
   id("org.jetbrains.kotlin.plugin.sam.with.receiver")
   id("org.jetbrains.kotlin.plugin.spring")
   id("org.jetbrains.kotlin.plugin.jpa")
