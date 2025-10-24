@@ -66,25 +66,25 @@
   ],
   "label_extractor": [
     {
-      "on_property": "labels",
+      "on_property": "title",
       "method": "replace",
       "pattern": "^(?:revert: )",
-      "label": "pr| revert"
+      "target": "pr| revert"
     },
     {
-      "on_property": "labels",
+      "on_property": "title",
       "method": "replace",
       "pattern": "!!\\s*$",
-      "label": "pr| breaking-change"
+      "target": "pr| breaking-change"
     },
     {
-      "on_property": "labels",
+      "on_property": "title",
       "method": "replace",
       "pattern": "\\.\\.\\s*$",
-      "label": "pr| changelog-ignore"
+      "target": "pr| changelog-ignore"
     },
     {
-      "on_property": "labels",
+      "on_property": "title",
       "method": "replace",
       "pattern": "^(?!revert: )(feat|fix|refactor|perf|test|infra|deps|docs|chore)(\\(.+\\))?:",
       "target": "pr| $1"
