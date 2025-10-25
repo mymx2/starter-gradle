@@ -1,19 +1,9 @@
 {
-  "template": "## 📢 What's Changed\n\n#{{CHANGELOG}}\n\n## Contributors:\n- #{{CONTRIBUTORS}}",
+  "template": "## 📢 What's Changed\n\n#{{CHANGELOG}}\n<details>\n<summary>🔐 Uncategorized Changes</summary>\n\n#{{UNCATEGORIZED}}\n</details>\n\n## Contributors:\n- #{{CONTRIBUTORS}}",
   "commit_template": "- #{{TITLE}} #{{MERGE_SHA}}",
   "pr_template": "- #{{TITLE}} - #{{MERGE_SHA}} - ##{{NUMBER}}",
   "empty_template": "- No changes in this release",
-  "exclude_merge_branches": [
-    "qa",
-    "test",
-    "dev",
-    "develop",
-    "staging",
-    "release",
-    "hotfix/temp-*",
-    "owner/qa",
-    "owner/test"
-  ],
+  "exclude_merge_branches": ["hotfix/temp-*", "owner/qa", "owner/test"],
   "tag_resolver": {
     "method": "semver",
     "filter": {
@@ -67,21 +57,21 @@
   "label_extractor": [
     {
       "on_property": "title",
-      "method": "regexr",
-      "pattern": "^(?:revert: )",
+      "method": "replace",
+      "pattern": "^revert: .*$",
       "target": "pr| revert"
     },
     {
       "on_property": "title",
       "method": "regexr",
       "pattern": "!!\\s*$",
-      "target": "pr| breaking-change"
+      "target": "$'pr| breaking-change"
     },
     {
       "on_property": "title",
       "method": "regexr",
       "pattern": "\\.\\.\\s*$",
-      "target": "pr| changelog-ignore"
+      "target": "$'pr| changelog-ignore"
     },
     {
       "on_property": "title",
