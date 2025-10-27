@@ -13,8 +13,7 @@ rootProject.name = rootDir.name
 
 dyCreateVersionCatalogs(
   mapOf(
-    "bomLibs" to "gradle/bomLibs.versions.toml",
-    "transitiveLibs" to "gradle/transitiveLibs.versions.toml",
+    //    "bomLibs" to "gradle/bomLibs.versions.toml",
   )
 )
 
