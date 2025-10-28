@@ -1,11 +1,19 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.github.spotbugs.snom.SpotBugsTask
+import io.github.mymx2.plugin.ProjectVersions
 
 plugins {
+  java
   // https://plugins.gradle.org/plugin/com.github.spotbugs
   id("com.github.spotbugs")
   id("io.github.mymx2.base.lifecycle")
+}
+
+dependencies {
+  compileOnly(
+    "${ProjectVersions.spotbugsAnnotations.key}:${ProjectVersions.spotbugsAnnotations.value}"
+  )
 }
 
 // auto bind to checks task:

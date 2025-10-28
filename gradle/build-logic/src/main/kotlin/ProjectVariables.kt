@@ -36,4 +36,9 @@ enum class ProjectVersions(val key: String, val value: String, val url: String) 
     "0.12.10",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml",
   ),
+  spotbugsAnnotations(
+    "com.github.spotbugs:spotbugs-annotations",
+    "4.9.8",
+    "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml",
+  ),
 }
