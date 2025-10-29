@@ -59,7 +59,7 @@ shadowGradlePlugin = { module = "com.gradleup.shadow:shadow-gradle-plugin", vers
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.34.0" }
 # https://plugins.gradle.org/plugin/com.autonomousapps.dependency-analysis
 # https://plugins.gradle.org/m2/com/autonomousapps/dependency-analysis-gradle-plugin/maven-metadata.xml
-dependencyAnalysisGradlePlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version = "3.3.0" }
+dependencyAnalysisGradlePlugin = { module = "com.autonomousapps:dependency-analysis-gradle-plugin", version = "3.4.0" }
 # https://plugins.gradle.org/plugin/io.fuchs.gradle.classpath-collision-detector
 # https://plugins.gradle.org/m2/io/fuchs/gradle/classpath-collision-detector/classpath-collision-detector/maven-metadata.xml
 classpathCollisionDetectorPlugin = { module = "io.fuchs.gradle.classpath-collision-detector:classpath-collision-detector", version = "1.0.0" }
@@ -83,7 +83,7 @@ openrewritePlugin = { module = "org.openrewrite.rewrite:org.openrewrite.rewrite.
 springBootPlugin = { module = "org.springframework.boot:org.springframework.boot.gradle.plugin", version = "4.0.0-RC1" }
 # https://plugins.gradle.org/plugin/org.openapi.generator
 # https://plugins.gradle.org/m2/org/openapi/generator/org.openapi.generator.gradle.plugin/maven-metadata.xml
-openapiGradlePlugin = { module = "org.openapi.generator:org.openapi.generator.gradle.plugin", version = "7.11.0" }
+openapiGradlePlugin = { module = "org.openapi.generator:org.openapi.generator.gradle.plugin", version = "7.16.0" }
 # https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/maven-metadata.xml
 androidPlugin = { module = "com.android.tools.build:gradle" }
 
