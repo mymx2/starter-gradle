@@ -70,7 +70,7 @@ abstract class JavaVersionConsistencyCheck : DefaultTask() {
 
     reportFile.get().asFile.writeText(issues)
 
-    if (!issues.isEmpty()) {
+    if (!errors.isEmpty()) {
       error(errors)
     }
   }

@@ -8,6 +8,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 plugins {
+  id("org.gradlex.java-module-dependencies")
   id("io.github.mymx2.build.feature.repositories")
   id("io.github.mymx2.build.feature.build-cache")
   id("io.github.mymx2.build.report.develocity")
