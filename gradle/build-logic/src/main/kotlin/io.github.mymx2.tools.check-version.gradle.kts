@@ -3,6 +3,7 @@
 import CheckVersionPluginConfig.taskConfigureCheckGradleVersion
 import CheckVersionPluginConfig.taskConfigureCheckProjectVersions
 import CheckVersionPluginConfig.taskConfigureCheckVersions
+import io.github.mymx2.plugin.DefaultProjects
 import io.github.mymx2.plugin.Injected
 import io.github.mymx2.plugin.ProjectVersions
 import io.github.mymx2.plugin.injected
@@ -17,11 +18,13 @@ import java.time.Duration
 import java.time.LocalDate
 import java.util.concurrent.atomic.AtomicReference
 
-// only version project
 plugins {
   `java-platform`
   id("io.github.mymx2.base.lifecycle")
 }
+
+// only version project
+val isVersionProject = project.path == DefaultProjects.versionsPath
 
 val checkVersionConsistency =
   tasks.register<JavaVersionConsistencyCheck>("checkVersionConsistency") {
@@ -90,7 +93,9 @@ tasks.register("checkVersions") {
   group = "toolbox"
   description = "Check gradle/*.versions.toml for updates"
   taskConfigureCheckProjectVersions(this)
-  taskConfigureCheckVersions(this, injected, projectExtensions)
+  if (isVersionProject) {
+    taskConfigureCheckVersions(this, injected, projectExtensions)
+  }
   taskConfigureCheckGradleVersion(this, currentGradleVersion)
 }
 

@@ -172,7 +172,7 @@ private abstract class GradleAllTypes : DefaultTask() {
   }
 }
 
-@Suppress("detekt:all")
+@Suppress("detekt:all", "UnusedVariable")
 private fun demos(project: Project) {
   //      layout.settingsDirectory
   //      layout.projectDirectory

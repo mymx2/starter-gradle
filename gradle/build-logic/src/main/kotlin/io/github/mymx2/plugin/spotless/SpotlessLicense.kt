@@ -45,6 +45,7 @@ object SpotlessLicense {
       """
         .trimMargin()
     ),
+    @Suppress("HttpUrlsUsage")
     Apache_2_0(
       $$"""
       |Apache-2.0

@@ -35,6 +35,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: 🔧 Show Gradle version
         run: ./gradlew --version
+      - run: ./gradlew :build-logic:check
       - run: ./gradlew qualityCheck
       - run: ./gradlew test
       - run: ./gradlew testEndToEnd

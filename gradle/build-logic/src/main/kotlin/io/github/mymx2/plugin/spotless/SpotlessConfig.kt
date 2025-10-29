@@ -93,6 +93,7 @@ object SpotlessConfig {
    * @param project The project to get the editorconfig properties for.
    * @return A map of editorconfig properties.
    */
+  @Suppress("unused")
   private fun getDotEditorconfig(project: Project): Map<String, String> {
     return project.computedExtension("spotlessDotEditorconfig") {
       try {
@@ -130,6 +131,7 @@ object SpotlessConfig {
    * @param project The project to get the .gitignore file from.
    * @return The .gitignore file as a list of strings.
    */
+  @Suppress("unused")
   private fun getDotGitignore(project: Project): List<String> {
     return project.computedExtension("spotlessDotGitignore") {
       try {

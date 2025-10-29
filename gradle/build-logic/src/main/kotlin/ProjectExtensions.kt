@@ -195,7 +195,7 @@ fun PluginAware.propOrDefault(
            * project.findProperty():
            * - ✅ get value from module's gradle.properties file
            * - ❌ get value from ancestor's gradle.properties file
-           * - ✅ get value from settings's gradle.properties file
+           * - ✅ get value from setting's gradle.properties file
            */
           val property = findProperty(key)
           property as? String ?: defaultValue
@@ -210,7 +210,7 @@ fun PluginAware.propOrDefault(
            * providers.gradleProperty():
            * - ❌ get value from module's gradle.properties file
            * - ❌ get value from ancestor's gradle.properties file
-           * - ✅ get value from settings's gradle.properties file
+           * - ✅ get value from setting's gradle.properties file
            */
           providers
             .gradleProperty(key)

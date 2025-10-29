@@ -116,7 +116,7 @@ abstract class BuildTaskService :
   @Suppress("detekt:all")
   /*
    * The following functions are hacky workarounds to obtain a task execution result. They are what
-   * I found to be the most consistent approach of obtaining this information (I tried using similar
+   * I found to be the most consistent approach of obtaining this information I tried using similar
    * logic
    * [here](https://github.com/jrodbx/agp-sources/blob/3b6b17156dfcc8717c1bf217743cea8d15e034d2/7.1.3/com.android.tools.build/gradle/com/android/build/gradle/internal/profile/AnalyticsResourceManager.kt#L158).
    * but failed as explained [here](https://github.com/gradle/gradle/issues/5252). As of this date
@@ -144,6 +144,7 @@ abstract class BuildTaskService :
   }
 }
 
+@Suppress("unused")
 object BuildServices {
   private fun registerBuildDurationService(gradle: Gradle): Provider<BuildDurationService> {
     val registry = gradle.serviceRegistry()[BuildEventListenerRegistryInternal::class.java]

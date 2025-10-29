@@ -1,3 +1,5 @@
+@file:Suppress("unused", "UnusedReceiverParameter")
+
 package io.github.mymx2.demo
 
 import org.gradle.api.DefaultTask

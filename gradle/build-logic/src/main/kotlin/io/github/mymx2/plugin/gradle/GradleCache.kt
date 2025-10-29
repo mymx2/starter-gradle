@@ -25,7 +25,7 @@ inline fun <reified T : Any> PluginAware.eagerSharedCache(
   noinline loader: (() -> T)? = null,
 ): T {
   val cache = sharedCacheProvider.get().parameters.storage
-  val value = if (loader == null) cache.get(key) else cache.computeIfAbsent(key) { loader() }
+  val value = if (loader == null) cache[key] else cache.computeIfAbsent(key) { loader() }
   return value as T
 }
 

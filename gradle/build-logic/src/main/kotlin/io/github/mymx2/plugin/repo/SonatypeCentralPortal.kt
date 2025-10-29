@@ -31,6 +31,7 @@ internal class SonatypeCentralPortal(
    * see https://central.sonatype.org/publish/publish-portal-api/ see
    * https://central.sonatype.com/api-doc
    */
+  @Suppress("unused")
   private fun centralPortalUpload(
     publishingName: String,
     publishingType: String = "USER_MANAGED",

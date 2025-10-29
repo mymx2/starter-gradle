@@ -22,7 +22,7 @@ Depending on the type of the PR, different considerations need to be taken into 
 
 ### Reviewing a Fix
 
-- Is the PR fixing a well defined issue / bug report?
+- Is the PR fixing a well-defined issue / bug report?
   - If not, ask to clarify context / provide reproduction or failing test case
 - In most cases, a fix PR should include a test case that fails without the fix.
 - Is it the right fix?
@@ -84,7 +84,7 @@ Given that the PR meets the review requirements:
 
 - Chore / dependencies bumps: can merge directly.
 - Fixes / refactors: can merge with two or more approvals from team members.
-  - If you believe a PR looks good but you are not 100% confident to merge, label with "ready for merge" and a team
+  - If you believe a PR looks good, but you are not 100% confident to merge, label with "ready for merge" and a team
     member will provide a final review before merging.
 - Features: if approved by two or more team members, label with "ready to merge".
 
