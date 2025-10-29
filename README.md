@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://central.sonatype.com/artifact/io.github.mymx2/example-kotlin" target="_blank"><img alt="maven-central-version"
-    src="https://img.shields.io/maven-central/v/io.github.mymx2/example-kotlin?strategy=latestProperty"/></a>
-  <a href="https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/example-kotlin/maven-metadata.xml" target="_blank"><img alt="maven-metadata-url"
-    src="https://img.shields.io/maven-metadata/v?label=snapshot&metadataUrl=https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/example-kotlin/maven-metadata.xml&strategy=latestProperty"/></a>
+  <a href="https://central.sonatype.com/artifact/io.github.mymx2/dy-gradle-plugin" target="_blank"><img alt="maven-central-version"
+    src="https://img.shields.io/maven-central/v/io.github.mymx2/dy-gradle-plugin?strategy=latestProperty"/></a>
+  <a href="https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/dy-gradle-plugin/maven-metadata.xml" target="_blank"><img alt="maven-metadata-url"
+    src="https://img.shields.io/maven-metadata/v?label=snapshot&metadataUrl=https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/dy-gradle-plugin/maven-metadata.xml&strategy=latestProperty"/></a>
   <a href="https://github.com/mymx2/starter-gradle/releases" target="_blank"><img alt="git-hub-release"
     src="https://img.shields.io/github/v/release/mymx2/starter-gradle"/></a>
 </p>

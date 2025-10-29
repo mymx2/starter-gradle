@@ -2,6 +2,8 @@
 
 import com.vanniktech.maven.publish.GradlePlugin
 import com.vanniktech.maven.publish.JavadocJar
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
@@ -59,13 +61,20 @@ dependencies {
   implementation(libs.openapiGradlePlugin)
 }
 
+val isCI = EnvAccess.isCi(providers)
+
 let {
   group = providers.gradleProperty("GROUP").get()
-  version = providers.gradleProperty("VERSION_NAME").get()
+  val projectVersion = providers.gradleProperty("VERSION_NAME").get()
+  version =
+    if (isCI && projectVersion.count { it == '.' } == 2) {
+      projectVersion.substringBeforeLast(".") +
+        "." +
+        LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")) +
+        "-SNAPSHOT"
+    } else projectVersion
   description = "Zero-config Gradle plugin for building production-ready standalone JVM apps"
 }
-
-val isCI = EnvAccess.isCi(providers)
 
 if (!isCI && providers.gradleProperty("IDEA_DOWNLOAD_SOURCES").orNull == "true") {
   idea {
