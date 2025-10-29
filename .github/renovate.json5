@@ -1,55 +1,34 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  extends: [
-    'config:recommended',
-    'schedule:weekly',
-    'group:allNonMajor',
-  ],
-  labels: [
-    'type| dependency-upgrade',
-    'pr| deps',
-  ],
-  ignorePaths: [
-    '**/__tests__/**',
-  ],
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["config:recommended", "schedule:weekly", "group:allNonMajor"],
+  labels: ["type| dependency-upgrade", "pr| deps"],
+  ignorePaths: ["**/__tests__/**"],
   ignoreUnstable: false,
   packageRules: [
     {
-      allowedVersions: '!/(-rc|-RC|-M|-m|-beta|-Beta|-BETA|-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/',
-      matchPackageNames: [
-        '/.*/',
-      ],
+      matchPackagePatterns: [".*"],
+      allowedVersions: "!/(-rc|-RC|-M|-m|-beta|-Beta|-BETA|-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/",
     },
     {
-      matchFileNames: [
-        '**/rcLibs.versions.toml',
-      ],
-      allowedVersions: '!/(-M|-m|-beta|-Beta|-BETA|-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/',
+      matchFileNames: ["**/rcLibs.versions.toml"],
+      allowedVersions: "!/(-M|-m|-beta|-Beta|-BETA|-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/",
     },
     {
-      matchFileNames: [
-        '**/betaLibs.versions.toml',
-      ],
-      allowedVersions: '!/(-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/',
+      matchFileNames: ["**/betaLibs.versions.toml"],
+      allowedVersions: "!/(-alpha|-Alpha|-ALPHA|-snapshot|-Snapshot|-SNAPSHOT)/",
     },
     {
-      matchFileNames: [
-        '**/alphaLibs.versions.toml',
-      ],
-      allowedVersions: '!/(-snapshot|-Snapshot|-SNAPSHOT)/',
+      matchFileNames: ["**/alphaLibs.versions.toml"],
+      allowedVersions: "!/(-snapshot|-Snapshot|-SNAPSHOT)/",
     },
   ],
   customManagers: [
     {
-      customType: 'regex',
-      managerFilePatterns: [
-        '/\\.versions.toml$/',
-      ],
-      matchStrings: [
-        '(^|\n)(?<depName>gradle) *= *"(?<currentValue>.*)"',
-      ],
-      depNameTemplate: 'gradle',
-      datasourceTemplate: 'gradle-version',
+      customType: "regex",
+      fileMatch: ["\\.versions.toml$"],
+      matchStrings: ['(^|\n)(?<depName>gradle) *= *"(?<currentValue>.*)"'],
+      depNameTemplate: "gradle",
+      datasourceTemplate: "gradle-version",
     },
   ],
 }

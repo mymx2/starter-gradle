@@ -1,6 +1,12 @@
 #file: noinspection UndefinedParamsPresent,UndefinedAction
 name: Publish Release
+
 on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 env:
@@ -35,4 +41,6 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.signingInMemoryKeyPassword }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
-        run: ./gradlew publishToMavenCentral
+        run: |
+          ./gradlew publishToMavenCentral
+          ./gradlew :build-logic:publishToMavenCentral

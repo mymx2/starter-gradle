@@ -12,4 +12,4 @@ plugins {
 // https://docs.gradle.org/nightly/userguide/dependency_constraints.html
 dependencies.constraints {}
 
-tasks.checkVersionConsistency { excludes.add("org.junit.jupiter:junit-jupiter-api") }
+tasks.checkVersionConsistency { unUsedExcludes.add("org.junit.jupiter:junit-jupiter-api") }
