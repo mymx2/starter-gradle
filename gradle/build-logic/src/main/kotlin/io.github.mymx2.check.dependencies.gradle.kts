@@ -4,6 +4,7 @@ import com.autonomousapps.DependencyAnalysisExtension
 import com.autonomousapps.DependencyAnalysisSubExtension
 import com.autonomousapps.tasks.ProjectHealthTask
 import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
+import io.github.mymx2.plugin.environment.EnvAccess
 import io.github.mymx2.plugin.injected
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
@@ -68,9 +69,10 @@ listOf("artifactsReportMain" to "help", "fixDependencies" to "toolbox").forEach 
   resetTaskGroup(it.first, it.second)
 }
 
+val isCI = EnvAccess.isCi(providers)
 val isDebug = project.getPropOrDefault(LocalConfig.Props.IS_DEBUG).toBoolean()
 
-if (isDebug) {
+if (isCI || isDebug) {
   // https://docs.gradle.org/nightly/userguide/dependency_locking.html
   dependencyLocking {
     ignoredDependencies.add("com.example:*")

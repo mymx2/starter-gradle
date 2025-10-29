@@ -65,7 +65,9 @@ let {
   description = "Zero-config Gradle plugin for building production-ready standalone JVM apps"
 }
 
-if (providers.gradleProperty("IDEA_DOWNLOAD_SOURCES").orNull == "true") {
+val isCI = EnvAccess.isCi(providers)
+
+if (!isCI && providers.gradleProperty("IDEA_DOWNLOAD_SOURCES").orNull == "true") {
   idea {
     module {
       isDownloadSources = true
@@ -179,17 +181,57 @@ gradlePlugin {
 
 buildscript {
   configurations.classpath {
+    val key = "CI"
+    val buildCI =
+      providers
+        .environmentVariable(key)
+        .orElse(providers.systemProperty(key))
+        .orElse(providers.gradleProperty(key))
+        .getOrNull()
+        ?.toBoolean() ?: false
     resolutionStrategy {
       cacheDynamicVersionsFor(7, TimeUnit.DAYS)
-      activateDependencyLocking()
+      if (buildCI) {
+        deactivateDependencyLocking()
+      } else {
+        activateDependencyLocking()
+      }
     }
   }
 }
 
 configurations {
   configureEach { resolutionStrategy { cacheDynamicVersionsFor(7, TimeUnit.DAYS) } }
-  runtimeClasspath { resolutionStrategy { activateDependencyLocking() } }
+  runtimeClasspath {
+    resolutionStrategy {
+      activateDependencyLocking()
+      if (isCI) {
+        dependencyLocking { lockMode = LockMode.LENIENT }
+      }
+    }
+  }
   compileClasspath { shouldResolveConsistentlyWith(runtimeClasspath.get()) }
+}
+
+object EnvAccess {
+
+  /**
+   * Returns true if the current build is running in a CI environment.
+   *
+   * @param providers The Gradle [ProviderFactory] instance.
+   * @return True if the current build is running in a CI environment, false otherwise.
+   */
+  fun isCi(providers: ProviderFactory): Boolean {
+    val key = "CI"
+    val defaultValue = "false"
+    val isCI =
+      providers
+        .environmentVariable(key)
+        .orElse(providers.systemProperty(key))
+        .orElse(providers.gradleProperty(key))
+        .getOrNull() ?: defaultValue
+    return isCI.toBoolean()
+  }
 }
 
 interface ActionInjected {
