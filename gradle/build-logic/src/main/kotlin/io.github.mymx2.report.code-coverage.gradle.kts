@@ -1,5 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesScopeCheck
+
 plugins {
   java
   `jacoco-report-aggregation`
@@ -20,6 +22,8 @@ kover {
     }
   }
 }
+
+tasks.withType<ModuleDirectivesScopeCheck> { enabled = false }
 
 // Make aggregation "classpath" use the platform for versions (gradle/versions)
 configurations.aggregateCodeCoverageReportResults { extendsFrom(configurations["internal"]) }

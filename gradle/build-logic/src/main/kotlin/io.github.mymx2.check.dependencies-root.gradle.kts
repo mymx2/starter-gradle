@@ -11,8 +11,12 @@ if (path == ":") {
         primary("org.springframework.boot:spring-boot-starter-web")
         includeDependency("org.springframework.boot:spring-boot")
         includeDependency("org.springframework.boot:spring-boot-autoconfigure")
-        includeDependency("org.springframework:spring-context")
         includeDependency("org.springframework:spring-web")
+        includeDependency("org.springframework:spring-context")
+        includeDependency("org.springframework:spring-aop")
+        includeDependency("org.springframework:spring-beans")
+        includeDependency("org.springframework:spring-expression")
+        includeDependency("org.springframework:spring-core")
       }
       bundle("spring-boot-test") {
         primary("org.springframework.boot:spring-boot-starter-test")
