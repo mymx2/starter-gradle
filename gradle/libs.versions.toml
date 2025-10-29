@@ -7,7 +7,7 @@
 [versions]
 latest = "latest.release"
 # https://services.gradle.org/versions
-gradle = "9.2.0-rc-3"
+gradle = "9.2.0"
 kotlin = "2.2.20"
 jdk = "25"
 node = "24.10.0"

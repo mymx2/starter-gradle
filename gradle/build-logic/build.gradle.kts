@@ -39,9 +39,6 @@ dependencies {
   implementation(libs.koverGradlePlugin)
   implementation(libs.kspPlugin)
 
-  implementation(
-    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:${embeddedKotlinVersion}"
-  )
   implementation(libs.lombokGradlePlugin)
   listOf(
       // https://kotlinlang.org/docs/kapt.html
