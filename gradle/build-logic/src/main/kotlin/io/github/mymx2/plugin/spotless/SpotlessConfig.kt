@@ -3,10 +3,13 @@
 package io.github.mymx2.plugin.spotless
 
 import com.diffplug.gradle.spotless.FormatExtension
+import com.diffplug.spotless.FormatterStep
+import com.diffplug.spotless.generic.ReplaceRegexStep
 import com.diffplug.spotless.kotlin.KtfmtStep
 import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.ProjectVersions
 import io.github.mymx2.plugin.gradle.computedExtension
+import io.github.mymx2.plugin.gradle.eagerSharedCache
 import io.github.mymx2.plugin.gradle.lazySharedCache
 import io.github.mymx2.plugin.versionFromCatalog
 import java.io.File
@@ -107,6 +110,44 @@ object SpotlessConfig {
       ProjectVersions.prettier.key to ProjectVersions.prettier.value,
       ProjectVersions.prettierXml.key to ProjectVersions.prettierXml.value,
     )
+
+  /**
+   * Disables the "star import" linting.
+   *
+   * @return A [FormatterStep] that disables the "star import" linting.
+   */
+  fun noStarImport(): FormatterStep {
+    return ReplaceRegexStep.lint(
+      "forbidStarImports",
+      """(?m)^\s*import\s+[\w.]+\.\*$""",
+      "Star imports are not allowed (import xxx.*)",
+    )
+  }
+
+  /**
+   * Loads a list of forbid regex rules from a file and generates corresponding Spotless
+   * FormatterSteps.
+   *
+   * Each line in the file should be a valid regular expression representing a pattern that is not
+   * allowed in the code. Lines that are blank or start with `#` are ignored.
+   *
+   * @param project The Gradle project.
+   * @param filePath Path to the rules file relative to the root project directory.
+   * @return A list of [FormatterStep]s enforcing the forbidden patterns.
+   */
+  fun getForbidRegexList(project: Project, filePath: String): List<FormatterStep> {
+    val rules =
+      project.eagerSharedCache<List<String>>(filePath) {
+        val file = project.isolated.rootProject.projectDirectory.file(filePath).asFile
+        if (file.exists()) {
+          file.readLines().map { it.trim() }.filter { it.isNotBlank() && !it.startsWith("#") }
+        } else emptyList()
+      }
+
+    return rules.mapIndexed { index, rule ->
+      ReplaceRegexStep.lint("forbidRule$index", rule, "Disallowed pattern from rule: $rule")
+    }
+  }
 
   /**
    * Returns the editorconfig properties of group `[*]` for the project. see

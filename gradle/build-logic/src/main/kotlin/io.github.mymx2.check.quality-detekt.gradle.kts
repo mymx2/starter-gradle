@@ -11,6 +11,8 @@ plugins {
 
 tasks.named("qualityCheck") { dependsOn(tasks.detekt) }
 
+tasks.named("qualityGate") { dependsOn(tasks.detekt) }
+
 // default excludes.
 val defaultDetektExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
 
