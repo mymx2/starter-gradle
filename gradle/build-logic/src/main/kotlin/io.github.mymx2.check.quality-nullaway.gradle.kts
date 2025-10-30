@@ -34,9 +34,13 @@ dependencies {
   )
 }
 
+// https://github.com/google/error-prone/issues/623
+// default excludes.
+val defaultErrorProneExcludes = "(.*/)?(nocheck|autogen|generated)/.*\\.java"
+
 tasks.withType<JavaCompile>().configureEach {
   options.errorprone {
-    excludedPaths.set(".*[\\\\/]__.*")
+    excludedPaths = defaultErrorProneExcludes
     isEnabled = true
     allSuggestionsAsWarnings = true
     allDisabledChecksAsWarnings = true

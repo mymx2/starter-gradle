@@ -36,6 +36,7 @@ val groups =
         "buildEnvironment",
         "kotlinDslAccessorsReport",
       ),
+    "others" to setOf(".*".toRegex()),
     "publishing" to
       setOf(
         "generatePomFileFor.*Publication".toRegex(),

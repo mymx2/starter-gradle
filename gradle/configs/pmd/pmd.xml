@@ -9,8 +9,8 @@
   <description>Dy Rules</description>
 
   <!-- 项目中需要排除的包 -->
-  <exclude-pattern>.*/__[^/]+/.*</exclude-pattern>
-  <exclude-pattern>.*/__[^/]+$</exclude-pattern>
+  <!-- default excludes. -->
+  <exclude-pattern>(.*/)?(nocheck|autogen|generated)(/.*)?$</exclude-pattern>
 
   <!-- 引入PMD Rule, 来源于 https://github.com/Netflix/spectator/blob/main/codequality/pmd.xml  -->
   <rule ref="rulesets/internal/all-java.xml">

@@ -1,5 +1,5 @@
-import io.github.mymx2.plugin.sourceFolder
 import io.github.mymx2.plugin.spotless.SpotlessConfig
+import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
 import io.github.mymx2.plugin.spotless.defaultStep
 import io.github.mymx2.plugin.spotless.nodeFile
@@ -11,7 +11,7 @@ spotless {
 
   val misc = listOf("**/*.md", "**/*.json", "**/*.json5", "**/*.yaml", "**/*.yml")
   val xml = listOf("**/*.xml")
-  val targetFiles = sourceFolder().apply { include(misc + xml) }
+  val targetFiles = spotlessFileTree().apply { include(misc + xml) }
 
   format("prettierXml") {
     defaultStep {

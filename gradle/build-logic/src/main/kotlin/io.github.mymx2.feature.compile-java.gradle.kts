@@ -1,6 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.environment.buildProperties
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
@@ -29,7 +28,6 @@ if (jdkVersion.isNotBlank()) {
 // Configuration to make the build reproducible. This means we override settings that are, by
 // default, platform dependent (e.g. different default encoding on Windows and Unix systems).
 tasks.withType<JavaCompile>().configureEach {
-  exclude(GradleExtTool.defaultExclude)
   options.apply {
     // release = 21
     isFork = true

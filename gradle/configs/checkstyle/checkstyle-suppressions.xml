@@ -3,8 +3,10 @@
   "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
   "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
-  <suppress files="(^|[\\/])__[^\\/]*[\\/]" checks=".*" />
-  <suppress files="(^|[\\/])__[^\\/]*$" checks=".*" />
+  <!-- default excludes. -->
+  <suppress files="(^|[\\/])nocheck([\\/]|$)" checks=".*" />
+  <suppress files="(^|[\\/])autogen([\\/]|$)" checks=".*" />
+  <suppress files="(^|[\\/])generated([\\/]|$)" checks=".*" />
   <!-- examples -->
   <suppress files=".*" checks="SummaryJavadoc" />
   <suppress files=".*" checks="AvoidStarImport" />

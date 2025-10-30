@@ -1,6 +1,5 @@
 @file:Suppress("UnstableApiUsage", "detekt:SpreadOperator")
 
-import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.resetTaskGroup
 
 plugins { id("org.openrewrite.rewrite") }
@@ -32,6 +31,9 @@ val rewriteYml =
 val rewriteActiveRecipes = listOf("io.github.mymx2.openrewrite.SanityCheck")
 val rewriteActiveStyles = listOf("io.github.mymx2.openrewrite.SpotlessFormat")
 
+// default excludes.
+val defaultRewriteExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+
 rewrite {
   // https://docs.openrewrite.org/reference/gradle-plugin-configuration#configuring-the-rewrite-dsl
   // default value is `<project directory>/rewrite.yml`
@@ -40,7 +42,7 @@ rewrite {
     activeRecipe(*rewriteActiveRecipes.toTypedArray())
     activeStyle(*rewriteActiveStyles.toTypedArray())
   }
-  exclusion(*GradleExtTool.defaultExclude.toTypedArray())
+  exclusion(*defaultRewriteExcludes)
   isExportDatatables = true
   failOnDryRunResults = true
 }

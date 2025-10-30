@@ -8,8 +8,10 @@
   <!-- https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html -->
   <Match>
     <Or>
-      <Package name="~.*.tmp.*" />
-      <Package name="~.*.local.*" />
+      <!-- default excludes. -->
+      <Package name="~(^|\\.)nocheck(\\.|$)" />
+      <Package name="~(^|\\.)autogen(\\.|$)" />
+      <Package name="~(^|\\.)generated(\\.|$)" />
     </Or>
   </Match>
 

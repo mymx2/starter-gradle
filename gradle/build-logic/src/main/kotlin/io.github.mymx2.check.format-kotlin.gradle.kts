@@ -1,5 +1,5 @@
-import io.github.mymx2.plugin.sourceFolder
 import io.github.mymx2.plugin.spotless.SpotlessConfig
+import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
 import io.github.mymx2.plugin.spotless.defaultStep
 
@@ -10,7 +10,7 @@ spotless {
     defaultStep {
       ktfmt(SpotlessConfig.ktfmtVersion).googleStyle().configure { it.setRemoveUnusedImports(true) }
     }
-    target(sourceFolder().include("**/*.kt"))
+    target(spotlessFileTree().include("**/*.kt"))
     val spotlessLicenseHeader = SpotlessLicense.getComment(project)
     if (spotlessLicenseHeader.isNotBlank()) {
       licenseHeader(spotlessLicenseHeader)

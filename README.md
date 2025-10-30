@@ -91,7 +91,7 @@ by caching the result of the configuration phase and reusing it for subsequent b
 
 ### Dependency Scopes
 
-![https://docs.gradle.org/nightly/userguide/java_library_plugin.html#sec:java_library_configurations_graph](https://docs.gradle.org/nightly/userguide/img/java-library-ignore-deprecated-main.png)
+![https://docs.gradle.org/nightly/userguide/declaring_configurations.html#sec:resolvable-consumable-configs](https://docs.gradle.org/nightly/userguide/img/dependency-management-java-configurations.png)
 
 Mapping between Java module directives and Gradle configurations to declare
 dependencies: [declaring_module_dependencies](https://docs.gradle.org/nightly/userguide/java_library_plugin.html#declaring_module_dependencies)

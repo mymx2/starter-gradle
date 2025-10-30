@@ -1,4 +1,4 @@
-import io.github.mymx2.plugin.sourceFolder
+import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
 import io.github.mymx2.plugin.spotless.defaultStep
 
@@ -13,7 +13,7 @@ spotless {
       cleanthat()
       palantirJavaFormat().style("GOOGLE").formatJavadoc(true)
     }
-    target(sourceFolder().include("**/*.java"))
+    target(spotlessFileTree().include("**/*.java"))
     val spotlessLicenseHeader = SpotlessLicense.getComment(project)
     if (spotlessLicenseHeader.isNotBlank()) {
       licenseHeader(spotlessLicenseHeader)

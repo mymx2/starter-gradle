@@ -274,8 +274,8 @@ fun Project.resetTaskGroup(taskName: Any, distGroup: String) {
       tasks
         .named {
           when (taskName) {
-            is String -> taskName == it
-            is Regex -> name.matches(taskName)
+            is String -> it == taskName
+            is Regex -> it.matches(taskName)
             else -> false
           }
         }
@@ -301,6 +301,7 @@ val groups =
         "buildEnvironment",
         "kotlinDslAccessorsReport",
       ),
+    "others" to setOf(".*".toRegex()),
     "publishing" to
       setOf(
         "publish",
@@ -359,6 +360,11 @@ fun Task.configureGroup(groupRegex: Regex, groupMap: Map<String, Set<Any>>) {
 }
 
 listOf(
+    "checkPomFileFor.*PluginMarker.*".toRegex() to "others",
+    "generateMetadataFileFor.*PluginMarker.*".toRegex() to "others",
+    "generatePomFileFor.*PluginMarker.*".toRegex() to "others",
+    "sign.*PluginMarker.*".toRegex() to "others",
+    "publish.*PluginMarker.*".toRegex() to "others",
     "run" to "build",
     "buildDependents" to "toolbox",
     "distZip" to "toolbox",

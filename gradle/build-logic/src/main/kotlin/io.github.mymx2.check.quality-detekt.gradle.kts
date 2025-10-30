@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage", "detekt:SpreadOperator")
 
 import dev.detekt.gradle.Detekt
-import io.github.mymx2.plugin.GradleExtTool
 
 plugins {
   // https://github.com/detekt/detekt
@@ -12,7 +11,10 @@ plugins {
 
 tasks.named("qualityCheck") { dependsOn(tasks.detekt) }
 
-tasks.withType<Detekt>().configureEach { exclude(*GradleExtTool.defaultExclude.toTypedArray()) }
+// default excludes.
+val defaultDetektExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+
+tasks.withType<Detekt>().configureEach { exclude(*defaultDetektExcludes) }
 
 val detektYml =
   layout.projectDirectory.file("configs/detekt/detekt.yml").asFile.takeIf { it.exists() }

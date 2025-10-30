@@ -1,8 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
 import io.github.mymx2.plugin.DefaultProjects
-import io.github.mymx2.plugin.sourceFolder
 import io.github.mymx2.plugin.spotless.SpotlessConfig
+import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
 import io.github.mymx2.plugin.spotless.defaultStep
 import io.github.mymx2.plugin.spotless.nodeFile
@@ -17,7 +17,7 @@ if (path == ":") {
 
   spotless {
     val ktAndKtsFiles =
-      sourceFolder("${buildLogic}/src").apply { include("**/*.kt", "**/*.gradle.kts") }
+      spotlessFileTree("${buildLogic}/src").apply { include("**/*.kt", "**/*.gradle.kts") }
 
     val spotlessLicenseHeader = SpotlessLicense.getComment(project)
 
@@ -54,7 +54,7 @@ if (path == ":") {
 
     val misc = listOf("**/*.md", "**/*.json", "**/*.json5", "**/*.yaml", "**/*.yml")
     val xml = listOf("**/*.xml")
-    val targetFiles = sourceFolder("gradle/configs").apply { include(misc + xml) }
+    val targetFiles = spotlessFileTree("gradle/configs").apply { include(misc + xml) }
     val nodeExecutable = nodeFile().orNull
 
     format("prettierXmlRoot") {
@@ -78,7 +78,7 @@ if (path == ":") {
       }
       target(
         isolated.projectDirectory.files("README.md"),
-        sourceFolder(".github").include(misc),
+        spotlessFileTree(".github").include(misc),
         targetFiles.matching { include(misc) },
       )
     }

@@ -93,14 +93,9 @@ internal fun Project.javaVersion(): JavaVersion {
  * Returns a [org.gradle.api.file.ConfigurableFileTree] for the given source directory (default:
  * "src").
  *
- * It excludes:
- * - Any directory starting with "__" (recursively, all its content excluded).
- * - Any file starting with "__" at any directory level.
- *
  * @param src Relative source directory path (defaults to "src").
  */
-fun Project.sourceFolder(src: String = "src") =
-  fileTree(isolated.projectDirectory.dir(src)) { exclude(GradleExtTool.defaultExclude) }
+fun Project.sourceFolder(src: String = "src") = fileTree(isolated.projectDirectory.dir(src))
 
 fun Project.isolatedProjectEnable() =
   findProperty("org.gradle.unsafe.isolated-projects")?.toString()?.toBoolean() ?: false
@@ -117,8 +112,8 @@ fun Project.resetTaskGroup(taskName: Any, distGroup: String) {
       tasks
         .named {
           when (taskName) {
-            is String -> taskName == it
-            is Regex -> name.matches(taskName)
+            is String -> it == taskName
+            is Regex -> it.matches(taskName)
             else -> false
           }
         }
@@ -246,8 +241,8 @@ internal fun ExtraPropertiesExtension.getOrDefault(key: String, defaultValue: St
 }
 
 object GradleExtTool {
-  /** Default exclude patterns for [sourceFolder]. */
-  val defaultExclude = listOf("**/__*/**", "**/__*")
+  /** Default git ignore patterns. */
+  val defaultGitIgnore = listOf("**/__*", "**/__*/**")
 
   /**
    * Returns true if the project is running in build logic test environment.

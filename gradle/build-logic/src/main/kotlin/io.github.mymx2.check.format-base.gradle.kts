@@ -1,3 +1,5 @@
+import io.github.mymx2.plugin.resetTaskGroup
+
 plugins {
   id("com.diffplug.spotless")
   id("io.github.mymx2.base.lifecycle")
@@ -18,3 +20,5 @@ spotless {
   // Disable Gradle's check task from automatically running spotlessCheck
   isEnforceCheck = false
 }
+
+resetTaskGroup(Regex("spotless.*"), "others")

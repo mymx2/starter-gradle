@@ -12,15 +12,10 @@ plugins {
 }
 
 kover {
+  // default excludes.
+  val defaultKoverExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
   useJacoco()
-  reports {
-    filters {
-      excludes {
-        classes("**.internal.**")
-        classes("**.codegen.**")
-      }
-    }
-  }
+  reports { filters { excludes { defaultKoverExcludes.forEach { classes(it) } } } }
 }
 
 tasks.withType<ModuleDirectivesScopeCheck> { enabled = false }

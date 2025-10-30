@@ -1,5 +1,3 @@
-import io.github.mymx2.plugin.sourceFolder
-
 plugins {
   java
   id("io.freefair.lombok")
@@ -7,4 +5,4 @@ plugins {
   id("io.github.mymx2.check.quality-nullaway")
 }
 
-tasks.processResources { from(sourceFolder()) { include("**/*.xml") } }
+tasks.processResources { include("**/*.xml") }

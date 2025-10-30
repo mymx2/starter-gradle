@@ -1,4 +1,3 @@
-import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.environment.buildProperties
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
@@ -17,7 +16,6 @@ val jdkVersion: String =
 
 // the default output directory is `/build/docs/javadoc`.
 tasks.withType<Javadoc>().configureEach {
-  exclude(GradleExtTool.defaultExclude)
   isFailOnError = docFailOnError
   val opt = (options as StandardJavadocDocletOptions)
   opt.encoding = Charsets.UTF_8.name()

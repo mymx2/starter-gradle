@@ -4,6 +4,7 @@ package io.github.mymx2.plugin.spotless
 
 import com.diffplug.gradle.spotless.FormatExtension
 import com.diffplug.spotless.kotlin.KtfmtStep
+import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.ProjectVersions
 import io.github.mymx2.plugin.gradle.computedExtension
 import io.github.mymx2.plugin.gradle.lazySharedCache
@@ -67,6 +68,27 @@ internal fun Project.npmFile(nodeFile: Provider<File>): Provider<File> {
 
 /** Spotless configuration */
 object SpotlessConfig {
+  /**
+   * Returns a [org.gradle.api.file.ConfigurableFileTree] for the given source directory (default:
+   * "src").
+   *
+   * It excludes:
+   * - Any directory starting with "__" (recursively, all its content excluded).
+   * - Any file starting with "__" at any directory level.
+   * - Any directory in the "nocheck" directory.
+   * - Any directory in the "autogen" directory.
+   * - Any directory in the "generated" directory.
+   *
+   * @param src Relative source directory path (defaults to "src").
+   */
+  fun Project.spotlessFileTree(src: String = "src") =
+    fileTree(isolated.projectDirectory.dir(src)) {
+      // default excludes.
+      val defaultSpotlessExcludes =
+        GradleExtTool.defaultGitIgnore + listOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+      exclude(defaultSpotlessExcludes)
+    }
+
   val ktfmtVersion = run {
     val ktfmtVersion = ProjectVersions.ktfmt.value.toBigDecimal()
     val defaultKtfmtVersion = KtfmtStep.defaultVersion()
