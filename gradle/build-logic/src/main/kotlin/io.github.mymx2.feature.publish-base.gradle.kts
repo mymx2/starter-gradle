@@ -110,9 +110,6 @@ tasks.withType<PublishToMavenRepository>().configureEach {
     val provider = inject.providers
     val publishVersion = versionProvider.get()
     val isCI = EnvAccess.isCi(provider)
-    if (isCI) {
-      return@doLast
-    }
     // publish[PubName]PublicationTo[RepoName]Repository
     // https://docs.gradle.org/nightly/userguide/publishing_setup.html#sec:basic_publishing
     val taskName = this.name
@@ -120,6 +117,11 @@ tasks.withType<PublishToMavenRepository>().configureEach {
     //      publishing.repositories.filterIsInstance<MavenArtifactRepository>().map {
     //        it.name
     //      }
+    val message = "execute task: $taskName, version: $publishVersion"
+    if (isCI) {
+      logger.lifecycle(message)
+      return@doLast
+    }
     val toMavenCentral = PublishUnit.getPublishingTaskNameSuffix("MavenCentral")
     if (taskName.endsWith(toMavenCentral)) {
       val openUrl =
@@ -132,7 +134,7 @@ tasks.withType<PublishToMavenRepository>().configureEach {
         } else "https://repo1.maven.org/maven2/org/" + metadataXmlProvider.get()
       logger.lifecycle(
         """
-        execute task: $taskName, version: $publishVersion
+        $message
           opening url: $openUrl
           xml url: $xmlUrl
         """
@@ -147,7 +149,7 @@ tasks.withType<PublishToMavenRepository>().configureEach {
         "https://central.sonatype.com/repository/maven-snapshots/" + metadataXmlProvider.get()
       logger.lifecycle(
         """
-        execute task: $taskName, version: $publishVersion
+        $message
           opening url: $xmlUrl
           xml url: $xmlUrl
         """
@@ -165,7 +167,7 @@ tasks.withType<PublishToMavenRepository>().configureEach {
           val openUrl = it.open
           logger.lifecycle(
             """
-            execute task: $taskName, version: $publishVersion
+            $message
               opening url: $openUrl
             """
               .trimIndent()
