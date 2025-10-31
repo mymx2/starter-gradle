@@ -23,9 +23,7 @@ mavenPublishing {
     // signAllPublications=true
     signAllPublications()
   }
-
-  // `group` and `version` follow the project defaults
-  coordinates(null, project.name, null)
+  coordinates(project.group.toString(), project.name, project.version.toString())
 }
 
 publishing.publications.configureEach {
