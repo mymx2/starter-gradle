@@ -25,7 +25,8 @@ object LocalConfig {
     // 项目的group
     GROUP("GROUP", "starter.gradle"),
     // 项目的version
-    VERSION_NAME("VERSION_NAME", "1.0.0-SNAPSHOT"),
+    VERSION("VERSION", "1.0.0-SNAPSHOT"),
+    LICENSE("LICENSE", ""),
     // gradle远程缓存账户名
     BUILD_CACHE_USER("BUILD_CACHE_USER", ""),
     // gradle远程缓存密码
@@ -39,8 +40,6 @@ object LocalConfig {
     PRIREPO_URL_SNAPSHOT("PRIREPO_URL_SNAPSHOT", ""),
     PRIREPO_USERNAME_SNAPSHOT("PRIREPO_USERNAME_SNAPSHOT", ""),
     PRIREPO_PASSWORD_SNAPSHOT("PRIREPO_PASSWORD_SNAPSHOT", ""),
-    // spotless license
-    LICENSE_HEADER("LICENSE_HEADER", ""),
     // 是否开启JEP新特性
     JEP_ENABLE_PREVIEW("JEP_ENABLE_PREVIEW", "false"),
     DOC_FAIL_ON_ERROR("DOC_FAIL_ON_ERROR", "false"),

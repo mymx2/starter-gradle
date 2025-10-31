@@ -62,7 +62,7 @@ val isCI = EnvAccess.isCi(providers)
 
 let {
   group = providers.gradleProperty("GROUP").get()
-  val projectVersion = providers.gradleProperty("VERSION_NAME").get()
+  val projectVersion = providers.gradleProperty("VERSION").get()
   version =
     if (isCI && projectVersion.count { it == '.' } == 2) {
       projectVersion.substringBeforeLast(".") +

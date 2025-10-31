@@ -12,7 +12,7 @@ plugins { base }
 group = project.getPropOrDefault(LocalConfig.Props.GROUP)
 
 val isCI = EnvAccess.isCi(providers)
-val currVer = SemVer.parse(project.getPropOrDefault(LocalConfig.Props.VERSION_NAME))
+val currVer = SemVer.parse(project.getPropOrDefault(LocalConfig.Props.VERSION))
 
 currVer.preRelease?.also {
   val tags = listOf("preview", "dev", "alpha", "beta", "SNAPSHOT", "rc", "m")

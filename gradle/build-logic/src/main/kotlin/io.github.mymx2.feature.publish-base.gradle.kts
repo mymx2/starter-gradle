@@ -105,7 +105,7 @@ tasks.withType<PublishToMavenRepository>().configureEach {
     CatalogUtil.transformModuleToLibraryMetadata("${project.group}:${project.name}").let {
       provider { it }
     }
-  val versionProvider = provider { version }
+  val versionProvider = provider { project.version }
   doLast {
     val provider = inject.providers
     val publishVersion = versionProvider.get()

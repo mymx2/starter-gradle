@@ -69,7 +69,7 @@ object SpotlessLicense {
   }
 
   private fun getLicense(project: Project): String {
-    val name = project.getPropOrDefault(LocalConfig.Props.LICENSE_HEADER).lowercase()
+    val name = project.getPropOrDefault(LocalConfig.Props.LICENSE).lowercase()
 
     return if (name.isNotBlank()) {
       when (name) {

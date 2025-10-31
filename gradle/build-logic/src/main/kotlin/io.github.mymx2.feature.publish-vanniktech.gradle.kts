@@ -16,6 +16,7 @@ plugins {
 val mavenCentralPublishingDefault = findProperty("mavenCentralPublishing") == null
 
 mavenPublishing {
+  coordinates(project.group.toString(), project.name, project.version.toString())
   // see: https://github.com/vanniktech/gradle-maven-publish-plugin
   if (mavenCentralPublishingDefault) {
     // mavenCentralPublishing=true
@@ -23,7 +24,6 @@ mavenPublishing {
     // signAllPublications=true
     signAllPublications()
   }
-  coordinates(project.group.toString(), project.name, project.version.toString())
 }
 
 publishing.publications.configureEach {
