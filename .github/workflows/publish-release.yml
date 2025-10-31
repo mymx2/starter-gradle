@@ -39,5 +39,5 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
         run: |
-          ./gradlew publishToMavenCentral
-          ./gradlew :build-logic:publishToMavenCentral
+          ./gradlew publishToMavenCentral --no-configuration-cache --no-build-cache --rerun-tasks
+          ./gradlew :build-logic:publishToMavenCentral --no-configuration-cache --no-build-cache --rerun-tasks
