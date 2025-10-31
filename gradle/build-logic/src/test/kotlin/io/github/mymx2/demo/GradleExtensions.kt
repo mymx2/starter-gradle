@@ -24,7 +24,6 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.IgnoreEmptyDirectories
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
@@ -129,9 +128,6 @@ private abstract class GradleAllTypes : DefaultTask() {
   @get:InputFiles
   val inputFileCollection: ConfigurableFileCollection =
     objects.fileCollection().convention(layout.buildDirectory.file("default.txt"))
-  @get:Classpath
-  val inputFileTree: ConfigurableFileTree =
-    objects.fileTree().apply { from(layout.projectDirectory.dir("src")) }
 
   // outputs
   @get:OutputFile abstract val outputFile: RegularFileProperty

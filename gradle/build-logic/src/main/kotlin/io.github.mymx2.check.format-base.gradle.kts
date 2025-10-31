@@ -1,4 +1,5 @@
 import io.github.mymx2.plugin.resetTaskGroup
+import io.github.mymx2.plugin.tasks.FileContentCheck
 
 plugins {
   id("com.diffplug.spotless")
@@ -12,9 +13,21 @@ tasks.withType<JavaCompile>().configureEach {
   mustRunAfter(tasks.spotlessApply)
 }
 
-tasks.named("qualityCheck") { dependsOn(tasks.spotlessCheck) }
+val fileContentCheck =
+  tasks.register<FileContentCheck>("fileContentCheck") {
+    mustRunAfter(tasks.spotlessCheck)
+    mustRunAfter(tasks.spotlessApply)
+  }
 
-tasks.named("qualityGate") { dependsOn(tasks.spotlessApply) }
+tasks.named("qualityCheck") {
+  dependsOn(tasks.spotlessCheck)
+  dependsOn(fileContentCheck)
+}
+
+tasks.named("qualityGate") {
+  dependsOn(tasks.spotlessApply)
+  dependsOn(fileContentCheck)
+}
 
 spotless {
   // Disable Gradle's check task from automatically running spotlessCheck
