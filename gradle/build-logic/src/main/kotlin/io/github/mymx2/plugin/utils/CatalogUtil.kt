@@ -78,9 +78,23 @@ object CatalogUtil {
    * Get the plugin metadata URL.
    *
    * @param pluginId The plugin ID.
+   * @param url The plugin metadata URL.
    * @return The plugin metadata URL.
    */
-  fun getPluginMetadataUrl(pluginId: String): String {
-    return "https://plugins.gradle.org/m2/${pluginId.replace(".", "/")}/${pluginId}.gradle.plugin/maven-metadata.xml"
+  fun getPluginMetadataUrl(
+    pluginId: String,
+    url: String = "https://plugins.gradle.org/m2/",
+  ): String {
+    return "$url${transformPluginIdToLibraryMetadata(pluginId)}"
+  }
+
+  /**
+   * Transform the plugin ID to library metadata.
+   *
+   * @param pluginId The plugin ID.
+   * @return The library metadata.
+   */
+  fun transformPluginIdToLibraryMetadata(pluginId: String): String {
+    return "${pluginId.replace(".", "/")}/${pluginId}.gradle.plugin/maven-metadata.xml"
   }
 }

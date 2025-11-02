@@ -1,4 +1,4 @@
-@file:Suppress("UnstableApiUsage")
+@file:Suppress("UnstableApiUsage", "detekt:TooManyFunctions")
 
 import CheckVersionPluginConfig.taskConfigureCheckGradleVersion
 import CheckVersionPluginConfig.taskConfigureCheckProjectVersions
@@ -188,10 +188,11 @@ object CheckVersionPluginConfig {
     println(jobMsg)
   }
 
-  @Suppress("detekt:NestedBlockDepth")
+  @Suppress("detekt:NestedBlockDepth", "detekt:CyclomaticComplexMethod", "detekt:LongMethod")
   private fun checkTomlDependencies(content: String): String {
     val newContent = AtomicReference(content)
     val jobs = mutableListOf<() -> Unit>()
+    val contentLines = content.lines()
     var currentTopic = ""
 
     // val versionsRegex = Regex("""(\w+)\s*=\s*"([^"]+)"""")
@@ -200,7 +201,7 @@ object CheckVersionPluginConfig {
     val pluginRegex =
       Regex("""([^\s=]+)\s*=\s*\{\s*id\s*=\s*"([^"]+)"\s*,\s*version\s*=\s*"([^"]+)"\s*}""")
 
-    content.lineSequence().forEach { line ->
+    contentLines.forEachIndexed { lineNumber, line ->
       val trimmed = line.trim()
       if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
         currentTopic = line.removeSurrounding("[", "]")
@@ -214,7 +215,13 @@ object CheckVersionPluginConfig {
               val dependency = "$groupId:$artifactId:$version"
 
               if (version != "latest.release") {
-                val metadataUrl = getLibraryMetadataUrl(content, groupId, artifactId)
+                val preLine = contentLines[lineNumber - 1].trim()
+                val metadataUrl =
+                  if (preLine.startsWith("# http") && preLine.endsWith(".xml")) {
+                    preLine.substringAfter("#").trim()
+                  } else {
+                    CatalogUtil.getLibraryMetadataUrl("${groupId}:${artifactId}")
+                  }
                 jobs.add {
                   processMetadata(metadataUrl, dependency, version) { candidate ->
                     newContent.updateAndGet {
@@ -232,7 +239,13 @@ object CheckVersionPluginConfig {
             val match = pluginRegex.find(line)
             match?.destructured?.let { (alias, pluginId, version) ->
               if (version != "latest.release") {
-                val metadataUrl = CatalogUtil.getPluginMetadataUrl(pluginId)
+                val preLine = contentLines[lineNumber - 1].trim()
+                val metadataUrl =
+                  if (preLine.startsWith("# http") && preLine.endsWith(".xml")) {
+                    preLine.substringAfter("#").trim()
+                  } else {
+                    CatalogUtil.getPluginMetadataUrl(pluginId)
+                  }
                 jobs.add {
                   processMetadata(metadataUrl, pluginId, version) { candidate ->
                     newContent.updateAndGet {
@@ -249,21 +262,6 @@ object CheckVersionPluginConfig {
 
     jobs.chunkedVirtual(size = 300, timeout = Duration.ofMinutes(5)) { it() }
     return newContent.get()
-  }
-
-  private fun getLibraryMetadataUrl(content: String, groupId: String, artifactId: String): String {
-    return content
-      .substringBefore("/${artifactId}/maven-metadata.xml", "")
-      .let { if (it.isNotBlank()) it.plus("/${artifactId}/maven-metadata.xml") else it }
-      .substringAfterLast("#", "")
-      .trim()
-      .let { url ->
-        if (url.isNotBlank() && url.contains("http")) {
-          url
-        } else {
-          CatalogUtil.getLibraryMetadataUrl("${groupId}:${artifactId}")
-        }
-      }
   }
 
   private fun Task.configureCheckProjectVersions() {

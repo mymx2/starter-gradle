@@ -4,7 +4,7 @@
 aopalliance:aopalliance:1.0=runtimeClasspath
 com.autonomousapps:antlr:4.13.2.0=runtimeClasspath
 com.autonomousapps:asm-relocated:9.9.0=runtimeClasspath
-com.autonomousapps:dependency-analysis-gradle-plugin:3.3.0=runtimeClasspath
+com.autonomousapps:dependency-analysis-gradle-plugin:3.4.1=runtimeClasspath
 com.autonomousapps:graph-support:0.9.0=runtimeClasspath
 com.autonomousapps:kotlin-editor-relocated:0.18.0=runtimeClasspath
 com.autonomousapps:variant-artifacts:0.3.3=runtimeClasspath

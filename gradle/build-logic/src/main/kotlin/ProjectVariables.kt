@@ -23,17 +23,17 @@ enum class ProjectVersions(val key: String, val value: String, val url: String) 
   ),
   errorpronePicnicContrib(
     "tech.picnic.error-prone-support:error-prone-contrib",
-    "0.25.0",
+    "0.26.0",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/error-prone-contrib/maven-metadata.xml",
   ),
   errorpronePicnicRefaster(
     "tech.picnic.error-prone-support:refaster-runner",
-    "0.25.0",
+    "0.26.0",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/refaster-runner/maven-metadata.xml",
   ),
   nullaway(
     "com.uber.nullaway:nullaway",
-    "0.12.10",
+    "0.12.11",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml",
   ),
   spotbugsAnnotations(
