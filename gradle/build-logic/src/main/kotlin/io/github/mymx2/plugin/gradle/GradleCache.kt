@@ -25,7 +25,7 @@ inline fun <reified T : Any> PluginAware.eagerSharedCache(
   noinline loader: (() -> T)? = null,
 ): T {
   val cache = sharedCacheProvider.get().parameters.storage
-  val value = if (loader == null) cache[key] else cache.computeIfAbsent(key) { loader() }
+  val value = if (loader == null) cache[key] else cache.getOrPut(key) { loader() }
   return value as T
 }
 
@@ -42,7 +42,7 @@ inline fun <reified T : Any> PluginAware.lazySharedCache(
 ): Provider<T> {
   return sharedCacheProvider.map {
     val cache = it.parameters.storage
-    val value = if (loader == null) cache.get(key) else cache.computeIfAbsent(key) { loader() }
+    val value = if (loader == null) cache.get(key) else cache.getOrPut(key) { loader() }
     value as T
   }
 }
@@ -93,7 +93,7 @@ abstract class SharedBuildService : BuildService<SharedBuildService.Params>, Aut
  */
 fun PluginAware.eagerDiskCache(key: String, loader: (() -> String)? = null): String {
   val cache = diskCacheProvider.get().parameters.storage
-  return if (loader == null) cache[key]!! else cache.computeIfAbsent(key) { loader() }
+  return if (loader == null) cache[key]!! else cache.getOrPut(key) { loader() }
 }
 
 /**
@@ -105,7 +105,7 @@ fun PluginAware.eagerDiskCache(key: String, loader: (() -> String)? = null): Str
  */
 fun PluginAware.lazyDiskCache(key: String, loader: (() -> String)? = null): Provider<String> {
   val cache = diskCacheProvider.map { it.parameters.storage }
-  return cache.map { if (loader == null) it.get(key)!! else it.computeIfAbsent(key) { loader() } }
+  return cache.map { if (loader == null) it.get(key)!! else it.getOrPut(key) { loader() } }
 }
 
 /**
