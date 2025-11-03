@@ -2,6 +2,7 @@
 
 import com.vanniktech.maven.publish.GradlePlugin
 import com.vanniktech.maven.publish.JavadocJar
+import java.io.ByteArrayOutputStream
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
@@ -242,6 +243,7 @@ object EnvAccess {
 
 interface ActionInjected {
   @get:Inject val execOps: ExecOperations
+  @get:Inject val layout: ProjectLayout
 }
 
 tasks.register("writeLocks") {
@@ -250,20 +252,40 @@ tasks.register("writeLocks") {
   val injected = project.objects.newInstance<ActionInjected>()
   val workingDirProvider = provider { projectDir.parentFile.parentFile }
   doLast {
-    val gradleCommand =
+    val gradlew =
       if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-        "./gradlew.bat"
+        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
       } else {
-        "./gradlew"
+        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
       }
+    val output = ByteArrayOutputStream()
     injected.execOps.exec {
       workingDir(workingDirProvider.get())
       commandLine(
-        gradleCommand,
+        gradlew,
         // "--refresh-dependencies",
         ":build-logic:dependencies",
         "--write-locks",
       )
+      standardOutput = output
+    }
+    val outputString = output.toString()
+    val runtimeClasspath =
+      Regex(
+          """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
+          RegexOption.MULTILINE,
+        )
+        .find(outputString)
+        ?.groupValues[1]
+        ?.trim()
+    if (!runtimeClasspath.isNullOrBlank()) {
+      logger.lifecycle(runtimeClasspath)
+      injected.layout.projectDirectory
+        .file("gradle.lockfile.txt")
+        .asFile
+        .writeText(runtimeClasspath)
+    } else {
+      logger.lifecycle(outputString)
     }
   }
 }

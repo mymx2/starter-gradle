@@ -9,6 +9,7 @@ import io.github.mymx2.plugin.injected
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
 import io.github.mymx2.plugin.resetTaskGroup
+import java.io.ByteArrayOutputStream
 import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesOrderingCheck
 import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesScopeCheck
 
@@ -98,21 +99,39 @@ tasks.register("writeLocks") {
   val projectPathProperty = objects.property<String>().value(project.path)
   val workingDirProvider = provider { rootDir }
   doLast {
-    val gradleCommand =
+    // https://stackoverflow.com/a/45013467/30654190
+    val gradlew =
       if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-        "./gradlew.bat"
+        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
       } else {
-        "./gradlew"
+        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
       }
+    val output = ByteArrayOutputStream()
     inject.exec.exec {
       workingDir(workingDirProvider.get())
       // https://docs.gradle.org/nightly/userguide/command_line_interface.html#sec:command_line_execution_options
       commandLine(
-        gradleCommand,
+        gradlew,
         // "--refresh-dependencies",
         "${projectPathProperty.get()}:dependencies",
         "--write-locks",
       )
+      standardOutput = output
+    }
+    val outputString = output.toString()
+    val runtimeClasspath =
+      Regex(
+          """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
+          RegexOption.MULTILINE,
+        )
+        .find(outputString)
+        ?.groupValues[1]
+        ?.trim()
+    if (!runtimeClasspath.isNullOrBlank()) {
+      logger.lifecycle(runtimeClasspath)
+      inject.layout.projectDirectory.file("gradle.lockfile.txt").asFile.writeText(runtimeClasspath)
+    } else {
+      logger.lifecycle(outputString)
     }
   }
 }

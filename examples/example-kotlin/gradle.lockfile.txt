@@ -1,0 +1,12 @@
+runtimeClasspath - Runtime classpath of 'main'.
++--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20
+|    \--- org.jetbrains:annotations:13.0
++--- org.jetbrains.kotlin:kotlin-reflect:2.2.20
+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 (*)
++--- project :versions
++--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.2.20
+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 (*)
++--- org.jetbrains.kotlin:kotlin-stdlib:{strictly 2.2.20} -> 2.2.20 (c)
++--- org.jetbrains.kotlin:kotlin-reflect:{strictly 2.2.20} -> 2.2.20 (c)
++--- org.jetbrains.kotlin:kotlin-metadata-jvm:{strictly 2.2.20} -> 2.2.20 (c)
+\--- org.jetbrains:annotations:{strictly 13.0} -> 13.0 (c)
