@@ -67,7 +67,7 @@ object VitePressConfig {
         inject.layout.projectDirectory.file("${website}/pnpm-lock.yaml").asFile.also {
           if (it.exists()) {
             it.copyTo(
-              inject.layout.buildDirectory.file("/tmp/locks/pnpm-lock.yaml.bak").get().asFile,
+              inject.layout.projectDirectory.file("build/tmp/locks/pnpm-lock.yaml.bak").asFile,
               true,
             )
           }
@@ -91,9 +91,8 @@ object VitePressConfig {
       val inject = injected
       doLast {
         val bakLockContent =
-          inject.layout.buildDirectory.file("/tmp/locks/pnpm-lock.yaml.bak").orNull?.let {
-            val file = it.asFile
-            if (file.exists()) file.readText() else null
+          inject.layout.projectDirectory.file("build/tmp/locks/pnpm-lock.yaml.bak").asFile.let {
+            if (it.exists()) it.readText() else null
           }
         if (bakLockContent != null) {
           val lockFile =

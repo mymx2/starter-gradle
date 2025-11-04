@@ -102,7 +102,7 @@ tasks.register("writeLocks") {
     inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
       if (it.exists()) {
         it.copyTo(
-          inject.layout.buildDirectory.file("/tmp/locks/gradle.lockfile.bak").get().asFile,
+          inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile,
           true,
         )
       }
@@ -130,9 +130,9 @@ tasks.register("writeLocks") {
     }
     val outputString = output.toString()
     // https://github.com/gradle/gradle/issues/19900
-    if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+    if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
       val lockFile = inject.layout.projectDirectory.file("gradle.lockfile").asFile
-      lockFile.writeText(lockFile.readText().replace("\r\n", "\n"))
+      lockFile.writeText(lockFile.readText().replace(System.lineSeparator(), "\n"))
     }
     val runtimeClasspath =
       Regex(
@@ -143,13 +143,10 @@ tasks.register("writeLocks") {
         ?.groupValues[1]
         ?.trim()
     if (!runtimeClasspath.isNullOrBlank()) {
-      logger.lifecycle(runtimeClasspath)
       inject.layout.projectDirectory
         .file("gradle.lockfile.txt")
         .asFile
-        .writeText(runtimeClasspath.replace("\r\n", "\n"))
-    } else {
-      logger.lifecycle(outputString)
+        .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"))
     }
   }
 }
@@ -161,9 +158,8 @@ tasks.register("checkLocks") {
   val inject = injected
   doLast {
     val bakLockContent =
-      inject.layout.buildDirectory.file("/tmp/locks/gradle.lockfile.bak").orNull?.let {
-        val file = it.asFile
-        if (file.exists()) file.readText() else null
+      inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile.let {
+        if (it.exists()) it.readText() else null
       }
     if (bakLockContent != null) {
       val lockFile =
