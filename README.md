@@ -101,6 +101,12 @@ dependencies: [declaring_module_dependencies](https://docs.gradle.org/nightly/us
 you can run `./gradlew help` to get
 gradle [commands-line usage help](https://docs.gradle.org/current/userguide/command_line_interface.html).
 
+you can run `git update-index --chmod=+x gradlew` to make gradlew executable.
+
+```shell
+git update-index --chmod=+x gradlew
+```
+
 ## 🏝️ Thanks
 
 This project is heavily inspired by the following awesome projects.

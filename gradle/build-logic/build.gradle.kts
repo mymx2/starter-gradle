@@ -189,7 +189,7 @@ gradlePlugin {
 buildscript {
   configurations.classpath {
     val key = "CI"
-    val buildCI =
+    val isCIEnv =
       providers
         .environmentVariable(key)
         .orElse(providers.systemProperty(key))
@@ -198,7 +198,7 @@ buildscript {
         ?.toBoolean() ?: false
     resolutionStrategy {
       cacheDynamicVersionsFor(7, TimeUnit.DAYS)
-      if (buildCI) {
+      if (isCIEnv) {
         deactivateDependencyLocking()
       } else {
         activateDependencyLocking()
@@ -209,15 +209,12 @@ buildscript {
 
 configurations {
   configureEach { resolutionStrategy { cacheDynamicVersionsFor(7, TimeUnit.DAYS) } }
-  runtimeClasspath {
-    resolutionStrategy {
-      activateDependencyLocking()
-      if (isCI) {
-        dependencyLocking { lockMode = LockMode.LENIENT }
-      }
-    }
-  }
+  runtimeClasspath { resolutionStrategy { activateDependencyLocking() } }
   compileClasspath { shouldResolveConsistentlyWith(runtimeClasspath.get()) }
+}
+
+if (isCI) {
+  dependencyLocking { lockMode = LockMode.LENIENT }
 }
 
 object EnvAccess {
