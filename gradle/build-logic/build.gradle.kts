@@ -248,9 +248,19 @@ interface ActionInjected {
 
 tasks.register("writeLocks") {
   group = "toolbox"
-  description = "Upgrade dependencies to latest versions"
-  val injected = project.objects.newInstance<ActionInjected>()
+  description = "write dependencies to lockfile"
+  val inject = project.objects.newInstance<ActionInjected>()
   val workingDirProvider = provider { projectDir.parentFile.parentFile }
+  doFirst {
+    inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
+      if (it.exists()) {
+        it.copyTo(
+          inject.layout.buildDirectory.file("/tmp/locks/gradle.lockfile.bak").get().asFile,
+          true,
+        )
+      }
+    }
+  }
   doLast {
     val gradlew =
       if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
@@ -259,7 +269,7 @@ tasks.register("writeLocks") {
         "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
       }
     val output = ByteArrayOutputStream()
-    injected.execOps.exec {
+    inject.execOps.exec {
       workingDir(workingDirProvider.get())
       commandLine(
         gradlew,
@@ -280,12 +290,33 @@ tasks.register("writeLocks") {
         ?.trim()
     if (!runtimeClasspath.isNullOrBlank()) {
       logger.lifecycle(runtimeClasspath)
-      injected.layout.projectDirectory
-        .file("gradle.lockfile.txt")
-        .asFile
-        .writeText(runtimeClasspath)
+      inject.layout.projectDirectory.file("gradle.lockfile.txt").asFile.writeText(runtimeClasspath)
     } else {
       logger.lifecycle(outputString)
+    }
+  }
+}
+
+tasks.register("checkLocks") {
+  group = "toolbox"
+  description = "Check dependencies for lockfile"
+  dependsOn(tasks.named("writeLocks"))
+  val inject = project.objects.newInstance<ActionInjected>()
+  doLast {
+    val bakLockContent =
+      inject.layout.buildDirectory.file("/tmp/locks/gradle.lockfile.bak").orNull?.let {
+        val file = it.asFile
+        if (file.exists()) file.readText() else null
+      }
+    if (bakLockContent != null) {
+      val lockFile =
+        inject.layout.projectDirectory.file("gradle.lockfile").asFile.takeIf { it.exists() }
+      val lockContent = lockFile?.readText()
+      if (lockFile != null && bakLockContent != lockContent) {
+        throw GradleException(
+          "$lockFile has been modified, please run 'writeLocks' to update lockfile"
+        )
+      }
     }
   }
 }

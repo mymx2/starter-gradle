@@ -1,9 +1,12 @@
 @file:Suppress("UnstableApiUsage")
 
 import io.github.mymx2.plugin.environment.EnvAccess
+import io.github.mymx2.plugin.gradle.cachedFlatMap
 import io.github.mymx2.plugin.gradle.cachedProvider
+import io.github.mymx2.plugin.injected
 import io.github.mymx2.plugin.spotless.SpotlessConfig
 import io.github.mymx2.plugin.spotless.defaultStep
+import java.io.ByteArrayOutputStream
 
 plugins {
   alias(libs.plugins.com.github.node.gradle.node)
@@ -27,10 +30,13 @@ node {
 // https://github.com/diffplug/spotless/tree/main/plugin-gradle#npm-detection
 val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
 val npm =
-  tasks.npmSetup.map {
-    val npmExec = if (isWindows) "npm.cmd" else "bin/npm"
-    it.npmDir.get().file(npmExec)
-  }
+  cachedProvider { tasks.npmSetup }
+    .cachedFlatMap(objects) { npmSetup ->
+      npmSetup.map {
+        val npmExec = if (isWindows) "npm.cmd" else "bin/npm"
+        it.npmDir.get().file(npmExec)
+      }
+    }
 
 @Suppress("ConstPropertyName")
 object VitePressConfig {
@@ -50,13 +56,66 @@ object VitePressConfig {
       }
       doLast { println("\u001B[32m${result.get()}\u001B[0m") }
     }
+    val workDirProvider = provider { isolated.projectDirectory.dir(website) }
+
+    tasks.register("writeLocks") {
+      group = "toolbox"
+      description = "write dependencies to lockfile"
+      val inject = injected
+      dependsOn(tasks.npmSetup)
+      doFirst {
+        inject.layout.projectDirectory.file("${website}/pnpm-lock.yaml").asFile.also {
+          if (it.exists()) {
+            it.copyTo(
+              inject.layout.buildDirectory.file("/tmp/locks/pnpm-lock.yaml.bak").get().asFile,
+              true,
+            )
+          }
+        }
+      }
+      val npmProvider = provider { npm.get() }
+      doLast {
+        val output = ByteArrayOutputStream()
+        inject.exec.exec {
+          workingDir(workDirProvider.get().asFile.path)
+          commandLine(npmProvider.get(), "run", "yo")
+          standardOutput = output
+        }
+        println("\u001B[32m${output}\u001B[0m")
+      }
+    }
+    tasks.register("checkLocks") {
+      group = "toolbox"
+      description = "Check dependencies for lockfile"
+      dependsOn(tasks.named("writeLocks"))
+      val inject = injected
+      doLast {
+        val bakLockContent =
+          inject.layout.buildDirectory.file("/tmp/locks/pnpm-lock.yaml.bak").orNull?.let {
+            val file = it.asFile
+            if (file.exists()) file.readText() else null
+          }
+        if (bakLockContent != null) {
+          val lockFile =
+            inject.layout.projectDirectory.file("${website}/pnpm-lock.yaml").asFile.takeIf {
+              it.exists()
+            }
+          val lockContent = lockFile?.readText()
+          if (lockFile != null && bakLockContent != lockContent) {
+            throw GradleException(
+              "$lockFile has been modified, please run 'writeLocks' to update lockfile"
+            )
+          }
+        }
+      }
+    }
 
     val vitedoc =
       tasks.register("docVite") {
         group = "docs"
         description = "Generate Vite docs [group = docs]"
         dependsOn(tasks.npmSetup)
-        val workDirProvider = provider { isolated.projectDirectory.dir(website) }
+
         val result = cachedProvider {
           providers
             .exec {

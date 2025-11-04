@@ -94,10 +94,20 @@ configurations {
 
 tasks.register("writeLocks") {
   group = "toolbox"
-  description = "Upgrade dependencies to latest versions"
+  description = "Write dependencies to lockfile"
   val inject = injected
   val projectPathProperty = objects.property<String>().value(project.path)
   val workingDirProvider = provider { rootDir }
+  doFirst {
+    inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
+      if (it.exists()) {
+        it.copyTo(
+          inject.layout.buildDirectory.file("/tmp/locks/gradle.lockfile.bak").get().asFile,
+          true,
+        )
+      }
+    }
+  }
   doLast {
     // https://stackoverflow.com/a/45013467/30654190
     val gradlew =
@@ -132,6 +142,30 @@ tasks.register("writeLocks") {
       inject.layout.projectDirectory.file("gradle.lockfile.txt").asFile.writeText(runtimeClasspath)
     } else {
       logger.lifecycle(outputString)
+    }
+  }
+}
+
+tasks.register("checkLocks") {
+  group = "toolbox"
+  description = "Check dependencies for lockfile"
+  dependsOn(tasks.named("writeLocks"))
+  val inject = injected
+  doLast {
+    val bakLockContent =
+      inject.layout.buildDirectory.file("/tmp/locks/gradle.lockfile.bak").orNull?.let {
+        val file = it.asFile
+        if (file.exists()) file.readText() else null
+      }
+    if (bakLockContent != null) {
+      val lockFile =
+        inject.layout.projectDirectory.file("gradle.lockfile").asFile.takeIf { it.exists() }
+      val lockContent = lockFile?.readText()
+      if (lockFile != null && bakLockContent != lockContent) {
+        throw GradleException(
+          "$lockFile has been modified, please run 'writeLocks' to update lockfile"
+        )
+      }
     }
   }
 }

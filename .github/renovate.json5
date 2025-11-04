@@ -4,6 +4,11 @@
   labels: ["type| dependency-upgrade", "pr| deps"],
   ignorePaths: ["**/__tests__/**"],
   ignoreUnstable: false,
+  enabledManagers: ["gradle", "github-actions"],
+  postUpgradeTasks: {
+    commands: ["./gradlew writeLocks"],
+    executionMode: "branch",
+  },
   packageRules: [
     {
       matchPackagePatterns: [".*"],
