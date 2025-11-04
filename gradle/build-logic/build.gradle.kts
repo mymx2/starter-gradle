@@ -280,6 +280,12 @@ tasks.register("writeLocks") {
       standardOutput = output
     }
     val outputString = output.toString()
+    // https://github.com/gradle/gradle/issues/19900
+    if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+      val lockFile = inject.layout.projectDirectory.file("gradle.lockfile").asFile
+      lockFile.writeText(lockFile.readText().replace("\r\n", "\n"))
+    }
+
     val runtimeClasspath =
       Regex(
           """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
@@ -290,7 +296,10 @@ tasks.register("writeLocks") {
         ?.trim()
     if (!runtimeClasspath.isNullOrBlank()) {
       logger.lifecycle(runtimeClasspath)
-      inject.layout.projectDirectory.file("gradle.lockfile.txt").asFile.writeText(runtimeClasspath)
+      inject.layout.projectDirectory
+        .file("gradle.lockfile.txt")
+        .asFile
+        .writeText(runtimeClasspath.replace("\r\n", "\n"))
     } else {
       logger.lifecycle(outputString)
     }

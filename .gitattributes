@@ -6,7 +6,6 @@
 *.bat text eol=crlf
 *.cmd eol=crlf
 /gradlew text eol=lf
-*.lockfile eol=crlf
 
 # Do not modify line endings for binary files (which are sometimes auto detected as text files by git).
 *.png binary

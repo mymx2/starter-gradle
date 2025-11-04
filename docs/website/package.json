@@ -9,7 +9,7 @@
     "preview": "vitepress preview src/pages",
     "build": "vitepress build src/pages",
     "up": "taze major -I",
-    "yo": "npm i -g npm pnpm @antfu/ni && ni"
+    "yo": "npm i -g pnpm @antfu/ni && pnpm i"
   },
   "devDependencies": {
     "@antfu/utils": "^9.3.0",
