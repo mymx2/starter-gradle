@@ -2,67 +2,8 @@
 <project version="4">
   <component name="JavaProjectCodeInsightSettings">
     <excluded-names>
-      <!-- kotlin.gradle -->
-      <name>org.jetbrains.kotlin.gradle.plugin.extraProperties</name>
-
-      <!-- com.baiwang -->
-      <name>com.baiwang.dom4j.*</name>
-      <name>com.baiwang.fasterxml.*</name>
-      <name>com.baiwang.logging.*</name>
-      <name>com.baiwang.*.utils.*</name>
-
-      <!-- com.alibaba -->
-      <name>com.alibaba.excel.util</name>
-      <name>com.alibaba.fastjson2.util.DateUtils</name>
-
       <!-- java -->
-      <name>java.lang.ThreadLocal</name>
-      <name>java.sql.Date</name>
       <name>java.util.Date</name>
-      <name>org.slf4j.MDC</name>
-
-      <!-- apache -->
-      <name>org.apache.http</name>
-      <name>org.apache.poi.ss.usermodel.DateUtil</name>
-
-      <!-- jackson2.x -->
-      <name>com.fasterxml.jackson.core</name>
-      <name>com.fasterxml.jackson.databind</name>
-      <name>com.fasterxml.jackson.datatype</name>
-      <name>com.fasterxml.jackson.module</name>
-      <name>com.fasterxml.jackson.dataformat</name>
-
-      <!-- net.dreamlu -->
-      <name>net.dreamlu.mica.core.utils.JsonUtil</name>
-      <name>net.dreamlu.mica.core.spring.SpringContextUtil</name>
-
-      <!-- cn.hutool.v7 -->
-      <name>cn.hutool.v7.core.date.DateUtil</name>
-      <name>cn.hutool.v7.core.date.LocalTimeUtil</name>
-      <name>cn.hutool.v7.core.date.SqlDateUtil</name>
-      <name>cn.hutool.v7.core.date.TimeUtil</name>
-      <name>cn.hutool.v7.core.io.file.FileUtil</name>
-      <name>cn.hutool.v7.core.io.file.FileUtil</name>
-      <name>cn.hutool.v7.extra.spring.SpringUtil</name>
-
-      <!-- org.springframework -->
-      <name>org.springframework.data.redis.core.RedisTemplate</name>
-      <name>org.springframework.validation.annotation.Validated</name>
-      <name>org.springframework.transaction.annotation.Transactional</name>
-
-      <!-- jakarta -->
-      <name>jakarta.annotation.PostConstruct</name>
-      <name>jakarta.annotation.PreDestroy</name>
-      <name>jakarta.validation.constraints.Null</name>
-      <name>jakarta.validation.constraints.NotNull</name>
-      <name>jakarta.validation.constraints.NotBlank</name>
-      <name>jakarta.validation.constraints.NotEmpty</name>
-      <name>jakarta.validation.constraints.Min</name>
-      <name>jakarta.validation.constraints.Max</name>
-      <name>jakarta.validation.constraints.Negative</name>
-      <name>jakarta.validation.constraints.NegativeOrZero</name>
-      <name>jakarta.validation.constraints.Positive</name>
-      <name>jakarta.validation.constraints.PositiveOrZero</name>
     </excluded-names>
   </component>
 </project>
