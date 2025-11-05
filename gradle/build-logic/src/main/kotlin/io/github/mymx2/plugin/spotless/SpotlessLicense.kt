@@ -94,8 +94,8 @@ object SpotlessLicense {
     }
   }
 
-  fun getTxt(project: Project): String {
-    val license = getLicense(project)
+  fun getTxt(project: Project, projectLicense: String = ""): String {
+    val license = projectLicense.ifBlank { getLicense(project) }
     if (license.isBlank()) {
       return ""
     }
@@ -106,8 +106,8 @@ object SpotlessLicense {
       .trimMargin()
   }
 
-  fun getComment(project: Project): String {
-    val license = getLicense(project)
+  fun getComment(project: Project, projectLicense: String = ""): String {
+    val license = projectLicense.ifBlank { getLicense(project) }
     if (license.isBlank()) {
       return ""
     }
@@ -120,8 +120,8 @@ object SpotlessLicense {
       .trimMargin()
   }
 
-  fun getXml(project: Project): String {
-    val license = getLicense(project)
+  fun getXml(project: Project, projectLicense: String = ""): String {
+    val license = projectLicense.ifBlank { getLicense(project) }
     if (license.isBlank()) {
       return ""
     }
