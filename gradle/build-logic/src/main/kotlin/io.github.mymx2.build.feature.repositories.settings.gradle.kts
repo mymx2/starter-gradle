@@ -45,11 +45,6 @@ dependencyResolutionManagement {
       setUrl("https://jitpack.io")
       content { includeGroupByRegex("com\\.github.*") }
     }
-    maven {
-      setUrl("https://maven.youzanyun.com/repository/maven-releases")
-      // https://docs.gradle.org/current/userguide/filtering_repository_content.html
-      content { includeGroupByRegex("com.youzan.*") }
-    }
     google {
       content {
         includeGroupAndSubgroups("androidx")
