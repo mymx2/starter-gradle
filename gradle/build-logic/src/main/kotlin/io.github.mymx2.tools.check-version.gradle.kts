@@ -13,6 +13,7 @@ import io.github.mymx2.plugin.utils.Ansi
 import io.github.mymx2.plugin.utils.CatalogUtil
 import io.github.mymx2.plugin.utils.HttpUtil
 import io.github.mymx2.plugin.utils.JsonParser
+import io.github.mymx2.plugin.utils.TextHandle
 import io.github.mymx2.plugin.utils.chunkedVirtual
 import java.time.Duration
 import java.time.LocalDate
@@ -227,6 +228,10 @@ object CheckVersionPluginConfig {
             match?.destructured?.let { (alias, module, version) ->
               val (groupId, artifactId) = module.split(":")
               val dependency = "$groupId:$artifactId:$version"
+              val dependencyAlias = let {
+                val artifactIdToAlias = TextHandle.toCamelCase(artifactId)
+                if (alias.startsWith(artifactIdToAlias)) alias else artifactIdToAlias
+              }
 
               if (version != "latest.release") {
                 val preLine = contentLines[lineNumber - 1].trim()
@@ -245,7 +250,7 @@ object CheckVersionPluginConfig {
                     newContent.updateAndGet {
                       it.replace(
                         line,
-                        """$alias = { module = "$module", version = "$candidate" }""",
+                        """$dependencyAlias = { module = "$module", version = "$candidate" }""",
                       )
                     }
                   }
@@ -255,7 +260,7 @@ object CheckVersionPluginConfig {
           }
           "plugins" -> {
             val match = pluginRegex.find(line)
-            match?.destructured?.let { (alias, pluginId, version) ->
+            match?.destructured?.let { (_, pluginId, version) ->
               if (version != "latest.release") {
                 val preLine = contentLines[lineNumber - 1].trim()
                 val metadataUrl =
@@ -267,7 +272,10 @@ object CheckVersionPluginConfig {
                 jobs.add {
                   processMetadata(metadataUrl, pluginId, version) { candidate ->
                     newContent.updateAndGet {
-                      it.replace(line, """$alias = { id = "$pluginId", version = "$candidate" }""")
+                      it.replace(
+                        line,
+                        """${pluginId.replace(".", "-")} = { id = "$pluginId", version = "$candidate" }""",
+                      )
                     }
                   }
                 }

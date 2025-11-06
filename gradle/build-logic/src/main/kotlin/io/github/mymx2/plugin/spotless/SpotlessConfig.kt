@@ -93,7 +93,7 @@ object SpotlessConfig {
     }
 
   val ktfmtVersion = run {
-    val ktfmtVersion = ProjectVersions.ktfmt.value.toBigDecimal()
+    val ktfmtVersion = ProjectVersions.comFacebookKtfmt.value.toBigDecimal()
     val defaultKtfmtVersion = KtfmtStep.defaultVersion()
     return@run if (ktfmtVersion >= BigDecimal(defaultKtfmtVersion)) {
       ktfmtVersion.toString()
@@ -108,7 +108,7 @@ object SpotlessConfig {
   val prettierDevDependenciesWithXmlPlugin =
     mutableMapOf(
       ProjectVersions.prettier.key to ProjectVersions.prettier.value,
-      ProjectVersions.prettierXml.key to ProjectVersions.prettierXml.value,
+      ProjectVersions.prettierPluginXml.key to ProjectVersions.prettierPluginXml.value,
     )
 
   /**

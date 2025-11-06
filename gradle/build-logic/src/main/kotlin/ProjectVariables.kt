@@ -4,29 +4,33 @@ package io.github.mymx2.plugin
 
 @Suppress("SpellCheckingInspection", "EnumEntryName", "detekt:all")
 enum class ProjectVersions(val key: String, val value: String, val url: String) {
-  ktfmt(
+  comFacebookKtfmt(
     "com.facebook/ktfmt",
     "0.59",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/facebook/ktfmt/maven-metadata.xml",
   ),
   prettier("prettier", "3.6.2", "https://registry.npmjs.org/prettier"),
-  prettierXml("@prettier/plugin-xml", "3.4.2", "https://registry.npmjs.org/@prettier/plugin-xml"),
+  prettierPluginXml(
+    "@prettier/plugin-xml",
+    "3.4.2",
+    "https://registry.npmjs.org/@prettier/plugin-xml",
+  ),
   jspecify(
     "org.jspecify:jspecify",
     "1.0.0",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml",
   ),
-  errorprone(
+  errorProneCore(
     "com.google.errorprone:error_prone_core",
     "2.43.0",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/google/errorprone/error_prone_core/maven-metadata.xml",
   ),
-  errorpronePicnicContrib(
+  errorProneContrib(
     "tech.picnic.error-prone-support:error-prone-contrib",
     "0.26.0",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/error-prone-contrib/maven-metadata.xml",
   ),
-  errorpronePicnicRefaster(
+  refasterRunner(
     "tech.picnic.error-prone-support:refaster-runner",
     "0.26.0",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/refaster-runner/maven-metadata.xml",

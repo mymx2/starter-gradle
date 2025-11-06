@@ -18,16 +18,12 @@ dependencies {
   )
   errorprone(
     runCatching { libs.findLibrary("errorprone").get().get() }
-      .getOrElse { "${ProjectVersions.errorprone.key}:${ProjectVersions.errorprone.value}" }
+      .getOrElse { "${ProjectVersions.errorProneCore.key}:${ProjectVersions.errorProneCore.value}" }
   )
   // https://github.com/PicnicSupermarket/error-prone-support/tree/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/bugpatterns
-  errorprone(
-    "${ProjectVersions.errorpronePicnicContrib.key}:${ProjectVersions.errorpronePicnicContrib.value}"
-  )
+  errorprone("${ProjectVersions.errorProneContrib.key}:${ProjectVersions.errorProneContrib.value}")
   // https://github.com/PicnicSupermarket/error-prone-support/blob/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/refasterrules/
-  errorprone(
-    "${ProjectVersions.errorpronePicnicRefaster.key}:${ProjectVersions.errorpronePicnicRefaster.value}"
-  )
+  errorprone("${ProjectVersions.refasterRunner.key}:${ProjectVersions.refasterRunner.value}")
   errorprone(
     runCatching { libs.findLibrary("nullaway").get().get() }
       .getOrElse { "${ProjectVersions.nullaway.key}:${ProjectVersions.nullaway.value}" }
