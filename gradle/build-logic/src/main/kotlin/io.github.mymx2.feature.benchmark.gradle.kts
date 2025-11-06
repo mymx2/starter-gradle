@@ -7,6 +7,7 @@ import net.ltgt.gradle.errorprone.errorprone
 plugins {
   id("java")
   id("io.github.mymx2.base.jpms-modules")
+  id("com.autonomousapps.dependency-analysis")
   id("io.github.mymx2.check.quality-nullaway")
   id("me.champeau.jmh")
 }

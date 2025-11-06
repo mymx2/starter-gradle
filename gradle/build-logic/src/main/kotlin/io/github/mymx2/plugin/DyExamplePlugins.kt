@@ -17,6 +17,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.Actions.with
+import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import org.gradle.work.DisableCachingByDefault
 
 /*
@@ -47,7 +48,8 @@ class DyExampleSettingsPlugin : Plugin<Settings> {
   override fun apply(target: Settings) {
     with(target) {
       println(
-        Ansi.color("> Gradle Version (${settings.gradle.gradleVersion})", Ansi.Color.GREEN.code)
+        Ansi.color("> Gradle Version (${settings.gradle.gradleVersion})", Ansi.Color.GREEN.code) +
+          Ansi.color(" Kotlin Version (${embeddedKotlinVersion})", Ansi.Color.GREEN.code)
       )
       settings.gradle.beforeProject {
         val projectDir = isolated.projectDirectory.asFile.invariantSeparatorsPath

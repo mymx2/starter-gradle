@@ -195,7 +195,7 @@ object CheckVersionPluginConfig {
     val contentLines = content.lines()
     var currentTopic = ""
 
-    // val versionsRegex = Regex("""(\w+)\s*=\s*"([^"]+)"""")
+    val versionsRegex = Regex("""(\w+)\s*=\s*"([^"]+)"""")
     val libraryRegex =
       Regex("""(\w+)\s*=\s*\{\s*module\s*=\s*"([^"]+)"\s*,\s*version\s*=\s*"([^"]+)"\s*}""")
     val pluginRegex =
@@ -208,6 +208,20 @@ object CheckVersionPluginConfig {
       }
       if (!line.startsWith("#") && line.contains("=")) {
         when (currentTopic) {
+          "versions" -> {
+            val match = versionsRegex.find(line)
+            match?.destructured?.let { (alias, version) ->
+              if (alias != "latest.release") {
+                if (alias == "kotlin" && version != embeddedKotlinVersion) {
+                  jobs.add {
+                    newContent.updateAndGet {
+                      it.replace(line, """$alias = "$embeddedKotlinVersion"""")
+                    }
+                  }
+                }
+              }
+            }
+          }
           "libraries" -> {
             val match = libraryRegex.find(line)
             match?.destructured?.let { (alias, module, version) ->

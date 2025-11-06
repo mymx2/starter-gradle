@@ -1,3 +1,5 @@
+import io.github.mymx2.plugin.gradle.eagerSharedCache
+
 plugins {
   java
   id("io.freefair.lombok")
@@ -8,33 +10,25 @@ plugins {
 val writeGitProperties =
   tasks.register<WriteProperties>("writeGitProperties") {
     property("git.build.version", project.version)
-    property(
-      "git.commit.id",
-      runCatching {
-          providers
-            .exec {
-              commandLine("git", "rev-parse", "HEAD")
-              workingDir = layout.projectDirectory.asFile
-            }
-            .standardOutput
-            .asText
-            .map { it.trim() }
-        }
-        .getOrElse { "unknown" },
-    )
+
+    val gitCommit =
+      project.eagerSharedCache("gitCommitId") {
+        providers
+          .exec {
+            isIgnoreExitValue = true
+            commandLine("git", "rev-parse", "HEAD")
+            workingDir = layout.projectDirectory.asFile
+          }
+          .standardOutput
+          .asText
+          .get()
+          .let { it.trim().ifBlank { "unknown" } }
+      }
+
+    property("git.commit.id", gitCommit)
     property(
       "git.commit.id.abbrev",
-      runCatching {
-          providers
-            .exec {
-              commandLine("git", "rev-parse", "HEAD")
-              workingDir = layout.projectDirectory.asFile
-            }
-            .standardOutput
-            .asText
-            .map { it.trim().substring(0, 7) }
-        }
-        .getOrElse { "unknown" },
+      gitCommit.let { if (it.length >= 7) it.substring(0, 7) else it },
     )
 
     destinationFile = layout.buildDirectory.file("generated/git/git.properties")
