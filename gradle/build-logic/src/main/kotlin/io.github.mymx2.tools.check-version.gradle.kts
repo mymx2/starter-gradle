@@ -220,7 +220,11 @@ object CheckVersionPluginConfig {
                   if (preLine.startsWith("# http") && preLine.endsWith(".xml")) {
                     preLine.substringAfter("#").trim()
                   } else {
-                    CatalogUtil.getLibraryMetadataUrl("${groupId}:${artifactId}")
+                    if ("${groupId}.gradle.plugin" == artifactId) {
+                      CatalogUtil.getPluginMetadataUrl(groupId)
+                    } else {
+                      CatalogUtil.getLibraryMetadataUrl("${groupId}:${artifactId}")
+                    }
                   }
                 jobs.add {
                   processMetadata(metadataUrl, dependency, version) { candidate ->

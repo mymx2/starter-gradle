@@ -11,6 +11,6 @@ class DemoApplicationTests(private val buildProperties: BuildProperties) {
 
   @Test
   fun printBuildProperties() {
-    println(buildProperties.iterator().forEach { println(it.key + ": " + it.value) })
+    buildProperties.iterator().forEach { println(it.key + ": " + it.value) }
   }
 }

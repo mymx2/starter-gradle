@@ -40,9 +40,18 @@ springBoot {
   buildInfo {
     properties {
       additional.put("project.path", project.path)
-      additional.put("layout.settingsDirectory", layout.settingsDirectory)
-      additional.put("layout.projectDirectory", layout.projectDirectory)
-      additional.put("layout.buildDirectory", layout.buildDirectory)
+      additional.put(
+        "layout.settingsDirectory",
+        layout.settingsDirectory.asFile.invariantSeparatorsPath,
+      )
+      additional.put(
+        "layout.projectDirectory",
+        layout.projectDirectory.asFile.invariantSeparatorsPath,
+      )
+      additional.put(
+        "layout.buildDirectory",
+        layout.buildDirectory.get().asFile.invariantSeparatorsPath,
+      )
     }
   }
 }

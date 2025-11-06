@@ -20,6 +20,7 @@ object LocalConfig {
 
   enum class Props(val key: String, val defaultValue: String) {
     IS_DEBUG("IS_DEBUG", "false"),
+    IS_JMH("IS_JMH", "false"),
     // CI环境
     CI("CI", "false"),
     // 项目的group

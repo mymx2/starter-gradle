@@ -20,9 +20,7 @@ dependencies {
 // https://spotbugs.readthedocs.io/en/latest/gradle.html#tasks-introduced-by-this-gradle-plugin
 afterEvaluate {
   // https://spotbugs.readthedocs.io/en/latest/gradle.html#tasks-introduced-by-this-gradle-plugin
-  tasks.named("qualityCheck") {
-    dependsOn(tasks.named("spotbugsMain"), tasks.named("spotbugsTest"))
-  }
+  tasks.named("qualityCheck") { dependsOn(tasks.spotbugsMain, tasks.spotbugsTest) }
 }
 
 val excludeFilterFile =

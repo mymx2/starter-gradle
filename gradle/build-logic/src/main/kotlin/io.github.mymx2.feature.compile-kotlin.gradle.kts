@@ -1,3 +1,4 @@
+import io.github.mymx2.plugin.environment.KotlinCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.jvm.JvmTargetValidationMode
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
@@ -11,11 +12,5 @@ tasks.withType<KotlinJvmCompile>().configureEach {
 }
 
 tasks.withType<JavaCompile>().configureEach {
-  options.apply {
-    // kotlinc
-    compilerArgs.add("-java-parameters") // 保留参数名
-    compilerArgs.add("-Xjvm-default=all") // Java8 接口默认实现
-    compilerArgs.add("-Xjsr305=strict") // 严格空安全
-    compilerArgs.add("-Xemit-jvm-type-annotations") // 在泛型上保留类型注解
-  }
+  options.apply { KotlinCompilerOptions.default.forEach { compilerArgs.add(it) } }
 }

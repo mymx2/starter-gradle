@@ -33,7 +33,7 @@ enum class ProjectVersions(val key: String, val value: String, val url: String) 
   ),
   nullaway(
     "com.uber.nullaway:nullaway",
-    "0.12.11",
+    "0.12.12",
     "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml",
   ),
   spotbugsAnnotations(

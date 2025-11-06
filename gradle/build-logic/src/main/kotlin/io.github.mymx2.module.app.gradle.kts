@@ -13,3 +13,6 @@ tasks.withType<JavaExec>().configureEach {
     jvmArgs("--enable-preview")
   }
 }
+
+// Make the Jar itself executable by setting the 'Main-Class' manifest attribute.
+tasks.jar { manifest { attributes("Main-Class" to application.mainClass) } }

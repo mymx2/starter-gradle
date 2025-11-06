@@ -87,6 +87,7 @@ Each _feature_ plugin configures one aspect of building the different software(j
 _compiling code_ or _testing code_.
 
 [io.github.mymx2.feature.aggregation.gradle.kts](src/main/kotlin/io.github.mymx2.feature.aggregation.gradle.kts)
+[io.github.mymx2.feature.benchmark.gradle.kts](src/main/kotlin/io.github.mymx2.feature.benchmark.gradle.kts)
 [io.github.mymx2.feature.checksum.gradle.kts](src/main/kotlin/io.github.mymx2.feature.checksum.gradle.kts)
 [io.github.mymx2.feature.compile-java.gradle.kts](src/main/kotlin/io.github.mymx2.feature.compile-java.gradle.kts)
 [io.github.mymx2.feature.compile-java-ext.gradle.kts](src/main/kotlin/io.github.mymx2.feature.compile-java-ext.gradle.kts)

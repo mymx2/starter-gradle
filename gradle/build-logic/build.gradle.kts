@@ -15,48 +15,58 @@ plugins {
 }
 
 dependencies {
+  implementation(libs.semver)
   // https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.kotlin.dsl/kotlin.html
   // org.jetbrains.kotlin:kotlin-gradle-plugin
   implementation(embeddedKotlin("gradle-plugin"))
   implementation(embeddedKotlin("reflect"))
   // https://kotlinlang.org/api/core/kotlin-test/
   // implementation(embeddedKotlin("test-junit5"))
-  implementation(libs.semver)
-  implementation(libs.errorproneGradlePlugin)
-  implementation(libs.nullawayGradlePlugin)
-  implementation(libs.develocityGradlePlugin)
-  implementation(libs.spotlessGradlePlugin)
-  implementation(libs.detektGradlePlugin)
-  implementation(libs.dokkaGradlePlugin)
-  implementation(libs.jvmDependencyConflictResolutionPlugin)
-  implementation(libs.javaModuleDependenciesPlugin)
-  implementation(libs.extraJavaModuleInfoPlugin)
-  implementation(libs.shadowGradlePlugin)
-  implementation(libs.gradleMavenPublishPlugin)
-  implementation(libs.dependencyAnalysisGradlePlugin)
-  implementation(libs.classpathCollisionDetectorPlugin)
-  implementation(libs.cyclonedxGradlePlugin)
-  implementation(libs.spotbugsGradlePlugin)
-  implementation(libs.koverGradlePlugin)
-  implementation(libs.kspPlugin)
+}
 
-  implementation(libs.lombokGradlePlugin)
+dependencies {
   listOf(
       // https://kotlinlang.org/docs/kapt.html
-      "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin",
+      "org.jetbrains.kotlin.kapt",
       // https://kotlinlang.org/docs/lombok.html
-      "org.jetbrains.kotlin.plugin.lombok:org.jetbrains.kotlin.plugin.lombok.gradle.plugin",
+      "org.jetbrains.kotlin.plugin.lombok",
       // https://kotlinlang.org/docs/sam-with-receiver-plugin.html
-      "org.jetbrains.kotlin.plugin.sam.with.receiver:org.jetbrains.kotlin.plugin.sam.with.receiver.gradle.plugin",
+      "org.jetbrains.kotlin.plugin.sam.with.receiver",
       // https://kotlinlang.org/docs/all-open-plugin.html
-      "org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin",
+      "org.jetbrains.kotlin.plugin.spring",
       // https://kotlinlang.org/docs/no-arg-plugin.html
-      "org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin",
+      "org.jetbrains.kotlin.plugin.jpa",
     )
-    .forEach { implementation("${it}:${embeddedKotlinVersion}") }
-  implementation(libs.openrewritePlugin)
-  implementation(libs.springBootPlugin)
-  implementation(libs.openapiGradlePlugin)
+    .forEach { implementation("${it}:${it}.gradle.plugin:${embeddedKotlinVersion}") }
+  listOf(
+      libs.plugins.net.ltgt.errorprone,
+      libs.plugins.net.ltgt.nullaway,
+      libs.plugins.com.gradle.develocity,
+      libs.plugins.com.diffplug.spotless,
+      libs.plugins.dev.detekt,
+      libs.plugins.org.jetbrains.dokka,
+      libs.plugins.me.champeau.jmh,
+      libs.plugins.org.gradlex.jvm.dependency.conflict.resolution,
+      libs.plugins.org.gradlex.java.module.dependencies,
+      libs.plugins.org.gradlex.extra.java.module.info,
+      libs.plugins.com.gradleup.shadow,
+      libs.plugins.com.vanniktech.maven.publish,
+      libs.plugins.com.autonomousapps.dependency.analysis,
+      libs.plugins.io.fuchs.gradle.classpath.collision.detector,
+      libs.plugins.org.cyclonedx.bom,
+      libs.plugins.com.github.spotbugs,
+      libs.plugins.org.jetbrains.kotlinx.kover,
+      libs.plugins.com.google.devtools.ksp,
+      libs.plugins.io.freefair.lombok,
+      libs.plugins.org.openrewrite.rewrite,
+      libs.plugins.org.springframework.boot,
+      libs.plugins.org.openapi.generator,
+    )
+    .forEach {
+      val plugin = it.get()
+      val pluginDependency = "${plugin.pluginId}:${plugin.pluginId}.gradle.plugin:${plugin.version}"
+      implementation(pluginDependency)
+    }
 }
 
 val isCI = EnvAccess.isCi(providers)
@@ -243,67 +253,68 @@ interface ActionInjected {
   @get:Inject val layout: ProjectLayout
 }
 
-tasks.register("writeLocks") {
-  group = "toolbox"
-  description = "write dependencies to lockfile"
-  val inject = project.objects.newInstance<ActionInjected>()
-  val workingDirProvider = provider { projectDir.parentFile.parentFile }
-  doFirst {
-    inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
-      if (it.exists()) {
-        it.copyTo(
-          inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile,
-          true,
+val writeLocks =
+  tasks.register("writeLocks") {
+    group = "toolbox"
+    description = "write dependencies to lockfile"
+    val inject = project.objects.newInstance<ActionInjected>()
+    val workingDirProvider = provider { projectDir.parentFile.parentFile }
+    doFirst {
+      inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
+        if (it.exists()) {
+          it.copyTo(
+            inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile,
+            true,
+          )
+        }
+      }
+    }
+    doLast {
+      val gradlew =
+        if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
+        } else {
+          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
+        }
+      val output = ByteArrayOutputStream()
+      inject.execOps.exec {
+        workingDir(workingDirProvider.get())
+        commandLine(
+          gradlew,
+          // "--refresh-dependencies",
+          ":build-logic:dependencies",
+          "--write-locks",
         )
+        standardOutput = output
       }
-    }
-  }
-  doLast {
-    val gradlew =
-      if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
-      } else {
-        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
+      val outputString = output.toString()
+      // https://github.com/gradle/gradle/issues/19900
+      if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
+        val lockFile = inject.layout.projectDirectory.file("gradle.lockfile").asFile
+        lockFile.writeText(lockFile.readText().replace(System.lineSeparator(), "\n"))
       }
-    val output = ByteArrayOutputStream()
-    inject.execOps.exec {
-      workingDir(workingDirProvider.get())
-      commandLine(
-        gradlew,
-        // "--refresh-dependencies",
-        ":build-logic:dependencies",
-        "--write-locks",
-      )
-      standardOutput = output
-    }
-    val outputString = output.toString()
-    // https://github.com/gradle/gradle/issues/19900
-    if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
-      val lockFile = inject.layout.projectDirectory.file("gradle.lockfile").asFile
-      lockFile.writeText(lockFile.readText().replace(System.lineSeparator(), "\n"))
-    }
 
-    val runtimeClasspath =
-      Regex(
-          """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
-          RegexOption.MULTILINE,
-        )
-        .find(outputString)
-        ?.groupValues[1]
-        ?.trim()
-    if (!runtimeClasspath.isNullOrBlank()) {
-      inject.layout.projectDirectory
-        .file("gradle.lockfile.txt")
-        .asFile
-        .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"))
+      val runtimeClasspath =
+        Regex(
+            """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
+            RegexOption.MULTILINE,
+          )
+          .find(outputString)
+          ?.groupValues[1]
+          ?.trim()
+      if (!runtimeClasspath.isNullOrBlank()) {
+        inject.layout.projectDirectory
+          .file("gradle.lockfile.txt")
+          .asFile
+          .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"))
+      }
     }
   }
-}
 
 tasks.register("checkLocks") {
   group = "toolbox"
   description = "Check dependencies for lockfile"
-  dependsOn(tasks.named("writeLocks"))
+  dependsOn(writeLocks)
   val inject = project.objects.newInstance<ActionInjected>()
   doLast {
     val bakLockContent =

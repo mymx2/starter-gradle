@@ -75,9 +75,7 @@ tasks.withType<JavaCompile>().configureEach {
   }
 }
 
-tasks.named("compileTestJava", JavaCompile::class.java).configure {
-  options.errorprone { isEnabled = false }
-}
+tasks.compileTestJava { options.errorprone { isEnabled = false } }
 
 /*
  * Add other Error Prone flags here. See:

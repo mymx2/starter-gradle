@@ -23,5 +23,6 @@
     <plugin id="izhangzhihao.rainbow.brackets" />
     <plugin id="me.rerere.unocss-intellij" />
     <plugin id="org.jusecase.jte-intellij" />
+    <plugin id="ru.artyushov" />
   </component>
 </project>

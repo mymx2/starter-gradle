@@ -58,36 +58,37 @@ object VitePressConfig {
     }
     val workDirProvider = provider { isolated.projectDirectory.dir(website) }
 
-    tasks.register("writeLocks") {
-      group = "toolbox"
-      description = "write dependencies to lockfile"
-      val inject = injected
-      dependsOn(tasks.npmSetup)
-      doFirst {
-        inject.layout.projectDirectory.file("${website}/pnpm-lock.yaml").asFile.also {
-          if (it.exists()) {
-            it.copyTo(
-              inject.layout.projectDirectory.file("build/tmp/locks/pnpm-lock.yaml.bak").asFile,
-              true,
-            )
+    val writeLocks =
+      tasks.register("writeLocks") {
+        group = "toolbox"
+        description = "write dependencies to lockfile"
+        val inject = injected
+        dependsOn(tasks.npmSetup)
+        doFirst {
+          inject.layout.projectDirectory.file("${website}/pnpm-lock.yaml").asFile.also {
+            if (it.exists()) {
+              it.copyTo(
+                inject.layout.projectDirectory.file("build/tmp/locks/pnpm-lock.yaml.bak").asFile,
+                true,
+              )
+            }
           }
         }
-      }
-      val npmProvider = provider { npm.get() }
-      doLast {
-        val output = ByteArrayOutputStream()
-        inject.exec.exec {
-          workingDir(workDirProvider.get().asFile.path)
-          commandLine(npmProvider.get(), "run", "yo")
-          standardOutput = output
+        val npmProvider = provider { npm.get() }
+        doLast {
+          val output = ByteArrayOutputStream()
+          inject.exec.exec {
+            workingDir(workDirProvider.get().asFile.path)
+            commandLine(npmProvider.get(), "run", "yo")
+            standardOutput = output
+          }
+          println("\u001B[32m${output}\u001B[0m")
         }
-        println("\u001B[32m${output}\u001B[0m")
       }
-    }
     tasks.register("checkLocks") {
       group = "toolbox"
       description = "Check dependencies for lockfile"
-      dependsOn(tasks.named("writeLocks"))
+      dependsOn(writeLocks)
       val inject = injected
       doLast {
         val bakLockContent =

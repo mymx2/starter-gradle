@@ -92,69 +92,70 @@ configurations {
   compileClasspath { shouldResolveConsistentlyWith(runtimeClasspath.get()) }
 }
 
-tasks.register("writeLocks") {
-  group = "toolbox"
-  description = "Write dependencies to lockfile"
-  val inject = injected
-  val projectPathProperty = objects.property<String>().value(project.path)
-  val workingDirProvider = provider { rootDir }
-  doFirst {
-    inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
-      if (it.exists()) {
-        it.copyTo(
-          inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile,
-          true,
+val writeLocks =
+  tasks.register("writeLocks") {
+    group = "toolbox"
+    description = "Write dependencies to lockfile"
+    val inject = injected
+    val projectPathProperty = objects.property<String>().value(project.path)
+    val workingDirProvider = provider { rootDir }
+    doFirst {
+      inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
+        if (it.exists()) {
+          it.copyTo(
+            inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile,
+            true,
+          )
+        }
+      }
+    }
+    doLast {
+      // https://stackoverflow.com/a/45013467/30654190
+      val gradlew =
+        if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
+        } else {
+          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
+        }
+      val output = ByteArrayOutputStream()
+      inject.exec.exec {
+        workingDir(workingDirProvider.get())
+        // https://docs.gradle.org/nightly/userguide/command_line_interface.html#sec:command_line_execution_options
+        commandLine(
+          gradlew,
+          // "--refresh-dependencies",
+          "${projectPathProperty.get()}:dependencies",
+          "--write-locks",
         )
+        standardOutput = output
+      }
+      val outputString = output.toString()
+      // https://github.com/gradle/gradle/issues/19900
+      if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
+        val lockFile = inject.layout.projectDirectory.file("gradle.lockfile").asFile
+        lockFile.writeText(lockFile.readText().replace(System.lineSeparator(), "\n"))
+      }
+      val runtimeClasspath =
+        Regex(
+            """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
+            RegexOption.MULTILINE,
+          )
+          .find(outputString)
+          ?.groupValues[1]
+          ?.trim()
+      if (!runtimeClasspath.isNullOrBlank()) {
+        inject.layout.projectDirectory
+          .file("gradle.lockfile.txt")
+          .asFile
+          .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"))
       }
     }
   }
-  doLast {
-    // https://stackoverflow.com/a/45013467/30654190
-    val gradlew =
-      if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
-      } else {
-        "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
-      }
-    val output = ByteArrayOutputStream()
-    inject.exec.exec {
-      workingDir(workingDirProvider.get())
-      // https://docs.gradle.org/nightly/userguide/command_line_interface.html#sec:command_line_execution_options
-      commandLine(
-        gradlew,
-        // "--refresh-dependencies",
-        "${projectPathProperty.get()}:dependencies",
-        "--write-locks",
-      )
-      standardOutput = output
-    }
-    val outputString = output.toString()
-    // https://github.com/gradle/gradle/issues/19900
-    if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
-      val lockFile = inject.layout.projectDirectory.file("gradle.lockfile").asFile
-      lockFile.writeText(lockFile.readText().replace(System.lineSeparator(), "\n"))
-    }
-    val runtimeClasspath =
-      Regex(
-          """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
-          RegexOption.MULTILINE,
-        )
-        .find(outputString)
-        ?.groupValues[1]
-        ?.trim()
-    if (!runtimeClasspath.isNullOrBlank()) {
-      inject.layout.projectDirectory
-        .file("gradle.lockfile.txt")
-        .asFile
-        .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"))
-    }
-  }
-}
 
 tasks.register("checkLocks") {
   group = "toolbox"
   description = "Check dependencies for lockfile"
-  dependsOn(tasks.named("writeLocks"))
+  dependsOn(writeLocks)
   val inject = injected
   doLast {
     val bakLockContent =
