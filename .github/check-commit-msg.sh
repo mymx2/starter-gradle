@@ -17,15 +17,16 @@ fi
 
 COMMITS=$(git log --format=%s "$BASE".."${GITHUB_SHA}")
 
-COMMIT_MSG_PATTERN='^(?:revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\(.+\))?: [^\n\r]{1,49}[^\s\n\r]$'
-
 if [ -z "$COMMITS" ]; then
   COMMITS=$(git log --format=%s -n 1 "${GITHUB_SHA}")
 fi
 
-# 校验每个 commit
+COMMIT_MSG_PATTERN='^(revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\([^)]+\))?: .{1,50}$'
+
 echo "$COMMITS" | while read -r COMMIT_MSG; do
-  if ! echo "$COMMIT_MSG" | grep -Eq "$COMMIT_MSG_PATTERN"; then
+  COMMIT_MSG_CLEAN=$(echo "$COMMIT_MSG" | tr -d '\r')
+
+  if ! echo "$COMMIT_MSG_CLEAN" | grep -Eq "$COMMIT_MSG_PATTERN"; then
     echo -e "${BG_RED}ERROR${RESET}  ${RED}invalid commit message format.${RESET}\n"
     echo -e "${RED}Proper commit message format is required for automated changelog generation. Examples:${RESET}\n"
     echo -e "  ${GREEN}feat(compiler): add 'comments' option${RESET}"
