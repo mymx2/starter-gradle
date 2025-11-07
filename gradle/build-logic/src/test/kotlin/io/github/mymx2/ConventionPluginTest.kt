@@ -57,6 +57,8 @@ class ConventionPluginTest {
           id("io.github.mymx2.module.java")
         }
 
+        dependencyLocking { lockMode = LockMode.LENIENT }
+
         jvmDependencyConflicts.patch {
           align(
             "org.jboss.resteasy:resteasy-core",
@@ -119,6 +121,7 @@ class ConventionPluginTest {
       org.gradle.caching=true
       #org.gradle.unsafe.isolated-projects=true
       ENABLE_AUTO_STRUCTURE=true
+      CI=true
       """
         .trimIndent()
     )
