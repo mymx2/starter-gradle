@@ -64,11 +64,9 @@ jobs:
         run: ./gradlew :build-logic:writeLocks writeLocks
 
       - run: ./gradlew :build-logic:check
-      - run: ./gradlew qualityCheck
-      - run: ./gradlew test
+      - run: ./gradlew check
       - run: ./gradlew testEndToEnd
       - run: ./gradlew testEndToEndSlow
-      - run: ./gradlew check
       - run: ./gradlew cyclonedxBom --no-configuration-cache
 
       - name: 📊 Generate Code Coverage Report
