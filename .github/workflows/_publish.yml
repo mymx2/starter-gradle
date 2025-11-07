@@ -19,8 +19,6 @@ on:
         required: true
       mavenCentralPassword:
         required: true
-      GITHUB_TOKEN:
-        required: true
 
 env:
   CI: true

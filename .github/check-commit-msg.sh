@@ -3,9 +3,6 @@ set -e
 
 echo "🔍 Checking commit messages..."
 
-COMMITS=$(git log --format=%s "${GITHUB_EVENT_BEFORE:-HEAD^}".."${GITHUB_SHA:-HEAD}")
-COMMIT_MSG_PATTERN='^(?:revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\(.+\))?: [^\n\r]{1,49}[^\s\n\r]$'
-
 # ANSI colors
 RESET="\033[0m"
 RED="\033[31m"
@@ -13,6 +10,20 @@ GREEN="\033[32m"
 BLUE="\033[34m"
 BG_RED="\033[41m"
 
+BASE="${GITHUB_EVENT_BEFORE:-HEAD^}"
+if ! git rev-parse "$BASE" >/dev/null 2>&1; then
+  BASE="${GITHUB_SHA}"
+fi
+
+COMMITS=$(git log --format=%s "$BASE".."${GITHUB_SHA}")
+
+COMMIT_MSG_PATTERN='^(?:revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\(.+\))?: [^\n\r]{1,49}[^\s\n\r]$'
+
+if [ -z "$COMMITS" ]; then
+  COMMITS=$(git log --format=%s -n 1 "${GITHUB_SHA}")
+fi
+
+# 校验每个 commit
 echo "$COMMITS" | while read -r COMMIT_MSG; do
   if ! echo "$COMMIT_MSG" | grep -Eq "$COMMIT_MSG_PATTERN"; then
     echo -e "${BG_RED}ERROR${RESET}  ${RED}invalid commit message format.${RESET}\n"
