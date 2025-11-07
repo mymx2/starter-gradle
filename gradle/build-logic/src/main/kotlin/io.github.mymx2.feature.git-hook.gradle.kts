@@ -179,36 +179,16 @@ fun Task.configureCommitMsgHook(injected: Injected, commitMsgFileProperty: Strin
       if (!pattern.matcher(message).find()) {
         throw GradleException(
           """
-        |${
-            Ansi.color(
-              "ERROR",
-              Ansi.Color.BACKGROUND_RED.code,
-            )
-          }  ${Ansi.color("invalid commit message format.", Ansi.Color.RED.code)}
+        |${Ansi.color("ERROR", Ansi.Color.BACKGROUND_RED.code)}  ${Ansi.color("invalid commit message format.", Ansi.Color.RED.code)}
         |
-        |${
-            Ansi.color(
-              "Proper commit message format is required for automated changelog generation. Examples:",
-              Ansi.Color.RED.code,
-            )
-          }
+        |${Ansi.color("Proper commit message format is required for automated changelog generation. Examples:", Ansi.Color.RED.code)}
         |
         |  ${Ansi.color("feat(compiler): add 'comments' option", Ansi.Color.GREEN.code)}
         |  ${Ansi.color("fix(v-model): handle events on blur (close #28)", Ansi.Color.GREEN.code)}
         |
         |${Ansi.color("Commit message header: <type>(<scope>): <subject>", Ansi.Color.RED.code)}
         |${Ansi.color("Commit message header pattern: $commitMsgPattern", Ansi.Color.RED.code)}
-        |${
-            Ansi.color(
-              "See",
-              Ansi.Color.RED.code,
-            )
-          } ${
-            Ansi.color(
-              "https://github.com/conventional-commits/conventionalcommits.org",
-              Ansi.Color.BLUE.code,
-            )
-          } ${Ansi.color("for more details.", Ansi.Color.RED.code)}
+        |${Ansi.color("See", Ansi.Color.RED.code)} ${Ansi.color("https://github.com/conventional-commits/conventionalcommits.org", Ansi.Color.BLUE.code)} ${Ansi.color("for more details.", Ansi.Color.RED.code)}
         """
             .trimMargin()
         )

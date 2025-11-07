@@ -6,10 +6,9 @@ import com.autonomousapps.tasks.ProjectHealthTask
 import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import io.github.mymx2.plugin.environment.EnvAccess
 import io.github.mymx2.plugin.injected
-import io.github.mymx2.plugin.local.LocalConfig
-import io.github.mymx2.plugin.local.getPropOrDefault
 import io.github.mymx2.plugin.resetTaskGroup
 import java.io.ByteArrayOutputStream
+import java.nio.charset.StandardCharsets
 import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesOrderingCheck
 import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesScopeCheck
 
@@ -71,13 +70,12 @@ listOf("artifactsReportMain" to "help", "fixDependencies" to "toolbox").forEach 
 }
 
 val isCI = EnvAccess.isCi(providers)
-val isDebug = project.getPropOrDefault(LocalConfig.Props.IS_DEBUG).toBoolean()
 
-if (isCI || isDebug) {
-  // https://docs.gradle.org/nightly/userguide/dependency_locking.html
-  dependencyLocking {
-    ignoredDependencies.add("com.example:*")
-    lockMode = LockMode.LENIENT
+// https://docs.gradle.org/nightly/userguide/dependency_locking.html
+dependencyLocking {
+  ignoredDependencies.add("com.example:*")
+  if (isCI) {
+    lockMode = LockMode.STRICT
   }
 }
 
@@ -100,12 +98,14 @@ val writeLocks =
     val projectPathProperty = objects.property<String>().value(project.path)
     val workingDirProvider = provider { rootDir }
     doFirst {
-      inject.layout.projectDirectory.file("gradle.lockfile").asFile.also {
-        if (it.exists()) {
-          it.copyTo(
-            inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile,
-            true,
-          )
+      listOf("gradle.lockfile").forEach {
+        inject.layout.projectDirectory.file(it).asFile.also { file ->
+          if (file.exists()) {
+            file.copyTo(
+              inject.layout.projectDirectory.file("build/tmp/locks/${file.name}.bak").asFile,
+              true,
+            )
+          }
         }
       }
     }
@@ -132,8 +132,16 @@ val writeLocks =
       val outputString = output.toString()
       // https://github.com/gradle/gradle/issues/19900
       if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
-        val lockFile = inject.layout.projectDirectory.file("gradle.lockfile").asFile
-        lockFile.writeText(lockFile.readText().replace(System.lineSeparator(), "\n"))
+        listOf("gradle.lockfile").forEach {
+          inject.layout.projectDirectory.file(it).asFile.also { file ->
+            if (file.exists()) {
+              file.writeText(
+                file.readText().replace(System.lineSeparator(), "\n"),
+                StandardCharsets.UTF_8,
+              )
+            }
+          }
+        }
       }
       val runtimeClasspath =
         Regex(
@@ -147,7 +155,7 @@ val writeLocks =
         inject.layout.projectDirectory
           .file("gradle.lockfile.txt")
           .asFile
-          .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"))
+          .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"), StandardCharsets.UTF_8)
       }
     }
   }
@@ -168,7 +176,7 @@ tasks.register("checkLocks") {
       val lockContent = lockFile?.readText()
       if (lockFile != null && bakLockContent != lockContent) {
         throw GradleException(
-          "$lockFile has been modified, please run 'writeLocks' to update lockfile"
+          "$lockFile has been modified, please run './gradlew :build-logic:writeLocks writeLocks' to update lockfile"
         )
       }
     }

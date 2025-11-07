@@ -12,6 +12,7 @@ permissions:
 jobs:
   close-issues:
     runs-on: ubuntu-latest
+
     steps:
       - name: 😞 check the labels and auto close it
         uses: actions-cool/issues-helper@v3

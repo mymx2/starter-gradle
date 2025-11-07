@@ -15,59 +15,8 @@ env:
 jobs:
   publish-release:
     if: startsWith(github.event.head_commit.message, 'release:')
-    runs-on: ubuntu-latest
-    steps:
-      - name: ✈ Checkout sources
-        uses: actions/checkout@v5
-
-      - name: 📦 Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-
-      - name: ☕ Setup Java
-        uses: actions/setup-java@v5
-        with:
-          java-version: "25"
-          distribution: "corretto"
-
-      - name: 🐘 Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
-        with:
-          gradle-version: wrapper
-
-      - name: 🔧 Make Gradle wrapper executable
-        run: chmod +x ./gradlew
-
-      - name: 🔧 Show Gradle version
-        run: ./gradlew --version
-
-      - name: 👻 Publish to maven central
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.signingInMemoryKey }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.signingInMemoryKeyPassword }}
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
-        run: |
-          ./gradlew publishToMavenCentral
-          ./gradlew :build-logic:publishToMavenCentral
-
-      - name: 🌿 Build Changelog
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v6
-        with:
-          configuration: ".github/config/changelog.json"
-          commitMode: true
-          ignorePreReleases: ${{ !contains(github.ref, '-') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🚀 Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          body: ${{ steps.build_changelog.outputs.changelog }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    uses: ./.github/workflows/_publish.yml
+    with:
+      release: true
+      changelog: true
+    secrets: inherit

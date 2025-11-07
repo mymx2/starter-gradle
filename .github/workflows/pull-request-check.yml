@@ -1,5 +1,6 @@
 #file: noinspection UndefinedParamsPresent,UndefinedAction
 name: PR Checks
+
 on:
   workflow_dispatch:
   push:
@@ -18,28 +19,48 @@ env:
 jobs:
   pr-checks:
     runs-on: ubuntu-latest
+
     steps:
       - name: ✈ Checkout sources
         uses: actions/checkout@v5
+
+      - name: 🧩 Validate commit messages
+        if: github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
+        run: |
+          chmod +x .github/check-commit-msg.sh
+          .github/check-commit-msg.sh
+
       - name: 📦 Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: "24"
+
       - name: ☕ Setup Java
         uses: actions/setup-java@v5
         with:
           java-version: "25"
           distribution: "corretto"
+
       - name: 🐘 Setup Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
           gradle-version: wrapper
           cache-read-only: false
+
       - name: 🔧 Make Gradle wrapper executable
         run: chmod +x ./gradlew
+
       - name: 🔧 Show Gradle version
         run: ./gradlew --version
-      # - run: ./gradlew checkLocks
+
+      - name: 🔒 Check locks
+        if: github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
+        run: ./gradlew :build-logic:checkLocks checkLocks
+
+      - name: 🔏 Write locks (for bots)
+        if: github.actor == 'dependabot[bot]' || github.actor == 'renovate[bot]'
+        run: ./gradlew :build-logic:writeLocks writeLocks
+
       - run: ./gradlew :build-logic:check
       - run: ./gradlew qualityCheck
       - run: ./gradlew test
@@ -47,8 +68,10 @@ jobs:
       - run: ./gradlew testEndToEndSlow
       - run: ./gradlew check
       - run: ./gradlew cyclonedxBom --no-configuration-cache
+
       - name: 📊 Generate Code Coverage Report
         run: ./gradlew testCodeCoverageReport
+
       - name: 👻 Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:

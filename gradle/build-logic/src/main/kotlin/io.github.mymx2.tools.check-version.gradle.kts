@@ -140,7 +140,7 @@ object CheckVersionPluginConfig {
 
           if (content != newContent) {
             val newFile = File(file.parentFile, "__${lastUpdate}-${file.name}")
-            newFile.writeText("# last update: ${lastUpdate}\n" + newContent)
+            newFile.writeText(newContent)
             Ansi.color("✏️ Updated file written to: ${newFile.invariantSeparatorsPath}", "32")
           } else {
             Ansi.color("🚩 No changes in ${file.name}", "32")
@@ -148,7 +148,9 @@ object CheckVersionPluginConfig {
         }
         .also {
           println(it.toList().joinToString("\n"))
-          println("For locking dependencies, run: ./gradlew :[name]:dependencies --write-locks")
+          println(
+            "After Updating dependencies, please run './gradlew :build-logic:writeLocks writeLocks' to update lockfile"
+          )
         }
     }
   }

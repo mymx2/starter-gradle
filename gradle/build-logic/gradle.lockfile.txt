@@ -1,4 +1,18 @@
 runtimeClasspath - Runtime classpath of 'main'.
++--- net.swiftzer.semver:semver:2.1.0
+|    \--- net.swiftzer.semver:semver-jvm:2.1.0
+|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.2.20
+|         |    +--- org.jetbrains:annotations:13.0 -> 23.0.0
+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.0.21 (c)
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.0.21 (c)
+|         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0
+|              \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.0
+|                   +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.0
+|                   |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.0 (c)
+|                   |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0 (c)
+|                   |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (c)
+|                   |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0 (c)
+|                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.2.20 (*)
 +--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20
 |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea:2.2.20
 |    |    +--- org.jetbrains.kotlin:kotlin-tooling-core:2.2.20
@@ -49,310 +63,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |                   +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 (c)
 |                   \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 (c)
 +--- org.jetbrains.kotlin:kotlin-reflect:2.2.20
-|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20
-|         +--- org.jetbrains:annotations:13.0 -> 23.0.0
-|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.0.21 (c)
-|         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.0.21 (c)
-+--- net.swiftzer.semver:semver:2.1.0
-|    \--- net.swiftzer.semver:semver-jvm:2.1.0
-|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.2.20 (*)
-|         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0
-|              \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.0
-|                   +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.0
-|                   |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.0 (c)
-|                   |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0 (c)
-|                   |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (c)
-|                   |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0 (c)
-|                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.2.20 (*)
-+--- net.ltgt.errorprone:net.ltgt.errorprone.gradle.plugin:4.3.0
-|    \--- net.ltgt.gradle:gradle-errorprone-plugin:4.3.0
-+--- net.ltgt.nullaway:net.ltgt.nullaway.gradle.plugin:2.3.0
-|    \--- net.ltgt.gradle:gradle-nullaway-plugin:2.3.0
-+--- com.gradle:develocity-gradle-plugin:4.2.2
-+--- com.diffplug.spotless:spotless-plugin-gradle:8.0.0
-|    +--- com.diffplug.durian:durian-core:1.2.0
-|    +--- com.diffplug.durian:durian-io:1.2.0
-|    |    +--- com.diffplug.durian:durian-core:1.2.0
-|    |    \--- com.diffplug.durian:durian-collect:1.2.0
-|    |         \--- com.diffplug.durian:durian-core:1.2.0
-|    +--- com.diffplug.durian:durian-collect:1.2.0 (*)
-|    +--- org.eclipse.jgit:org.eclipse.jgit:7.3.0.202506031305-r
-|    |    +--- com.googlecode.javaewah:JavaEWAH:1.2.3
-|    |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
-|    |    \--- commons-codec:commons-codec:1.18.0 -> 1.19.0
-|    +--- com.diffplug.spotless:spotless-lib:4.0.0
-|    \--- com.diffplug.spotless:spotless-lib-extra:4.0.0
-|         +--- com.diffplug.durian:durian-core:1.2.0
-|         +--- com.diffplug.durian:durian-collect:1.2.0 (*)
-|         +--- org.eclipse.jgit:org.eclipse.jgit:7.3.0.202506031305-r (*)
-|         +--- com.googlecode.concurrent-trees:concurrent-trees:2.6.1
-|         +--- dev.equo.ide:solstice:1.8.1
-|         |    +--- org.tukaani:xz:1.9
-|         |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.1.0
-|         |    |    \--- com.squareup.okhttp3:okhttp-jvm:5.1.0
-|         |    |         +--- com.squareup.okio:okio:3.15.0
-|         |    |         |    \--- com.squareup.okio:okio-jvm:3.15.0
-|         |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.20 (*)
-|         |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.2.20 (*)
-|         |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
-|         |    +--- com.diffplug.durian:durian-swt.os:4.3.0
-|         |    \--- org.eclipse.platform:org.eclipse.osgi:3.18.300 -> 3.23.200
-|         +--- org.eclipse.platform:org.eclipse.osgi:3.23.200
-|         \--- com.diffplug.spotless:spotless-lib:4.0.0
-+--- dev.detekt:detekt-gradle-plugin:2.0.0-alpha.1
-|    \--- io.github.detekt.sarif4k:sarif4k:0.6.0
-|         \--- io.github.detekt.sarif4k:sarif4k-jvm:0.6.0
-|              +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1 -> 1.8.0
-|              |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0
-|              |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.0 (*)
-|              |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.2.20 (*)
-|              |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0 (*)
-|              \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.23 -> 2.2.20 (*)
-+--- org.jetbrains.dokka:dokka-gradle-plugin:2.1.0
-|    +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.0 -> 1.8.0 (*)
-|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json -> 1.8.0 (*)
-|    \--- org.jetbrains.dokka:dokka-core:2.1.0
-|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.0
-|         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 (*)
-|         +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3 -> 2.20.0
-|         |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.0
-|         |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|         |    |    +--- com.fasterxml.jackson.core:jackson-core:2.20.0
-|         |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.20.0
-|         |    |    |         +--- com.fasterxml.jackson.core:jackson-annotations:2.20 (c)
-|         |    |    |         +--- com.fasterxml.jackson.core:jackson-core:2.20.0 (c)
-|         |    |    |         +--- com.fasterxml.jackson.core:jackson-databind:2.20.0 (c)
-|         |    |    |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.20.0 (c)
-|         |    |    |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0 (c)
-|         |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.20.0 (c)
-|         |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-joda:2.20.0 (c)
-|         |    |    |         +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.20.0 (c)
-|         |    |    |         \--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0 (c)
-|         |    |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
-|         |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|         |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
-|         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.3 -> 2.20.0
-|         |    +--- com.fasterxml.jackson.core:jackson-core:2.20.0 (*)
-|         |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|         |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.0 (*)
-|         |    +--- org.codehaus.woodstox:stax2-api:4.2.2
-|         |    +--- com.fasterxml.woodstox:woodstox-core:7.1.1
-|         |    |    \--- org.codehaus.woodstox:stax2-api:4.2.2
-|         |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
-|         \--- com.fasterxml.jackson.core:jackson-databind:2.15.3 -> 2.20.0 (c)
-+--- org.gradlex:jvm-dependency-conflict-resolution:2.4
-+--- org.gradlex:java-module-dependencies:1.11
-|    \--- org.ow2.asm:asm:9.9
-+--- org.gradlex:extra-java-module-info:1.13.1
-|    \--- org.ow2.asm:asm:9.8 -> 9.9
-+--- com.gradleup.shadow:shadow-gradle-plugin:9.2.2
-|    +--- commons-io:commons-io:2.20.0
-|    +--- org.apache.logging.log4j:log4j-core:2.25.2
-|    |    \--- org.apache.logging.log4j:log4j-api:2.25.2
-|    +--- org.ow2.asm:asm-commons:9.8
-|    |    +--- org.ow2.asm:asm:9.8 -> 9.9
-|    |    \--- org.ow2.asm:asm-tree:9.8
-|    |         \--- org.ow2.asm:asm:9.8 -> 9.9
-|    +--- org.vafer:jdependency:2.13
-|    +--- org.jdom:jdom2:2.0.6.1
-|    +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.2.20
-|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 (*)
-|    +--- org.codehaus.plexus:plexus-utils:4.0.2
-|    +--- org.codehaus.plexus:plexus-xml:4.1.0
-|    |    \--- org.apache.maven:maven-xml:4.0.0-rc-3
-|    |         +--- org.apache.maven:maven-api-xml:4.0.0-rc-3
-|    |         |    \--- org.apache.maven:maven-api-annotations:4.0.0-rc-3
-|    |         +--- com.fasterxml.woodstox:woodstox-core:7.1.0 -> 7.1.1 (*)
-|    |         \--- org.codehaus.woodstox:stax2-api:4.2.2
-|    \--- org.apache.ant:ant:1.10.15
-|         \--- org.apache.ant:ant-launcher:1.10.15
-+--- com.vanniktech:gradle-maven-publish-plugin:0.34.0
-|    \--- com.vanniktech:central-portal:0.34.0
-|         +--- com.squareup.okhttp3:okhttp:5.1.0 (*)
-|         +--- com.squareup.retrofit2:retrofit:3.0.0
-|         |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.1.0 (*)
-|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.20 (*)
-|         \--- com.squareup.retrofit2:converter-scalars:3.0.0
-|              \--- com.squareup.retrofit2:retrofit:3.0.0 (*)
-+--- com.autonomousapps:dependency-analysis-gradle-plugin:3.4.1
-|    +--- org.jetbrains.kotlin:kotlin-bom:2.0.21
-|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.2.20 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-daemon-client:2.0.21 -> 2.2.20 (c)
-|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21 (c)
-|    +--- com.squareup.okio:okio-bom:3.15.0
-|    |    +--- com.squareup.okio:okio:3.15.0 (c)
-|    |    \--- com.squareup.okio:okio-jvm:3.15.0 (c)
-|    +--- com.autonomousapps:graph-support:0.9.0
-|    |    +--- org.jetbrains.kotlin:kotlin-bom:2.0.21 (*)
-|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
-|    |    \--- com.google.guava:guava:33.4.8-jre
-|    |         +--- com.google.guava:failureaccess:1.0.3
-|    |         +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
-|    |         +--- org.jspecify:jspecify:1.0.0
-|    |         +--- com.google.errorprone:error_prone_annotations:2.36.0 -> 2.40.0
-|    |         \--- com.google.j2objc:j2objc-annotations:3.0.0
-|    +--- com.autonomousapps:variant-artifacts:0.3.3
-|    |    +--- org.jetbrains.kotlin:kotlin-bom:2.0.21 (*)
-|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
-|    +--- com.google.guava:guava:33.4.8-jre (*)
-|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21
-|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
-|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21
-|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
-|    +--- com.autonomousapps:kotlin-editor-relocated:0.18.0
-|    +--- com.squareup.moshi:moshi-kotlin:1.15.2
-|    |    +--- com.squareup.moshi:moshi:1.15.2
-|    |    |    +--- com.squareup.okio:okio:3.7.0 -> 3.15.0 (*)
-|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
-|    |    +--- org.jetbrains.kotlin:kotlin-reflect:1.8.21 -> 2.2.20 (*)
-|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
-|    +--- dev.zacsweers.moshix:moshi-sealed-reflect:0.30.0
-|    |    +--- dev.zacsweers.moshix:moshi-sealed-runtime:0.30.0
-|    |    |    +--- com.squareup.moshi:moshi-adapters:1.15.2
-|    |    |    |    +--- com.squareup.moshi:moshi:1.15.2 (*)
-|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
-|    |    |    +--- com.squareup.moshi:moshi:1.15.2 (*)
-|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.20 (*)
-|    |    +--- com.squareup:kotlinpoet:2.1.0
-|    |    |    \--- com.squareup:kotlinpoet-jvm:2.1.0
-|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.2.20 (*)
-|    |    |         \--- org.jetbrains.kotlin:kotlin-reflect:2.1.10 -> 2.2.20 (*)
-|    |    +--- org.jetbrains.kotlin:kotlin-reflect:2.1.20 -> 2.2.20 (*)
-|    |    +--- com.squareup.moshi:moshi:1.15.2 (*)
-|    |    +--- com.squareup.moshi:moshi-adapters:1.15.2 (*)
-|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.20 (*)
-|    +--- com.squareup.okio:okio:3.15.0 (*)
-|    +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.2.20 (*)
-|    +--- com.github.ben-manes.caffeine:caffeine:3.2.2
-|    |    +--- org.jspecify:jspecify:1.0.0
-|    |    \--- com.google.errorprone:error_prone_annotations:2.40.0
-|    +--- com.autonomousapps:antlr:4.13.2.0
-|    +--- com.autonomousapps:asm-relocated:9.9.0
-|    +--- javax.inject:javax.inject:1
-|    +--- com.squareup.moshi:moshi:1.15.2 (*)
-|    +--- dev.zacsweers.moshix:moshi-sealed-runtime:0.30.0 (*)
-|    \--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.2.20 (*)
-+--- io.fuchs.gradle.classpath-collision-detector:classpath-collision-detector:1.0.0
-+--- org.cyclonedx:cyclonedx-gradle-plugin:3.0.1
-|    +--- commons-codec:commons-codec:1.19.0
-|    +--- commons-io:commons-io:2.20.0
-|    +--- org.apache.maven:maven-core:3.9.11
-|    |    +--- org.apache.maven:maven-model:3.9.11
-|    |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    +--- org.apache.maven:maven-settings:3.9.11
-|    |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    +--- org.apache.maven:maven-settings-builder:3.9.11
-|    |    |    +--- org.apache.maven:maven-builder-support:3.9.11
-|    |    |    +--- javax.inject:javax.inject:1
-|    |    |    +--- org.codehaus.plexus:plexus-interpolation:1.28
-|    |    |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    |    +--- org.apache.maven:maven-settings:3.9.11 (*)
-|    |    |    \--- org.codehaus.plexus:plexus-sec-dispatcher:2.0
-|    |    |         +--- org.codehaus.plexus:plexus-utils:3.4.1 -> 4.0.2
-|    |    |         +--- org.codehaus.plexus:plexus-cipher:2.0
-|    |    |         |    \--- javax.inject:javax.inject:1
-|    |    |         \--- javax.inject:javax.inject:1
-|    |    +--- org.apache.maven:maven-builder-support:3.9.11
-|    |    +--- org.apache.maven:maven-repository-metadata:3.9.11
-|    |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    +--- org.apache.maven:maven-artifact:3.9.11
-|    |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    +--- org.apache.maven:maven-plugin-api:3.9.11
-|    |    |    +--- org.apache.maven:maven-model:3.9.11 (*)
-|    |    |    +--- org.apache.maven:maven-artifact:3.9.11 (*)
-|    |    |    +--- org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M4
-|    |    |    |    +--- org.codehaus.plexus:plexus-component-annotations:2.1.0 -> 2.2.0
-|    |    |    |    +--- org.codehaus.plexus:plexus-classworlds:2.6.0 -> 2.9.0
-|    |    |    |    \--- org.codehaus.plexus:plexus-utils:3.5.1 -> 4.0.2
-|    |    |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    |    \--- org.codehaus.plexus:plexus-classworlds:2.9.0
-|    |    +--- org.apache.maven:maven-model-builder:3.9.11
-|    |    |    +--- org.codehaus.plexus:plexus-interpolation:1.28
-|    |    |    +--- javax.inject:javax.inject:1
-|    |    |    +--- org.apache.maven:maven-model:3.9.11 (*)
-|    |    |    +--- org.apache.maven:maven-artifact:3.9.11 (*)
-|    |    |    +--- org.apache.maven:maven-builder-support:3.9.11
-|    |    |    +--- org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M4
-|    |    |    |    \--- org.ow2.asm:asm:9.8 -> 9.9
-|    |    |    \--- org.ow2.asm:asm:9.8 -> 9.9
-|    |    +--- org.apache.maven:maven-resolver-provider:3.9.11
-|    |    |    +--- org.apache.maven:maven-model:3.9.11 (*)
-|    |    |    +--- org.apache.maven:maven-model-builder:3.9.11 (*)
-|    |    |    +--- org.apache.maven:maven-repository-metadata:3.9.11 (*)
-|    |    |    +--- org.apache.maven.resolver:maven-resolver-api:1.9.24
-|    |    |    +--- org.apache.maven.resolver:maven-resolver-spi:1.9.24
-|    |    |    |    \--- org.apache.maven.resolver:maven-resolver-api:1.9.24
-|    |    |    +--- org.apache.maven.resolver:maven-resolver-util:1.9.24
-|    |    |    |    \--- org.apache.maven.resolver:maven-resolver-api:1.9.24
-|    |    |    +--- org.apache.maven.resolver:maven-resolver-impl:1.9.24
-|    |    |    |    +--- org.apache.maven.resolver:maven-resolver-api:1.9.24
-|    |    |    |    +--- org.apache.maven.resolver:maven-resolver-spi:1.9.24 (*)
-|    |    |    |    +--- org.apache.maven.resolver:maven-resolver-named-locks:1.9.24
-|    |    |    |    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
-|    |    |    |    +--- org.apache.maven.resolver:maven-resolver-util:1.9.24 (*)
-|    |    |    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
-|    |    |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    |    \--- javax.inject:javax.inject:1
-|    |    +--- org.apache.maven.resolver:maven-resolver-impl:1.9.24 (*)
-|    |    +--- org.apache.maven.resolver:maven-resolver-api:1.9.24
-|    |    +--- org.apache.maven.resolver:maven-resolver-spi:1.9.24 (*)
-|    |    +--- org.apache.maven.resolver:maven-resolver-util:1.9.24 (*)
-|    |    +--- org.apache.maven.shared:maven-shared-utils:3.4.2
-|    |    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
-|    |    +--- org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M4 (*)
-|    |    +--- org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M4 (*)
-|    |    +--- org.ow2.asm:asm:9.8 -> 9.9
-|    |    +--- com.google.inject:guice:5.1.0
-|    |    |    +--- javax.inject:javax.inject:1
-|    |    |    \--- aopalliance:aopalliance:1.0
-|    |    +--- com.google.guava:guava:33.4.8-jre (*)
-|    |    +--- com.google.guava:failureaccess:1.0.3
-|    |    +--- javax.inject:javax.inject:1
-|    |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
-|    |    +--- org.codehaus.plexus:plexus-classworlds:2.9.0
-|    |    +--- org.codehaus.plexus:plexus-interpolation:1.28
-|    |    +--- org.codehaus.plexus:plexus-component-annotations:2.2.0
-|    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
-|    +--- org.cyclonedx:cyclonedx-core-java:11.0.0
-|    |    +--- commons-codec:commons-codec:1.19.0
-|    |    +--- commons-io:commons-io:2.20.0
-|    |    +--- org.apache.commons:commons-lang3:3.19.0
-|    |    +--- org.apache.commons:commons-collections4:4.5.0
-|    |    +--- com.github.package-url:packageurl-java:1.5.0
-|    |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.20.0 (*)
-|    |    \--- com.networknt:json-schema-validator:1.5.9
-|    |         +--- com.ethlo.time:itu:1.14.0
-|    |         +--- com.fasterxml.jackson.core:jackson-databind:2.18.3 -> 2.20.0 (*)
-|    |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3 -> 2.20.0
-|    |         |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.0 (*)
-|    |         |    +--- org.yaml:snakeyaml:2.4
-|    |         |    +--- com.fasterxml.jackson.core:jackson-core:2.20.0 (*)
-|    |         |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
-|    |         \--- org.slf4j:slf4j-api:2.0.17
-|    \--- org.jspecify:jspecify:1.0.0
-+--- com.github.spotbugs:com.github.spotbugs.gradle.plugin:6.4.4
-|    \--- com.github.spotbugs.snom:spotbugs-gradle-plugin:6.4.4
-|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 (*)
-+--- org.jetbrains.kotlinx.kover:org.jetbrains.kotlinx.kover.gradle.plugin:0.9.3
-|    \--- org.jetbrains.kotlinx:kover-gradle-plugin:0.9.3
-|         +--- org.jetbrains.kotlinx:kover-features-jvm:0.9.3
-|         |    +--- org.jetbrains.intellij.deps:intellij-coverage-reporter:1.0.765
-|         |    |    +--- org.jetbrains.intellij.deps:coverage-report:1.0.25
-|         |    |    |    +--- org.freemarker:freemarker:2.3.32
-|         |    |    |    \--- org.jetbrains:annotations:16.0.2 -> 23.0.0
-|         |    |    \--- org.jetbrains.intellij.deps:intellij-coverage-agent:1.0.765
-|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.2.20 (*)
-|         \--- org.jetbrains.kotlinx:kover-jvm-agent:0.9.3
-+--- com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.3.0
-|    \--- com.google.devtools.ksp:symbol-processing-gradle-plugin:2.3.0
-|         +--- com.google.devtools.ksp:symbol-processing-api:2.3.0
-|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.2.20 (*)
-|         \--- com.google.devtools.ksp:symbol-processing-common-deps:2.3.0
-|              \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.2.20 (*)
-+--- io.freefair.lombok:io.freefair.lombok.gradle.plugin:9.0.0
-|    \--- io.freefair.gradle:lombok-plugin:9.0.0
+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 (*)
 +--- org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:2.2.20
 |    \--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20 (*)
 +--- org.jetbrains.kotlin.plugin.lombok:org.jetbrains.kotlin.plugin.lombok.gradle.plugin:2.2.20
@@ -375,9 +86,315 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         +--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.2.20 (*)
 |         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-model:2.2.20 (*)
 |         \--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.2.20 (*)
-+--- org.openrewrite.rewrite:org.openrewrite.rewrite.gradle.plugin:7.19.0
-|    \--- org.openrewrite:plugin:7.19.0
-|         +--- org.openrewrite:rewrite-bom:8.64.0
++--- net.ltgt.errorprone:net.ltgt.errorprone.gradle.plugin:4.3.0
+|    \--- net.ltgt.gradle:gradle-errorprone-plugin:4.3.0
++--- net.ltgt.nullaway:net.ltgt.nullaway.gradle.plugin:2.3.0
+|    \--- net.ltgt.gradle:gradle-nullaway-plugin:2.3.0
++--- com.gradle.develocity:com.gradle.develocity.gradle.plugin:4.2.2
+|    \--- com.gradle:develocity-gradle-plugin:4.2.2
++--- com.diffplug.spotless:com.diffplug.spotless.gradle.plugin:8.0.0
+|    \--- com.diffplug.spotless:spotless-plugin-gradle:8.0.0
+|         +--- com.diffplug.durian:durian-core:1.2.0
+|         +--- com.diffplug.durian:durian-io:1.2.0
+|         |    +--- com.diffplug.durian:durian-core:1.2.0
+|         |    \--- com.diffplug.durian:durian-collect:1.2.0
+|         |         \--- com.diffplug.durian:durian-core:1.2.0
+|         +--- com.diffplug.durian:durian-collect:1.2.0 (*)
+|         +--- org.eclipse.jgit:org.eclipse.jgit:7.3.0.202506031305-r
+|         |    +--- com.googlecode.javaewah:JavaEWAH:1.2.3
+|         |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
+|         |    \--- commons-codec:commons-codec:1.18.0 -> 1.19.0
+|         +--- com.diffplug.spotless:spotless-lib:4.0.0
+|         \--- com.diffplug.spotless:spotless-lib-extra:4.0.0
+|              +--- com.diffplug.durian:durian-core:1.2.0
+|              +--- com.diffplug.durian:durian-collect:1.2.0 (*)
+|              +--- org.eclipse.jgit:org.eclipse.jgit:7.3.0.202506031305-r (*)
+|              +--- com.googlecode.concurrent-trees:concurrent-trees:2.6.1
+|              +--- dev.equo.ide:solstice:1.8.1
+|              |    +--- org.tukaani:xz:1.9
+|              |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.1.0
+|              |    |    \--- com.squareup.okhttp3:okhttp-jvm:5.1.0
+|              |    |         +--- com.squareup.okio:okio:3.15.0
+|              |    |         |    \--- com.squareup.okio:okio-jvm:3.15.0
+|              |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.20 (*)
+|              |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.2.20 (*)
+|              |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
+|              |    +--- com.diffplug.durian:durian-swt.os:4.3.0
+|              |    \--- org.eclipse.platform:org.eclipse.osgi:3.18.300 -> 3.23.200
+|              +--- org.eclipse.platform:org.eclipse.osgi:3.23.200
+|              \--- com.diffplug.spotless:spotless-lib:4.0.0
++--- dev.detekt:dev.detekt.gradle.plugin:2.0.0-alpha.1
+|    \--- dev.detekt:detekt-gradle-plugin:2.0.0-alpha.1
+|         \--- io.github.detekt.sarif4k:sarif4k:0.6.0
+|              \--- io.github.detekt.sarif4k:sarif4k-jvm:0.6.0
+|                   +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1 -> 1.8.0
+|                   |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0
+|                   |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.0 (*)
+|                   |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.2.20 (*)
+|                   |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0 (*)
+|                   \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.23 -> 2.2.20 (*)
++--- org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:2.1.0
+|    \--- org.jetbrains.dokka:dokka-gradle-plugin:2.1.0
+|         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.0 -> 1.8.0 (*)
+|         +--- org.jetbrains.kotlinx:kotlinx-serialization-json -> 1.8.0 (*)
+|         \--- org.jetbrains.dokka:dokka-core:2.1.0
+|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.0
+|              |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 (*)
+|              +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3 -> 2.20.0
+|              |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.0
+|              |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
+|              |    |    +--- com.fasterxml.jackson.core:jackson-core:2.20.0
+|              |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.20.0
+|              |    |    |         +--- com.fasterxml.jackson.core:jackson-annotations:2.20 (c)
+|              |    |    |         +--- com.fasterxml.jackson.core:jackson-core:2.20.0 (c)
+|              |    |    |         +--- com.fasterxml.jackson.core:jackson-databind:2.20.0 (c)
+|              |    |    |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.20.0 (c)
+|              |    |    |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0 (c)
+|              |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.20.0 (c)
+|              |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-joda:2.20.0 (c)
+|              |    |    |         +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.20.0 (c)
+|              |    |    |         \--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0 (c)
+|              |    |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
+|              |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
+|              |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
+|              +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.3 -> 2.20.0
+|              |    +--- com.fasterxml.jackson.core:jackson-core:2.20.0 (*)
+|              |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
+|              |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.0 (*)
+|              |    +--- org.codehaus.woodstox:stax2-api:4.2.2
+|              |    +--- com.fasterxml.woodstox:woodstox-core:7.1.1
+|              |    |    \--- org.codehaus.woodstox:stax2-api:4.2.2
+|              |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
+|              \--- com.fasterxml.jackson.core:jackson-databind:2.15.3 -> 2.20.0 (c)
++--- me.champeau.jmh:me.champeau.jmh.gradle.plugin:0.7.3
+|    \--- me.champeau.jmh:jmh-gradle-plugin:0.7.3
+|         \--- org.openjdk.jmh:jmh-core:1.37
+|              +--- net.sf.jopt-simple:jopt-simple:5.0.4
+|              \--- org.apache.commons:commons-math3:3.6.1
++--- org.gradlex.jvm-dependency-conflict-resolution:org.gradlex.jvm-dependency-conflict-resolution.gradle.plugin:2.4
+|    \--- org.gradlex:jvm-dependency-conflict-resolution:2.4
++--- org.gradlex.java-module-dependencies:org.gradlex.java-module-dependencies.gradle.plugin:1.11
+|    \--- org.gradlex:java-module-dependencies:1.11
+|         \--- org.ow2.asm:asm:9.9
++--- org.gradlex.extra-java-module-info:org.gradlex.extra-java-module-info.gradle.plugin:1.13.1
+|    \--- org.gradlex:extra-java-module-info:1.13.1
+|         \--- org.ow2.asm:asm:9.8 -> 9.9
++--- com.gradleup.shadow:com.gradleup.shadow.gradle.plugin:9.2.2
+|    \--- com.gradleup.shadow:shadow-gradle-plugin:9.2.2
+|         +--- commons-io:commons-io:2.20.0
+|         +--- org.apache.logging.log4j:log4j-core:2.25.2
+|         |    \--- org.apache.logging.log4j:log4j-api:2.25.2
+|         +--- org.ow2.asm:asm-commons:9.8
+|         |    +--- org.ow2.asm:asm:9.8 -> 9.9
+|         |    \--- org.ow2.asm:asm-tree:9.8
+|         |         \--- org.ow2.asm:asm:9.8 -> 9.9
+|         +--- org.vafer:jdependency:2.13
+|         +--- org.jdom:jdom2:2.0.6.1
+|         +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.2.20
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 (*)
+|         +--- org.codehaus.plexus:plexus-utils:4.0.2
+|         +--- org.codehaus.plexus:plexus-xml:4.1.0
+|         |    \--- org.apache.maven:maven-xml:4.0.0-rc-3
+|         |         +--- org.apache.maven:maven-api-xml:4.0.0-rc-3
+|         |         |    \--- org.apache.maven:maven-api-annotations:4.0.0-rc-3
+|         |         +--- com.fasterxml.woodstox:woodstox-core:7.1.0 -> 7.1.1 (*)
+|         |         \--- org.codehaus.woodstox:stax2-api:4.2.2
+|         \--- org.apache.ant:ant:1.10.15
+|              \--- org.apache.ant:ant-launcher:1.10.15
++--- com.vanniktech.maven.publish:com.vanniktech.maven.publish.gradle.plugin:0.34.0
+|    \--- com.vanniktech:gradle-maven-publish-plugin:0.34.0
+|         \--- com.vanniktech:central-portal:0.34.0
+|              +--- com.squareup.okhttp3:okhttp:5.1.0 (*)
+|              +--- com.squareup.retrofit2:retrofit:3.0.0
+|              |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.1.0 (*)
+|              |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.2.20 (*)
+|              \--- com.squareup.retrofit2:converter-scalars:3.0.0
+|                   \--- com.squareup.retrofit2:retrofit:3.0.0 (*)
++--- com.autonomousapps.dependency-analysis:com.autonomousapps.dependency-analysis.gradle.plugin:3.4.1
+|    \--- com.autonomousapps:dependency-analysis-gradle-plugin:3.4.1
+|         +--- org.jetbrains.kotlin:kotlin-bom:2.0.21
+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (c)
+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21 (c)
+|         |    +--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.2.20 (c)
+|         |    +--- org.jetbrains.kotlin:kotlin-daemon-client:2.0.21 -> 2.2.20 (c)
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21 (c)
+|         +--- com.squareup.okio:okio-bom:3.15.0
+|         |    +--- com.squareup.okio:okio:3.15.0 (c)
+|         |    \--- com.squareup.okio:okio-jvm:3.15.0 (c)
+|         +--- com.autonomousapps:graph-support:0.9.0
+|         |    +--- org.jetbrains.kotlin:kotlin-bom:2.0.21 (*)
+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
+|         |    \--- com.google.guava:guava:33.4.8-jre
+|         |         +--- com.google.guava:failureaccess:1.0.3
+|         |         +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+|         |         +--- org.jspecify:jspecify:1.0.0
+|         |         +--- com.google.errorprone:error_prone_annotations:2.36.0 -> 2.40.0
+|         |         \--- com.google.j2objc:j2objc-annotations:3.0.0
+|         +--- com.autonomousapps:variant-artifacts:0.3.3
+|         |    +--- org.jetbrains.kotlin:kotlin-bom:2.0.21 (*)
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
+|         +--- com.google.guava:guava:33.4.8-jre (*)
+|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21
+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21
+|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.2.20 (*)
+|         +--- com.autonomousapps:kotlin-editor-relocated:0.18.0
+|         +--- com.squareup.moshi:moshi-kotlin:1.15.2
+|         |    +--- com.squareup.moshi:moshi:1.15.2
+|         |    |    +--- com.squareup.okio:okio:3.7.0 -> 3.15.0 (*)
+|         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
+|         |    +--- org.jetbrains.kotlin:kotlin-reflect:1.8.21 -> 2.2.20 (*)
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
+|         +--- dev.zacsweers.moshix:moshi-sealed-reflect:0.30.0
+|         |    +--- dev.zacsweers.moshix:moshi-sealed-runtime:0.30.0
+|         |    |    +--- com.squareup.moshi:moshi-adapters:1.15.2
+|         |    |    |    +--- com.squareup.moshi:moshi:1.15.2 (*)
+|         |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
+|         |    |    +--- com.squareup.moshi:moshi:1.15.2 (*)
+|         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.20 (*)
+|         |    +--- com.squareup:kotlinpoet:2.1.0
+|         |    |    \--- com.squareup:kotlinpoet-jvm:2.1.0
+|         |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.2.20 (*)
+|         |    |         \--- org.jetbrains.kotlin:kotlin-reflect:2.1.10 -> 2.2.20 (*)
+|         |    +--- org.jetbrains.kotlin:kotlin-reflect:2.1.20 -> 2.2.20 (*)
+|         |    +--- com.squareup.moshi:moshi:1.15.2 (*)
+|         |    +--- com.squareup.moshi:moshi-adapters:1.15.2 (*)
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.2.20 (*)
+|         +--- com.squareup.okio:okio:3.15.0 (*)
+|         +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.2.20 (*)
+|         +--- com.github.ben-manes.caffeine:caffeine:3.2.2
+|         |    +--- org.jspecify:jspecify:1.0.0
+|         |    \--- com.google.errorprone:error_prone_annotations:2.40.0
+|         +--- com.autonomousapps:antlr:4.13.2.0
+|         +--- com.autonomousapps:asm-relocated:9.9.0
+|         +--- javax.inject:javax.inject:1
+|         +--- com.squareup.moshi:moshi:1.15.2 (*)
+|         +--- dev.zacsweers.moshix:moshi-sealed-runtime:0.30.0 (*)
+|         \--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.2.20 (*)
++--- io.fuchs.gradle.classpath-collision-detector:io.fuchs.gradle.classpath-collision-detector.gradle.plugin:1.0.0
+|    \--- io.fuchs.gradle.classpath-collision-detector:classpath-collision-detector:1.0.0
++--- org.cyclonedx.bom:org.cyclonedx.bom.gradle.plugin:3.0.1
+|    \--- org.cyclonedx:cyclonedx-gradle-plugin:3.0.1
+|         +--- commons-codec:commons-codec:1.19.0
+|         +--- commons-io:commons-io:2.20.0
+|         +--- org.apache.maven:maven-core:3.9.11
+|         |    +--- org.apache.maven:maven-model:3.9.11
+|         |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    +--- org.apache.maven:maven-settings:3.9.11
+|         |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    +--- org.apache.maven:maven-settings-builder:3.9.11
+|         |    |    +--- org.apache.maven:maven-builder-support:3.9.11
+|         |    |    +--- javax.inject:javax.inject:1
+|         |    |    +--- org.codehaus.plexus:plexus-interpolation:1.28
+|         |    |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    |    +--- org.apache.maven:maven-settings:3.9.11 (*)
+|         |    |    \--- org.codehaus.plexus:plexus-sec-dispatcher:2.0
+|         |    |         +--- org.codehaus.plexus:plexus-utils:3.4.1 -> 4.0.2
+|         |    |         +--- org.codehaus.plexus:plexus-cipher:2.0
+|         |    |         |    \--- javax.inject:javax.inject:1
+|         |    |         \--- javax.inject:javax.inject:1
+|         |    +--- org.apache.maven:maven-builder-support:3.9.11
+|         |    +--- org.apache.maven:maven-repository-metadata:3.9.11
+|         |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    +--- org.apache.maven:maven-artifact:3.9.11
+|         |    |    \--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    +--- org.apache.maven:maven-plugin-api:3.9.11
+|         |    |    +--- org.apache.maven:maven-model:3.9.11 (*)
+|         |    |    +--- org.apache.maven:maven-artifact:3.9.11 (*)
+|         |    |    +--- org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M4
+|         |    |    |    +--- org.codehaus.plexus:plexus-component-annotations:2.1.0 -> 2.2.0
+|         |    |    |    +--- org.codehaus.plexus:plexus-classworlds:2.6.0 -> 2.9.0
+|         |    |    |    \--- org.codehaus.plexus:plexus-utils:3.5.1 -> 4.0.2
+|         |    |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    |    \--- org.codehaus.plexus:plexus-classworlds:2.9.0
+|         |    +--- org.apache.maven:maven-model-builder:3.9.11
+|         |    |    +--- org.codehaus.plexus:plexus-interpolation:1.28
+|         |    |    +--- javax.inject:javax.inject:1
+|         |    |    +--- org.apache.maven:maven-model:3.9.11 (*)
+|         |    |    +--- org.apache.maven:maven-artifact:3.9.11 (*)
+|         |    |    +--- org.apache.maven:maven-builder-support:3.9.11
+|         |    |    +--- org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M4
+|         |    |    |    \--- org.ow2.asm:asm:9.8 -> 9.9
+|         |    |    \--- org.ow2.asm:asm:9.8 -> 9.9
+|         |    +--- org.apache.maven:maven-resolver-provider:3.9.11
+|         |    |    +--- org.apache.maven:maven-model:3.9.11 (*)
+|         |    |    +--- org.apache.maven:maven-model-builder:3.9.11 (*)
+|         |    |    +--- org.apache.maven:maven-repository-metadata:3.9.11 (*)
+|         |    |    +--- org.apache.maven.resolver:maven-resolver-api:1.9.24
+|         |    |    +--- org.apache.maven.resolver:maven-resolver-spi:1.9.24
+|         |    |    |    \--- org.apache.maven.resolver:maven-resolver-api:1.9.24
+|         |    |    +--- org.apache.maven.resolver:maven-resolver-util:1.9.24
+|         |    |    |    \--- org.apache.maven.resolver:maven-resolver-api:1.9.24
+|         |    |    +--- org.apache.maven.resolver:maven-resolver-impl:1.9.24
+|         |    |    |    +--- org.apache.maven.resolver:maven-resolver-api:1.9.24
+|         |    |    |    +--- org.apache.maven.resolver:maven-resolver-spi:1.9.24 (*)
+|         |    |    |    +--- org.apache.maven.resolver:maven-resolver-named-locks:1.9.24
+|         |    |    |    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
+|         |    |    |    +--- org.apache.maven.resolver:maven-resolver-util:1.9.24 (*)
+|         |    |    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
+|         |    |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    |    \--- javax.inject:javax.inject:1
+|         |    +--- org.apache.maven.resolver:maven-resolver-impl:1.9.24 (*)
+|         |    +--- org.apache.maven.resolver:maven-resolver-api:1.9.24
+|         |    +--- org.apache.maven.resolver:maven-resolver-spi:1.9.24 (*)
+|         |    +--- org.apache.maven.resolver:maven-resolver-util:1.9.24 (*)
+|         |    +--- org.apache.maven.shared:maven-shared-utils:3.4.2
+|         |    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
+|         |    +--- org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M4 (*)
+|         |    +--- org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M4 (*)
+|         |    +--- org.ow2.asm:asm:9.8 -> 9.9
+|         |    +--- com.google.inject:guice:5.1.0
+|         |    |    +--- javax.inject:javax.inject:1
+|         |    |    \--- aopalliance:aopalliance:1.0
+|         |    +--- com.google.guava:guava:33.4.8-jre (*)
+|         |    +--- com.google.guava:failureaccess:1.0.3
+|         |    +--- javax.inject:javax.inject:1
+|         |    +--- org.codehaus.plexus:plexus-utils:3.6.0 -> 4.0.2
+|         |    +--- org.codehaus.plexus:plexus-classworlds:2.9.0
+|         |    +--- org.codehaus.plexus:plexus-interpolation:1.28
+|         |    +--- org.codehaus.plexus:plexus-component-annotations:2.2.0
+|         |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17
+|         +--- org.cyclonedx:cyclonedx-core-java:11.0.0
+|         |    +--- commons-codec:commons-codec:1.19.0
+|         |    +--- commons-io:commons-io:2.20.0
+|         |    +--- org.apache.commons:commons-lang3:3.19.0
+|         |    +--- org.apache.commons:commons-collections4:4.5.0
+|         |    +--- com.github.package-url:packageurl-java:1.5.0
+|         |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.20.0 (*)
+|         |    \--- com.networknt:json-schema-validator:1.5.9
+|         |         +--- com.ethlo.time:itu:1.14.0
+|         |         +--- com.fasterxml.jackson.core:jackson-databind:2.18.3 -> 2.20.0 (*)
+|         |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3 -> 2.20.0
+|         |         |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.0 (*)
+|         |         |    +--- org.yaml:snakeyaml:2.4
+|         |         |    +--- com.fasterxml.jackson.core:jackson-core:2.20.0 (*)
+|         |         |    \--- com.fasterxml.jackson:jackson-bom:2.20.0 (*)
+|         |         \--- org.slf4j:slf4j-api:2.0.17
+|         \--- org.jspecify:jspecify:1.0.0
++--- com.github.spotbugs:com.github.spotbugs.gradle.plugin:6.4.4
+|    \--- com.github.spotbugs.snom:spotbugs-gradle-plugin:6.4.4
+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 (*)
++--- org.jetbrains.kotlinx.kover:org.jetbrains.kotlinx.kover.gradle.plugin:0.9.3
+|    \--- org.jetbrains.kotlinx:kover-gradle-plugin:0.9.3
+|         +--- org.jetbrains.kotlinx:kover-features-jvm:0.9.3
+|         |    +--- org.jetbrains.intellij.deps:intellij-coverage-reporter:1.0.765
+|         |    |    +--- org.jetbrains.intellij.deps:coverage-report:1.0.25
+|         |    |    |    +--- org.freemarker:freemarker:2.3.32
+|         |    |    |    \--- org.jetbrains:annotations:16.0.2 -> 23.0.0
+|         |    |    \--- org.jetbrains.intellij.deps:intellij-coverage-agent:1.0.765
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.2.20 (*)
+|         \--- org.jetbrains.kotlinx:kover-jvm-agent:0.9.3
++--- com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.3.1
+|    \--- com.google.devtools.ksp:symbol-processing-gradle-plugin:2.3.1
+|         +--- com.google.devtools.ksp:symbol-processing-api:2.3.1
+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.2.20 (*)
+|         \--- com.google.devtools.ksp:symbol-processing-common-deps:2.3.1
+|              \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.2.20 (*)
++--- io.freefair.lombok:io.freefair.lombok.gradle.plugin:9.0.0
+|    \--- io.freefair.gradle:lombok-plugin:9.0.0
++--- org.openrewrite.rewrite:org.openrewrite.rewrite.gradle.plugin:7.20.0
+|    \--- org.openrewrite:plugin:7.20.0
+|         +--- org.openrewrite:rewrite-bom:8.66.1
 |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.2.20 (*)
 +--- org.springframework.boot:org.springframework.boot.gradle.plugin:4.0.0-RC1
 |    \--- org.springframework.boot:spring-boot-gradle-plugin:4.0.0-RC1
