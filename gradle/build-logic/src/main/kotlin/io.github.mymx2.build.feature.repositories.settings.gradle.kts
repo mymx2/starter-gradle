@@ -39,7 +39,7 @@ dependencyResolutionManagement {
     maven {
       setUrl("https://central.sonatype.com/repository/maven-snapshots/")
       mavenContent { snapshotsOnly() }
-      content { includeVersionByRegex(".*", ".*", ".*-SNAPSHOT") }
+      content { includeVersionByRegex(".*", ".*", ".*-SNAPSHOT(?:\\+.*)?") }
     }
     maven {
       setUrl("https://jitpack.io")

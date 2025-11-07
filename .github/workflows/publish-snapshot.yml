@@ -1,20 +1,16 @@
 #file: noinspection UndefinedParamsPresent,UndefinedAction
-name: Publish Release
+name: Publish Snapshot
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
-
-permissions:
-  contents: write
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"
 
 env:
   CI: true
 
 jobs:
-  publish-release:
-    if: startsWith(github.event.head_commit.message, 'release:')
+  publish-snapshot:
     runs-on: ubuntu-latest
     steps:
       - name: ✈ Checkout sources
@@ -53,21 +49,3 @@ jobs:
         run: |
           ./gradlew publishToMavenCentral
           ./gradlew :build-logic:publishToMavenCentral
-
-      - name: 🌿 Build Changelog
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v6
-        with:
-          configuration: ".github/config/changelog.json"
-          commitMode: true
-          ignorePreReleases: ${{ !contains(github.ref, '-') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🚀 Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          body: ${{ steps.build_changelog.outputs.changelog }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

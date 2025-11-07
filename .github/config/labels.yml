@@ -86,6 +86,9 @@
 - name: status| progress-needs-review
   description: An issue that needs a PR review 【待代码审核】
   color: "#22863A"
+- name: status| progress-ready-to-merge
+  description: An issue that's ready to be merged into the main branch 【准备合并】
+  color: "#22863A"
 
 ## 待发布
 - name: status| prerelease-port-back

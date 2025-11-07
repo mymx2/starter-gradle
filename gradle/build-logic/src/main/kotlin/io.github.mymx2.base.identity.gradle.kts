@@ -15,37 +15,35 @@ val isCI = EnvAccess.isCi(providers)
 val currVer = SemVer.parse(project.getPropOrDefault(LocalConfig.Props.VERSION))
 
 currVer.preRelease?.also {
-  val tags = listOf("preview", "dev", "alpha", "beta", "SNAPSHOT", "rc", "m")
-  require(tags.contains(it)) { "Pre-release should be one of: ${tags.joinToString()}" }
+  val preReleasePattern = "SNAPSHOT|dev\\d*|preview\\d*|alpha\\d*|beta\\d*|m\\d+|rc\\d+"
+  require(currVer.preRelease!!.matches(preReleasePattern.toRegex())) {
+    "Pre-release should match: $preReleasePattern"
+  }
 }
 
-// We dont publish releases on CI.
+val githubEventName = System.getenv("GITHUB_EVENT_NAME") ?: ""
+val githubRefName = System.getenv("GITHUB_REF_NAME") ?: ""
+val isScheduled = githubEventName == "schedule"
+val isManual = githubEventName == "workflow_dispatch"
+val isGithubTag = githubRefName.startsWith("v")
+
+// release check: push tag should match code version
+if (isCI && githubEventName == "push" && isGithubTag) {
+  require(currVer.toString() == githubRefName.removePrefix("v")) {
+    "CI Release: GitHub tag ($githubRefName) must match Code version (${currVer})"
+  }
+}
+
 version =
-  if (EnvAccess.isCi(providers)) {
+  if (isCI && (isScheduled || isManual)) {
     SemVer(
         currVer.major,
         currVer.minor,
         LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toInt(),
         "SNAPSHOT",
-        null,
       )
       .toString()
   } else {
+    // local build
     SemVer(currVer.major, currVer.minor, currVer.patch, currVer.preRelease, null).toString()
   }
-
-@Suppress("unused")
-object SemVerUtils {
-
-  fun gitBuildMetadata(providers: ProviderFactory): String? {
-    return runCatching {
-        providers
-          .exec { commandLine("git", "log", "-1", "--format=%ad", "--date=format:%Y%m%d%H%M%S") }
-          .standardOutput
-          .asText
-          .get()
-          .trim()
-      }
-      .getOrNull()
-  }
-}

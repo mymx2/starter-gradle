@@ -1,4 +1,5 @@
 import io.github.mymx2.plugin.gradle.eagerSharedCache
+import io.github.mymx2.plugin.utils.SemVerUtils
 
 plugins {
   java
@@ -12,24 +13,10 @@ val writeGitProperties =
     property("git.build.version", project.version)
 
     val gitCommit =
-      project.eagerSharedCache("gitCommitId") {
-        providers
-          .exec {
-            isIgnoreExitValue = true
-            commandLine("git", "rev-parse", "HEAD")
-            workingDir = layout.projectDirectory.asFile
-          }
-          .standardOutput
-          .asText
-          .get()
-          .let { it.trim().ifBlank { "unknown" } }
-      }
+      project.eagerSharedCache("gitCommitId") { SemVerUtils.gitBuildMetadata(providers, layout) }
 
     property("git.commit.id", gitCommit)
-    property(
-      "git.commit.id.abbrev",
-      gitCommit.let { if (it.length >= 7) it.substring(0, 7) else it },
-    )
+    property("git.commit.id.abbrev", gitCommit.take(7))
 
     destinationFile = layout.buildDirectory.file("generated/git/git.properties")
   }

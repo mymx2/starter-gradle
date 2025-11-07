@@ -99,6 +99,15 @@ We use two primary work branches: `main` and `minor`.
   public API behavior should land in this branch. We will periodically release pre-releases (alpha / beta) for the next
   minor from this branch.
 
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+1. MAJOR version when you make incompatible API changes
+2. MINOR version when you add functionality in a backward compatible manner
+3. PATCH version when you make backward compatible bug fixes
+
+Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format. (e.g.
+`1.0.0-rc1`)
+
 Before each release, we merge latest `main` into `minor` so it would include the latest bug fixes.
 
 When the minor is ready, we do a final merge of `main` into `minor`, and then release a stable minor from this branch (

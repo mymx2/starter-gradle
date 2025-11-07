@@ -1,5 +1,8 @@
 package io.github.mymx2.plugin.utils
 
+import org.gradle.api.file.ProjectLayout
+import org.gradle.api.provider.ProviderFactory
+
 /**
  * 工具类：封装 Gradle reject 版本区间规则
  *
@@ -29,5 +32,27 @@ object VersionRange {
     val left = if (inclusiveFrom) "[" else "("
     val right = if (inclusiveTo) "]" else ")"
     return "$left$from,$to$right"
+  }
+}
+
+object SemVerUtils {
+
+  /** return the short commit hash of the current Git commit. If not available, returns null. */
+  fun gitBuildMetadata(providers: ProviderFactory, layout: ProjectLayout): String {
+    return runCatching {
+        val fullCommit =
+          providers
+            .exec {
+              isIgnoreExitValue = true
+              commandLine("git", "rev-parse", "HEAD")
+              workingDir = layout.projectDirectory.asFile
+            }
+            .standardOutput
+            .asText
+            .get()
+            .trim()
+        fullCommit.ifBlank { "unknown" }
+      }
+      .getOrDefault("unknown")
   }
 }

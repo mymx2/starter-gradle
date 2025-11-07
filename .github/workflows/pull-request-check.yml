@@ -2,14 +2,15 @@
 name: PR Checks
 on:
   workflow_dispatch:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
   push:
     branches:
+      - "**"
+    tags:
+      - "!**"
+  pull_request:
+    branches:
       - main
+      - minor
 
 env:
   CI: true
