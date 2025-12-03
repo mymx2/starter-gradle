@@ -20,7 +20,7 @@ on:
 
 concurrency:
   # see: https://stackoverflow.com/a/72408109/30654190
-  group: ${{ github.workflow }}-${{ github.event.comment.id || github.event.pull_request.number || github.ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.event.issue.number || github.event.pull_request.number || github.ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
