@@ -17,20 +17,6 @@ jobs:
       COMMIT_MSG: ""
 
     steps:
-      - name: 📝 Get Commit Message
-        if: always()
-        run: |
-          COMMIT_MSG="$(git log --format=%B -n 1)"
-          {
-            echo "COMMIT_MSG<<EOF"
-            echo "${COMMIT_MSG}"
-            echo "EOF"
-          } >> "$GITHUB_ENV"
-
-      - name: 🔍 Show Commit Message
-        if: env.COMMIT_MSG != ''
-        run: echo "$COMMIT_MSG"
-
       - name: 📝 Dump Github Context
         if: always()
         run: echo "${{ toJSON(github) }}"
