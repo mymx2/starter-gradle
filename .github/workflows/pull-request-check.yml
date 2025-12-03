@@ -49,10 +49,9 @@ jobs:
 
       - name: ✏ Validate commit messages
         if: github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
-        working-directory: .github/workflows/shell
         run: |
-          chmod +x check-commit-msg.sh
-          ./check-commit-msg.sh
+          chmod +x .github/workflows/shell/check-commit-msg.sh
+          .github/workflows/shell/check-commit-msg.sh
 
       #      - name: 🔀 Merge target branch into PR branch
       #        if: github.event_name == 'pull_request' || github.event_name == 'issue_comment'
