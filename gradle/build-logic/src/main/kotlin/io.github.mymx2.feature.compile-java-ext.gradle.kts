@@ -13,7 +13,10 @@ val writeGitProperties =
     property("git.build.version", project.version)
 
     val gitCommit =
-      project.eagerSharedCache("gitCommitId") { SemVerUtils.gitBuildMetadata(providers, layout) }
+      System.getenv("GITHUB_SHA")
+        ?: project.eagerSharedCache("gitCommitId") {
+          SemVerUtils.gitBuildMetadata(providers, layout)
+        }
 
     property("git.commit.id", gitCommit)
     property("git.commit.id.abbrev", gitCommit.take(7))

@@ -62,6 +62,8 @@ revert: feat(compiler): add 'comments' option
 This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
 ```
 
+In some large tasks, if you need to skip some commits CI, you can add `[skip ci]` to the commit message.
+
 ### Full Message Format
 
 A commit message consists of a **header**, **body** and **footer**. The header has a **type**, **scope** and **subject**:

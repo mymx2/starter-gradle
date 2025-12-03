@@ -1,11 +1,8 @@
 @file:Suppress("UnstableApiUsage", "detekt:TooManyFunctions")
 
-import CheckVersionPluginConfig.taskConfigureCheckGradleVersion
-import CheckVersionPluginConfig.taskConfigureCheckProjectVersions
-import CheckVersionPluginConfig.taskConfigureCheckVersions
 import io.github.mymx2.plugin.DefaultProjects
 import io.github.mymx2.plugin.Injected
-import io.github.mymx2.plugin.ProjectVersions
+import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.injected
 import io.github.mymx2.plugin.tasks.DependencyVersionUpgradesCheck
 import io.github.mymx2.plugin.tasks.JavaVersionConsistencyCheck
@@ -93,17 +90,17 @@ val projectExtensions = project.extensions
 tasks.register("checkVersions") {
   group = "toolbox"
   description = "Check gradle/*.versions.toml for updates"
-  taskConfigureCheckProjectVersions(this)
+  CheckVersionPluginConfig.taskConfigureCheckProjectDependencies(this)
   if (isVersionProject) {
-    taskConfigureCheckVersions(this, injected, projectExtensions)
+    CheckVersionPluginConfig.taskConfigureCheckVersions(this, injected, projectExtensions)
   }
-  taskConfigureCheckGradleVersion(this, currentGradleVersion)
+  CheckVersionPluginConfig.taskConfigureCheckGradleVersion(this, currentGradleVersion)
 }
 
 object CheckVersionPluginConfig {
 
-  fun taskConfigureCheckProjectVersions(task: Task) {
-    task.configureCheckProjectVersions()
+  fun taskConfigureCheckProjectDependencies(task: Task) {
+    task.configureCheckProjectDependencies()
   }
 
   fun taskConfigureCheckVersions(
@@ -181,7 +178,7 @@ object CheckVersionPluginConfig {
       if (metadata.contains("</metadata>")) {
         val candidate = getLatestVersionFromMetadata(metadata)
         if (candidate != currentVersion) {
-          jobMsg += "\n  ✅ $dependency -> $candidate${appendMsg}"
+          jobMsg += "\n  ✅ $dependency:$currentVersion -> $candidate${appendMsg}"
           updateCallback(candidate)
         }
       } else {
@@ -292,13 +289,13 @@ object CheckVersionPluginConfig {
     return newContent.get()
   }
 
-  private fun Task.configureCheckProjectVersions() {
+  private fun Task.configureCheckProjectDependencies() {
     doLast {
       val jobs = mutableListOf<() -> Unit>()
-      val qualifiedName = ProjectVersions::class.qualifiedName
-      ProjectVersions.entries.forEach {
-        val moduleId = it.key
-        val moduleVersion = it.value
+      InternalDependencies.libraries.values.forEach {
+        val qualifiedName = it::class.qualifiedName
+        val moduleId = it.module
+        val moduleVersion = it.version
         val moduleUrl = it.url
         val appendMsg = "\n    $qualifiedName"
         if (moduleUrl.endsWith("/maven-metadata.xml")) {
@@ -322,7 +319,7 @@ object CheckVersionPluginConfig {
                     }
                     .getOrNull()
                 if (candidate != moduleVersion) {
-                  jobMsg += "\n  ✅ $moduleId -> $candidate${appendMsg}"
+                  jobMsg += "\n  ✅ $moduleId:$moduleVersion -> $candidate${appendMsg}"
                 }
               } else {
                 jobMsg += "\n  ❌ $moduleId -> can't find metadata${appendMsg}"

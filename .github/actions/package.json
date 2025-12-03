@@ -1,0 +1,60 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
+  "type": "module",
+  "engines": {
+    "node": ">=24.8.0"
+  },
+  "scripts": {
+    "debug": "cross-env CI=false DEBUG=* node index.ts",
+    "dev": "node index.ts",
+    "clean": "rimraf node_modules",
+    "lint": "eslint . --cache-location node_modules/.cache/eslint/",
+    "fix": "eslint . --fix",
+    "up": "taze major -I",
+    "yo": "npm i -g pnpm @antfu/ni && pnpm i --force"
+  },
+  "dependencies": {
+    "@actions/artifact": "^4.0.0",
+    "@actions/attest": "^2.0.0",
+    "@actions/cache": "^4.1.0",
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.1",
+    "@actions/glob": "^0.5.0",
+    "@actions/http-client": "^3.0.0",
+    "@actions/io": "^2.0.0",
+    "@actions/tool-cache": "^2.0.2",
+    "@antfu/utils": "^9.3.0",
+    "@octokit/action": "^8.0.4",
+    "cross-env": "^10.1.0",
+    "es-toolkit": "^1.42.0",
+    "execa": "^9.6.0",
+    "fs-extra": "^11.3.2",
+    "kleur": "^4.1.5",
+    "octokit": "^5.0.5",
+    "ofetch": "^1.5.1",
+    "rimraf": "^6.1.2"
+  },
+  "devDependencies": {
+    "@actions/expressions": "^0.3.20",
+    "@actions/languageservice": "^0.3.20",
+    "@actions/workflow-parser": "^0.3.20",
+    "@antfu/eslint-config": "^6.2.0",
+    "@octokit/openapi-types": "^27.0.0",
+    "@octokit/types": "^16.0.0",
+    "@octokit/webhooks-definitions": "^3.67.3",
+    "@types/debug": "^4.1.12",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^24.10.1",
+    "cypress": "^15.7.0",
+    "debug": "^4.4.3",
+    "eslint": "^9.39.1",
+    "eslint-plugin-cypress": "^5.2.0",
+    "eslint-plugin-format": "^1.0.2",
+    "minimatch": "^10.1.1",
+    "prettier": "^3.6.2",
+    "taze": "^19.9.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.14"
+  }
+}

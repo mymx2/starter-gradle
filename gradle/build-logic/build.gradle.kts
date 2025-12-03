@@ -71,10 +71,15 @@ dependencies {
 }
 
 val isCI = EnvAccess.isCi(providers)
+val projectGroup = providers.gradleProperty("GROUP").get()
+val projectVersion = providers.gradleProperty("VERSION").get()
+val pomDeveloperName = providers.gradleProperty("POM_DEVELOPER_NAME").get()
+val pomUrl = providers.gradleProperty("POM_URL").get()
+val pomScmConnection = providers.gradleProperty("POM_SCM_CONNECTION").get()
+val pomLicenseUrl = providers.gradleProperty("POM_LICENSE_URL").get()
 
 let {
-  group = providers.gradleProperty("GROUP").get()
-  val projectVersion = providers.gradleProperty("VERSION").get()
+  group = projectGroup
   version =
     if (isCI && projectVersion.count { it == '.' } == 2) {
       projectVersion.substringBeforeLast(".") +
@@ -131,10 +136,10 @@ publishing {
       pom {
         name = projectName
         description = project.description.orEmpty().ifBlank { projectName }
-        url = "https://github.com/mymx2"
-        scm { url = "https://github.com/mymx2" }
-        licenses { license { url = "https://mit-license.org" } }
-        developers { developer { name = "mymx2" } }
+        url = pomUrl
+        scm { url = pomScmConnection }
+        licenses { license { url = pomLicenseUrl } }
+        developers { developer { name = pomDeveloperName } }
       }
     }
   }
@@ -152,14 +157,14 @@ val catalogLibs
   get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 gradlePlugin {
-  website = "https://github.com/mymx2"
-  vcsUrl = "https://github.com/mymx2"
+  website = pomUrl
+  vcsUrl = pomScmConnection
   // Relying on Gradle script to generate plugins is slowing out the build:
   // 使用 gradle.kts 方式生成插件会很慢:
   // https://github.com/android/nowinandroid/issues/39
   // https://github.com/gradle/gradle/issues/15886
   plugins {
-    val pluginAliasStart = "io.github.mymx2.plugin."
+    val pluginAliasStart = "${projectGroup}.plugin."
     catalogLibs.pluginAliases
       .filter { alias -> alias.startsWith(pluginAliasStart) }
       .map { Pair(it, catalogLibs.findPlugin(it).get().get()) }
@@ -177,8 +182,8 @@ gradlePlugin {
         runCatching {
           register(pluginName) {
             displayName = pluginName
-            description = "$pluginName gradle plugin, create by dy."
-            tags.set(listOf("mymx2", pluginName, className))
+            description = "$pluginName gradle plugin, create by ${pomDeveloperName}."
+            tags.set(listOf(pomDeveloperName, pluginName, className))
             id = pluginId
             implementationClass = pluginImplementationClass
           }
@@ -189,9 +194,10 @@ gradlePlugin {
   plugins.configureEach {
     if (printPlugins) println("| ${this.id}")
     if (displayName.isNullOrBlank()) displayName = this.name
-    if (description.isNullOrBlank()) description = "${this.name} gradle plugin, create by dy."
+    if (description.isNullOrBlank())
+      description = "${this.name} gradle plugin, create by ${pomDeveloperName}."
     if (tags.orNull.isNullOrEmpty()) {
-      tags.set(listOf("mymx2", implementationClass.substringAfterLast(".")))
+      tags.set(listOf(pomDeveloperName, implementationClass.substringAfterLast(".")))
     }
   }
   if (printPlugins) println("|----------publish plugins----------")

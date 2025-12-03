@@ -1,5 +1,6 @@
 ## GitHub Actions
 
+- [GitHub REST API](https://docs.github.com/en/rest/quickstart)
 - [GitHub Actions Marketplace](https://github.com/marketplace?type=actions)
 - [GitHub Actions](https://github.com/features/actions)
 - [Accelerating new GitHub Actions workflows](https://github.com/actions/starter-workflows)
@@ -23,8 +24,8 @@ jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
           node-version: "24"
       - run: npm install -g bats
@@ -185,5 +186,3 @@ jobs:
    答案：
    - 创建 JavaScript 操作：可以参考 GitHub Actions 官方文档：https://docs.github.com/en/actions/tutorials/create-actions/create-a-javascript-action
    - 调试工作流：要启用工作流的调试模式，可以在 GitHub 仓库添加密钥或变量`ACTIONS_RUNNER_DEBUG`，并设为`true`。密钥的优先级高于变量，启用了步骤调试日志，会输出更多调试信息。
-
-总结： 除了对开源项目友好，配置 + 命令 + 脚本，就是一坨。CICD 要么 GUI+脚本、要么纯代码。

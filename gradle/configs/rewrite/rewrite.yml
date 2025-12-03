@@ -52,8 +52,7 @@ recipeList:
   - tech.picnic.errorprone.refasterrules.StreamRulesRecipes
   - tech.picnic.errorprone.refasterrules.StringRulesRecipes
   - tech.picnic.errorprone.refasterrules.TimeRulesRecipes
-  - org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_5
-  - org.openrewrite.java.spring.framework.UpgradeSpringFramework_6_2
+  - org.openrewrite.java.spring.boot4.UpgradeSpringBoot_4_0
   - org.openrewrite.java.spring.data.UpgradeSpringData_3_4
 ---
 type: specs.openrewrite.org/v1beta/style

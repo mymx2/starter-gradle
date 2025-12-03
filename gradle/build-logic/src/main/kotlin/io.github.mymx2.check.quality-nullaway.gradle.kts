@@ -1,4 +1,4 @@
-import io.github.mymx2.plugin.ProjectVersions
+import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.libs
 import net.ltgt.gradle.errorprone.errorprone
 import net.ltgt.gradle.nullaway.nullaway
@@ -14,19 +14,19 @@ plugins {
 dependencies {
   compileOnly(
     runCatching { libs.findLibrary("jspecify").get().get() }
-      .getOrElse { "${ProjectVersions.jspecify.key}:${ProjectVersions.jspecify.value}" }
+      .getOrElse { InternalDependencies.get("jspecify").let { "${it.module}:${it.version}" } }
   )
   errorprone(
     runCatching { libs.findLibrary("errorprone").get().get() }
-      .getOrElse { "${ProjectVersions.errorProneCore.key}:${ProjectVersions.errorProneCore.value}" }
+      .getOrElse { InternalDependencies.get("errorProneCore").let { "${it.module}:${it.version}" } }
   )
   // https://github.com/PicnicSupermarket/error-prone-support/tree/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/bugpatterns
-  errorprone("${ProjectVersions.errorProneContrib.key}:${ProjectVersions.errorProneContrib.value}")
+  errorprone(InternalDependencies.get("errorProneContrib").let { "${it.module}:${it.version}" })
   // https://github.com/PicnicSupermarket/error-prone-support/blob/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/refasterrules/
-  errorprone("${ProjectVersions.refasterRunner.key}:${ProjectVersions.refasterRunner.value}")
+  errorprone(InternalDependencies.get("refasterRunner").let { "${it.module}:${it.version}" })
   errorprone(
     runCatching { libs.findLibrary("nullaway").get().get() }
-      .getOrElse { "${ProjectVersions.nullaway.key}:${ProjectVersions.nullaway.value}" }
+      .getOrElse { InternalDependencies.get("nullaway").let { "${it.module}:${it.version}" } }
   )
 }
 

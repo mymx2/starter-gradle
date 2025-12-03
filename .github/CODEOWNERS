@@ -11,5 +11,4 @@
 # *    @mymx2
 
 # Project core
-/docs/      @mymx2
-/gradle/    @mymx2
+/.github/workflows      @mymx2

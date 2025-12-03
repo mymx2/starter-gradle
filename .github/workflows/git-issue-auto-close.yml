@@ -1,4 +1,4 @@
-#file: noinspection UndefinedParamsPresent,UndefinedAction
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Close issue
 run-name: Auto close inactive issues with schedule
 
@@ -6,21 +6,42 @@ on:
   schedule:
     - cron: "0 0 */7 * *"
 
-permissions:
-  issues: write
-
 jobs:
   close-issues:
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
 
     steps:
       - name: 😞 check the labels and auto close it
-        uses: actions-cool/issues-helper@v3
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
         with:
           actions: "close-issues"
           token: ${{ secrets.GITHUB_TOKEN }}
-          labels: "status| waiting-reproduction,status| waiting-feedback"
+          labels: "status|waiting-reproduction,status|waiting-feedback"
           inactive-day: 7
           body: |
             Hi, this issue has been closed because it has been inactive for more than 7 days.
             If you think it should still be open, please reply here.
+      - name: 🧹 replace labels
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
+        with:
+          actions: "set-labels"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: "close|invalid"
+
+      - name: ⏸ Pause for VSCode Debug
+        env:
+          ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+          CONTEXT_JOB: ${{ toJSON(job) }}
+          CONTEXT_STEPS: ${{ toJSON(steps) }}
+          CONTEXT_RUNNER: ${{ toJSON(runner) }}
+          CONTEXT_MATRIX: ${{ toJSON(matrix) }}
+          CONTEXT_NEEDS: ${{ toJSON(needs) }}
+          CONTEXT_INPUTS: ${{ toJSON(inputs) }}
+        if: env.ACTION_DEBUG_TOKEN != '' && (failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow)
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec
+        with:
+          token: ${{ env.ACTION_DEBUG_TOKEN }}

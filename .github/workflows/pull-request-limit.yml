@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: PR Limit
+
+on:
+  pull_request_target:
+    paths:
+      - ".github/CODEOWNERS"
+      - ".github/workflows/**"
+
+jobs:
+  pr-limit:
+    if: >
+      github.event_name == 'pull_request_target' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login != 'mymx2'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Comment about changes we can't accept"
+        env:
+          PR: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr edit $PR --add-label 'close|invalid'
+          gh pr comment $PR --body 'It seems you edited the limitation files. These files aren't open for contributions. If you think they should be, feel free to reply here.'
+          gh pr close $PR
+
+      - name: ⏸ Pause for VSCode Debug
+        env:
+          ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+          CONTEXT_JOB: ${{ toJSON(job) }}
+          CONTEXT_STEPS: ${{ toJSON(steps) }}
+          CONTEXT_RUNNER: ${{ toJSON(runner) }}
+          CONTEXT_MATRIX: ${{ toJSON(matrix) }}
+          CONTEXT_NEEDS: ${{ toJSON(needs) }}
+          CONTEXT_INPUTS: ${{ toJSON(inputs) }}
+        if: env.ACTION_DEBUG_TOKEN != '' && (failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow)
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec
+        with:
+          token: ${{ env.ACTION_DEBUG_TOKEN }}

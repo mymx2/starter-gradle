@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+##################################################################
+# https://docs.github.com/en/actions/get-started/quickstart#creating-your-first-workflow
+# https://docs.github.com/en/actions/tutorials/create-an-example-workflow
+##################################################################
+name: GitHub Actions Demo 1
+
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+on:
+  label:
+    types:
+      - created
+      - edited
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      # =======================
+      # Update labels & thank author (before merge to avoid race condition)
+      # =======================
+      - name: 🏷 Update labels & comment
+        run: |
+          echo "🔖 Removing merge-ready label..."
+          gh pr edit $PR_NUMBER --remove-label "status|progress-ready-to-merge"
+
+          echo "🔖 Adding resolved label..."
+          gh pr edit $PR_NUMBER --add-label "close|resolved"
+
+          echo "💌 Commenting..."
+          gh pr comment $PR --body "🎉 Hi @${AUTHOR}! Your PR from branch \`${BRANCH}\` has passed all checks and is ready to be merged into \`${TARGET_BRANCH}\`. Thank you for your awesome contribution! 🙏🚀"
+
+      # =======================
+      # Merge PR & cleanup
+      # =======================
+      - name: 🎯 Merge PR & delete branch
+        run: |
+          echo "🚀 Squash merging PR $PR into $TARGET_BRANCH..."
+          gh pr merge $PR --squash --admin --delete-branch

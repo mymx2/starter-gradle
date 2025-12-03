@@ -17,7 +17,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 
 /**
- * 一个Gradle自定义任务，用于计算一个目录下所有文件的MD5校验和，并将最终的总校验和写入一个文件。
+ * 一个Gradle自定义任务，用于计算一个目录下所有文件的SHA-256校验和，并将最终的总校验和写入一个文件。
  *
  * Gradle task based on 'Checksum' Ant Task but stripped down to what we need in this build.
  *
@@ -25,7 +25,7 @@ import org.gradle.api.tasks.TaskAction
  * Checksum](https://github.com/apache/ant/blob/master/src/main/org/apache/tools/ant/taskdefs/Checksum.java)
  */
 @CacheableTask
-abstract class MD5DirectoryChecksum : DefaultTask(), Injected {
+abstract class DirectoryChecksum : DefaultTask(), Injected {
 
   @get:InputDirectory
   @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -35,12 +35,12 @@ abstract class MD5DirectoryChecksum : DefaultTask(), Injected {
 
   init {
     group = "other"
-    description = "Generates a MD5 checksum for all files in a directory"
+    description = "Generates a SHA-256 checksum for all files in a directory"
   }
 
   @TaskAction
   fun generateChecksum() {
-    val messageDigest = MessageDigest.getInstance("MD5")
+    val messageDigest = MessageDigest.getInstance("SHA-256")
 
     val allDigests = mutableMapOf<File, ByteArray>()
     val bufSize = 8 * 1024

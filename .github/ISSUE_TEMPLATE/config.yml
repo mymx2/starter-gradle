@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-issue-config.json
 blank_issues_enabled: false
 contact_links:
   - name: Open Source Guide

@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: PR Checks GitHub App
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "!**"
+    paths:
+      - ".github/actions/**"
+  pull_request:
+    branches:
+      - main
+      - minor
+      - fix/**
+      - feat/**
+      - patch/**
+    paths:
+      - ".github/actions/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  APP_DIR: .github/actions
+
+jobs:
+  pr-checks-github-app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .github/actions
+
+    steps:
+      - name: ✈ Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: 📦 Setup Node
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: "24"
+
+      - name: 🏗 Run main checks
+        run: |
+          npm i -g pnpm
+          pnpm i
+          pnpm lint
+
+      - name: ⏸ Pause for VSCode Debug
+        env:
+          ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+          CONTEXT_JOB: ${{ toJSON(job) }}
+          CONTEXT_STEPS: ${{ toJSON(steps) }}
+          CONTEXT_RUNNER: ${{ toJSON(runner) }}
+          CONTEXT_MATRIX: ${{ toJSON(matrix) }}
+          CONTEXT_NEEDS: ${{ toJSON(needs) }}
+          CONTEXT_INPUTS: ${{ toJSON(inputs) }}
+        if: env.ACTION_DEBUG_TOKEN != '' && (failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow)
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec
+        with:
+          token: ${{ env.ACTION_DEBUG_TOKEN }}

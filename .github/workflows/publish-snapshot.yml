@@ -1,13 +1,10 @@
-#file: noinspection UndefinedParamsPresent,UndefinedAction
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Publish Snapshot
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 2 * * *"
-
-env:
-  CI: true
+    - cron: "12 2 * * *"
 
 jobs:
   publish-snapshot:

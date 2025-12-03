@@ -1,9 +1,9 @@
-#file: noinspection UndefinedParamsPresent,UndefinedAction
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Sync to Gitee
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "16 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -12,9 +12,24 @@ jobs:
 
     steps:
       - name: ↪ Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
+        uses: wearerequired/git-mirror-action@c44c68aebe42de49a80a8dfd557416b6a0cafdad # v1.2.0
         with:
           source-repo: "git@github.com:mymx2/starter-gradle.git"
           destination-repo: "git@gitee.com:mymx2/starter-gradle.git"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_SSH_PRIVATE_KEY }}
+
+      - name: ⏸ Pause for VSCode Debug
+        env:
+          ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+          CONTEXT_JOB: ${{ toJSON(job) }}
+          CONTEXT_STEPS: ${{ toJSON(steps) }}
+          CONTEXT_RUNNER: ${{ toJSON(runner) }}
+          CONTEXT_MATRIX: ${{ toJSON(matrix) }}
+          CONTEXT_NEEDS: ${{ toJSON(needs) }}
+          CONTEXT_INPUTS: ${{ toJSON(inputs) }}
+        if: env.ACTION_DEBUG_TOKEN != '' && (failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow)
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec
+        with:
+          token: ${{ env.ACTION_DEBUG_TOKEN }}

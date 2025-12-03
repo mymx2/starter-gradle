@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: "Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)"
+        required: false
+        default: false
+
+jobs:
+  setup-tmate:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+    runs-on: ubuntu-latest
+    outputs:
+      ssh-command: ${{ steps.tmate.outputs.ssh-command }}
+      ssh-address: ${{ steps.tmate.outputs.ssh-address }}
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Setup tmate session
+        id: tmate
+        uses: mxschmitt/action-tmate@c0afd6f790e3a5564914980036ebf83216678101 # v3.23
+        timeout-minutes: 10
+        with:
+          detached: true
+
+  use-ssh-command:
+    needs: setup-tmate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display SSH command
+        run: |
+          # Send a Slack message to someone telling them they can ssh to ${{ needs.setup-tmate.outputs.ssh-address }}

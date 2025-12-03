@@ -24,6 +24,8 @@ gradle.lifecycle.beforeProject {
     apply(plugin = "io.github.mymx2.feature.git-hook")
     // spotless format
     apply(plugin = "io.github.mymx2.check.format-gradle-root")
+    // action lint
+    apply(plugin = "io.github.mymx2.check.actionlint-root")
     // dependency check
     apply(plugin = "io.github.mymx2.check.dependencies-root")
   }
