@@ -1,4 +1,4 @@
-#file: noinspection UndefinedParamsPresent,UndefinedAction
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Issue Labeled
 run-name: Auto create and close issues When specific label is added
 
@@ -6,20 +6,18 @@ on:
   issues:
     types: [labeled]
 
-permissions:
-  contents: read
-
 jobs:
   issue-labeled:
     permissions:
+      contents: read
       issues: write # for actions-cool/issues-helper to update issues
       pull-requests: write # for actions-cool/issues-helper to update PRs
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🤔 status| waiting-reproduction
-        if: github.event.label.name == 'status| waiting-reproduction'
-        uses: actions-cool/issues-helper@v3
+      - name: 🤔 status|waiting-reproduction
+        if: github.event.label.name == 'status|waiting-reproduction'
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
         with:
           actions: "create-comment"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -33,9 +31,9 @@ jobs:
             > [什么是最小化重现，为什么这是必需的？](https://antfu.me/posts/why-reproductions-are-required-zh)
 
             ![](https://gw.alipayobjects.com/zos/antfincdn/y9kwg7DVCd/reproduce.gif)
-      - name: 🥴 close| stackoverflow
-        if: github.event.label.name == 'close| stackoverflow'
-        uses: actions-cool/issues-helper@v3
+      - name: 🥴 close|stackoverflow
+        if: github.event.label.name == 'close|stackoverflow'
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
         with:
           actions: "create-comment,close-issue"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -44,3 +42,8 @@ jobs:
             Hello @${{ github.event.issue.user.login }}, this issue has been closed because that's better to ask on [StackOverflow](https://stackoverflow.com).
 
             你好 @${{ github.event.issue.user.login }}，这个问题已被关闭，这个问题更适合百度搜索或 [StackOverflow](https://stackoverflow.com) 提问。
+
+  action-debug:
+    if: failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow
+    uses: ./.github/workflows/_debug.yml
+    secrets: inherit

@@ -36,6 +36,11 @@ spotless {
     defaultStep {
       prettier(SpotlessConfig.prettierDevDependencies).nodeExecutable(nodeFile().orNull)
     }
-    target(targetFiles.matching { include(misc) })
+    target(
+      targetFiles.matching {
+        include(misc)
+        exclude("**/*-lock.yaml")
+      }
+    )
   }
 }

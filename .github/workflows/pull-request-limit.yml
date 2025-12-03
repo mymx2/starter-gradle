@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: PR Limit
+
+on:
+  pull_request_target:
+    paths:
+      - ".github/CODEOWNERS"
+      - ".github/workflows/**"
+
+jobs:
+  pr-limit:
+    if: >
+      github.event_name == 'pull_request_target' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login != 'mymx2'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Comment about changes we can't accept"
+        env:
+          PR: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr edit $PR --add-label 'close|invalid'
+          gh pr comment $PR --body 'It seems you edited the limitation files. These files aren't open for contributions. If you think they should be, feel free to reply here.'
+          gh pr close $PR
+
+  action-debug:
+    if: failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow
+    uses: ./.github/workflows/_debug.yml
+    secrets: inherit

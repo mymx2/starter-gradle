@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.github.spotbugs.snom.SpotBugsTask
-import io.github.mymx2.plugin.ProjectVersions
+import io.github.mymx2.plugin.InternalDependencies
 
 plugins {
   java
@@ -11,9 +11,7 @@ plugins {
 }
 
 dependencies {
-  compileOnly(
-    "${ProjectVersions.spotbugsAnnotations.key}:${ProjectVersions.spotbugsAnnotations.value}"
-  )
+  compileOnly(InternalDependencies.get("spotbugsAnnotations").let { "${it.module}:${it.version}" })
 }
 
 // auto bind to checks task:

@@ -1,8 +1,8 @@
 {
-  "$schema": "https://json.schemastore.org/package",
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
   "type": "module",
   "engines": {
-    "node": ">=22.18.0"
+    "node": ">=24.8.0"
   },
   "scripts": {
     "dev": "vitepress dev src/pages",
@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@antfu/utils": "^9.3.0",
-    "taze": "^19.7.0",
-    "vitepress": "^2.0.0-alpha.12"
+    "taze": "^19.9.2",
+    "vitepress": "^2.0.0-alpha.15"
   }
 }

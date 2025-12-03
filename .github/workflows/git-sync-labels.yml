@@ -1,4 +1,4 @@
-#file: noinspection UndefinedParamsPresent,UndefinedAction
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Sync Github labels
 
 on:
@@ -9,20 +9,24 @@ on:
       - ".github/config/labels.yml"
   workflow_dispatch:
 
-permissions:
-  issues: write
-
 jobs:
   sync-labels:
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           sparse-checkout: ".github/config/labels.yml"
       - name: ☯ Sync labels
-        uses: EndBug/label-sync@v2
+        uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
         with:
           config-file: ".github/config/labels.yml"
           delete-other-labels: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  action-debug:
+    if: failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow
+    uses: ./.github/workflows/_debug.yml
+    secrets: inherit

@@ -7,7 +7,7 @@ import com.diffplug.spotless.FormatterStep
 import com.diffplug.spotless.generic.ReplaceRegexStep
 import com.diffplug.spotless.kotlin.KtfmtStep
 import io.github.mymx2.plugin.GradleExtTool
-import io.github.mymx2.plugin.ProjectVersions
+import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.gradle.computedExtension
 import io.github.mymx2.plugin.gradle.eagerSharedCache
 import io.github.mymx2.plugin.gradle.lazySharedCache
@@ -88,12 +88,13 @@ object SpotlessConfig {
     fileTree(isolated.projectDirectory.dir(src)) {
       // default excludes.
       val defaultSpotlessExcludes =
-        GradleExtTool.defaultGitIgnore + listOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+        GradleExtTool.defaultGitIgnore +
+          listOf("**/nocheck/**", "**/autogen/**", "**/generated/**", "**/node_modules/**")
       exclude(defaultSpotlessExcludes)
     }
 
   val ktfmtVersion = run {
-    val ktfmtVersion = ProjectVersions.comFacebookKtfmt.value.toBigDecimal()
+    val ktfmtVersion = InternalDependencies.get("comFacebookKtfmt").version.toBigDecimal()
     val defaultKtfmtVersion = KtfmtStep.defaultVersion()
     return@run if (ktfmtVersion >= BigDecimal(defaultKtfmtVersion)) {
       ktfmtVersion.toString()
@@ -103,13 +104,10 @@ object SpotlessConfig {
   }
 
   val prettierDevDependencies =
-    mutableMapOf(ProjectVersions.prettier.key to ProjectVersions.prettier.value)
+    mutableMapOf(InternalDependencies.get("prettier").let { it.module to it.version })
 
   val prettierDevDependenciesWithXmlPlugin =
-    mutableMapOf(
-      ProjectVersions.prettier.key to ProjectVersions.prettier.value,
-      ProjectVersions.prettierPluginXml.key to ProjectVersions.prettierPluginXml.value,
-    )
+    mutableMapOf(InternalDependencies.get("prettierPluginXml").let { it.module to it.version })
 
   /**
    * Disables the "star import" linting.

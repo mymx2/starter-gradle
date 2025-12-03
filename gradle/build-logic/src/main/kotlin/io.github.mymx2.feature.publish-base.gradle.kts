@@ -31,7 +31,7 @@ publishing.publications.configureEach {
       name = projectName
       description = project.description.orEmpty().ifBlank { projectName }
       url = project.getPropOrDefault(LocalConfig.Props.POM_URL)
-      scm { url = project.getPropOrDefault(LocalConfig.Props.POM_URL) }
+      scm { url = project.getPropOrDefault(LocalConfig.Props.POM_SCM_CONNECTION) }
       licenses { license { url = project.getPropOrDefault(LocalConfig.Props.POM_LICENSE_URL) } }
       developers {
         developer { name = project.getPropOrDefault(LocalConfig.Props.POM_DEVELOPER_NAME) }

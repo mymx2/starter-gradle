@@ -50,8 +50,10 @@ object LocalConfig {
     DOCKER_REGISTRY_PASSWORD("DOCKER_REGISTRY_PASSWORD", ""),
     // 产物信息: 开发者名称
     POM_DEVELOPER_NAME("POM_DEVELOPER_NAME", "mymx2"),
-    // 产物信息: 仓库地址
+    // 产物信息: 项目地址
     POM_URL("POM_URL", "https://github.com/mymx2"),
+    // 产物信息: 源码仓库地址
+    POM_SCM_CONNECTION("POM_SCM_CONNECTION", "scm:git:https://github.com/mymx2/404-page.git"),
     // 产物信息: 许可证地址
     POM_LICENSE_URL("POM_LICENSE_URL", "https://mit-license.org"),
     // central.sonatype.com 账号

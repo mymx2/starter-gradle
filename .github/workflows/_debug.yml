@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: "Debugging with vscode"
+
+on:
+  workflow_call:
+    secrets:
+      ACTION_DEBUG_TOKEN:
+        required: false
+
+env:
+  ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
+
+jobs:
+  run-debug:
+    runs-on: ubuntu-latest
+    env:
+      COMMIT_MSG: ""
+
+    steps:
+      - name: 📝 Get Commit Message
+        if: always()
+        run: |
+          COMMIT_MSG="$(git log --format=%B -n 1)"
+          {
+            echo "COMMIT_MSG<<EOF"
+            echo "${COMMIT_MSG}"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: 🔍 Show Commit Message
+        if: env.COMMIT_MSG != ''
+        run: echo "$COMMIT_MSG"
+
+      - name: 📝 Dump Github Context
+        if: always()
+        run: echo "${{ toJSON(github) }}"
+
+      # See https://github.com/fawazahmed0/action-debug-vscode
+      - name: 📸 Snapshot Workflow Context
+        if: env.ACTION_DEBUG_TOKEN != ''
+        shell: bash
+        run: |
+          mkdir -p build/ctx
+          echo "${{ toJSON(github) }}" > build/ctx/github.json
+          echo "${{ toJSON(env) }}" > build/ctx/env.json
+          echo "${{ toJSON(vars) }}" > build/ctx/vars.json
+          echo "${{ toJSON(job) }}" > build/ctx/job.json
+          echo "${{ toJSON(steps) }}" > build/ctx/steps.json
+          echo "${{ toJSON(runner) }}" > build/ctx/runner.json
+          echo "${{ toJSON(secrets) }}" > build/ctx/secrets.json
+          echo "${{ toJSON(strategy) }}" > build/ctx/strategy.json
+          echo "${{ toJSON(matrix) }}" > build/ctx/matrix.json
+          echo "${{ toJSON(needs) }}" > build/ctx/needs.json
+          echo "${{ toJSON(inputs) }}" > build/ctx/inputs.json
+
+      - name: ⏸ Pause for VSCode Debug
+        # (click link to open VSCode, create file named "continue" to continue)
+        # by running touch continue or sudo touch /continue (on Linux).
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+          JOB_CONTEXT: ${{ toJSON(job) }}
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+          INPUTS_CONTEXT: ${{ toJSON(inputs) }}
+        if: env.ACTION_DEBUG_TOKEN != ''
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec
+        with:
+          token: ${{ env.ACTION_DEBUG_TOKEN }}

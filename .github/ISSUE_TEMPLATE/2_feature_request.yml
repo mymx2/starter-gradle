@@ -1,7 +1,8 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-issue-forms.json
 name: 🚀 Feature request
 description: File a feature request
 title: "[FR]: "
-labels: ["type| enhancement"]
+labels: ["type|enhancement"]
 body:
   - type: markdown
     attributes:
