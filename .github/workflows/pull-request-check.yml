@@ -40,7 +40,7 @@ jobs:
 
       - name: ✏ Validate commit messages
         if: >
-          github.event.pull_request.user.login != 'dependabot[bot]' ||
+          github.event.pull_request.user.login != 'dependabot[bot]' &&
           github.event.pull_request.user.login != 'renovate[bot]'
         run: |
           chmod +x .github/workflows/shell/check-commit-msg.sh
@@ -80,7 +80,7 @@ jobs:
 
       - name: 🔒 Check locks
         if: >
-          github.event.pull_request.user.login != 'dependabot[bot]' ||
+          github.event.pull_request.user.login != 'dependabot[bot]' &&
           github.event.pull_request.user.login != 'renovate[bot]'
         run: ./gradlew :build-logic:checkLocks checkLocks
 
