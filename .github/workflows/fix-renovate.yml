@@ -56,6 +56,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         id: get-pr-data
         with:
+          # language=javascript
           script: |
             console.log(`Get PR info: ${context.repo.owner}/${context.repo.repo}#${context.issue.number}`)
             const { data: pr } = await github.rest.pulls.get({
@@ -63,18 +64,19 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number
             })
-            return {
+            const prInfo = {
               num: context.issue.number,
               branchName: pr.head.ref,
               commit: pr.head.sha,
               committer: pr.head.user.login,
               repo: pr.head.repo.full_name
             }
+            core.setOutput('committer', prInfo.committer)
 
       - name: 🔏 Write locks (only for bots)
         if: >
-          steps.get-pr-data.outputs.result.committer == 'dependabot[bot]' ||
-          steps.get-pr-data.outputs.result.committer == 'renovate[bot]'
+          steps.get-pr-data.outputs.committer == 'dependabot[bot]' ||
+          steps.get-pr-data.outputs.committer == 'renovate[bot]'
         run: ./gradlew :build-logic:writeLocks writeLocks
 
       - name: 📝 Get Commit Message
