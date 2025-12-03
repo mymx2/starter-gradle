@@ -55,26 +55,26 @@ jobs:
               pull_number: context.issue.number
             })
             console.log(`PR info: ${JSON.stringify(pr)}`)
-            return {
+            core.setOutput('pr_info', {
               num: context.issue.number,
               branchName: pr.head.ref,
               commit: pr.head.sha,
               committer: pr.head.user.login,
               repo: pr.head.repo.full_name
-            }
+            });
 
       - name: 📡 Use PR Branch
         run: |
-          echo "The PR branch is ${{ steps.get-pr-data.outputs.result.repo }}"
-          echo "The repository is ${{ steps.get-pr-data.outputs.result.branchName }}"
+          echo "The PR branch is ${{ steps.get-pr-data.outputs.pr_info.repo }}"
+          echo "The repository is ${{ steps.get-pr-data.outputs.pr_info.branchName }}"
 
       - name: ✈ Checkout PR branch
         if: github.event_name == 'issue_comment' && github.event.issue.pull_request != null
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           fetch-depth: 0
-          repository: ${{ steps.get-pr-data.outputs.result.repo }}
-          ref: ${{ steps.get-pr-data.outputs.result.branchName }}
+          repository: ${{ steps.get-pr-data.outputs.pr_info.repo }}
+          ref: ${{ steps.get-pr-data.outputs.pr_info.branchName }}
 
       - name: ✈ Checkout default branch
         if: github.event_name != 'issue_comment'
