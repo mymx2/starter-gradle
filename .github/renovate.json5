@@ -44,7 +44,7 @@
     },
     {
       customType: "regex",
-      managerFilePatterns: ["gradle/**/MavenDependencies\\.kt"],
+      managerFilePatterns: ["gradle/**/InternalDependencies\\.kt"],
       matchStrings: [
         '(?<enumName>[a-zA-Z0-9_]+)\\s*=\\s*\\{[^}]*module\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*type\\s*=\\s*\"maven\"[^}]*\\}',
       ],
@@ -53,7 +53,7 @@
     },
     {
       customType: "regex",
-      managerFilePatterns: ["gradle/**/NpmDependencies\\.kt"],
+      managerFilePatterns: ["gradle/**/InternalDependencies\\.kt"],
       matchStrings: [
         '(?<enumName>[a-zA-Z0-9_]+)\\s*=\\s*\\{[^}]*module\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*type\\s*=\\s*\"npm\"[^}]*\\}',
       ],
