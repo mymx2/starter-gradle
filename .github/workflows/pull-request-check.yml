@@ -54,7 +54,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number
             })
-            console.log(`PR info: ${pr}`)
+            console.log(`PR info: ${JSON.stringify(pr)}`)
             return {
               num: context.issue.number,
               branchName: pr.head.ref,
