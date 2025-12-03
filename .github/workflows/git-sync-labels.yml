@@ -26,7 +26,17 @@ jobs:
           delete-other-labels: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-  action-debug:
-    if: failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow
-    uses: ./.github/workflows/_debug.yml
-    secrets: inherit
+      - name: ⏸ Pause for VSCode Debug
+        env:
+          ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+          CONTEXT_JOB: ${{ toJSON(job) }}
+          CONTEXT_STEPS: ${{ toJSON(steps) }}
+          CONTEXT_RUNNER: ${{ toJSON(runner) }}
+          CONTEXT_MATRIX: ${{ toJSON(matrix) }}
+          CONTEXT_NEEDS: ${{ toJSON(needs) }}
+          CONTEXT_INPUTS: ${{ toJSON(inputs) }}
+        if: env.ACTION_DEBUG_TOKEN != '' && (failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow)
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec
+        with:
+          token: ${{ env.ACTION_DEBUG_TOKEN }}

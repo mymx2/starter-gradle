@@ -21,8 +21,3 @@ jobs:
       release: true
       changelog: true
     secrets: inherit
-
-  action-debug:
-    if: failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow
-    uses: ./.github/workflows/_debug.yml
-    secrets: inherit
