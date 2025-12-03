@@ -24,6 +24,11 @@ jobs:
       PR: ${{ github.event.issue.pull_request.html_url }}
 
     steps:
+      - name: 📸 Snapshot Workflow Context
+        env:
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+        run: echo "$CONTEXT_GITHUB"
+
       - name: 📡 Get PR Data
         if: github.event_name == 'issue_comment' && github.event.issue.pull_request != null
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd

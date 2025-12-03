@@ -19,6 +19,11 @@ jobs:
       )
     runs-on: ubuntu-latest
     steps:
+      - name: 📸 Snapshot Workflow Context
+        env:
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+        run: echo "$CONTEXT_GITHUB"
+
       - name: "Comment about changes we can't accept"
         env:
           PR: ${{ github.event.pull_request.html_url }}
