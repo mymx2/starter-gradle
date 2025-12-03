@@ -50,7 +50,7 @@ jobs:
               committer: pr.head.user.login,
               repo: pr.head.repo.full_name
             }
-            if (prInfo.committer === 'dependabot[bot]' || prInfo.committer === 'renovate[bot]') {
+            if (prInfo.committer === 'github-actions[bot]' || prInfo.committer === 'dependabot[bot]' || prInfo.committer === 'renovate[bot]') {
               console.log(`PR is from ${prInfo.committer}`)
             } else {
               console.log(`PR is not from ${prInfo.committer}`)
