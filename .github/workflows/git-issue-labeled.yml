@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: 🤔 status|waiting-reproduction
         if: github.event.label.name == 'status|waiting-reproduction'
-        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
         with:
           actions: "create-comment"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -33,7 +33,7 @@ jobs:
             ![](https://gw.alipayobjects.com/zos/antfincdn/y9kwg7DVCd/reproduce.gif)
       - name: 🥴 close|stackoverflow
         if: github.event.label.name == 'close|stackoverflow'
-        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
         with:
           actions: "create-comment,close-issue"
           token: ${{ secrets.GITHUB_TOKEN }}

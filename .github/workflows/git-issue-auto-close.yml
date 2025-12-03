@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: 😞 check the labels and auto close it
-        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
         with:
           actions: "close-issues"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -24,7 +24,7 @@ jobs:
             Hi, this issue has been closed because it has been inactive for more than 7 days.
             If you think it should still be open, please reply here.
       - name: 🧹 replace labels
-        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
         with:
           actions: "set-labels"
           token: ${{ secrets.GITHUB_TOKEN }}

@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: ↪ Sync to Gitee
-        uses: wearerequired/git-mirror-action@c44c68aebe42de49a80a8dfd557416b6a0cafdad # v1.2.0
+        uses: wearerequired/git-mirror-action@c44c68aebe42de49a80a8dfd557416b6a0cafdad
         with:
           source-repo: "git@github.com:mymx2/starter-gradle.git"
           destination-repo: "git@gitee.com:mymx2/starter-gradle.git"
