@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: PR Checks GitHub App
+name: PR Checks GitHub Actions
 
 on:
   push:
@@ -30,9 +30,6 @@ env:
 jobs:
   pr-checks-github-app:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: .github/actions
 
     steps:
       - name: 📸 Snapshot Workflow Context
@@ -51,6 +48,7 @@ jobs:
           node-version: "24"
 
       - name: 🏗 Run main checks
+        working-directory: .github/actions
         run: |
           npm i -g pnpm
           pnpm i
