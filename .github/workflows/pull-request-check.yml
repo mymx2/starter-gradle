@@ -20,7 +20,7 @@ on:
 
 concurrency:
   # see: https://stackoverflow.com/a/72408109/30654190
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.event.issue.number || github.event.pull_request.number || github.ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -42,7 +42,15 @@ jobs:
       )
 
     steps:
-      - name: ✈ Checkout repository
+      - name: ✈ Checkout PR branch
+        if: github.event_name == 'issue_comment' && github.event.issue.pull_request != null
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.issue.pull_request.head.ref }}
+
+      - name: ✈ Checkout default branch
+        if: github.event_name != 'issue_comment' || github.event.issue.pull_request == null
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           fetch-depth: 0
