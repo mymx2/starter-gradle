@@ -18,12 +18,12 @@
     "noUnusedParameters": false,
     "newLine": "lf",
     "outDir": "dist",
+    "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "skipLibCheck": true,
-    "sourceMap": true
+    "skipLibCheck": true
   },
   "include": ["src", "**/*.ts", "**/*.d.ts"],
   "exclude": [

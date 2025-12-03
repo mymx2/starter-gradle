@@ -24,5 +24,5 @@ outputs:
   itemId:
     description: The ID of the item that was added to the project
 runs:
-  using: "node24"
-  main: "dist/index.js"
+  using: node24
+  main: dist/index.js
