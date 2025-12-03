@@ -12,7 +12,9 @@ jobs:
 
     steps:
       - name: 📸 Snapshot Workflow Context
-        run: echo "${{ toJSON(github) }}"
+        env:
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+        run: echo "$CONTEXT_GITHUB"
 
       - name: ↪ Sync to Gitee
         uses: wearerequired/git-mirror-action@c44c68aebe42de49a80a8dfd557416b6a0cafdad

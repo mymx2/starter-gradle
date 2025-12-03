@@ -16,7 +16,9 @@ jobs:
 
     steps:
       - name: 📸 Snapshot Workflow Context
-        run: echo "${{ toJSON(github) }}"
+        env:
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+        run: echo "$CONTEXT_GITHUB"
 
       - name: 🤔 status|waiting-reproduction
         if: github.event.label.name == 'status|waiting-reproduction'

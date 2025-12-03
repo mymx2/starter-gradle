@@ -14,7 +14,9 @@ jobs:
 
     steps:
       - name: 📸 Snapshot Workflow Context
-        run: echo "${{ toJSON(github) }}"
+        env:
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+        run: echo "$CONTEXT_GITHUB"
 
       - name: 😞 check the labels and auto close it
         uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
