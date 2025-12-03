@@ -34,7 +34,9 @@ jobs:
           fetch-depth: 0
 
       - name: ✏ Validate commit messages
-        if: github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
+        if: >
+          github.event.pull_request.user.login != 'dependabot[bot]' ||
+          github.event.pull_request.user.login != 'renovate[bot]'
         run: |
           chmod +x .github/workflows/shell/check-commit-msg.sh
           .github/workflows/shell/check-commit-msg.sh
@@ -72,7 +74,9 @@ jobs:
       #        run: ./gradlew runActionlint
 
       - name: 🔒 Check locks
-        if: github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
+        if: >
+          github.event.pull_request.user.login != 'dependabot[bot]' ||
+          github.event.pull_request.user.login != 'renovate[bot]'
         run: ./gradlew :build-logic:checkLocks checkLocks
 
       - name: ✅ Run build checks
@@ -88,12 +92,15 @@ jobs:
         run: ./gradlew testEndToEndSlow
 
       - name: 🛠 Generate CycloneDX BOM
+        if: github.event_name != 'pull_request'
         run: ./gradlew cyclonedxBom --no-configuration-cache
 
       - name: 📈 Generate Code Coverage Report
+        if: github.event_name != 'pull_request'
         run: ./gradlew testCodeCoverageReport
 
       - name: 📤 Upload coverage to Codecov
+        if: github.event_name != 'pull_request'
         uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7
         with:
           fail_ci_if_error: true
