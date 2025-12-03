@@ -63,6 +63,11 @@ jobs:
               repo: pr.head.repo.full_name
             }
 
+      - name: 📡 Use PR Branch
+        run: |
+          echo "The PR branch is ${{ steps.get-pr-data.outputs.result.repo }}"
+          echo "The repository is ${{ steps.get-pr-data.outputs.result.branchName }}"
+
       - name: ✈ Checkout PR branch
         if: github.event_name == 'issue_comment' && github.event.issue.pull_request != null
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
