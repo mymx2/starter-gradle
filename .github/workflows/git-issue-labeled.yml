@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 📸 Snapshot Workflow Context
+        run: echo "${{ toJSON(github) }}"
+
       - name: 🤔 status|waiting-reproduction
         if: github.event.label.name == 'status|waiting-reproduction'
         uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
@@ -31,6 +34,7 @@ jobs:
             > [什么是最小化重现，为什么这是必需的？](https://antfu.me/posts/why-reproductions-are-required-zh)
 
             ![](https://gw.alipayobjects.com/zos/antfincdn/y9kwg7DVCd/reproduce.gif)
+
       - name: 🥴 close|stackoverflow
         if: github.event.label.name == 'close|stackoverflow'
         uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372

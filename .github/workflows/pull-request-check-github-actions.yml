@@ -35,6 +35,9 @@ jobs:
         working-directory: .github/actions
 
     steps:
+      - name: 📸 Snapshot Workflow Context
+        run: echo "${{ toJSON(github) }}"
+
       - name: ✈ Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
         with:
