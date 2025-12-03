@@ -22,6 +22,7 @@ jobs:
       - name: "Comment about changes we can't accept"
         env:
           PR: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr edit $PR --add-label 'close|invalid'
           gh pr comment $PR --body 'It seems you edited the limitation files. These files aren't open for contributions. If you think they should be, feel free to reply here.'

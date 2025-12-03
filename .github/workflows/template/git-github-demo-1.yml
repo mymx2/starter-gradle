@@ -21,6 +21,8 @@ jobs:
       # Update labels & thank author (before merge to avoid race condition)
       # =======================
       - name: 🏷 Update labels & comment
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "🔖 Removing merge-ready label..."
           gh pr edit $PR_NUMBER --remove-label "status|progress-ready-to-merge"
