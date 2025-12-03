@@ -67,6 +67,7 @@ jobs:
             core.setOutput('head_branch', prInfo.branchName)
 
       - name: 📡 Use PR Branch
+        if: github.event_name == 'issue_comment' && github.event.issue.pull_request != null
         run: |
           echo "The PR branch is ${{ steps.get-pr-data.outputs.head_branch }}"
           echo "The repository is ${{ steps.get-pr-data.outputs.head_repo }}"
