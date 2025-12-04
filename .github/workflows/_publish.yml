@@ -72,7 +72,7 @@ jobs:
       - name: 🌿 Build Changelog
         if: ${{ inputs.changelog }}
         id: changelog
-        uses: mikepenz/release-changelog-builder-action@439f79b5b5428107c7688c1d2b0e8bacc9b8792c
+        uses: mikepenz/release-changelog-builder-action@dd6c4fec6c84baa848b7a50226d403e8912463be
         with:
           configuration: ".github/config/changelog.json"
           commitMode: true
