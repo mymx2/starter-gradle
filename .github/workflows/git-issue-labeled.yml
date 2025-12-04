@@ -22,7 +22,7 @@ jobs:
 
       - name: 🤔 status|waiting-reproduction
         if: github.event.label.name == 'status|waiting-reproduction'
-        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
         with:
           actions: "create-comment"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -39,7 +39,7 @@ jobs:
 
       - name: 🥴 close|stackoverflow
         if: github.event.label.name == 'close|stackoverflow'
-        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372
+        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
         with:
           actions: "create-comment,close-issue"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +60,6 @@ jobs:
           CONTEXT_NEEDS: ${{ toJSON(needs) }}
           CONTEXT_INPUTS: ${{ toJSON(inputs) }}
         if: env.ACTION_DEBUG_TOKEN != '' && (failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow)
-        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec # v3
         with:
           token: ${{ env.ACTION_DEBUG_TOKEN }}

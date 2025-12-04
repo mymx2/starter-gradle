@@ -18,11 +18,11 @@ jobs:
       ssh-command: ${{ steps.tmate.outputs.ssh-command }}
       ssh-address: ${{ steps.tmate.outputs.ssh-address }}
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Setup tmate session
         id: tmate
-        uses: mxschmitt/action-tmate@c0afd6f790e3a5564914980036ebf83216678101
+        uses: mxschmitt/action-tmate@c0afd6f790e3a5564914980036ebf83216678101 # v3.23
         timeout-minutes: 10
         with:
           detached: true
