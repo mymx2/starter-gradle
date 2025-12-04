@@ -107,7 +107,7 @@ jobs:
 
       - name: 📤 Upload coverage to Codecov
         if: github.event_name != 'pull_request'
-        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7
+        uses: codecov/codecov-action@96b38e9e60ee60a8c3911f4612407bba2f9195fb
         with:
           fail_ci_if_error: true
           verbose: true
