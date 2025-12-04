@@ -70,64 +70,64 @@ importers:
         version: 6.1.2
     devDependencies:
       '@actions/expressions':
-        specifier: ^0.3.20
+        specifier: 0.3.20
         version: 0.3.20
       '@actions/languageservice':
-        specifier: ^0.3.20
+        specifier: 0.3.20
         version: 0.3.20
       '@actions/workflow-parser':
-        specifier: ^0.3.20
+        specifier: 0.3.20
         version: 0.3.20
       '@antfu/eslint-config':
-        specifier: ^6.2.0
+        specifier: 6.2.0
         version: 6.2.0(@unocss/eslint-plugin@66.5.6(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-sfc@3.5.24)(eslint-plugin-format@1.0.2(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.14(@opentelemetry/api@1.9.0)(@types/node@24.10.1)(jiti@2.6.1)(yaml@2.8.1))
       '@octokit/openapi-types':
-        specifier: ^27.0.0
+        specifier: 27.0.0
         version: 27.0.0
       '@octokit/types':
-        specifier: ^16.0.0
+        specifier: 16.0.0
         version: 16.0.0
       '@octokit/webhooks-definitions':
-        specifier: ^3.67.3
+        specifier: 3.67.3
         version: 3.67.3
       '@types/debug':
-        specifier: ^4.1.12
+        specifier: 4.1.12
         version: 4.1.12
       '@types/fs-extra':
-        specifier: ^11.0.4
+        specifier: 11.0.4
         version: 11.0.4
       '@types/node':
-        specifier: ^24.10.1
+        specifier: 24.10.1
         version: 24.10.1
       cypress:
-        specifier: ^15.7.0
+        specifier: 15.7.0
         version: 15.7.0
       debug:
-        specifier: ^4.4.3
+        specifier: 4.4.3
         version: 4.4.3(supports-color@8.1.1)
       eslint:
-        specifier: ^9.39.1
+        specifier: 9.39.1
         version: 9.39.1(jiti@2.6.1)
       eslint-plugin-cypress:
-        specifier: ^5.2.0
+        specifier: 5.2.0
         version: 5.2.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-format:
-        specifier: ^1.0.2
+        specifier: 1.0.2
         version: 1.0.2(eslint@9.39.1(jiti@2.6.1))
       minimatch:
-        specifier: ^10.1.1
+        specifier: 10.1.1
         version: 10.1.1
       prettier:
-        specifier: ^3.6.2
+        specifier: 3.6.2
         version: 3.6.2
       taze:
-        specifier: ^19.9.2
+        specifier: 19.9.2
         version: 19.9.2
       typescript:
-        specifier: ^5.9.3
+        specifier: 5.9.3
         version: 5.9.3
       vitest:
-        specifier: ^4.0.14
+        specifier: 4.0.14
         version: 4.0.14(@opentelemetry/api@1.9.0)(@types/node@24.10.1)(jiti@2.6.1)(yaml@2.8.1)
 
 packages:

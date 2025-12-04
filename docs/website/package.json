@@ -12,8 +12,8 @@
     "yo": "npm i -g pnpm @antfu/ni && pnpm i --force"
   },
   "devDependencies": {
-    "@antfu/utils": "^9.3.0",
-    "taze": "^19.9.2",
-    "vitepress": "^2.0.0-alpha.15"
+    "@antfu/utils": "9.3.0",
+    "taze": "19.9.2",
+    "vitepress": "2.0.0-alpha.15"
   }
 }
