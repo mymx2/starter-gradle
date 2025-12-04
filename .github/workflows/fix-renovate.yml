@@ -116,7 +116,7 @@ jobs:
           git push
 
       - name: 💬 Add reaction to PR
-        uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9
+        uses: peter-evans/create-or-update-comment@35d33e4f3771787d0f602f5dca94f47c68b5cc60
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
