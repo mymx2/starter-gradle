@@ -21,7 +21,7 @@ echo -e "📝 Latest commit message:\n  ${GREEN}${COMMIT_MSG}${RESET}\n"
 # ------------------------------
 # Commit message pattern
 # ------------------------------
-COMMIT_MSG_PATTERN='^(revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\([^)]+\))?: .{1,50}$'
+COMMIT_MSG_PATTERN='^(revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\([^)]+\))?: .{1,100}$'
 
 # ------------------------------
 # Validate latest commit

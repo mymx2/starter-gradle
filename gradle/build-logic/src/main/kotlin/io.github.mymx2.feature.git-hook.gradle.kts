@@ -171,7 +171,7 @@ fun Task.configureCommitMsgHook(injected: Injected, commitMsgFileProperty: Strin
 
   doLast {
     val commitMsgPattern =
-      """^(?:revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\(.+\))?: [^\n\r]{1,49}[^\s\n\r]$"""
+      """^(?:revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\(.+\))?: [^\n\r]{1,99}[^\s\n\r]$"""
     val pattern = Pattern.compile(commitMsgPattern)
     val msgFile = commitMsgFile.orNull
     if (msgFile != null) {
