@@ -12,8 +12,8 @@
     src="https://img.shields.io/codacy/grade/64109c17cc5c4ea090db54cb773621fe"/></a>
   <a href="https://app.codecov.io/gh/mymx2/starter-gradle" target="_blank"><img alt="codecov"
     src="https://img.shields.io/codecov/c/github/mymx2/starter-gradle"/></a>
-  <a href="https://github.com/mymx2/starter-gradle/actions/workflows/pull-request-check.yml" target="_blank"><img alt="git-hub-actions-workflow-status"
-    src="https://img.shields.io/github/actions/workflow/status/mymx2/starter-gradle/pull-request-check.yml"/></a>
+  <a href="https://github.com/mymx2/starter-gradle/actions/workflows/publish-release.yml" target="_blank"><img alt="git-hub-actions-workflow-status"
+    src="https://img.shields.io/github/actions/workflow/status/mymx2/starter-gradle/publish-release.yml"/></a>
 </p>
 
 <p align="center">
