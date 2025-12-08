@@ -110,7 +110,7 @@ class ConventionPluginTest {
       buildFile
         .readText()
         .substringAfter("implementation(libs.resteasy.core)", "")
-        .contains("implementation(libs.resteasy.jackson2.provider)")
+        .contains("implementation(libs.guice)")
     }
   }
 
