@@ -26,7 +26,7 @@ object InternalDependencies {
     spotbugsAnnotations = { module = "com.github.spotbugs:spotbugs-annotations", version = "4.9.8", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml" }
 
     # NPM dependencies
-    prettier = { module = "prettier", version = "3.6.2", type = "npm", url = "https://registry.npmjs.org/prettier" }
+    prettier = { module = "prettier", version = "3.7.4", type = "npm", url = "https://registry.npmjs.org/prettier" }
     prettierPluginXml = { module = "@prettier/plugin-xml", version = "3.4.2", type = "npm", url = "https://registry.npmjs.org/@prettier/plugin-xml" }
     """
       .trimIndent()
