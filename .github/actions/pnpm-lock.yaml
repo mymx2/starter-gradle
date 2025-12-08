@@ -73,8 +73,8 @@ importers:
         specifier: 0.3.22
         version: 0.3.22
       '@actions/languageservice':
-        specifier: 0.3.20
-        version: 0.3.20
+        specifier: 0.3.22
+        version: 0.3.22
       '@actions/workflow-parser':
         specifier: 0.3.20
         version: 0.3.20
@@ -151,6 +151,10 @@ packages:
     resolution: {integrity: sha512-5YQUxNvMtE06t8n6LuYoFaFPDXlyAD1Sc42em6Y4mFeFB6WFTt9LVVu+U2zNSJQ/FahiT7+J3VfB68FCxife7w==}
     engines: {node: '>= 16.15'}
 
+  '@actions/expressions@0.3.23':
+    resolution: {integrity: sha512-V/I9FBNDN45bYRZU3iSVsNe7RIXf4I8g1q2lW0mJUM374TqCa/bUp1nh+Udgs9Ws+PVKyoKbRlEn7wRrUFwKtw==}
+    engines: {node: '>= 16.15'}
+
   '@actions/github@6.0.1':
     resolution: {integrity: sha512-xbZVcaqD4XnQAe35qSQqskb3SqIAfRyLBrHMd/8TuL7hJSz2QtbDwnNM8zWx4zO5l2fnGtseNE3MbEvD7BxVMw==}
 
@@ -172,8 +176,8 @@ packages:
   '@actions/io@2.0.0':
     resolution: {integrity: sha512-Jv33IN09XLO+0HS79aaODsvIRyduiF7NY/F6LYeK5oeUmrsz7aFdRphQjFoESF4jS7lMauDOttKALcpapVDIAg==}
 
-  '@actions/languageservice@0.3.20':
-    resolution: {integrity: sha512-s8DiUNKew9+IdRVqu2jxVmpPU7kIegQ9vSfhXxBbGkFLqkJANhg+M6tt3oEwgTtaUH1r44rccfrocATZZNaH5A==}
+  '@actions/languageservice@0.3.22':
+    resolution: {integrity: sha512-lWbEulv1dA1CxoT4t/gEJjJM3QV3uXKMRm2if67gJ5NoeztdGlbCRwGcAEQ8xj1/jUBYx8dvgTutAXOkbCh0jw==}
     engines: {node: '>= 16.15'}
 
   '@actions/tool-cache@2.0.2':
@@ -181,6 +185,10 @@ packages:
 
   '@actions/workflow-parser@0.3.20':
     resolution: {integrity: sha512-qhIzkiTiyiYX0CaIR+SS5Z0g7BMqS6VIC0t4GZH8lVGbK6Yw+0TpSX8iTFySfZMMoVpSCFy6uBxekskvBpkqEQ==}
+    engines: {node: '>= 16.15'}
+
+  '@actions/workflow-parser@0.3.23':
+    resolution: {integrity: sha512-G9sRic+4zOY/4k1JH06AAvej1ojyw/yEDA100nxsu4Vr8FT3BI+qlfs8JEQF7RJHRL9n8gRh8vzS0ICVRf7IaQ==}
     engines: {node: '>= 16.15'}
 
   '@antfu/eslint-config@6.2.0':
@@ -3586,6 +3594,8 @@ snapshots:
 
   '@actions/expressions@0.3.22': {}
 
+  '@actions/expressions@0.3.23': {}
+
   '@actions/github@6.0.1':
     dependencies:
       '@actions/http-client': 2.2.3
@@ -3620,10 +3630,10 @@ snapshots:
 
   '@actions/io@2.0.0': {}
 
-  '@actions/languageservice@0.3.20':
+  '@actions/languageservice@0.3.22':
     dependencies:
       '@actions/expressions': 0.3.22
-      '@actions/workflow-parser': 0.3.20
+      '@actions/workflow-parser': 0.3.23
       vscode-languageserver-textdocument: 1.0.12
       vscode-languageserver-types: 3.17.5
       vscode-uri: 3.1.0
@@ -3640,6 +3650,12 @@ snapshots:
   '@actions/workflow-parser@0.3.20':
     dependencies:
       '@actions/expressions': 0.3.22
+      cronstrue: 2.59.0
+      yaml: 2.8.1
+
+  '@actions/workflow-parser@0.3.23':
+    dependencies:
+      '@actions/expressions': 0.3.23
       cronstrue: 2.59.0
       yaml: 2.8.1
 
