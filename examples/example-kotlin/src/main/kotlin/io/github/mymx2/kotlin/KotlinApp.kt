@@ -10,9 +10,9 @@ class KotlinApp {
   /**
    * say hello
    *
-   * @return hello kotlin
+   * @return Hello, kotlin!
    */
-  fun sayHello(): String = let { "Hello Kotlin" }
+  fun sayHello(): String = let { "Hello, kotlin!" }
 
   companion object {
     /**

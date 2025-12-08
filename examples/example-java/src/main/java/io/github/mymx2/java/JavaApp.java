@@ -7,9 +7,9 @@ public class JavaApp {
 
   /// say hello
   ///
-  /// @return hello java
+  /// @return Hello, Java!
   public String sayHello() {
-    return "hello java";
+    return "Hello, Java!";
   }
 
   /// main function

@@ -2,6 +2,7 @@ package io.github.mymx2.spring
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -12,8 +13,15 @@ fun main(args: Array<String>) {
   runApplication<SpringApp>(*args)
 }
 
-@RestController
-class ExampleController {
+interface ExampleApi {
 
-  @GetMapping("/") fun index() = let { "Greetings from Spring Boot!" }
+  @GetMapping("/") fun index(): ResponseEntity<String>
+}
+
+@RestController
+class ExampleController : ExampleApi {
+
+  override fun index(): ResponseEntity<String> {
+    return ResponseEntity.ok("Hello, Spring Boot!")
+  }
 }

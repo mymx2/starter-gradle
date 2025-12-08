@@ -7,8 +7,8 @@ if (path == ":") {
     // https://github.com/autonomousapps/dependency-analysis-gradle-plugin/issues/1234
     // https://github.com/autonomousapps/dependency-analysis-gradle-plugin/issues/1485
     structure {
-      bundle("spring-boot") {
-        primary("org.springframework.boot:spring-boot-starter-web")
+      bundle("spring-boot-starter-webmvc") {
+        primary("org.springframework.boot:spring-boot-starter-webmvc")
         includeDependency("org.springframework.boot:spring-boot")
         includeDependency("org.springframework.boot:spring-boot-autoconfigure")
         includeDependency("org.springframework:spring-web")
@@ -18,11 +18,14 @@ if (path == ":") {
         includeDependency("org.springframework:spring-expression")
         includeDependency("org.springframework:spring-core")
       }
-      bundle("spring-boot-test") {
-        primary("org.springframework.boot:spring-boot-starter-test")
+      bundle("spring-boot-starter-webmvc-test") {
+        primary("org.springframework.boot:spring-boot-starter-webmvc-test")
+        includeDependency("org.springframework.boot:spring-boot-webmvc-test")
+        includeDependency("org.springframework.boot:spring-boot-resttestclient")
         includeDependency("org.springframework.boot:spring-boot-test")
         includeDependency("org.springframework:spring-test")
         includeDependency("org.junit.jupiter:junit-jupiter-api")
+        includeDependency("org.assertj:assertj-core")
       }
     }
   }

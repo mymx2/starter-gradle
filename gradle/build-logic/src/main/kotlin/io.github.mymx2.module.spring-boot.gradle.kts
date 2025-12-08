@@ -18,8 +18,8 @@ val springBootVersion = VersionExtractor.forClass(BootBuildImage::class.java)
 dependencies {
   implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
   developmentOnly("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
-  implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-webmvc")
+  testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 }
 
 configurations {

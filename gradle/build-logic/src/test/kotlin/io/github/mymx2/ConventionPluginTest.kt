@@ -57,8 +57,6 @@ class ConventionPluginTest {
           id("io.github.mymx2.module.java")
         }
 
-        dependencyLocking { lockMode = LockMode.LENIENT }
-
         jvmDependencyConflicts.patch {
           align(
             "org.jboss.resteasy:resteasy-core",
@@ -85,7 +83,9 @@ class ConventionPluginTest {
         import org.jboss.resteasy.plugins.providers.jackson.ResteasyJackson2Provider;
         import com.google.inject.Guice;
         import org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap;
+        import org.jspecify.annotations.NullUnmarked;
 
+        @NullUnmarked
         public class Bar {
           private ResteasyJackson2Provider a;
 
@@ -121,7 +121,6 @@ class ConventionPluginTest {
       org.gradle.caching=true
       #org.gradle.unsafe.isolated-projects=true
       ENABLE_AUTO_STRUCTURE=true
-      CI=true
       """
         .trimIndent()
     )

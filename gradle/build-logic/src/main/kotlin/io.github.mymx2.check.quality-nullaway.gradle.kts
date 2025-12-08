@@ -80,7 +80,7 @@ tasks.compileTestJava { options.errorprone { isEnabled = false } }
  * - https://github.com/ben-manes/caffeine/blob/master/gradle/plugins/src/main/kotlin/quality/errorprone.caffeine.gradle.kts
  */
 
-fun defaultDisabledChecks() = listOf("MissingSummary")
+fun defaultDisabledChecks() = listOf("MissingSummary", "Java8ApiChecker")
 
 @Suppress("CanConvertToMultiDollarString")
 fun defaultDisabledRules() = listOf("ImmutableTableRules\\\$ImmutableTableBuilder")
