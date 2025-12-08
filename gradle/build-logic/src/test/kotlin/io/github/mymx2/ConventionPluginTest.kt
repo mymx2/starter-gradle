@@ -109,8 +109,8 @@ class ConventionPluginTest {
     assertTrue {
       buildFile
         .readText()
-        .substringAfter("implementation(libs.resteasy.core)", "")
-        .contains("implementation(libs.guice)")
+        .substringAfter("com.google.errorprone:error_prone_annotations", "")
+        .contains("com.google.guava:guava")
     }
   }
 
