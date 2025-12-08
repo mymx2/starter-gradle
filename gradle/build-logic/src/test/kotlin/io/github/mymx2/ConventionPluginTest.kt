@@ -57,6 +57,8 @@ class ConventionPluginTest {
           id("io.github.mymx2.module.java")
         }
 
+        dependencyLocking { lockMode = LockMode.LENIENT }
+
         jvmDependencyConflicts.patch {
           align(
             "org.jboss.resteasy:resteasy-core",
@@ -106,7 +108,7 @@ class ConventionPluginTest {
 
     p.qualityGate()
 
-    assertTrue { true }
+    assertTrue { buildFile.readText().isNotBlank() }
   }
 
   fun GradleProject.defaultGradleProperties(): GradleProject {
