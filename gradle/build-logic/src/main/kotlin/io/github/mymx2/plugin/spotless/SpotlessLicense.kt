@@ -73,23 +73,32 @@ object SpotlessLicense {
 
     return if (name.isNotBlank()) {
       when (name) {
+        "NONE".lowercase() -> ""
         "MIT".lowercase() -> MIT.value
         "Apache-2.0".lowercase() -> Apache_2_0.value
-        "NONE".lowercase() -> ""
+        "REPO".lowercase() -> getLicenseFileContent(project, false)
+        "ROOT".lowercase() -> getLicenseFileContent(project, true)
         else -> throw IllegalArgumentException("Unknown license: $name")
       }
-    } else {
-      project.eagerSharedCache<String>("licenseFileContent") {
-        val licenseFile = project.isolated.rootProject.projectDirectory.file("LICENSE").asFile
-        if (licenseFile.exists()) {
-          licenseFile.readText().let {
-            if (it.endsWith("\n")) {
-              it.dropLast(1)
-            } else it
-          }
+    } else ""
+  }
+
+  private fun getLicenseFileContent(project: Project, fromRoot: Boolean = true): String {
+    return project.eagerSharedCache<String>("licenseFileContent") {
+      val licenseFile =
+        if (fromRoot) {
+          project.isolated.rootProject.projectDirectory.file("LICENSE").asFile
         } else {
-          ""
+          project.isolated.projectDirectory.file("LICENSE").asFile
         }
+      if (licenseFile.exists()) {
+        licenseFile.readText().let {
+          if (it.endsWith("\n")) {
+            it.dropLast(1)
+          } else it
+        }
+      } else {
+        ""
       }
     }
   }
