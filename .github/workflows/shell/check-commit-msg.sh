@@ -24,10 +24,15 @@ echo -e "📝 Latest commit message:\n  ${GREEN}${COMMIT_MSG}${RESET}\n"
 COMMIT_MSG_PATTERN='^(revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\([^)]+\))?: .{1,100}$'
 
 # ------------------------------
-# Validate latest commit
+# Skip merge or initial commit
 # ------------------------------
 if echo "$COMMIT_MSG" | grep -Eq '^Merge'; then
   echo "⏭ Skipping merge commit."
+  exit 0
+fi
+
+if echo "$COMMIT_MSG" | grep -Eq '^Initial commit'; then
+  echo "⏭ Skipping initial commit."
   exit 0
 fi
 
