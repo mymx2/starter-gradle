@@ -65,9 +65,11 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
         run: |
-          ./gradlew \
-            :build-logic:publishToMavenCentral \
-            publishToMavenCentral
+          if [ "${GITHUB_REPOSITORY}" = "mymx2/starter-gradle" ]; then
+            ./gradlew :build-logic:publishToMavenCentral publishToMavenCentral
+          else
+            ./gradlew publishToMavenCentral
+          fi
 
       - name: 🌿 Build Changelog
         if: ${{ inputs.changelog }}
