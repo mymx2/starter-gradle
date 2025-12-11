@@ -36,9 +36,9 @@ body:
       label: Validations
       description: Before submitting the issue, please make sure you do the following
       options:
-        - label: By submitting this issue, you agree to follow our [Code of Conduct](blob/main/.github/docs/CODE_OF_CONDUCT.md).
+        - label: By submitting this issue, you agree to follow our [Code of Conduct](blob/main/.github/CODE_OF_CONDUCT.md).
           required: true
-        - label: Read the [Documentation](blob/main/README.md) & [Contributing Guidelines](blob/main/.github/docs/CONTRIBUTING.md).
+        - label: Read the [Documentation](blob/main/README.md) & [Contributing Guidelines](blob/main/.github/CONTRIBUTING.md).
           required: true
         - label: I have searched the Issues and found no similar ones.
           required: true
