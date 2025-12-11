@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-issue-forms.json
 name: 🚀 Feature request
 description: File a feature request
-title: "[FR]: "
+title: "feat: "
 labels: ["type|enhancement"]
 body:
   - type: markdown
@@ -13,7 +13,7 @@ body:
     attributes:
       label: Describe the problem
       description: Is your feature request related to a problem? Please describe.
-      placeholder: In module [xy] we could provide following implementation...
+      placeholder: In module [xy] we could provide following implementation..., related to issue #4, #5
     validations:
       required: true
   - type: textarea
