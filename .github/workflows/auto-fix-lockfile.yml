@@ -1,0 +1,87 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Auto Fix Lockfile
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "27 3 * * *"
+
+jobs:
+  auto-fix-lockfile:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📸 Snapshot Workflow Context
+        env:
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+        run: echo "$CONTEXT_GITHUB"
+
+      - name: ✈ Checkout default branch
+        if: github.event_name != 'issue_comment'
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+
+      - name: 📦 Setup Node
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
+        with:
+          node-version: "24"
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          java-version: "25"
+          distribution: "corretto"
+
+      - name: 🐘 Setup Gradle
+        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
+        with:
+          gradle-version: wrapper
+          cache-read-only: false
+
+      - name: 🔧 Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: 🔧 Show Gradle version
+        run: ./gradlew --version
+
+      - name: 🔏 Write locks (auto)
+        run: ./gradlew :build-logic:writeLocks writeLocks --no-parallel
+
+      - name: 💾 Commit file changes (auto)
+        id: auto-pr-lockfile
+        uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "auto-pr/fix-lockfile"
+          commit-message: "chore: auto fix lockfile [skip ci].."
+          title: "chore: auto fix lockfile [skip ci].."
+          labels: |
+            pr|chore
+          body: |
+            ## Summary
+
+            This PR fixes the lockfile.
+
+      - name: 🔧 Show PR info
+        run: |
+          echo "PR info:"
+          echo "${{ fromJSON(steps.auto-pr-lockfile.outputs) }}"
+
+      - name: ⏸ Pause for VSCode Debug
+        env:
+          ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+          CONTEXT_JOB: ${{ toJSON(job) }}
+          CONTEXT_STEPS: ${{ toJSON(steps) }}
+          CONTEXT_RUNNER: ${{ toJSON(runner) }}
+          CONTEXT_MATRIX: ${{ toJSON(matrix) }}
+          CONTEXT_NEEDS: ${{ toJSON(needs) }}
+          CONTEXT_INPUTS: ${{ toJSON(inputs) }}
+        if: env.ACTION_DEBUG_TOKEN != '' && (failure() || vars.ACTION_DEBUG_WORKFLOW == github.workflow)
+        uses: fawazahmed0/action-debug-vscode@b86399d1033aab18cf8f962fc7f634f39c9945ec # v3
+        with:
+          token: ${{ env.ACTION_DEBUG_TOKEN }}

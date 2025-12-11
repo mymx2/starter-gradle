@@ -1,13 +1,14 @@
 # Security Policy
 
 ## Supported Versions
+
 We provide security updates only for actively maintained versions.
 Please ensure you are using one of the versions listed below:
 
-| Version       | Supported |
-|---------------|-----------|
-| main / latest | ✔️        |
-| Older releases| ❌        |
+| Version        | Supported |
+| -------------- | --------- |
+| main / latest  | ✔️        |
+| Older releases | ❌        |
 
 If you are using an unsupported version, please upgrade to the latest release before reporting a vulnerability.
 
@@ -25,10 +26,10 @@ If you discover a security vulnerability, please follow the guidelines below:
    (located under the repository’s **Security** section).
 
 3. Your report should ideally include:
-  - A clear description of the vulnerability
-  - Steps to reproduce
-  - Possible impact
-  - Suggested fix (optional)
+   - A clear description of the vulnerability
+   - Steps to reproduce
+   - Possible impact
+   - Suggested fix (optional)
 
 We will respond within **72 hours** and work with you to validate and resolve the issue.
 
@@ -43,6 +44,7 @@ We will respond within **72 hours** and work with you to validate and resolve th
   - Release patched versions
 
 We kindly ask security researchers to:
+
 - Avoid exploiting or abusing vulnerabilities
 - Avoid running destructive tests on production services
 - Give us reasonable time to fix issues before public disclosure
