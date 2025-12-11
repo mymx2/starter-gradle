@@ -13,7 +13,7 @@ body:
     attributes:
       label: Describe the problem
       description: Is your feature request related to a problem? Please describe.
-      placeholder: In module [xy] we could provide following implementation..., related to issue #4, #5
+      placeholder: In module [xy] we could provide following implementation..., related to issue \#4, \#5
     validations:
       required: true
   - type: textarea

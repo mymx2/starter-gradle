@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/github-issue-forms.json
-name: "🐛 Fix PR"
-description: "Submit a pull request to fix a bug"
+name: 🚀 Pull Request
+description: Submit a pull request to improve the project
 title: "fix: "
-labels: ["pr|fix"]
+labels: ["status|waiting-for-triage"]
 body:
   - type: markdown
     attributes:
@@ -24,7 +24,7 @@ body:
     attributes:
       label: Related Issues
       description: Add references to related issues if applicable.
-      placeholder: e.g. fix #123, fix #456, closes #789
+      placeholder: e.g. fix \#123, fix \#456, closes \#789
 
   - type: textarea
     id: summary
