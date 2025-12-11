@@ -19,6 +19,8 @@ on:
         required: true
       mavenCentralPassword:
         required: true
+      ACTION_DEBUG_TOKEN:
+        required: false
 
 jobs:
   publish:
