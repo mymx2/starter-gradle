@@ -96,7 +96,7 @@ jobs:
         run: ./gradlew --version
 
       - name: 🔏 Write locks (only for bots)
-        run: ./gradlew :build-logic:writeLocks writeLocks --no-parallel
+        run: ./gradlew :build-logic:writeLocks writeLocks --no-parallel --no-configuration-cache
 
       - name: 📝 Get Commit Message
         run: |

@@ -49,7 +49,7 @@ jobs:
         run: ./gradlew --version
 
       - name: 🔏 Write locks (auto)
-        run: ./gradlew :build-logic:writeLocks writeLocks --no-parallel
+        run: ./gradlew :build-logic:writeLocks writeLocks --no-parallel --no-configuration-cache
 
       - name: 💾 Commit file changes (auto)
         id: auto-pr-lockfile
@@ -69,7 +69,7 @@ jobs:
       - name: 🔧 Show PR info
         run: |
           echo "PR info:"
-          echo "${{ fromJSON(steps.auto-pr-lockfile.outputs) }}"
+          echo "${{ steps.auto-pr-lockfile.outputs }}"
 
       - name: ⏸ Pause for VSCode Debug
         env:
