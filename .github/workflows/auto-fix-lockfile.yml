@@ -67,9 +67,10 @@ jobs:
             This PR fixes the lockfile.
 
       - name: 🔧 Show PR info
+        env:
+          PR_INFO: ${{ toJSON(steps.auto-pr-lockfile.outputs) }}
         run: |
-          echo "PR info:"
-          echo "${{ steps.auto-pr-lockfile.outputs }}"
+          echo "PR info: $PR_INFO"
 
       - name: ⏸ Pause for VSCode Debug
         env:
