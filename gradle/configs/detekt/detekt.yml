@@ -23,3 +23,15 @@ style:
     active: false
   MagicNumber:
     active: false
+  ForbiddenImport:
+    active: false
+    imports:
+      - "java.util.Date"
+      - "java.nio.file.Paths"
+  ForbiddenMethodCall:
+    active: true
+    methods:
+      - reason: "Use LocalDateTime instead"
+        value: "java.util.Date"
+      - reason: "Use Path instead"
+        value: "java.nio.file.Paths"

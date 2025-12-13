@@ -4,6 +4,7 @@
     <excluded-names>
       <!-- java -->
       <name>java.util.Date</name>
+      <name>java.nio.file.Paths</name>
     </excluded-names>
   </component>
 </project>

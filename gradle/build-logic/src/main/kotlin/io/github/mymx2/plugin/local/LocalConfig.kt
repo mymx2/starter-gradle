@@ -4,7 +4,7 @@ package io.github.mymx2.plugin.local
 
 import io.github.mymx2.plugin.local.LocalConfig.DEFAULT_LOCAL_PROPERTY_FILE
 import io.github.mymx2.plugin.propOrDefault
-import java.nio.file.Paths
+import java.nio.file.Path
 import java.util.*
 import org.gradle.api.Project
 import org.gradle.api.initialization.Settings
@@ -113,7 +113,7 @@ object LocalConfig {
           runCatching { extraProperties.get("ENABLE_LOCAL_CONFIG")?.toString()?.toBoolean() }
             .getOrNull() == true
         if (enableLocalConfig) {
-          val file = Paths.get(script.settingsDir.path, DEFAULT_LOCAL_PROPERTY_FILE).toFile()
+          val file = Path.of(script.settingsDir.path, DEFAULT_LOCAL_PROPERTY_FILE).toFile()
           if (file.exists()) {
             val properties = Properties()
             properties.load(file.reader())

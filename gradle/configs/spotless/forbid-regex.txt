@@ -10,3 +10,7 @@
 ## 禁止 XXX 注释
 #^\s*//\s*XXX:.*
 ########################################
+
+### jdk
+import java.util.Date
+import java.nio.file.Paths
