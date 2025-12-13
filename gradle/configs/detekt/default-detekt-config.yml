@@ -1,9 +1,10 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/detekt-1.22.0.json
 config:
   validation: true
   warningsAsErrors: false
   checkExhaustiveness: false
   # when writing own rules with new properties, exclude the property path e.g.: ['my_rule_set', '.*>.*>[my_property]']
-  excludes: []
+  excludes: ""
 
 processors:
   active: true
@@ -34,11 +35,11 @@ console-reports:
 
 output-reports:
   active: true
-  exclude:
-  # - 'XmlOutputReport'
-  # - 'HtmlOutputReport'
-  # - 'MdOutputReport'
-  # - 'sarif'
+#  exclude:
+#    - "XmlOutputReport"
+#    - "HtmlOutputReport"
+#    - "MdOutputReport"
+#    - "sarif"
 
 comments:
   active: true
