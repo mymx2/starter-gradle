@@ -1,9 +1,6 @@
 @file:Suppress("UnstableApiUsage", "PropertyName")
 
-import io.github.mymx2.plugin.Injected
-import io.github.mymx2.plugin.injected
 import io.github.mymx2.plugin.utils.Ansi
-import java.util.regex.Pattern
 import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
 
 val commitMsgFile = ".git/hooks/commit-msg"
@@ -83,10 +80,6 @@ fun initPreCommitHook() {
 
 fun initCommitMsgHook() {
   val rootDir = isolated.rootProject.projectDirectory
-
-  val verifyCommitMsgTaskName = "gitHookVerifyCommitMsg"
-  val commitMsgFileProperty = "commitMsgFile"
-
   val commitMsgHook = rootDir.file(commitMsgFile).asFile
 
   if (!commitMsgHook.exists()) {
@@ -97,14 +90,14 @@ fun initCommitMsgHook() {
       commitMsgHook.ensureParentDirsCreated()
       commitMsgHook.writeText(
         $$"""
-            #!/bin/sh
-            COMMIT_MSG_FILE=$1
-            ./gradlew $$verifyCommitMsgTaskName -P$${commitMsgFileProperty}="$COMMIT_MSG_FILE"
-            EXIT_CODE="$?"
-            if [ $EXIT_CODE -ne 0 ]; then
-              exit 1
-            fi
-            """
+        #!/bin/sh
+        chmod +x ./.github/check-commit-editmsg.sh
+        ./.github/check-commit-editmsg.sh
+        EXIT_CODE="$?"
+        if [ $EXIT_CODE -ne 0 ]; then
+          exit 1
+        fi
+        """
           .trimIndent()
       )
     }
@@ -114,11 +107,6 @@ fun initCommitMsgHook() {
         Ansi.Color.GREEN.code,
       )
     )
-  }
-
-  // Git Commit Message Convention
-  tasks.register(verifyCommitMsgTaskName) {
-    configureCommitMsgHook(injected, commitMsgFileProperty)
   }
 }
 
@@ -159,40 +147,5 @@ fun initPrePushHook() {
         Ansi.Color.GREEN.code,
       )
     )
-  }
-}
-
-@Suppress("detekt:MaxLineLength")
-fun Task.configureCommitMsgHook(injected: Injected, commitMsgFileProperty: String) {
-  val commitMsgFile =
-    injected.providers.gradleProperty(commitMsgFileProperty).map {
-      @Suppress("UselessCallOnNotNull") if (it.isNullOrBlank()) null else File(it)
-    }
-
-  doLast {
-    val commitMsgPattern =
-      """^(?:revert: )?(feat|fix|refactor|perf|test|infra|deps|docs|chore|wip|release)(\(.+\))?: [^\n\r]{1,99}[^\s\n\r]$"""
-    val pattern = Pattern.compile(commitMsgPattern)
-    val msgFile = commitMsgFile.orNull
-    if (msgFile != null) {
-      val message = msgFile.readText()
-      if (!pattern.matcher(message).find()) {
-        throw GradleException(
-          """
-        |${Ansi.color("ERROR", Ansi.Color.BACKGROUND_RED.code)}  ${Ansi.color("invalid commit message format.", Ansi.Color.RED.code)}
-        |
-        |${Ansi.color("Proper commit message format is required for automated changelog generation. Examples:", Ansi.Color.RED.code)}
-        |
-        |  ${Ansi.color("feat(compiler): add 'comments' option", Ansi.Color.GREEN.code)}
-        |  ${Ansi.color("fix(v-model): handle events on blur (close #28)", Ansi.Color.GREEN.code)}
-        |
-        |${Ansi.color("Commit message header: <type>(<scope>): <subject>", Ansi.Color.RED.code)}
-        |${Ansi.color("Commit message header pattern: $commitMsgPattern", Ansi.Color.RED.code)}
-        |${Ansi.color("See", Ansi.Color.RED.code)} ${Ansi.color("https://github.com/conventional-commits/conventionalcommits.org", Ansi.Color.BLUE.code)} ${Ansi.color("for more details.", Ansi.Color.RED.code)}
-        """
-            .trimMargin()
-        )
-      }
-    }
   }
 }
