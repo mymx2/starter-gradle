@@ -17,6 +17,7 @@ node = "24.10.0"
 # https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/projectlombok/lombok/maven-metadata.xml
 lombok = { module = "org.projectlombok:lombok", version = "1.18.42" }
 semver = { module = "net.swiftzer.semver:semver", version = "2.1.0" }
+slf4jApi = { module = "org.slf4j:slf4j-api", version = "2.1.0-alpha1" }
 slf4jSimple = { module = "org.slf4j:slf4j-simple", version = "2.1.0-alpha1" }
 junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version = "6.1.0-M1" }
 

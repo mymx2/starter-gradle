@@ -13,7 +13,7 @@ plugins {
 application { mainClass.set("io.github.mymx2.app.Application") }
 
 dependencies {
-  implementation("org.slf4j:slf4j-api")
+  implementation(libs.slf4jApi)
   runtimeOnly(libs.slf4jSimple)
 
   testImplementation(libs.junitJupiterApi)
