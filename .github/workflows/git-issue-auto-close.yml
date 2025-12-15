@@ -29,14 +29,6 @@ jobs:
             Hi, this issue has been closed because it has been inactive for more than 7 days.
             If you think it should still be open, please reply here.
 
-      - name: 🧹 replace labels
-        uses: actions-cool/issues-helper@9861779a695cf1898bd984c727f685f351cfc372 # v3.7.2
-        with:
-          actions: "set-labels"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          labels: "close|invalid"
-
       - name: ⏸ Pause for VSCode Debug
         env:
           ACTION_DEBUG_TOKEN: ${{ secrets.ACTION_DEBUG_TOKEN }}
