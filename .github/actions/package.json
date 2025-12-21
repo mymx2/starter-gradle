@@ -45,7 +45,7 @@
     "@octokit/webhooks-definitions": "3.67.3",
     "@types/debug": "4.1.12",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "24.10.1",
+    "@types/node": "24.10.4",
     "cypress": "15.7.1",
     "debug": "4.4.3",
     "eslint": "9.39.1",
