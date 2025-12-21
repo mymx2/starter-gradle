@@ -73,8 +73,8 @@ importers:
         specifier: 0.3.22
         version: 0.3.22
       '@actions/languageservice':
-        specifier: 0.3.20
-        version: 0.3.20
+        specifier: 0.3.25
+        version: 0.3.25
       '@actions/workflow-parser':
         specifier: 0.3.20
         version: 0.3.20
@@ -151,6 +151,10 @@ packages:
     resolution: {integrity: sha512-5YQUxNvMtE06t8n6LuYoFaFPDXlyAD1Sc42em6Y4mFeFB6WFTt9LVVu+U2zNSJQ/FahiT7+J3VfB68FCxife7w==}
     engines: {node: '>= 16.15'}
 
+  '@actions/expressions@0.3.25':
+    resolution: {integrity: sha512-qb2M2QSdZPXkYJaZNBnxFeAJ/TMdeicRrRQU9ZM39iRrW4QflyLYFuJWFOHdwltbmqoTHXg6/1mtQHjdusMtYA==}
+    engines: {node: '>= 18'}
+
   '@actions/github@6.0.1':
     resolution: {integrity: sha512-xbZVcaqD4XnQAe35qSQqskb3SqIAfRyLBrHMd/8TuL7hJSz2QtbDwnNM8zWx4zO5l2fnGtseNE3MbEvD7BxVMw==}
 
@@ -172,9 +176,9 @@ packages:
   '@actions/io@2.0.0':
     resolution: {integrity: sha512-Jv33IN09XLO+0HS79aaODsvIRyduiF7NY/F6LYeK5oeUmrsz7aFdRphQjFoESF4jS7lMauDOttKALcpapVDIAg==}
 
-  '@actions/languageservice@0.3.20':
-    resolution: {integrity: sha512-s8DiUNKew9+IdRVqu2jxVmpPU7kIegQ9vSfhXxBbGkFLqkJANhg+M6tt3oEwgTtaUH1r44rccfrocATZZNaH5A==}
-    engines: {node: '>= 16.15'}
+  '@actions/languageservice@0.3.25':
+    resolution: {integrity: sha512-o6WttwhnGqFtOUlh7NwqlqHVUKAvWDzLPOao+vAuuwgubts/QKFb/g1GzlwALwi87QnruX7kmGDznP5NhT6Slg==}
+    engines: {node: '>= 18'}
 
   '@actions/tool-cache@2.0.2':
     resolution: {integrity: sha512-fBhNNOWxuoLxztQebpOaWu6WeVmuwa77Z+DxIZ1B+OYvGkGQon6kTVg6Z32Cb13WCuw0szqonK+hh03mJV7Z6w==}
@@ -182,6 +186,10 @@ packages:
   '@actions/workflow-parser@0.3.20':
     resolution: {integrity: sha512-qhIzkiTiyiYX0CaIR+SS5Z0g7BMqS6VIC0t4GZH8lVGbK6Yw+0TpSX8iTFySfZMMoVpSCFy6uBxekskvBpkqEQ==}
     engines: {node: '>= 16.15'}
+
+  '@actions/workflow-parser@0.3.25':
+    resolution: {integrity: sha512-91R1Yytz59KH9UgcPKORCvj0jaYfeRToNji3sBPX0uP91kI6QMJ6kOT1tPSOr0GYc2eE3oGvcNIQoLRIMfS+iQ==}
+    engines: {node: '>= 18'}
 
   '@antfu/eslint-config@6.2.0':
     resolution: {integrity: sha512-ksasd+mJk441HHodwPh3Nhmwo9jSHUmgQyfTxMQM05U7SjDS0fy2KnXnPx0Vhc/CqKiJnx8wGpQCCJibyASX9Q==}
@@ -3586,6 +3594,8 @@ snapshots:
 
   '@actions/expressions@0.3.22': {}
 
+  '@actions/expressions@0.3.25': {}
+
   '@actions/github@6.0.1':
     dependencies:
       '@actions/http-client': 2.2.3
@@ -3620,10 +3630,10 @@ snapshots:
 
   '@actions/io@2.0.0': {}
 
-  '@actions/languageservice@0.3.20':
+  '@actions/languageservice@0.3.25':
     dependencies:
-      '@actions/expressions': 0.3.22
-      '@actions/workflow-parser': 0.3.20
+      '@actions/expressions': 0.3.25
+      '@actions/workflow-parser': 0.3.25
       vscode-languageserver-textdocument: 1.0.12
       vscode-languageserver-types: 3.17.5
       vscode-uri: 3.1.0
@@ -3640,6 +3650,12 @@ snapshots:
   '@actions/workflow-parser@0.3.20':
     dependencies:
       '@actions/expressions': 0.3.22
+      cronstrue: 2.59.0
+      yaml: 2.8.1
+
+  '@actions/workflow-parser@0.3.25':
+    dependencies:
+      '@actions/expressions': 0.3.25
       cronstrue: 2.59.0
       yaml: 2.8.1
 
