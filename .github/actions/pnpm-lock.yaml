@@ -70,8 +70,8 @@ importers:
         version: 6.1.2
     devDependencies:
       '@actions/expressions':
-        specifier: 0.3.22
-        version: 0.3.22
+        specifier: 0.3.25
+        version: 0.3.25
       '@actions/languageservice':
         specifier: 0.3.20
         version: 0.3.20
@@ -147,9 +147,9 @@ packages:
   '@actions/exec@1.1.1':
     resolution: {integrity: sha512-+sCcHHbVdk93a0XT19ECtO/gIXoxvdsgQLzb2fE2/5sIZmWQuluYyjPQtrtTHdU1YzTZ7bAPN4sITq2xi1679w==}
 
-  '@actions/expressions@0.3.22':
-    resolution: {integrity: sha512-5YQUxNvMtE06t8n6LuYoFaFPDXlyAD1Sc42em6Y4mFeFB6WFTt9LVVu+U2zNSJQ/FahiT7+J3VfB68FCxife7w==}
-    engines: {node: '>= 16.15'}
+  '@actions/expressions@0.3.25':
+    resolution: {integrity: sha512-qb2M2QSdZPXkYJaZNBnxFeAJ/TMdeicRrRQU9ZM39iRrW4QflyLYFuJWFOHdwltbmqoTHXg6/1mtQHjdusMtYA==}
+    engines: {node: '>= 18'}
 
   '@actions/github@6.0.1':
     resolution: {integrity: sha512-xbZVcaqD4XnQAe35qSQqskb3SqIAfRyLBrHMd/8TuL7hJSz2QtbDwnNM8zWx4zO5l2fnGtseNE3MbEvD7BxVMw==}
@@ -3584,7 +3584,7 @@ snapshots:
     dependencies:
       '@actions/io': 1.1.3
 
-  '@actions/expressions@0.3.22': {}
+  '@actions/expressions@0.3.25': {}
 
   '@actions/github@6.0.1':
     dependencies:
@@ -3622,7 +3622,7 @@ snapshots:
 
   '@actions/languageservice@0.3.20':
     dependencies:
-      '@actions/expressions': 0.3.22
+      '@actions/expressions': 0.3.25
       '@actions/workflow-parser': 0.3.20
       vscode-languageserver-textdocument: 1.0.12
       vscode-languageserver-types: 3.17.5
@@ -3639,7 +3639,7 @@ snapshots:
 
   '@actions/workflow-parser@0.3.20':
     dependencies:
-      '@actions/expressions': 0.3.22
+      '@actions/expressions': 0.3.25
       cronstrue: 2.59.0
       yaml: 2.8.1
 
