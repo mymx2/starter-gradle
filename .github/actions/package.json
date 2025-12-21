@@ -55,6 +55,6 @@
     "prettier": "3.6.2",
     "taze": "19.9.2",
     "typescript": "5.9.3",
-    "vitest": "4.0.15"
+    "vitest": "4.0.16"
   }
 }
