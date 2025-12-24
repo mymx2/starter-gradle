@@ -1,5 +1,7 @@
+import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import io.github.mymx2.plugin.gradle.eagerSharedCache
 import io.github.mymx2.plugin.utils.SemVerUtils
+import org.gradle.kotlin.dsl.withType
 
 plugins {
   java
@@ -28,3 +30,5 @@ tasks.processResources { from(writeGitProperties) }
 
 // ignore the content of 'git.properties' when using a classpath as task input
 normalization.runtimeClasspath { ignore("git.properties") }
+
+tasks.withType<DetectCollisionsTask>().configureEach { collisionFilter.exclude("git.properties") }

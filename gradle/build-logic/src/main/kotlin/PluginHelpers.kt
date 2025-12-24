@@ -1,5 +1,6 @@
 import com.autonomousapps.tasks.ProjectHealthTask
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
@@ -13,6 +14,14 @@ object PluginHelpers {
 
     tasks.named("qualityGate") { dependsOn(tasks.withType<ProjectHealthTask>()) }
   }
+
+  /**
+   * Adds a dependency to the project.
+   *
+   * @param configuration The configuration to add the dependency to.
+   */
+  fun Project.useDependencies(configuration: DependencyHandlerScope.() -> Unit) =
+    DependencyHandlerScope.of(dependencies).configuration()
 
   /**
    * Adds a dependency on the Spring Boot platform.
