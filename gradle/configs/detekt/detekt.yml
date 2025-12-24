@@ -27,14 +27,14 @@ style:
   ForbiddenImport:
     active: false
     imports:
-      - reason: "Use Instant instead"
+      - reason: "Use LocalDateTime instead"
         value: "java.util.Date"
       - reason: "Use Path instead"
         value: "java.nio.file.Paths"
   ForbiddenMethodCall:
     active: false
     methods:
-      - reason: "Use Instant instead"
+      - reason: "Use LocalDateTime instead"
         value: "java.util.Date.<init>"
       - reason: "Use Path instead"
         value: "java.nio.file.Paths.get"
