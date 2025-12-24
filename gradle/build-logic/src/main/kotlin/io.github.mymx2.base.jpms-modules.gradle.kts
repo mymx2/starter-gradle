@@ -114,6 +114,7 @@ jvmDependencyConflicts.patch {
 // 'module-info.class' inside the Jar files. In our full Java Modules setup every
 // Jar needs to have this file. If it is missing, it is added by what is configured here.
 extraJavaModuleInfo {
+  skipLocalJars = true
   deriveAutomaticModuleNamesFromFileNames = true
   failOnMissingModuleInfo = false
   failOnAutomaticModules = false // Only allow Jars with 'module-info' on all module paths

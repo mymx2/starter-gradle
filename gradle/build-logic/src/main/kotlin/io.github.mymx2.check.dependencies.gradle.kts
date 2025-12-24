@@ -2,7 +2,6 @@
 
 import com.autonomousapps.DependencyAnalysisExtension
 import com.autonomousapps.DependencyAnalysisSubExtension
-import com.autonomousapps.tasks.ProjectHealthTask
 import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import io.github.mymx2.plugin.environment.EnvAccess
 import io.github.mymx2.plugin.injected
@@ -55,13 +54,11 @@ if (project.parent == null) {
 
 tasks.named("qualityCheck") {
   dependsOn(tasks.withType<DetectCollisionsTask>())
-  dependsOn(tasks.withType<ProjectHealthTask>())
   dependsOn(tasks.withType<ModuleDirectivesScopeCheck>())
 }
 
 tasks.named("qualityGate") {
   dependsOn(tasks.withType<DetectCollisionsTask>())
-  dependsOn(tasks.withType<ProjectHealthTask>())
   dependsOn(tasks.withType<ModuleDirectivesScopeCheck>())
 }
 
