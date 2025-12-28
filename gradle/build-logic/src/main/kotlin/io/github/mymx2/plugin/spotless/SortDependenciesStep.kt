@@ -65,12 +65,7 @@ class SortDependenciesStep : Serializable {
     val fullScope = line.trim().substring(0, line.trim().indexOf("("))
     var scope = Scope.Api
     var sourceSet = ""
-    val isProject = line.contains("(projects.")
-    val isThirdParty = line.contains("(libs.")
-
-    if (!isProject && !isThirdParty) {
-      println("WARN: Discouraged dependency notation: ${line.trim()}")
-    }
+    val isProject = line.contains("(projects.") || line.contains("project(\"")
 
     Scope.entries.forEach { scopeCandidate ->
       if (fullScope == scopeCandidate.name.replaceFirstChar { it.lowercase(Locale.getDefault()) }) {

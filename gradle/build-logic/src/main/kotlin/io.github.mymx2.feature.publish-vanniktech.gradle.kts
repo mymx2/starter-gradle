@@ -13,17 +13,11 @@ plugins {
  * - https://vanniktech.github.io/gradle-maven-publish-plugin/central/
  * - https://vanniktech.github.io/gradle-maven-publish-plugin/what/
  */
-val mavenCentralPublishingDefault = findProperty("mavenCentralPublishing") == null
-
 mavenPublishing {
-  coordinates(project.group.toString(), project.name, project.version.toString())
   // see: https://github.com/vanniktech/gradle-maven-publish-plugin
-  if (mavenCentralPublishingDefault) {
-    // mavenCentralPublishing=true
-    publishToMavenCentral(automaticRelease = false)
-    // signAllPublications=true
-    signAllPublications()
-  }
+  // mavenCentralPublishing=true
+  // signAllPublications=true
+  coordinates(project.group.toString(), project.name, project.version.toString())
 }
 
 publishing.publications.configureEach {

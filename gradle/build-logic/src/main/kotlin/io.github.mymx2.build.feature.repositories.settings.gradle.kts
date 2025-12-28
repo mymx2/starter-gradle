@@ -27,7 +27,7 @@ pluginManagement {
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
-    // mavenLocal()
+    mavenLocal()
     if (enableProxyRepo) {
       // https://mirrors.cloud.tencent.com
       maven { setUrl("https://mirrors.cloud.tencent.com/nexus/repository/maven-public") }
