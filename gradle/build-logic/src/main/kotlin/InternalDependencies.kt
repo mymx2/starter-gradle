@@ -22,7 +22,7 @@ object InternalDependencies {
     errorProneCore = { module = "com.google.errorprone:error_prone_core", version = "2.45.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/google/errorprone/error_prone_core/maven-metadata.xml" }
     errorProneContrib = { module = "tech.picnic.error-prone-support:error-prone-contrib", version = "0.27.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/error-prone-contrib/maven-metadata.xml" }
     refasterRunner = { module = "tech.picnic.error-prone-support:refaster-runner", version = "0.27.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/refaster-runner/maven-metadata.xml" }
-    nullaway = { module = "com.uber.nullaway:nullaway", version = "0.12.14", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml" }
+    nullaway = { module = "com.uber.nullaway:nullaway", version = "0.12.15", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml" }
     spotbugsAnnotations = { module = "com.github.spotbugs:spotbugs-annotations", version = "4.9.8", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml" }
 
     # NPM dependencies
