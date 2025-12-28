@@ -73,8 +73,8 @@ importers:
         specifier: 0.3.25
         version: 0.3.25
       '@actions/languageservice':
-        specifier: 0.3.20
-        version: 0.3.20
+        specifier: 0.3.28
+        version: 0.3.28
       '@actions/workflow-parser':
         specifier: 0.3.20
         version: 0.3.20
@@ -151,6 +151,10 @@ packages:
     resolution: {integrity: sha512-qb2M2QSdZPXkYJaZNBnxFeAJ/TMdeicRrRQU9ZM39iRrW4QflyLYFuJWFOHdwltbmqoTHXg6/1mtQHjdusMtYA==}
     engines: {node: '>= 18'}
 
+  '@actions/expressions@0.3.28':
+    resolution: {integrity: sha512-lcRq6KUJu0B4V0aWzsWRrQMtdqoGZNL2T2+HQp0cbt43ka3nhAD5zFttKfnLRfEuF9AApgUcmcPlyOqX3UDyLA==}
+    engines: {node: '>= 18'}
+
   '@actions/github@6.0.1':
     resolution: {integrity: sha512-xbZVcaqD4XnQAe35qSQqskb3SqIAfRyLBrHMd/8TuL7hJSz2QtbDwnNM8zWx4zO5l2fnGtseNE3MbEvD7BxVMw==}
 
@@ -172,9 +176,9 @@ packages:
   '@actions/io@2.0.0':
     resolution: {integrity: sha512-Jv33IN09XLO+0HS79aaODsvIRyduiF7NY/F6LYeK5oeUmrsz7aFdRphQjFoESF4jS7lMauDOttKALcpapVDIAg==}
 
-  '@actions/languageservice@0.3.20':
-    resolution: {integrity: sha512-s8DiUNKew9+IdRVqu2jxVmpPU7kIegQ9vSfhXxBbGkFLqkJANhg+M6tt3oEwgTtaUH1r44rccfrocATZZNaH5A==}
-    engines: {node: '>= 16.15'}
+  '@actions/languageservice@0.3.28':
+    resolution: {integrity: sha512-JcqSMGkUilOETdqIUD3mB31hMuGCDEOcjOcmXSVH+Iw3A+585knyYyTj6lMXiWGr61XM45IJgUBceUK8VyZU3A==}
+    engines: {node: '>= 18'}
 
   '@actions/tool-cache@2.0.2':
     resolution: {integrity: sha512-fBhNNOWxuoLxztQebpOaWu6WeVmuwa77Z+DxIZ1B+OYvGkGQon6kTVg6Z32Cb13WCuw0szqonK+hh03mJV7Z6w==}
@@ -182,6 +186,10 @@ packages:
   '@actions/workflow-parser@0.3.20':
     resolution: {integrity: sha512-qhIzkiTiyiYX0CaIR+SS5Z0g7BMqS6VIC0t4GZH8lVGbK6Yw+0TpSX8iTFySfZMMoVpSCFy6uBxekskvBpkqEQ==}
     engines: {node: '>= 16.15'}
+
+  '@actions/workflow-parser@0.3.28':
+    resolution: {integrity: sha512-RIeAYRZMZRVQeLrc4fn0mp1IXki9CtXJxzbodagPenLkgAGqaTffBbYrd0+mQANrreUp5FCtS2dzvtK7t0DFNg==}
+    engines: {node: '>= 18'}
 
   '@antfu/eslint-config@6.4.2':
     resolution: {integrity: sha512-kj6tZEKXMu07pCBH9TjPyRsQf8oZCwd3I6RFycKz8gPP5/uALictvUJsEA9bXBqZvtqA8SUEwLPLhVRZTSUTWQ==}
@@ -3635,6 +3643,8 @@ snapshots:
 
   '@actions/expressions@0.3.25': {}
 
+  '@actions/expressions@0.3.28': {}
+
   '@actions/github@6.0.1':
     dependencies:
       '@actions/http-client': 2.2.3
@@ -3669,14 +3679,14 @@ snapshots:
 
   '@actions/io@2.0.0': {}
 
-  '@actions/languageservice@0.3.20':
+  '@actions/languageservice@0.3.28':
     dependencies:
-      '@actions/expressions': 0.3.25
-      '@actions/workflow-parser': 0.3.20
+      '@actions/expressions': 0.3.28
+      '@actions/workflow-parser': 0.3.28
       vscode-languageserver-textdocument: 1.0.12
       vscode-languageserver-types: 3.17.5
       vscode-uri: 3.1.0
-      yaml: 2.8.1
+      yaml: 2.8.2
 
   '@actions/tool-cache@2.0.2':
     dependencies:
@@ -3691,6 +3701,12 @@ snapshots:
       '@actions/expressions': 0.3.25
       cronstrue: 2.59.0
       yaml: 2.8.1
+
+  '@actions/workflow-parser@0.3.28':
+    dependencies:
+      '@actions/expressions': 0.3.28
+      cronstrue: 2.59.0
+      yaml: 2.8.2
 
   '@antfu/eslint-config@6.4.2(@unocss/eslint-plugin@66.5.6(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-sfc@3.5.24)(eslint-plugin-format@1.0.2(eslint@9.39.1(jiti@2.6.1)))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.15(@opentelemetry/api@1.9.0)(@types/node@24.10.1)(jiti@2.6.1)(yaml@2.8.2))':
     dependencies:
@@ -4817,7 +4833,7 @@ snapshots:
 
   '@unocss/eslint-plugin@66.5.6(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/utils': 8.47.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       '@unocss/config': 66.5.6
       '@unocss/core': 66.5.6
       '@unocss/rule-utils': 66.5.6
@@ -6787,7 +6803,7 @@ snapshots:
 
   pnpm-workspace-yaml@1.3.0:
     dependencies:
-      yaml: 2.8.1
+      yaml: 2.8.2
 
   pnpm-workspace-yaml@1.4.2:
     dependencies:
@@ -7468,7 +7484,7 @@ snapshots:
   yaml-eslint-parser@1.3.2:
     dependencies:
       eslint-visitor-keys: 3.4.3
-      yaml: 2.8.1
+      yaml: 2.8.2
 
   yaml@2.8.1: {}
 

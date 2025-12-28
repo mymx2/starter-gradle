@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@actions/expressions": "0.3.25",
-    "@actions/languageservice": "0.3.20",
+    "@actions/languageservice": "0.3.28",
     "@actions/workflow-parser": "0.3.20",
     "@antfu/eslint-config": "6.4.2",
     "@octokit/openapi-types": "27.0.0",
