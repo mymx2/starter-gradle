@@ -10,9 +10,7 @@ plugins {
   id("io.github.mymx2.base.lifecycle")
 }
 
-dependencies {
-  compileOnly(InternalDependencies.get("spotbugsAnnotations").let { "${it.module}:${it.version}" })
-}
+dependencies { compileOnly(InternalDependencies.useLibrary("spotbugsAnnotations")) }
 
 // auto bind to checks task:
 // https://spotbugs.readthedocs.io/en/latest/gradle.html#tasks-introduced-by-this-gradle-plugin

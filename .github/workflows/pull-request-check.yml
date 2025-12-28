@@ -89,12 +89,6 @@ jobs:
       - name: 🏗 Run main checks
         run: ./gradlew check
 
-      - name: 🧪 End-to-End tests
-        run: ./gradlew testEndToEnd
-
-      - name: 🐢 Slow end-to-end tests
-        run: ./gradlew testEndToEndSlow
-
       - name: 🛠 Generate CycloneDX BOM
         if: github.event_name != 'pull_request'
         run: ./gradlew cyclonedxBom --no-configuration-cache

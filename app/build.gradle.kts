@@ -1,5 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
+import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
 
@@ -16,14 +17,16 @@ dependencies {
   implementation(libs.slf4jApi)
   runtimeOnly(libs.slf4jSimple)
 
-  testImplementation(libs.junitJupiterApi)
+  testImplementation(InternalDependencies.useLibrary("junitJupiterApi"))
 }
 
 dependencies { mockApiImplementation(projects.app) }
 
 dependencies {
   testEndToEndImplementation(projects.app) { capabilities { requireFeature("mock-api") } }
-  testEndToEndApi(libs.junitJupiterApi)
+  testEndToEndRuntimeOnly(InternalDependencies.useLibrary("junitPlatformLauncher"))
+  testEndToEndImplementation(InternalDependencies.useLibrary("junitJupiterApi"))
+  testEndToEndImplementation(InternalDependencies.useLibrary("assertjCore"))
 }
 
 val isJmh = project.getPropOrDefault(LocalConfig.Props.IS_JMH).toBoolean()

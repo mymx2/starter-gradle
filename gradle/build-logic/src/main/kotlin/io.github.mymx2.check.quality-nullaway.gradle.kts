@@ -14,19 +14,19 @@ plugins {
 dependencies {
   compileOnly(
     runCatching { libs.findLibrary("jspecify").get().get() }
-      .getOrElse { InternalDependencies.get("jspecify").let { "${it.module}:${it.version}" } }
+      .getOrElse { InternalDependencies.useLibrary("jspecify") }
   )
   errorprone(
     runCatching { libs.findLibrary("errorprone").get().get() }
-      .getOrElse { InternalDependencies.get("errorProneCore").let { "${it.module}:${it.version}" } }
+      .getOrElse { InternalDependencies.useLibrary("errorProneCore") }
   )
   // https://github.com/PicnicSupermarket/error-prone-support/tree/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/bugpatterns
-  errorprone(InternalDependencies.get("errorProneContrib").let { "${it.module}:${it.version}" })
+  errorprone(InternalDependencies.useLibrary("errorProneContrib"))
   // https://github.com/PicnicSupermarket/error-prone-support/blob/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/refasterrules/
-  errorprone(InternalDependencies.get("refasterRunner").let { "${it.module}:${it.version}" })
+  errorprone(InternalDependencies.useLibrary("refasterRunner"))
   errorprone(
     runCatching { libs.findLibrary("nullaway").get().get() }
-      .getOrElse { InternalDependencies.get("nullaway").let { "${it.module}:${it.version}" } }
+      .getOrElse { InternalDependencies.useLibrary("nullaway") }
   )
 }
 

@@ -1,5 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
+import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
 import java.nio.charset.StandardCharsets
@@ -18,6 +19,12 @@ testing {
       targets.configureEach {
         // Use JUnit 5 as test framework
         useJUnitJupiter()
+
+        dependencies {
+          runtimeOnly(InternalDependencies.useLibrary("junitPlatformLauncher"))
+          implementation(InternalDependencies.useLibrary("junitJupiterApi"))
+          implementation(InternalDependencies.useLibrary("assertjCore"))
+        }
 
         // Configure details for test executions directly on 'Test' task
         testTask.configure {

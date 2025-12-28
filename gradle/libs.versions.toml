@@ -6,8 +6,8 @@
 [versions]
 latest = "latest.release"
 # https://services.gradle.org/versions
-gradle = "9.2.0"
-kotlin = "2.2.20"
+gradle = "9.4.0-milestone-4"
+kotlin = "2.3.0"
 jdk = "25"
 node = "24.10.0"
 
@@ -19,8 +19,6 @@ lombok = { module = "org.projectlombok:lombok", version = "1.18.42" }
 semver = { module = "net.swiftzer.semver:semver", version = "2.1.0" }
 slf4jApi = { module = "org.slf4j:slf4j-api", version = "2.1.0-alpha1" }
 slf4jSimple = { module = "org.slf4j:slf4j-simple", version = "2.1.0-alpha1" }
-junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version = "6.1.0-M1" }
-assertjCore = { module = "org.assertj:assertj-core", version = "3.27.6" }
 
 [bundles]
 
@@ -32,7 +30,7 @@ assertjCore = { module = "org.assertj:assertj-core", version = "3.27.6" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
 net-ltgt-errorprone = { id = "net.ltgt.errorprone", version = "4.3.0" }
 net-ltgt-nullaway = { id = "net.ltgt.nullaway", version = "2.3.0" }
-com-gradle-develocity = { id = "com.gradle.develocity", version = "4.2.2" }
+com-gradle-develocity = { id = "com.gradle.develocity", version = "4.3" }
 org-ec4j-editorconfig = { id = "org.ec4j.editorconfig", version = "0.1.0" }
 com-diffplug-spotless = { id = "com.diffplug.spotless", version = "8.1.0" }
 com-github-node-gradle-node = { id = "com.github.node-gradle.node", version = "7.1.0" }
@@ -49,13 +47,13 @@ com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version = 
 com-autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version = "3.5.1" }
 io-fuchs-gradle-classpath-collision-detector = { id = "io.fuchs.gradle.classpath-collision-detector", version = "1.0.0" }
 org-cyclonedx-bom = { id = "org.cyclonedx.bom", version = "3.1.0" }
-com-github-spotbugs = { id = "com.github.spotbugs", version = "6.4.7" }
-org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.3" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.3" }
+com-github-spotbugs = { id = "com.github.spotbugs", version = "6.4.8" }
+org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.4" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.4" }
 io-freefair-lombok = { id = "io.freefair.lombok", version = "9.1.0" }
-org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.22.0" }
-org-springframework-boot = { id = "org.springframework.boot", version = "4.0.0" }
-org-openapi-generator = { id = "org.openapi.generator", version = "7.11.0" }
+org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.23.0" }
+org-springframework-boot = { id = "org.springframework.boot", version = "4.0.1" }
+org-openapi-generator = { id = "org.openapi.generator", version = "7.18.0" }
 
 # Convention Plugins
 io-github-mymx2-plugin-dy-example-settings = { id = "io.github.mymx2.plugin.dy.example.settings" }
