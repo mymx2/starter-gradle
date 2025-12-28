@@ -70,8 +70,8 @@ importers:
         version: 6.1.2
     devDependencies:
       '@actions/expressions':
-        specifier: 0.3.25
-        version: 0.3.25
+        specifier: 0.3.28
+        version: 0.3.28
       '@actions/languageservice':
         specifier: 0.3.20
         version: 0.3.20
@@ -147,8 +147,8 @@ packages:
   '@actions/exec@1.1.1':
     resolution: {integrity: sha512-+sCcHHbVdk93a0XT19ECtO/gIXoxvdsgQLzb2fE2/5sIZmWQuluYyjPQtrtTHdU1YzTZ7bAPN4sITq2xi1679w==}
 
-  '@actions/expressions@0.3.25':
-    resolution: {integrity: sha512-qb2M2QSdZPXkYJaZNBnxFeAJ/TMdeicRrRQU9ZM39iRrW4QflyLYFuJWFOHdwltbmqoTHXg6/1mtQHjdusMtYA==}
+  '@actions/expressions@0.3.28':
+    resolution: {integrity: sha512-lcRq6KUJu0B4V0aWzsWRrQMtdqoGZNL2T2+HQp0cbt43ka3nhAD5zFttKfnLRfEuF9AApgUcmcPlyOqX3UDyLA==}
     engines: {node: '>= 18'}
 
   '@actions/github@6.0.1':
@@ -3633,7 +3633,7 @@ snapshots:
     dependencies:
       '@actions/io': 1.1.3
 
-  '@actions/expressions@0.3.25': {}
+  '@actions/expressions@0.3.28': {}
 
   '@actions/github@6.0.1':
     dependencies:
@@ -3671,7 +3671,7 @@ snapshots:
 
   '@actions/languageservice@0.3.20':
     dependencies:
-      '@actions/expressions': 0.3.25
+      '@actions/expressions': 0.3.28
       '@actions/workflow-parser': 0.3.20
       vscode-languageserver-textdocument: 1.0.12
       vscode-languageserver-types: 3.17.5
@@ -3688,7 +3688,7 @@ snapshots:
 
   '@actions/workflow-parser@0.3.20':
     dependencies:
-      '@actions/expressions': 0.3.25
+      '@actions/expressions': 0.3.28
       cronstrue: 2.59.0
       yaml: 2.8.1
 
@@ -4817,7 +4817,7 @@ snapshots:
 
   '@unocss/eslint-plugin@66.5.6(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/utils': 8.47.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       '@unocss/config': 66.5.6
       '@unocss/core': 66.5.6
       '@unocss/rule-utils': 66.5.6
