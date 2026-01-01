@@ -43,7 +43,7 @@ jobs:
           node-version: "24"
 
       - name: ☕ Setup Java
-        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
         with:
           java-version: "25"
           distribution: "corretto"
@@ -97,7 +97,7 @@ jobs:
 
       - name: 🚀 Create GitHub Release
         if: ${{ inputs.release }}
-        uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe # v2.4.2
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
         with:
           body: ${{ steps.changelog.outputs.changelog }}
           generate_release_notes: true
