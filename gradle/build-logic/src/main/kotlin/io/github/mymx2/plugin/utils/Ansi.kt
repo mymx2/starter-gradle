@@ -1,9 +1,5 @@
 package io.github.mymx2.plugin.utils
 
-import java.io.Console
-import java.util.*
-import kotlin.reflect.full.memberFunctions
-
 /** ANSI控制台工具类 */
 object Ansi {
 
@@ -43,10 +39,7 @@ object Ansi {
    * @param colorCode 颜色代码
    */
   fun color(str: String, colorCode: String? = "39"): String {
-    val ansiCapable = detectIfAnsiCapable
-    return if (ansiCapable) {
-      "${colorCode!!.toAnsiCode()}$str${Color.RESET.code.toAnsiCode()}"
-    } else str
+    return "${colorCode!!.toAnsiCode()}$str${Color.RESET.code.toAnsiCode()}"
   }
 
   fun colorBool(bool: Boolean, align: Boolean = true): String {
@@ -59,23 +52,4 @@ object Ansi {
   }
 
   private fun String.toAnsiCode() = "\u001B[${this}m"
-
-  /** 检测当前终端是否支持ANSI */
-  val detectIfAnsiCapable: Boolean by lazy {
-    val console = System.console() ?: return@lazy false
-    try {
-      val operatingSystemName = System.getProperty("os.name").orEmpty().lowercase(Locale.ENGLISH)
-      if (operatingSystemName.contains("win")) {
-        return@lazy true
-      }
-      val isTerminalMethod = Console::class.memberFunctions.firstOrNull { it.name == "isTerminal" }
-      if (isTerminalMethod != null) {
-        val isTerminal = isTerminalMethod.call(console) as Boolean
-        return@lazy isTerminal
-      }
-    } catch (_: Exception) {
-      return@lazy false
-    }
-    return@lazy false
-  }
 }

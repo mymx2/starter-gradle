@@ -140,7 +140,6 @@ tasks.withType<PublishToMavenRepository>().configureEach {
         """
           .trimIndent()
       )
-      GradleExtTool.openBrowser(provider, openUrl)
       return@doLast
     }
     val toCentralSnapshot = PublishUnit.getPublishingTaskNameSuffix("CentralSnapshot")
@@ -155,7 +154,6 @@ tasks.withType<PublishToMavenRepository>().configureEach {
         """
           .trimIndent()
       )
-      GradleExtTool.openBrowser(provider, xmlUrl)
       return@doLast
     }
     RepositoryConfig.getPrivateRepositories(provider)
@@ -172,7 +170,6 @@ tasks.withType<PublishToMavenRepository>().configureEach {
             """
               .trimIndent()
           )
-          GradleExtTool.openBrowser(provider, openUrl)
         }
       }
   }

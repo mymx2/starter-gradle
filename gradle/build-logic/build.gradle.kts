@@ -1,28 +1,22 @@
 @file:Suppress("UnstableApiUsage", "detekt:MaxLineLength")
 
-import com.vanniktech.maven.publish.GradlePlugin
-import com.vanniktech.maven.publish.JavadocJar
-import java.io.ByteArrayOutputStream
-import java.nio.charset.StandardCharsets
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import io.github.mymx2.plugin.resetTaskGroup
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
-  idea
   `kotlin-dsl` // https://plugins.gradle.org/plugin/org.gradle.kotlin.kotlin-dsl
   alias(libs.plugins.com.gradle.plugin.publish)
-  alias(libs.plugins.com.vanniktech.maven.publish)
+  id("io.github.mymx2.module.kotlin")
+  id("io.github.mymx2.feature.publish-vanniktech")
 }
 
+description = "Zero-config Gradle plugin for building production-ready standalone JVM apps"
+
 dependencies {
-  implementation(libs.semver)
-  // https://docs.gradle.org/current/kotlin-dsl/gradle/org.gradle.kotlin.dsl/kotlin.html
-  // org.jetbrains.kotlin:kotlin-gradle-plugin
+  // implementation(embeddedKotlin("test-junit5"))
   implementation(embeddedKotlin("gradle-plugin"))
   implementation(embeddedKotlin("reflect"))
-  // https://kotlinlang.org/api/core/kotlin-test/
-  // implementation(embeddedKotlin("test-junit5"))
+  implementation(libs.semver)
 }
 
 dependencies {
@@ -70,89 +64,12 @@ dependencies {
     }
 }
 
-val isCI = EnvAccess.isCi(providers)
-val projectGroup = providers.gradleProperty("GROUP").get()
-val projectVersion = providers.gradleProperty("VERSION").get()
-val pomDeveloperName = providers.gradleProperty("POM_DEVELOPER_NAME").get()
-val pomUrl = providers.gradleProperty("POM_URL").get()
-val pomScmConnection = providers.gradleProperty("POM_SCM_CONNECTION").get()
-val pomLicenseUrl = providers.gradleProperty("POM_LICENSE_URL").get()
+val projectGroup: String = providers.gradleProperty("GROUP").get()
+val pomDeveloperName: String = providers.gradleProperty("POM_DEVELOPER_NAME").get()
+val pomUrl: String = providers.gradleProperty("POM_URL").get()
+val pomScmConnection: String = providers.gradleProperty("POM_SCM_CONNECTION").get()
+val pomLicenseUrl: String = providers.gradleProperty("POM_LICENSE_URL").get()
 
-let {
-  group = projectGroup
-  version =
-    if (isCI && projectVersion.count { it == '.' } == 2) {
-      projectVersion.substringBeforeLast(".") +
-        "." +
-        LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")) +
-        "-SNAPSHOT"
-    } else projectVersion
-  description = "Zero-config Gradle plugin for building production-ready standalone JVM apps"
-}
-
-if (!isCI && providers.gradleProperty("IDEA_DOWNLOAD_SOURCES").orNull == "true") {
-  idea {
-    module {
-      isDownloadSources = true
-      isDownloadJavadoc = false
-    }
-  }
-}
-
-val javaLanguageVersion = libs.versions.jdk.get()
-
-java {
-  // https://docs.gradle.org/nightly/userguide/building_java_projects.html#sec:java_cross_compilation
-  toolchain { languageVersion = JavaLanguageVersion.of(javaLanguageVersion) }
-}
-
-// isolated project cannot resolve kotlin dsl. https://github.com/gradle/gradle/issues/23795
-kotlin { jvmToolchain { languageVersion = JavaLanguageVersion.of(javaLanguageVersion) } }
-
-testing.suites.named<JvmTestSuite>("test") { targets.all { useJUnitJupiter() } }
-
-tasks {
-  validatePlugins {
-    enableStricterValidation = true
-    failOnWarning = true
-  }
-  javadoc { isFailOnError = false }
-}
-
-publishing {
-  repositories {
-    maven {
-      name = "tmp"
-      url = uri(layout.settingsDirectory.dir("../../build/publishing/tmpRepo"))
-    }
-  }
-  publications.configureEach {
-    if (this is MavenPublication) {
-      group = project.group
-      artifactId = project.name
-      version = project.version.toString()
-      val projectName = project.group.toString() + ":" + project.name
-      // the pom info
-      pom {
-        name = projectName
-        description = project.description.orEmpty().ifBlank { projectName }
-        url = pomUrl
-        scm { url = pomScmConnection }
-        licenses { license { url = pomLicenseUrl } }
-        developers { developer { name = pomDeveloperName } }
-      }
-    }
-  }
-}
-
-mavenPublishing {
-  publishToMavenCentral(automaticRelease = false)
-  signAllPublications()
-  configure(GradlePlugin(JavadocJar.None(), true))
-}
-
-val printPlugins =
-  providers.gradleProperty("PRINT_GRADLE_PUBLISH_PLUGINS").orNull?.toBoolean() ?: false
 val catalogLibs
   get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
@@ -190,6 +107,7 @@ gradlePlugin {
         }
       }
   }
+  val printPlugins = false
   if (printPlugins) println("|----------publish plugins----------")
   plugins.configureEach {
     if (printPlugins) println("| ${this.id}")
@@ -212,233 +130,22 @@ buildscript {
   }
 }
 
-configurations {
-  configureEach { resolutionStrategy { cacheDynamicVersionsFor(7, TimeUnit.DAYS) } }
-  runtimeClasspath { resolutionStrategy { activateDependencyLocking() } }
-  compileClasspath { shouldResolveConsistentlyWith(runtimeClasspath.get()) }
+listOf(".*PluginMarker.*".toRegex() to "others").forEach { resetTaskGroup(it.first, it.second) }
+
+tasks {
+  validatePlugins {
+    enableStricterValidation = true
+    failOnWarning = true
+  }
+  javadoc { isFailOnError = false }
 }
 
-if (isCI) {
-  dependencyLocking { lockMode = LockMode.STRICT }
+// 禁用 dokka
+dokka { dokkaSourceSets { configureEach { suppress = true } } }
+
+// 禁用 spotlessKotlin
+gradle.projectsEvaluated {
+  tasks.named { it.startsWith("spotlessKotlin") }.configureEach { enabled = false }
 }
 
-object EnvAccess {
-
-  /**
-   * Returns true if the current build is running in a CI environment.
-   *
-   * @param providers The Gradle [ProviderFactory] instance.
-   * @return True if the current build is running in a CI environment, false otherwise.
-   */
-  fun isCi(providers: ProviderFactory): Boolean {
-    val key = "CI"
-    val defaultValue = "false"
-    val isCI =
-      providers
-        .environmentVariable(key)
-        .orElse(providers.systemProperty(key))
-        .orElse(providers.gradleProperty(key))
-        .getOrNull() ?: defaultValue
-    return isCI.toBoolean()
-  }
-}
-
-interface ActionInjected {
-  @get:Inject val execOps: ExecOperations
-  @get:Inject val layout: ProjectLayout
-}
-
-val writeLocks =
-  tasks.register("writeLocks") {
-    group = "toolbox"
-    description = "write dependencies to lockfile"
-    val inject = project.objects.newInstance<ActionInjected>()
-    val workingDirProvider = provider { projectDir.parentFile.parentFile }
-    doFirst {
-      listOf("buildscript-gradle.lockfile", "gradle.lockfile").forEach {
-        inject.layout.projectDirectory.file(it).asFile.also { file ->
-          if (file.exists()) {
-            file.copyTo(
-              inject.layout.projectDirectory.file("build/tmp/locks/${file.name}.bak").asFile,
-              true,
-            )
-          }
-        }
-      }
-    }
-    doLast {
-      val gradlew =
-        if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
-        } else {
-          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
-        }
-      val output = ByteArrayOutputStream()
-      inject.execOps.exec {
-        workingDir(workingDirProvider.get())
-        commandLine(
-          gradlew,
-          // "--refresh-dependencies",
-          ":build-logic:dependencies",
-          "--write-locks",
-        )
-        standardOutput = output
-      }
-      val outputString = output.toString()
-      // https://github.com/gradle/gradle/issues/19900
-      if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
-        listOf("buildscript-gradle.lockfile", "gradle.lockfile").forEach {
-          inject.layout.projectDirectory.file(it).asFile.also { file ->
-            if (file.exists()) {
-              file.writeText(
-                file.readText().replace(System.lineSeparator(), "\n"),
-                StandardCharsets.UTF_8,
-              )
-            }
-          }
-        }
-      }
-
-      val runtimeClasspath =
-        Regex(
-            """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",
-            RegexOption.MULTILINE,
-          )
-          .find(outputString)
-          ?.groupValues[1]
-          ?.trim()
-      if (!runtimeClasspath.isNullOrBlank()) {
-        inject.layout.projectDirectory
-          .file("gradle.lockfile.txt")
-          .asFile
-          .writeText(runtimeClasspath.replace(System.lineSeparator(), "\n"), StandardCharsets.UTF_8)
-      }
-    }
-  }
-
-tasks.register("checkLocks") {
-  group = "toolbox"
-  description = "Check dependencies for lockfile"
-  dependsOn(writeLocks)
-  val inject = project.objects.newInstance<ActionInjected>()
-  doLast {
-    val bakLockContent =
-      inject.layout.projectDirectory.file("build/tmp/locks/gradle.lockfile.bak").asFile.let {
-        if (it.exists()) it.readText() else null
-      }
-    if (bakLockContent != null) {
-      val lockFile =
-        inject.layout.projectDirectory.file("gradle.lockfile").asFile.takeIf { it.exists() }
-      val lockContent = lockFile?.readText()
-      if (lockFile != null && bakLockContent != lockContent) {
-        throw GradleException(
-          "$lockFile has been modified, please run './gradlew :build-logic:writeLocks writeLocks' to update lockfile"
-        )
-      }
-    }
-  }
-}
-
-fun Project.resetTaskGroup(taskName: Any, distGroup: String) {
-  runCatching {
-    gradle.projectsEvaluated {
-      tasks
-        .named {
-          when (taskName) {
-            is String -> it == taskName
-            is Regex -> it.matches(taskName)
-            else -> false
-          }
-        }
-        .configureEach {
-          group = distGroup
-          description = "$description [group = $distGroup]"
-        }
-    }
-  }
-}
-
-val groups =
-  mapOf(
-    "build" to setOf("assemble", "build", "clean", "qualityGate"),
-    "docs" to setOf("doc.*".toRegex()),
-    "help" to
-      setOf(
-        "help",
-        "projects",
-        "properties",
-        "tasks",
-        "dependencies",
-        "buildEnvironment",
-        "kotlinDslAccessorsReport",
-      ),
-    "others" to setOf(".*".toRegex()),
-    "publishing" to
-      setOf(
-        "publish",
-        "publishAll.*".toRegex(),
-        "publishTo.*".toRegex(),
-        "publishPluginMaven.*".toRegex(),
-      ),
-    "toolbox" to setOf(".*".toRegex()),
-    "verification" to setOf("check", "test.*".toRegex(), "qualityCheck"),
-  )
-val groupRegex = Regex(""" \[group = (.*)]""")
-
-// Cleanup the task group by removing all tasks developers usually do not need to call
-// directly
-gradle.projectsEvaluated { tasks.configureEach { configureGroup(groupRegex, groups) } }
-
-@Suppress("detekt:CyclomaticComplexMethod")
-fun Task.configureGroup(groupRegex: Regex, groupMap: Map<String, Set<Any>>) {
-  val printAll = false
-  val printReset = false
-
-  val taskClz = this::class.java.name
-
-  fun printTaskGroup() {
-    println("task group => ${group}\n  $name\n  $taskClz")
-  }
-  if (printAll) printTaskGroup()
-  fun resetTaskGroup() {
-    if (printReset) printTaskGroup()
-    description = description.let { if (!it.isNullOrBlank()) "$it [from = $group]" else it }
-    group = null
-  }
-  val reGroup = groupRegex.find(description.orEmpty())
-  if (reGroup != null) {
-    group = reGroup.groupValues[1]
-  } else if (group != null) {
-    if (!groupMap.keys.contains(group)) {
-      resetTaskGroup()
-    } else {
-      if (
-        groupMap[group!!]!!.none {
-          when (it) {
-            is String -> name == it
-            is Regex -> name.matches(it)
-            else -> false
-          }
-        }
-      ) {
-        resetTaskGroup()
-      }
-    }
-  }
-  if (!description.orEmpty().contains("[taskClz = ")) {
-    description = "$description [taskClz = $taskClz]"
-  }
-}
-
-listOf(
-    "checkPomFileFor.*PluginMarker.*".toRegex() to "others",
-    "generateMetadataFileFor.*PluginMarker.*".toRegex() to "others",
-    "generatePomFileFor.*PluginMarker.*".toRegex() to "others",
-    "sign.*PluginMarker.*".toRegex() to "others",
-    "publish.*PluginMarker.*".toRegex() to "others",
-    "run" to "build",
-    "buildDependents" to "toolbox",
-    "distZip" to "toolbox",
-    "publishPlugins" to "publishing",
-  )
-  .forEach { resetTaskGroup(it.first, it.second) }
+configurations.configureEach { resolutionStrategy { resolutionStrategy { force(libs.lombok) } } }

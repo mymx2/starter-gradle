@@ -34,7 +34,10 @@ fun Settings.dyCreateVersionCatalogs(map: Map<String, String>) {
  */
 fun Settings.dyIncludeProjects(map: Map<String, String>) {
   map.forEach { (name, path) ->
-    include(name)
-    project(name).projectDir = rootDir.resolve(path)
+    val projectDir = rootDir.resolve(path)
+    if (projectDir.exists()) {
+      include(name)
+      project(name).projectDir = projectDir
+    }
   }
 }

@@ -48,8 +48,17 @@ jobs:
       - name: 🔧 Show Gradle version
         run: ./gradlew --version
 
-      - name: 🔏 Write locks (auto)
-        run: ./gradlew :build-logic:writeLocks writeLocks --no-parallel --no-configuration-cache
+      - name: 🔧 Check build-logic if exist
+        id: check_build_logic
+        continue-on-error: true
+        run: ./gradlew :build-logic:help
+
+      - name: 🔏 Write build-logic locks (conditional)
+        if: steps.check_build_logic.outcome == 'success'
+        run: ./gradlew :build-logic:writeLocks --no-parallel --no-configuration-cache
+
+      - name: 🔒 Write global locks
+        run: ./gradlew writeLocks --no-parallel --no-configuration-cache
 
       - name: 💾 Commit file changes (auto)
         id: auto-pr-lockfile

@@ -59,20 +59,6 @@ jobs:
       - name: 🔧 Show Gradle version
         run: ./gradlew --version
 
-      - name: 👻 Publish to Maven Central
-        env:
-          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.signingInMemoryKey }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.signingInMemoryKeyPassword }}
-          # ⚠️ Warning: Do not use never-expiring User Token!!!
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
-        run: |
-          if [ "${GITHUB_REPOSITORY}" = "mymx2/starter-gradle" ]; then
-            ./gradlew :build-logic:publishToMavenCentral publishToMavenCentral
-          else
-            ./gradlew publishToMavenCentral
-          fi
-
       - name: 🌿 Build Changelog
         if: ${{ inputs.changelog }}
         id: changelog
@@ -87,11 +73,27 @@ jobs:
       - name: 📄 Summary Changelog
         if: ${{ steps.changelog.outputs.changelog }}
         run: |
-          echo "<details>" >> $GITHUB_STEP_SUMMARY
-          echo "<summary>📜 Release Changelog</summary>" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          cat <<< "${{ steps.changelog.outputs.changelog }}" >> $GITHUB_STEP_SUMMARY
-          echo "</details>" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "<details>"
+            echo "<summary>📜 Release Changelog</summary>"
+            echo
+            printf "%s\n" "${{ steps.changelog.outputs.changelog }}"
+            echo "</details>"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 👻 Publish to Maven Central
+        env:
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.signingInMemoryKey }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.signingInMemoryKeyPassword }}
+          # ⚠️ Warning: Do not use never-expiring User Token!!!
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
+        run: |
+          if [ "${GITHUB_REPOSITORY}" = "mymx2/starter-gradle" ]; then
+            ./gradlew :build-logic:publishToMavenCentral publishToMavenCentral
+          else
+            ./gradlew publishToMavenCentral
+          fi
 
       - name: 🚀 Create GitHub Release
         if: ${{ inputs.release }}

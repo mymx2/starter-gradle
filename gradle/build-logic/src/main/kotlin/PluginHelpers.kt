@@ -1,4 +1,5 @@
 import com.autonomousapps.tasks.ProjectHealthTask
+import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.dependencies
@@ -13,6 +14,13 @@ object PluginHelpers {
     tasks.named("qualityCheck") { dependsOn(tasks.withType<ProjectHealthTask>()) }
 
     tasks.named("qualityGate") { dependsOn(tasks.withType<ProjectHealthTask>()) }
+  }
+
+  /** Enables the collision detection plugin. */
+  fun Project.enableCollisionDetection() {
+    tasks.named("qualityCheck") { dependsOn(tasks.withType<DetectCollisionsTask>()) }
+
+    tasks.named("qualityGate") { dependsOn(tasks.withType<DetectCollisionsTask>()) }
   }
 
   /**

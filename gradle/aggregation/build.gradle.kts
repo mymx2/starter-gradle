@@ -8,4 +8,4 @@ plugins {
   id("io.github.mymx2.report.code-coverage")
 }
 
-dependencies { implementation(projects.app) }
+dependencies { runCatching { implementation(project(":app")) } }

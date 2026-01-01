@@ -14,6 +14,12 @@ pluginManagement {
       maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
     }
     gradlePluginPortal()
+    mavenCentral() // https://repo1.maven.org/maven2
+    maven {
+      setUrl("https://central.sonatype.com/repository/maven-snapshots/")
+      mavenContent { snapshotsOnly() }
+      content { includeVersionByRegex(".*", ".*", ".*-SNAPSHOT(?:\\+.*)?") }
+    }
     google {
       content {
         includeGroupAndSubgroups("androidx")

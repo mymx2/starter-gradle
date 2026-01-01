@@ -2,12 +2,13 @@
 
 import com.autonomousapps.DependencyAnalysisExtension
 import com.autonomousapps.DependencyAnalysisSubExtension
-import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
+import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.environment.EnvAccess
 import io.github.mymx2.plugin.injected
 import io.github.mymx2.plugin.resetTaskGroup
 import java.io.ByteArrayOutputStream
 import java.nio.charset.StandardCharsets
+import kotlin.io.path.invariantSeparatorsPathString
 import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesOrderingCheck
 import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesScopeCheck
 
@@ -52,15 +53,9 @@ if (project.parent == null) {
   }
 }
 
-tasks.named("qualityCheck") {
-  dependsOn(tasks.withType<DetectCollisionsTask>())
-  dependsOn(tasks.withType<ModuleDirectivesScopeCheck>())
-}
+tasks.named("qualityCheck") { dependsOn(tasks.withType<ModuleDirectivesScopeCheck>()) }
 
-tasks.named("qualityGate") {
-  dependsOn(tasks.withType<DetectCollisionsTask>())
-  dependsOn(tasks.withType<ModuleDirectivesScopeCheck>())
-}
+tasks.named("qualityGate") { dependsOn(tasks.withType<ModuleDirectivesScopeCheck>()) }
 
 listOf("artifactsReportMain" to "help", "fixDependencies" to "toolbox").forEach {
   resetTaskGroup(it.first, it.second)
@@ -87,15 +82,20 @@ configurations {
   compileClasspath { shouldResolveConsistentlyWith(runtimeClasspath.get()) }
 }
 
-val writeLocks =
+val writeLocks: TaskProvider<Task> =
   tasks.register("writeLocks") {
     group = "toolbox"
     description = "Write dependencies to lockfile"
     val inject = injected
+    val gradlewPath =
+      GradleExtTool.findGradlew(rootDir.invariantSeparatorsPath)
+        ?.invariantSeparatorsPathString
+        .orEmpty()
+    val gradlewPathProvider = objects.property<String>().value(gradlewPath)
     val projectPathProperty = objects.property<String>().value(project.path)
     val workingDirProvider = provider { rootDir }
     doFirst {
-      listOf("gradle.lockfile").forEach {
+      listOf("buildscript-gradle.lockfile", "gradle.lockfile").forEach {
         inject.layout.projectDirectory.file(it).asFile.also { file ->
           if (file.exists()) {
             file.copyTo(
@@ -107,21 +107,19 @@ val writeLocks =
       }
     }
     doLast {
-      // https://stackoverflow.com/a/45013467/30654190
-      val gradlew =
-        if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew.bat"
-        } else {
-          "${workingDirProvider.get().invariantSeparatorsPath}/gradlew"
-        }
+      val gradlew = gradlewPathProvider.get()
+      if (gradlew.isBlank()) {
+        return@doLast
+      }
       val output = ByteArrayOutputStream()
       inject.exec.exec {
         workingDir(workingDirProvider.get())
+        val execPath = projectPathProperty.get().let { if (it == ":") "" else it }
         // https://docs.gradle.org/nightly/userguide/command_line_interface.html#sec:command_line_execution_options
         commandLine(
           gradlew,
           // "--refresh-dependencies",
-          "${projectPathProperty.get()}:dependencies",
+          "${execPath}:dependencies",
           "--write-locks",
         )
         standardOutput = output
@@ -129,7 +127,7 @@ val writeLocks =
       val outputString = output.toString()
       // https://github.com/gradle/gradle/issues/19900
       if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
-        listOf("gradle.lockfile").forEach {
+        listOf("buildscript-gradle.lockfile", "gradle.lockfile").forEach {
           inject.layout.projectDirectory.file(it).asFile.also { file ->
             if (file.exists()) {
               file.writeText(
@@ -173,7 +171,7 @@ tasks.register("checkLocks") {
       val lockContent = lockFile?.readText()
       if (lockFile != null && bakLockContent != lockContent) {
         throw GradleException(
-          "$lockFile has been modified, please run './gradlew :build-logic:writeLocks writeLocks' to update lockfile"
+          "$lockFile has been modified, please run './gradlew writeLocks' to update lockfile"
         )
       }
     }

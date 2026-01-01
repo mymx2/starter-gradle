@@ -122,7 +122,8 @@ extraJavaModuleInfo {
 }
 
 // Configure consistent resolution across the whole project
-val consistentResolutionAttribute = Attribute.of("consistent-resolution", String::class.java)
+val consistentResolutionAttribute: Attribute<String> =
+  Attribute.of("consistent-resolution", String::class.java)
 
 configurations.create(
   "allDependencies",
@@ -158,8 +159,10 @@ jvmDependencyConflicts {
       // single project build, e.g. for examples
       providesVersions(project.path)
     } else {
-      providesVersions(DefaultProjects.aggregationPath)
-      platform(DefaultProjects.versionsPath)
+      val providedVersionsProject =
+        project.findProject(DefaultProjects.aggregationPath)?.path ?: ":"
+      providesVersions(providedVersionsProject)
+      project.findProject(DefaultProjects.versionsPath)?.path?.let { platform(it) }
     }
   }
 

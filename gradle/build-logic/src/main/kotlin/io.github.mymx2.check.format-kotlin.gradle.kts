@@ -6,7 +6,7 @@ import io.github.mymx2.plugin.tasks.FileContentCheck
 
 plugins { id("io.github.mymx2.check.format-base") }
 
-val sources = spotlessFileTree().matching { include("**/*.kt") }
+val sources: FileTree = spotlessFileTree().matching { include("**/*.kt") }
 
 spotless {
   kotlin {

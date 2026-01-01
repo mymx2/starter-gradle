@@ -3,6 +3,7 @@
 package io.github.mymx2.plugin
 
 import io.github.mymx2.plugin.gradle.ExecValueSource
+import java.io.File
 import javax.inject.Inject
 import kotlin.jvm.optionals.getOrNull
 import org.gradle.api.JavaVersion
@@ -10,6 +11,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.file.ArchiveOperations
+import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.initialization.Settings
 import org.gradle.api.internal.file.FileOperations
@@ -39,7 +41,7 @@ fun PluginAware.projectKey(prefix: String): String {
   }
 }
 
-val PluginAware.sharedGradle
+val PluginAware.sharedGradle: Gradle
   get() =
     when (this) {
       is Project -> this.gradle
@@ -65,16 +67,16 @@ interface Injected {
 val Project.injected
   get() = project.objects.newInstance<Injected>()
 
-/** @see [org.gradle.api.artifacts.VersionCatalog] */
+/** @see [VersionCatalog] */
 internal val Project.libs
   get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-/** @see [org.gradle.api.artifacts.VersionCatalog.findVersion] */
+/** @see [VersionCatalog.findVersion] */
 internal fun Project.versionFromCatalog(alias: String): String {
   return libs.findVersion(alias).get().displayName
 }
 
-/** @see [org.gradle.api.JavaVersion.current] */
+/** @see [JavaVersion.current] */
 internal fun Project.javaVersion(): JavaVersion {
   try {
     val extension = extensions.findByType(JavaPluginExtension::class.java)
@@ -90,12 +92,12 @@ internal fun Project.javaVersion(): JavaVersion {
 }
 
 /**
- * Returns a [org.gradle.api.file.ConfigurableFileTree] for the given source directory (default:
- * "src").
+ * Returns a [ConfigurableFileTree] for the given source directory (default: "src").
  *
  * @param src Relative source directory path (defaults to "src").
  */
-fun Project.sourceFolder(src: String = "src") = fileTree(isolated.projectDirectory.dir(src))
+fun Project.sourceFolder(src: String = "src"): ConfigurableFileTree =
+  fileTree(isolated.projectDirectory.dir(src))
 
 fun Project.isolatedProjectEnable() =
   findProperty("org.gradle.unsafe.isolated-projects")?.toString()?.toBoolean() ?: false
@@ -164,8 +166,7 @@ fun Gradle.serviceRegistry(): ServiceRegistry = (this as DefaultGradle).services
  * @param key The property key to get.
  * @param defaultValue The default value to return if the property is not set.
  * @param fromProvider Whether to get the property from the provider.
- * @see [org.gradle.api.Project.findProperty] and search `Dynamic Project Properties` for more
- *   detail.
+ * @see [Project.findProperty] and search `Dynamic Project Properties` for more detail.
  */
 fun PluginAware.propOrDefault(
   key: String,
@@ -253,6 +254,24 @@ object GradleExtTool {
 
   fun isSnapshot(version: String): Boolean {
     return version.endsWith("-SNAPSHOT")
+  }
+
+  /**
+   * Finds the path to the gradlew script.
+   *
+   * @param searchPath The path to search for the gradlew script.
+   */
+  @Suppress("detekt:ReturnCount")
+  fun findGradlew(searchPath: String = ""): java.nio.file.Path? {
+    val dir = File(searchPath)
+    val scriptName = org.gradle.internal.os.OperatingSystem.current().getScriptName("gradlew")
+    val gradlew = dir.resolve(scriptName)
+    if (gradlew.exists()) {
+      return gradlew.toPath()
+    } else {
+      val parent = dir.parent ?: return null
+      return findGradlew(parent)
+    }
   }
 
   fun openBrowser(providers: ProviderFactory, url: String) {

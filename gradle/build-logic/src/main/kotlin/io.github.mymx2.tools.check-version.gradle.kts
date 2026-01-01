@@ -41,7 +41,7 @@ tasks.named("qualityCheck") { dependsOn(checkVersionConsistency) }
 
 tasks.named("qualityGate") { dependsOn(checkVersionConsistency) }
 
-val latestReleases =
+val latestReleases: NamedDomainObjectProvider<DependencyScopeConfiguration> =
   configurations.dependencyScope("dependencyVersionUpgrades") {
     withDependencies {
       add(project.dependencies.platform(project(project.path)))
@@ -61,7 +61,7 @@ val latestReleases =
       }
     }
   }
-val latestReleasesPath =
+val latestReleasesPath: NamedDomainObjectProvider<ResolvableConfiguration> =
   configurations.resolvable("latestReleasesPath") {
     attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage.JAVA_RUNTIME))
     attributes.attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category.LIBRARY))
@@ -84,8 +84,8 @@ tasks.register<DependencyVersionUpgradesCheck>("checkVersionUpgrades") {
   )
 }
 
-val currentGradleVersion = gradle.gradleVersion
-val projectExtensions = project.extensions
+val currentGradleVersion: String = gradle.gradleVersion
+val projectExtensions: ExtensionContainer = project.extensions
 
 tasks.register("checkVersions") {
   group = "toolbox"
@@ -146,7 +146,7 @@ object CheckVersionPluginConfig {
         .also {
           println(it.toList().joinToString("\n"))
           println(
-            "After Updating dependencies, please run './gradlew :build-logic:writeLocks writeLocks' to update lockfile"
+            "After Updating dependencies, please run './gradlew writeLocks' to update lockfile"
           )
         }
     }

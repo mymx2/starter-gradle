@@ -70,14 +70,21 @@ jobs:
       #      - name: 🦆 Run Actionlint
       #        run: ./gradlew runActionlint
 
+      - name: 🔧 Check build-logic if exist
+        id: check_build_logic
+        continue-on-error: true
+        run: ./gradlew :build-logic:help
+
       #      - name: 🔒 Check locks
       #        if: >
+      #          steps.check_build_logic.outcome == 'success' &&
       #          github.event.pull_request.user.login != 'github-actions[bot]' &&
       #          github.event.pull_request.user.login != 'dependabot[bot]' &&
       #          github.event.pull_request.user.login != 'renovate[bot]'
       #        run: ./gradlew :build-logic:checkLocks
 
       - name: ✅ Run build checks
+        if: steps.check_build_logic.outcome == 'success'
         run: ./gradlew :build-logic:check
 
       - name: ⏸ Pause for VSCode Debug

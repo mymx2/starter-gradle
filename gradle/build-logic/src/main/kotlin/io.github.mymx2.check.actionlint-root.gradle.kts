@@ -3,7 +3,8 @@ import java.net.URI
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
-val actionlintVersion = "1.7.9"
+// https://github.com/rhysd/actionlint
+val actionlintVersion = "1.7.10"
 val installDir = "tools/actionlint"
 
 tasks.register("downloadActionlint") {
