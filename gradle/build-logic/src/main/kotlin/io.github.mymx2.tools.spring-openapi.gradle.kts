@@ -8,11 +8,11 @@ plugins {
   id("org.openapi.generator")
 }
 
-val resourcesDir = layout.settingsDirectory.dir("build/open_api/${project.name}")
-val inputFile = resourcesDir.file("oas-api.json")
-val outputDirectory = resourcesDir.dir("openapi")
+val resourcesDir: Directory = layout.settingsDirectory.dir("build/open_api/${project.name}")
+val inputFile: RegularFile = resourcesDir.file("oas-api.json")
+val outputDirectory: Directory = resourcesDir.dir("openapi")
 
-val templateDirectory =
+val templateDirectory: File =
   layout.projectDirectory.file("configs/openapi/template").asFile.takeIf { it.exists() }
     ?: isolated.rootProject.projectDirectory
       .file("gradle/configs/openapi/scripts/typescript-fetch")
@@ -57,13 +57,7 @@ tasks.register<GenerateTask>("_api_${project.name}") {
 tasks.withType<BuildInfo>().configureEach {
   properties {
     additional.put("openapi.generatorName", generatorName)
-    additional.put(
-      "openapi.resourcesDir",
-      resourcesDir.asFile.relativeTo(layout.settingsDirectory.asFile).invariantSeparatorsPath,
-    )
-    additional.put(
-      "openapi.inputSpec",
-      inputFile.asFile.relativeTo(layout.settingsDirectory.asFile).invariantSeparatorsPath,
-    )
+    additional.put("openapi.resourcesDir", resourcesDir.asFile.invariantSeparatorsPath)
+    additional.put("openapi.inputSpec", inputFile.asFile.invariantSeparatorsPath)
   }
 }
