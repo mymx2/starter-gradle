@@ -1,5 +1,11 @@
 # https://github.com/gitattributes/gitattributes
 # https://github.com/v8/v8/blob/main/.gitattributes
+# https://github.com/github-linguist/linguist/blob/main/docs/overrides.md
+
+# Override Linguist
+# *.* linguist-language=Kotlin
+.github/** linguist-vendored
+gradle/configs/** linguist-vendored
 
 # Automatically normalize line endings (to LF) for all text-based files.
 * text=auto eol=lf

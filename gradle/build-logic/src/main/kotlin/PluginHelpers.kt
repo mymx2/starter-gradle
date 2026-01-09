@@ -35,14 +35,44 @@ object PluginHelpers {
    * Adds a dependency on the Spring Boot platform.
    *
    * @param dependencyName The name of the dependency.
-   * @param dependencyVersion The version of the dependency.
+   * @param springBootVersion The version of the dependency.
    */
   fun Project.useSpringBootPlatform(
     dependencyName: String = "org.springframework.boot:spring-boot-dependencies",
-    dependencyVersion: String = "",
+    springBootVersion: String = "",
   ) {
-    val springBootVersion =
-      dependencyVersion.ifBlank { VersionExtractor.forClass(BootBuildImage::class.java) }
-    dependencies { add("implementation", platform("$dependencyName:$springBootVersion")) }
+    val version =
+      springBootVersion.ifBlank { VersionExtractor.forClass(BootBuildImage::class.java) }
+    dependencies { add("implementation", platform("$dependencyName:$version")) }
+  }
+
+  /**
+   * Adds a dependency on the Spring Boot auto module.
+   *
+   * @param autoKspVersion The version of the dependency.
+   * @param springBootVersion The version of the dependency.
+   */
+  fun Project.kspSpringBootAuto(autoKspVersion: String = "1.0.3", springBootVersion: String = "") {
+    val version =
+      springBootVersion.ifBlank { VersionExtractor.forClass(BootBuildImage::class.java) }
+    dependencies {
+      add("ksp", "io.github.mymx2:mica-auto-ksp:$autoKspVersion")
+      add("implementation", "io.github.mymx2:mica-auto-ksp:$autoKspVersion")
+      add("implementation", "org.springframework.boot:spring-boot-autoconfigure:$version")
+    }
+  }
+
+  /**
+   * Adds a dependency on the Spring Boot processor.
+   *
+   * @param springBootVersion The version of the dependency.
+   */
+  fun Project.kaptSpringBootProcessor(springBootVersion: String = "") {
+    val version =
+      springBootVersion.ifBlank { VersionExtractor.forClass(BootBuildImage::class.java) }
+    dependencies {
+      add("kapt", "org.springframework.boot:spring-boot-autoconfigure-processor:$version")
+      add("kapt", "org.springframework.boot:spring-boot-configuration-processor:$version")
+    }
   }
 }
