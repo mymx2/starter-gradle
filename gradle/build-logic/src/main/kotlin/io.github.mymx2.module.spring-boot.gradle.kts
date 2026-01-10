@@ -1,8 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import io.github.mymx2.plugin.tasks.GenerateStartScript
-import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
-import org.springframework.boot.gradle.util.VersionExtractor
 
 plugins {
   java
@@ -12,15 +10,6 @@ plugins {
 }
 
 tasks.run { enabled = false }
-
-val springBootVersion = VersionExtractor.forClass(BootBuildImage::class.java)
-
-dependencies {
-  implementation(platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}"))
-  developmentOnly("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
-  implementation("org.springframework.boot:spring-boot-starter-webmvc")
-  testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-}
 
 configurations {
   val internal = maybeCreate("internal")
