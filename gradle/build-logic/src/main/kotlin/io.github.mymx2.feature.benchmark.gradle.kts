@@ -1,6 +1,5 @@
 import com.autonomousapps.DependencyAnalysisExtension
 import com.autonomousapps.DependencyAnalysisSubExtension
-import io.github.mymx2.plugin.environment.KotlinCompilerOptions
 import me.champeau.jmh.JMHTask
 import net.ltgt.gradle.errorprone.errorprone
 
@@ -52,5 +51,4 @@ if (project.parent == null) {
 tasks.jmhCompileGeneratedClasses {
   // Disable ErrorProne https://github.com/melix/jmh-gradle-plugin/issues/248
   options.errorprone { isEnabled = false }
-  KotlinCompilerOptions.default.forEach { options.compilerArgs.remove(it) }
 }

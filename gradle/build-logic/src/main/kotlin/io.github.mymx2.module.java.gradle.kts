@@ -1,5 +1,5 @@
 plugins {
-  java
+  `java-library`
   id("io.github.mymx2.base.jpms-modules")
   id("io.github.mymx2.base.identity")
   id("io.github.mymx2.base.lifecycle")

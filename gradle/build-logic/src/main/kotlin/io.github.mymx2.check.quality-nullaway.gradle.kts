@@ -16,18 +16,14 @@ dependencies {
     runCatching { libs.findLibrary("jspecify").get().get() }
       .getOrElse { InternalDependencies.useLibrary("jspecify") }
   )
-  errorprone(
-    runCatching { libs.findLibrary("errorprone").get().get() }
-      .getOrElse { InternalDependencies.useLibrary("errorProneCore") }
-  )
   // https://github.com/PicnicSupermarket/error-prone-support/tree/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/bugpatterns
-  errorprone(InternalDependencies.useLibrary("errorProneContrib"))
   // https://github.com/PicnicSupermarket/error-prone-support/blob/master/error-prone-contrib/src/main/java/tech/picnic/errorprone/refasterrules/
-  errorprone(InternalDependencies.useLibrary("refasterRunner"))
-  errorprone(
-    runCatching { libs.findLibrary("nullaway").get().get() }
-      .getOrElse { InternalDependencies.useLibrary("nullaway") }
-  )
+  listOf("errorProneCore", "errorProneContrib", "refasterRunner", "nullaway").forEach { name ->
+    errorprone(
+      runCatching { libs.findLibrary(name).get().get() }
+        .getOrElse { InternalDependencies.useLibrary(name) }
+    )
+  }
 }
 
 // https://github.com/google/error-prone/issues/623

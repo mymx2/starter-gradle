@@ -1,9 +1,14 @@
 import io.github.mymx2.plugin.DefaultProjects
+import io.github.mymx2.plugin.local.LocalConfig
+import io.github.mymx2.plugin.local.getPropOrDefault
+import io.github.mymx2.plugin.resetTaskGroup
 
 plugins {
   id("org.gradlex.jvm-dependency-conflict-resolution")
   id("org.gradlex.extra-java-module-info")
 }
+
+val jpmsEnabled = project.getPropOrDefault(LocalConfig.Props.JPMS_ENABLED).toBoolean()
 
 // Fix or enhance the metadata of third-party Modules. This is about the metadata in the
 // repositories: '*.pom' and '*.module' files.
@@ -176,3 +181,14 @@ configurations.getByName("mainRuntimeClasspath") {
 
 // In case published versions of a module are also available, always prefer the local one
 configurations.configureEach { resolutionStrategy.preferProjectModules() }
+
+if (jpmsEnabled) {
+  listOf(
+      "moduleDependencies" to "module",
+      "analyzeModulePath" to "module",
+      "moduleDescriptorRecommendations" to "module",
+      "recommendModuleVersions" to "module",
+      ".*ModuleInfo.*".toRegex() to "module",
+    )
+    .forEach { resetTaskGroup(it.first, it.second) }
+}

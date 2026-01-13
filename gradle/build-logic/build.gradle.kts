@@ -43,6 +43,7 @@ dependencies {
       libs.plugins.me.champeau.jmh,
       libs.plugins.org.gradlex.jvm.dependency.conflict.resolution,
       libs.plugins.org.gradlex.java.module.dependencies,
+      libs.plugins.org.gradlex.java.module.testing,
       libs.plugins.org.gradlex.extra.java.module.info,
       libs.plugins.com.gradleup.shadow,
       libs.plugins.com.vanniktech.maven.publish,

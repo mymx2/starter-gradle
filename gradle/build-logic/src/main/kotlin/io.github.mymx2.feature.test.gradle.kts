@@ -9,6 +9,7 @@ plugins {
   java
   // https://docs.gradle.org/nightly/userguide/jacoco_plugin.html
   jacoco
+  id("org.gradlex.java-module-testing")
 }
 
 val jepEnablePreview = project.getPropOrDefault(LocalConfig.Props.JEP_ENABLE_PREVIEW).toBoolean()
