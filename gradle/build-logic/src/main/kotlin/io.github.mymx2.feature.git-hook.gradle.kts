@@ -7,11 +7,14 @@ import io.github.mymx2.plugin.injected
 if (path == ":") {
   val eagerDiskCacheKey = "io.github.mymx2.feature.git-hook"
 
-  tasks.register("installGitHooks") {
-    group = "toolbox"
-    description = "Initialize Git hooks"
-    installGitHooks()
-  }
+  // issue: https://github.com/gradle/gradle/issues/23895
+  // Calculating task graph as configuration cache cannot be reused because output of the external
+  // process 'git' has changed.
+  //  tasks.register("installGitHooks") {
+  //    group = "toolbox"
+  //    description = "Initialize Git hooks"
+  //    installGitHooks()
+  //  }
 
   project.eagerDiskCache("$eagerDiskCacheKey.git.hooks") {
     val hookSource = rootProject.file("gradle/configs/git/hooks")
