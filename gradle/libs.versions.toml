@@ -16,7 +16,6 @@ node = "24.10.0"
 # https://repo1.maven.org/maven2/org/jspecify/jspecify/maven-metadata.xml
 # https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml
 jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
-lombok = { module = "org.projectlombok:lombok", version = "1.18.42" }
 semver = { module = "net.swiftzer.semver:semver", version = "2.1.0" }
 slf4jBom = { module = "org.slf4j:slf4j-bom", version = "2.1.0-alpha1" }
 

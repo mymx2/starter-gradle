@@ -8,16 +8,19 @@ dependencies.constraints {
   runCatching { extensions.findByType<VersionCatalogsExtension>() }
     .also {
       if (it.isSuccess) {
-        it.getOrThrow()?.forEach { versionCatalog ->
-          versionCatalog.libraryAliases
-            .map { alias -> versionCatalog.findLibrary(alias).get().get() }
-            .forEach { entry ->
-              val version = entry.version
-              if (version != null) {
-                api(entry) { version { require(version) } }
+        it
+          .getOrThrow()
+          ?.filter { versionCatalog -> versionCatalog.name != "libs" }
+          ?.forEach { versionCatalog ->
+            versionCatalog.libraryAliases
+              .map { alias -> versionCatalog.findLibrary(alias).get().get() }
+              .forEach { entry ->
+                val version = entry.version
+                if (version != null) {
+                  api(entry) { version { require(version) } }
+                }
               }
-            }
-        }
+          }
       }
     }
 }
