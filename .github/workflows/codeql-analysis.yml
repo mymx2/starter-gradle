@@ -72,23 +72,17 @@ jobs:
           tools: latest
           config-file: ./.github/config/codeql.yml
 
-      - name: 🔧 Check build enabled
-        id: check_build_enabled
-        continue-on-error: true
-        if: matrix.language == 'java-kotlin'
-        run: ./gradlew :help
-
       - name: 🏗 Build Java/Kotlin with Gradle
+        id: gradle_build_java_kotlin
+        continue-on-error: true
         if: >
-          steps.check_build_enabled.outcome == 'success' &&
           matrix.build-mode == 'manual' &&
           matrix.language == 'java-kotlin'
         run: ./gradlew clean build
 
       - name: 🔍 Run CodeQL Analysis (java-kotlin)
         if: >
-          steps.check_build_enabled.outcome == 'success' &&
-          matrix.language == 'java-kotlin'
+          steps.gradle_build_java_kotlin.outcome == 'success'
         uses: github/codeql-action/analyze@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v4.31.10
 
       - name: 🔍 Run CodeQL Analysis
