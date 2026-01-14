@@ -94,4 +94,5 @@ jobs:
         uses: github/codeql-action/analyze@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v4.31.10
 
       - name: 🔍 Run CodeQL Analysis
+        if: matrix.language != 'java-kotlin'
         uses: github/codeql-action/analyze@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v4.31.10
