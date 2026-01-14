@@ -98,7 +98,7 @@ jobs:
         run: ./gradlew testCodeCoverageReport
 
       - name: 📤 Upload coverage to Codecov
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.actor != 'dependabot[bot]'
         uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
         with:
           fail_ci_if_error: true
