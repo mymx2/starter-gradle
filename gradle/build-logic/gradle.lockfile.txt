@@ -134,8 +134,8 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.0 -> 1.8.0 (*)
 |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json -> 1.8.0 (*)
 |         \--- org.jetbrains.dokka:dokka-core:2.1.0
-|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3
-|              |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3 -> 1.8.0 (*)
+|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.0
+|              |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 (*)
 |              +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3 -> 2.20.1
 |              |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.1
 |              |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
@@ -581,6 +581,8 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              +--- com.github.ben-manes.caffeine:caffeine:2.9.3 -> 3.2.3 (*)
 |              +--- org.projectlombok:lombok:1.18.38 -> 1.18.42
 |              \--- org.yaml:snakeyaml:2.4
++--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.8.0
++--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 (*)
 +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.0 (*)
 +--- org.jetbrains.kotlin:kotlin-reflect:{strictly 2.3.0} -> 2.3.0 (c)
 +--- org.jetbrains.kotlin:kotlin-gradle-plugin:{strictly 2.3.0} -> 2.3.0 (c)
@@ -596,6 +598,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- com.diffplug.spotless:com.diffplug.spotless.gradle.plugin:{strictly 8.1.0} -> 8.1.0 (c)
 +--- dev.detekt:dev.detekt.gradle.plugin:{strictly 2.0.0-alpha.1} -> 2.0.0-alpha.1 (c)
 +--- org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:{strictly 2.1.0} -> 2.1.0 (c)
++--- org.jetbrains.kotlinx:kotlinx-coroutines-core:{strictly 1.8.0} -> 1.8.0 (c)
 +--- me.champeau.jmh:me.champeau.jmh.gradle.plugin:{strictly 0.7.3} -> 0.7.3 (c)
 +--- org.gradlex.jvm-dependency-conflict-resolution:org.gradlex.jvm-dependency-conflict-resolution.gradle.plugin:{strictly 2.5} -> 2.5 (c)
 +--- org.gradlex.java-module-dependencies:org.gradlex.java-module-dependencies.gradle.plugin:{strictly 1.11} -> 1.11 (c)
@@ -614,6 +617,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.openrewrite.rewrite:org.openrewrite.rewrite.gradle.plugin:{strictly 7.23.0} -> 7.23.0 (c)
 +--- org.springframework.boot:org.springframework.boot.gradle.plugin:{strictly 4.0.1} -> 4.0.1 (c)
 +--- org.openapi.generator:org.openapi.generator.gradle.plugin:{strictly 7.18.0} -> 7.18.0 (c)
++--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:{strictly 1.8.0} -> 1.8.0 (c)
 +--- org.jetbrains.kotlin:kotlin-stdlib:{strictly 2.3.0} -> 2.3.0 (c)
 +--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:{strictly 2.3.0} -> 2.3.0 (c)
 +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:{strictly 2.3.0} -> 2.3.0 (c)
@@ -653,6 +657,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.openrewrite:plugin:{strictly 7.23.0} -> 7.23.0 (c)
 +--- org.springframework.boot:spring-boot-gradle-plugin:{strictly 4.0.1} -> 4.0.1 (c)
 +--- org.openapitools:openapi-generator-gradle-plugin:{strictly 7.18.0} -> 7.18.0 (c)
++--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:{strictly 1.8.0} -> 1.8.0 (c)
 +--- org.jetbrains:annotations:{strictly 23.0.0} -> 23.0.0 (c)
 +--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:{strictly 2.3.0} -> 2.3.0 (c)
 +--- org.jetbrains.kotlin:kotlin-native-utils:{strictly 2.3.0} -> 2.3.0 (c)
@@ -662,7 +667,6 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.jetbrains.kotlin:kotlin-util-io:{strictly 2.3.0} -> 2.3.0 (c)
 +--- org.jetbrains.kotlin:kotlin-util-klib:{strictly 2.3.0} -> 2.3.0 (c)
 +--- org.jetbrains.kotlin:kotlin-daemon-client:{strictly 2.3.0} -> 2.3.0 (c)
-+--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:{strictly 1.8.0} -> 1.8.0 (c)
 +--- org.jetbrains.kotlinx:kotlinx-serialization-core:{strictly 1.8.0} -> 1.8.0 (c)
 +--- com.diffplug.durian:durian-core:{strictly 1.2.0} -> 1.2.0 (c)
 +--- com.diffplug.durian:durian-io:{strictly 1.2.0} -> 1.2.0 (c)
@@ -725,7 +729,6 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.eclipse.platform:org.eclipse.osgi:{strictly 3.23.200} -> 3.23.200 (c)
 +--- io.github.detekt.sarif4k:sarif4k-jvm:{strictly 0.6.0} -> 0.6.0 (c)
 +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:{strictly 1.8.0} -> 1.8.0 (c)
-+--- org.jetbrains.kotlinx:kotlinx-coroutines-core:{strictly 1.7.3} -> 1.7.3 (c)
 +--- com.fasterxml.jackson.module:jackson-module-kotlin:{strictly 2.20.1} -> 2.20.1 (c)
 +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:{strictly 2.20.1} -> 2.20.1 (c)
 +--- net.sf.jopt-simple:jopt-simple:{strictly 5.0.4} -> 5.0.4 (c)
