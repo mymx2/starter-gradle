@@ -36,6 +36,11 @@ jobs:
             build-mode: autobuild
 
     steps:
+      - name: 📸 Snapshot Workflow Context
+        env:
+          CONTEXT_GITHUB: ${{ toJSON(github) }}
+        run: echo "$CONTEXT_GITHUB"
+
       - name: ✈ Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
@@ -69,8 +74,18 @@ jobs:
           tools: latest
           config-file: ./.github/config/codeql.yml
 
+      - name: 🔧 Check build enabled
+        id: check_build_enabled
+        continue-on-error: true
+        run: ./gradlew :help
+
       - name: 🏗 Build Java/Kotlin with Gradle
-        if: ${{ matrix.build-mode == 'manual' && matrix.language == 'java-kotlin' }}
+        if: >
+          ${{
+          steps.check_build_enabled.outcome == 'success' &&
+            matrix.build-mode == 'manual' &&
+            matrix.language == 'java-kotlin'
+          }}
         run: ./gradlew clean build
 
       - name: 🔍 Run CodeQL Analysis
