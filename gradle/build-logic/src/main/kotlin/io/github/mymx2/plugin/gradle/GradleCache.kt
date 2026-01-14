@@ -12,6 +12,7 @@ import org.gradle.api.plugins.PluginAware
 import org.gradle.api.provider.Provider
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
+import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
 
 /**
  * Computes (registers if absent) a global share cache.
@@ -135,6 +136,7 @@ fun PluginAware.computedDiskBuildService(
       }
     val cache = LinkedHashMap<String, String>()
     if (cacheFile != null) {
+      cacheFile.ensureParentDirsCreated()
       cache.putAll(DiskCache.loadCache(cacheFile))
       cache["DISK_CACHE"] = cacheFile.absolutePath
     }

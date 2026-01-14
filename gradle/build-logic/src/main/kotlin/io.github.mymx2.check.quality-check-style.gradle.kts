@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import io.github.mymx2.plugin.gradle.eagerDiskCache
-import io.github.mymx2.plugin.projectKey
 
 plugins {
   // https://docs.gradle.org/current/userguide/checkstyle_plugin.html#checkstyle_plugin
@@ -17,18 +16,19 @@ afterEvaluate {
   }
 }
 
-val projectRoot = isolated.rootProject.projectDirectory
+val eagerDiskCacheKey = "io.github.mymx2.check.quality-check-style"
+
+val projectRoot: Directory = isolated.rootProject.projectDirectory
 val projectRootPath = projectRoot.asFile.invariantSeparatorsPath
 
 val checkStyleRootPath = "${projectRootPath}/gradle/configs/checkstyle"
-val checkStyleConfigFile = projectRoot.file("${checkStyleRootPath}/checkstyle.xml").asFile
+val checkStyleConfigFile: File = projectRoot.file("${checkStyleRootPath}/checkstyle.xml").asFile
 val checkStyleConfigProperties =
   mapOf(
     "checkstyle.header.file" to "${checkStyleRootPath}/checkstyle-header-file.txt",
     "checkstyle.suppressions" to
       run {
-        val key = project.projectKey("checkstyleSuppressions")
-        project.eagerDiskCache(key) {
+        project.eagerDiskCache("$eagerDiskCacheKey.checkstyle.suppressions") {
           val file =
             isolated.projectDirectory.file("configs/checkstyle/checkstyle-suppressions.xml").asFile
           if (file.exists()) {
@@ -38,8 +38,7 @@ val checkStyleConfigProperties =
       },
     "checkstyle.import.control" to
       run {
-        val key = project.projectKey("checkstyleImportControl")
-        project.eagerDiskCache(key) {
+        project.eagerDiskCache("$eagerDiskCacheKey.checkstyle.import.control") {
           val file =
             isolated.projectDirectory
               .file("configs/checkstyle/checkstyle-import-control.xml")
