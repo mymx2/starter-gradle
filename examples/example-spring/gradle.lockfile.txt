@@ -94,9 +94,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              +--- org.springframework:spring-expression:7.0.2 (*)
 |              \--- org.springframework:spring-web:7.0.2 (*)
 +--- project :versions
-|    +--- org.slf4j:slf4j-bom:2.1.0-alpha1 (*)
-|    +--- org.slf4j:slf4j-bom:2.1.0-alpha1 (c)
-|    \--- org.jspecify:jspecify:1.0.0 (c)
+|    \--- org.slf4j:slf4j-bom:2.1.0-alpha1 (*)
 +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.0
 |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 (*)
 +--- org.jetbrains.kotlin:kotlin-stdlib:{strictly 2.3.0} -> 2.3.0 (c)
