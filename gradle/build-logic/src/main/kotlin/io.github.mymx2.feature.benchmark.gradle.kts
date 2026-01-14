@@ -5,7 +5,7 @@ import net.ltgt.gradle.errorprone.errorprone
 
 plugins {
   id("java")
-  id("io.github.mymx2.base.jpms-modules")
+  id("io.github.mymx2.base.jvm-conflict")
   id("com.autonomousapps.dependency-analysis")
   id("io.github.mymx2.check.quality-nullaway")
   id("me.champeau.jmh")
@@ -38,9 +38,6 @@ tasks.withType<JMHTask>().configureEach {
 }
 
 tasks.jmhJar { manifest { attributes(mapOf("Multi-Release" to true)) } }
-
-// Disable module Jar patching for the JMH runtime classpath.
-extraJavaModuleInfo { deactivate(sourceSets.jmh) }
 
 if (project.parent == null) {
   configure<DependencyAnalysisExtension> { issues { all { ignoreSourceSet("jmh") } } }

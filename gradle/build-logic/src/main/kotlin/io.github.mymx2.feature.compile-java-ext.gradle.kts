@@ -1,7 +1,6 @@
 import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import io.github.mymx2.plugin.gradle.eagerSharedCache
 import io.github.mymx2.plugin.utils.SemVerUtils
-import org.gradle.kotlin.dsl.withType
 
 plugins {
   java

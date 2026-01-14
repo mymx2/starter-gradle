@@ -3,7 +3,7 @@
 plugins { java }
 
 // Specific API fixtures used for testing without live service
-val mockApi = sourceSets.create("mockApi")
+val mockApi: SourceSet = sourceSets.create("mockApi")
 
 java.registerFeature(mockApi.name) { usingSourceSet(mockApi) }
 

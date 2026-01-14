@@ -9,7 +9,6 @@ plugins {
   java
   // https://docs.gradle.org/nightly/userguide/jacoco_plugin.html
   jacoco
-  id("org.gradlex.java-module-testing")
 }
 
 val jepEnablePreview = project.getPropOrDefault(LocalConfig.Props.JEP_ENABLE_PREVIEW).toBoolean()
@@ -20,12 +19,6 @@ testing {
       targets.configureEach {
         // Use JUnit 5 as test framework
         useJUnitJupiter()
-
-        dependencies {
-          runtimeOnly(InternalDependencies.useLibrary("junitPlatformLauncher"))
-          implementation(InternalDependencies.useLibrary("junitJupiterApi"))
-          implementation(InternalDependencies.useLibrary("assertjCore"))
-        }
 
         // Configure details for test executions directly on 'Test' task
         testTask.configure {
@@ -45,6 +38,16 @@ testing {
         }
       }
     }
+  }
+}
+
+testing.suites.withType<JvmTestSuite> {
+  dependencies {
+    implementation(platform(InternalDependencies.useLibrary("junitBom")))
+    implementation(platform(InternalDependencies.useLibrary("assertjBom")))
+    runtimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.junit.jupiter:junit-jupiter")
+    implementation("org.assertj:assertj-core")
   }
 }
 

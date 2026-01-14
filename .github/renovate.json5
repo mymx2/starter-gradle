@@ -10,7 +10,7 @@
   semanticCommitType: "deps",
   semanticCommitScope: "",
   labels: ["type|dependency-upgrade", "pr|deps"],
-  ignorePaths: ["**/__tests__/**", ".github/actions", ".docs/**"],
+  ignorePaths: ["**/__tests__/**", ".github/actions", "docs/**"],
   pinDigests: true,
   ignoreUnstable: false,
   minimumReleaseAge: "7 days",

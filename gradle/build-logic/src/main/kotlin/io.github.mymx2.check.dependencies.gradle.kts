@@ -17,7 +17,7 @@ plugins {
   id("io.fuchs.gradle.classpath-collision-detector")
   id("com.autonomousapps.dependency-analysis")
   id("io.github.mymx2.base.lifecycle")
-  id("io.github.mymx2.base.jpms-modules")
+  id("io.github.mymx2.base.jvm-conflict")
 }
 
 // ordering check is done by SortModuleInfoRequiresStep

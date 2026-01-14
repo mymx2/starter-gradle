@@ -18,32 +18,17 @@ object SpringBootHelper {
   }
 
   /**
-   * Adds a dependency on the Spring Boot platform.
-   *
-   * @param dependencyName The name of the dependency.
-   * @param springBootVersion The version of the dependency.
-   */
-  fun Project.useSpringBootPlatform(
-    dependencyName: String = "org.springframework.boot:spring-boot-dependencies",
-    springBootVersion: String = getSpringBootVersion(),
-  ) {
-    dependencies { add("implementation", platform("$dependencyName:$springBootVersion")) }
-  }
-
-  /**
    * Adds a dependency on the Spring Boot auto module.
    *
    * @param autoKspVersion The version of the dependency.
    * @param springBootVersion The version of the dependency.
    */
-  fun Project.kspSpringBootAuto(
-    autoKspVersion: String = "1.0.3",
-    springBootVersion: String = getSpringBootVersion(),
-  ) {
+  fun Project.kspSpringBootAuto(autoKspVersion: String = "1.0.3", springBootVersion: String = "") {
+    val bootVersion = if (springBootVersion.isNotBlank()) ":$springBootVersion" else ""
     dependencies {
       add("ksp", "io.github.mymx2:mica-auto-ksp:$autoKspVersion")
       add("implementation", "io.github.mymx2:mica-auto-ksp:$autoKspVersion")
-      add("implementation", "org.springframework.boot:spring-boot-autoconfigure:$springBootVersion")
+      add("implementation", "org.springframework.boot:spring-boot-autoconfigure$bootVersion")
     }
   }
 
@@ -52,10 +37,11 @@ object SpringBootHelper {
    *
    * @param springBootVersion The version of the dependency.
    */
-  fun Project.kaptSpringBootProcessor(springBootVersion: String = getSpringBootVersion()) {
+  fun Project.kaptSpringBootProcessor(springBootVersion: String = "") {
+    val bootVersion = if (springBootVersion.isNotBlank()) ":$springBootVersion" else ""
     dependencies {
-      add("kapt", "org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion")
-      add("kapt", "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
+      add("kapt", "org.springframework.boot:spring-boot-autoconfigure-processor$bootVersion")
+      add("kapt", "org.springframework.boot:spring-boot-configuration-processor$bootVersion")
     }
   }
 
@@ -64,11 +50,14 @@ object SpringBootHelper {
    *
    * @param springBootVersion The version of the dependency.
    */
-  fun Project.springBootStarterWebMvc(springBootVersion: String = getSpringBootVersion()) {
-    useSpringBootPlatform(springBootVersion = springBootVersion)
+  fun Project.springBootStarterWebMvc(springBootVersion: String = "") {
+    val bootVersion = if (springBootVersion.isNotBlank()) ":$springBootVersion" else ""
     dependencies {
-      add("implementation", "org.springframework.boot:spring-boot-starter-webmvc")
-      add("testImplementation", "org.springframework.boot:spring-boot-starter-webmvc-test")
+      add("implementation", "org.springframework.boot:spring-boot-starter-webmvc$bootVersion")
+      add(
+        "testImplementation",
+        "org.springframework.boot:spring-boot-starter-webmvc-test$bootVersion",
+      )
     }
   }
 }

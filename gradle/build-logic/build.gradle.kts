@@ -149,4 +149,4 @@ gradle.projectsEvaluated {
   tasks.named { it.startsWith("spotlessKotlin") }.configureEach { enabled = false }
 }
 
-configurations.configureEach { resolutionStrategy { resolutionStrategy { force(libs.lombok) } } }
+configurations.configureEach { resolutionStrategy { force(libs.lombok) } }

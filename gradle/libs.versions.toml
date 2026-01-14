@@ -12,13 +12,13 @@ jdk = "25"
 node = "24.10.0"
 
 [libraries]
-# https://mvnrepository.com/artifact/org.projectlombok/lombok
-# https://repo1.maven.org/maven2/org/projectlombok/lombok/maven-metadata.xml
-# https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/projectlombok/lombok/maven-metadata.xml
+# https://mvnrepository.com/artifact/org.jspecify/jspecify
+# https://repo1.maven.org/maven2/org/jspecify/jspecify/maven-metadata.xml
+# https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml
+jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
 lombok = { module = "org.projectlombok:lombok", version = "1.18.42" }
 semver = { module = "net.swiftzer.semver:semver", version = "2.1.0" }
-slf4jApi = { module = "org.slf4j:slf4j-api", version = "2.1.0-alpha1" }
-slf4jSimple = { module = "org.slf4j:slf4j-simple", version = "2.1.0-alpha1" }
+slf4jBom = { module = "org.slf4j:slf4j-bom", version = "2.1.0-alpha1" }
 
 [bundles]
 

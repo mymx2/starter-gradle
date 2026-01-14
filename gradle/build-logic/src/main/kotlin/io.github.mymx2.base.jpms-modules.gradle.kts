@@ -1,11 +1,13 @@
-import io.github.mymx2.plugin.DefaultProjects
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
 import io.github.mymx2.plugin.resetTaskGroup
 
 plugins {
-  id("org.gradlex.jvm-dependency-conflict-resolution")
+  java
   id("org.gradlex.extra-java-module-info")
+  id("org.gradlex.java-module-dependencies")
+  id("org.gradlex.java-module-testing")
+  id("io.github.mymx2.base.jvm-conflict")
 }
 
 val jpmsEnabled = project.getPropOrDefault(LocalConfig.Props.JPMS_ENABLED).toBoolean()
@@ -124,63 +126,48 @@ extraJavaModuleInfo {
   failOnMissingModuleInfo = false
   failOnAutomaticModules = false // Only allow Jars with 'module-info' on all module paths
   versionsProvidingConfiguration = "mainRuntimeClasspath"
+
+  // Disable module Jar patching for the JMH runtime classpath.
+  deactivate(sourceSets.named("jmh"))
 }
 
-// Configure consistent resolution across the whole project
-val consistentResolutionAttribute: Attribute<String> =
-  Attribute.of("consistent-resolution", String::class.java)
+configurations.implementation {
+  withDependencies {
+    // If dependencies are not defined explicitly, auto-depend on all projects that are known to
+    // contain Java Modules.
+    if (isEmpty()) {
+      javaModuleDependencies.allLocalModules().forEach { localModule ->
+        project.dependencies.add("implementation", project.project(localModule.projectPath))
+      }
+    }
+  }
+}
 
-configurations.create(
-  "allDependencies",
-  Action {
-    isCanBeConsumed = true
-    isCanBeResolved = false
-    sourceSets.configureEach {
-      extendsFrom(
-        configurations[this.implementationConfigurationName],
-        configurations[this.compileOnlyConfigurationName],
-        configurations[this.runtimeOnlyConfigurationName],
-        configurations[this.annotationProcessorConfigurationName],
+if (jpmsEnabled) {
+  // We assume that the module name (defined in module-info.java) corresponds to a combination of
+  // group and project name, see: https://youtrack.jetbrains.com/issue/KT-55389
+  val moduleName = "${project.group}.${project.name}"
+  val testModuleName = "${moduleName}.test"
+
+  tasks.withType<JavaCompile>().configureEach {
+    options.apply {
+      javaModuleVersion.set(project.version.toString())
+      // Compiling module-info in the 'main/java' folder needs to see already compiled Kotlin code
+      compilerArgs.addAll(
+        listOf("--patch-module", "$moduleName=${sourceSets.main.get().output.asPath}")
       )
-    }
-    attributes {
-      attribute(consistentResolutionAttribute, "global")
-      attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage.JAVA_RUNTIME))
-      attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category.LIBRARY))
-      attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.JAR))
-      attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
-    }
-  },
-)
-
-jvmDependencyConflicts {
-  // Configure build wide consistent resolution. That is, the versions that are used on the
-  // runtime classpath of the web applications should also be used in all other places
-  // (e.g. also when compiling a project at the bottom of the dependency graph that does not
-  // see most of the other dependencies that may influence the version choices).
-
-  consistentResolution {
-    if (project.path == ":") {
-      // single project build, e.g. for examples
-      providesVersions(project.path)
-    } else {
-      val providedVersionsProject =
-        project.findProject(DefaultProjects.aggregationPath)?.path ?: ":"
-      providesVersions(providedVersionsProject)
-      project.findProject(DefaultProjects.versionsPath)?.path?.let { platform(it) }
     }
   }
 
-  // Configure logging capabilities plugin to default to Slf4JSimple
-  logging { enforceSlf4JSimple() }
+  tasks.compileTestJava {
+    options.apply {
+      // Compiling module-info in the 'test/java' folder needs to see already compiled Kotlin code
+      compilerArgs.addAll(
+        listOf("--patch-module", "$testModuleName=${sourceSets.test.get().output.asPath}")
+      )
+    }
+  }
 }
-
-configurations.getByName("mainRuntimeClasspath") {
-  attributes.attribute(consistentResolutionAttribute, "global")
-}
-
-// In case published versions of a module are also available, always prefer the local one
-configurations.configureEach { resolutionStrategy.preferProjectModules() }
 
 if (jpmsEnabled) {
   listOf(

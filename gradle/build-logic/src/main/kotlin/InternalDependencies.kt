@@ -17,15 +17,14 @@ object InternalDependencies {
     """
     [libraries]
     # Maven dependencies
-    comFacebookKtfmt = { module = "com.facebook:ktfmt", version = "0.60", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/facebook/ktfmt/maven-metadata.xml" }
+    junitBom = { module = "org.junit:junit-bom", version = "6.1.0-M1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/junit/junit-bom/maven-metadata.xml" }
+    assertjBom = { module = "org.assertj:assertj-bom", version = "4.0.0-M1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/assertj/assertj-bom/maven-metadata.xml" }
     jspecify = { module = "org.jspecify:jspecify", version = "1.0.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml" }
-    junitPlatformLauncher = { module = "org.junit.platform:junit-platform-launcher", version = "6.1.0-M1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/junit/platform/junit-platform-launcher/maven-metadata.xml" }
-    junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version = "6.1.0-M1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/junit/jupiter/junit-jupiter-api/maven-metadata.xml" }
-    assertjCore = { module = "org.assertj:assertj-core", version = "4.0.0-M1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/assertj/assertj-core/maven-metadata.xml" }
+    nullaway = { module = "com.uber.nullaway:nullaway", version = "0.12.15", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml" }
     errorProneCore = { module = "com.google.errorprone:error_prone_core", version = "2.45.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/google/errorprone/error_prone_core/maven-metadata.xml" }
     errorProneContrib = { module = "tech.picnic.error-prone-support:error-prone-contrib", version = "0.27.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/error-prone-contrib/maven-metadata.xml" }
     refasterRunner = { module = "tech.picnic.error-prone-support:refaster-runner", version = "0.27.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/refaster-runner/maven-metadata.xml" }
-    nullaway = { module = "com.uber.nullaway:nullaway", version = "0.12.15", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml" }
+    comFacebookKtfmt = { module = "com.facebook:ktfmt", version = "0.60", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/facebook/ktfmt/maven-metadata.xml" }
     spotbugsAnnotations = { module = "com.github.spotbugs:spotbugs-annotations", version = "4.9.8", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml" }
 
     # NPM dependencies

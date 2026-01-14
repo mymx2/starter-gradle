@@ -3,7 +3,7 @@
 plugins {
   // https://docs.gradle.org/nightly/userguide/war_plugin.html
   war
-  id("io.github.mymx2.base.jpms-modules")
+  id("io.github.mymx2.base.jvm-conflict")
 }
 
 // The war plugin used 'providedRuntime' / 'providedCompile' to resolve dependencies for

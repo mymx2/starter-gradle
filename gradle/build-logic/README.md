@@ -46,6 +46,7 @@ For example, the same dependency management configuration should be applied ever
 
 [io.github.mymx2.base.identity.gradle.kts](src/main/kotlin/io.github.mymx2.base.identity.gradle.kts)
 [io.github.mymx2.base.jpms-modules.gradle.kts](src/main/kotlin/io.github.mymx2.base.jpms-modules.gradle.kts)
+[io.github.mymx2.base.jvm-conflict.gradle.kts](src/main/kotlin/io.github.mymx2.base.jvm-conflict.gradle.kts)
 [io.github.mymx2.base.lifecycle.gradle.kts](src/main/kotlin/io.github.mymx2.base.lifecycle.gradle.kts)
 
 #### Check Plugins (optional)
@@ -55,6 +56,7 @@ They check things like the dependency setup or code formatting.
 More style checkers or static code analysis tools could be added in this category.
 Check plugins are not necessarily needed to build a working software.
 
+[io.github.mymx2.check.actionlint-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.actionlint-root.gradle.kts)
 [io.github.mymx2.check.dependencies.gradle.kts](src/main/kotlin/io.github.mymx2.check.dependencies.gradle.kts)
 [io.github.mymx2.check.dependencies-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.dependencies-root.gradle.kts)
 [io.github.mymx2.check.format-base.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-base.gradle.kts)

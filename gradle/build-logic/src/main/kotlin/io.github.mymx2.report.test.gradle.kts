@@ -3,8 +3,8 @@
 plugins {
   java
   `test-report-aggregation`
-  id("io.github.mymx2.base.jpms-modules")
   id("io.github.mymx2.base.lifecycle")
+  id("io.github.mymx2.base.jvm-conflict")
 }
 
 // Make aggregation "classpath" use the platform for versions (gradle/versions)
