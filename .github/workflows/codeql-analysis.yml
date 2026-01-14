@@ -15,20 +15,25 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
   cancel-in-progress: true
 
-permissions: {}
-
 jobs:
   CodeQL-Scan:
     permissions:
       actions: read
       contents: read
+      packages: read
       security-events: write
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        language: ["actions", "java-kotlin", "javascript-typescript"]
+        include:
+          - language: actions
+            build-mode: none
+          - language: java-kotlin
+            build-mode: manual
+          - language: javascript-typescript
+            build-mode: autobuild
 
     steps:
       - name: ✈ Checkout repository
@@ -60,14 +65,13 @@ jobs:
         uses: github/codeql-action/init@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v4.31.10
         with:
           languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
           tools: latest
+          config-file: ./.github/config/codeql.yml
 
       - name: 🏗 Build Java/Kotlin with Gradle
-        if: ${{ matrix.language == 'java-kotlin' }}
+        if: ${{ matrix.build-mode == 'manual' && matrix.language == 'java-kotlin' }}
         run: ./gradlew clean build
 
       - name: 🔍 Run CodeQL Analysis
         uses: github/codeql-action/analyze@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v4.31.10
-        with:
-          # noinspection UndefinedParamsPresent
-          config-file: ./.github/config/codeql.yml

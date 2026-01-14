@@ -89,14 +89,11 @@ fun initCommitMsgHook() {
     } else {
       commitMsgHook.ensureParentDirsCreated()
       commitMsgHook.writeText(
-        $$"""
+        """
         #!/bin/sh
-        chmod +x ./.github/check-commit-editmsg.sh
+        set -e
+
         ./.github/check-commit-editmsg.sh
-        EXIT_CODE="$?"
-        if [ $EXIT_CODE -ne 0 ]; then
-          exit 1
-        fi
         """
           .trimIndent()
       )
@@ -123,19 +120,19 @@ fun initPrePushHook() {
     } else {
       prePushHook.ensureParentDirsCreated()
       prePushHook.writeText(
-        $$"""
+        """
         #!/bin/sh
-        set -x
-        echo "********************************************"
-        echo "*           pre-push check start           *"
-        echo "********************************************"
+        set -e
+
+        echo "🚀 Pre-push check start"
+
         ./gradlew check
-        EXIT_CODE="$?"
-        echo "********************************************"
-        echo "*            pre-push check end            *"
-        echo "********************************************"
-        if [ $EXIT_CODE -ne 0 ]; then
-          exit 1
+
+        if [ $? -eq 0 ]; then
+            echo "✅ Pre-push check passed"
+        else
+            echo "❌ Pre-push check failed"
+            exit 1
         fi
         """
           .trimIndent()
