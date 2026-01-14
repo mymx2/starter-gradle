@@ -45,10 +45,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |    \--- org.jetbrains.kotlin:kotlin-compiler-runner:2.3.0
 |         +--- org.jetbrains.kotlin:kotlin-daemon-client:2.3.0
 |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0
-|              +--- org.jetbrains:annotations:23.0.0
-|              \--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.8.0
-|                   +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 (c)
-|                   \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 (c)
+|              \--- org.jetbrains:annotations:23.0.0
 +--- net.swiftzer.semver:semver:2.1.0
 |    \--- net.swiftzer.semver:semver-jvm:2.1.0
 |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.3.0 (*)
@@ -137,33 +134,30 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.0 -> 1.8.0 (*)
 |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json -> 1.8.0 (*)
 |         \--- org.jetbrains.dokka:dokka-core:2.1.0
-|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.0
-|              |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 (*)
+|              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3
+|              |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3 -> 1.8.0 (*)
 |              +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3 -> 2.20.1
 |              |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.1
 |              |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|              |    |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1
-|              |    |    |    \--- com.fasterxml.jackson:jackson-bom:2.20.1
-|              |    |    |         +--- com.fasterxml.jackson.core:jackson-annotations:2.20 (c)
-|              |    |    |         +--- com.fasterxml.jackson.core:jackson-core:2.20.1 (c)
-|              |    |    |         +--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (c)
-|              |    |    |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.20.1 (c)
-|              |    |    |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.1 (c)
-|              |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.20.1 (c)
-|              |    |    |         +--- com.fasterxml.jackson.datatype:jackson-datatype-joda:2.20.1 (c)
-|              |    |    |         +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.20.1 (c)
-|              |    |    |         \--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.1 (c)
-|              |    |    \--- com.fasterxml.jackson:jackson-bom:2.20.1 (*)
-|              |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|              |    \--- com.fasterxml.jackson:jackson-bom:2.20.1 (*)
+|              |    |    \--- com.fasterxml.jackson.core:jackson-core:2.20.1
+|              |    \--- com.fasterxml.jackson.core:jackson-annotations:2.20
 |              +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.3 -> 2.20.1
-|              |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1 (*)
+|              |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1
 |              |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
 |              |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (*)
 |              |    +--- org.codehaus.woodstox:stax2-api:4.2.2
 |              |    +--- com.fasterxml.woodstox:woodstox-core:7.1.1
 |              |    |    \--- org.codehaus.woodstox:stax2-api:4.2.2
-|              |    \--- com.fasterxml.jackson:jackson-bom:2.20.1 (*)
+|              |    \--- com.fasterxml.jackson:jackson-bom:2.20.1
+|              |         +--- com.fasterxml.jackson.core:jackson-annotations:2.20 (c)
+|              |         +--- com.fasterxml.jackson.core:jackson-core:2.20.1 (c)
+|              |         +--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (c)
+|              |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.20.1 (c)
+|              |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.1 (c)
+|              |         +--- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.20.1 (c)
+|              |         +--- com.fasterxml.jackson.datatype:jackson-datatype-joda:2.20.1 (c)
+|              |         +--- com.fasterxml.jackson.module:jackson-module-kotlin:2.20.1 (c)
+|              |         \--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.1 (c)
 |              \--- com.fasterxml.jackson.core:jackson-databind:2.15.3 -> 2.20.1 (c)
 +--- me.champeau.jmh:me.champeau.jmh.gradle.plugin:0.7.3
 |    \--- me.champeau.jmh:jmh-gradle-plugin:0.7.3
@@ -224,7 +218,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              +--- com.squareup.retrofit2:converter-moshi:2.12.0
 |              |    +--- com.squareup.retrofit2:retrofit:2.12.0 (*)
 |              |    \--- com.squareup.moshi:moshi:1.15.2
-|              |         +--- com.squareup.okio:okio:3.7.0 -> 3.16.4 (*)
+|              |         +--- com.squareup.okio:okio-jvm:3.7.0 -> 3.16.4 (*)
 |              |         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
 |              +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17 (*)
 |              +--- com.squareup.moshi:moshi:1.15.2 (*)
@@ -248,7 +242,9 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.0 (*)
 |         |    \--- com.google.guava:guava:33.4.8-jre -> 33.5.0-jre
 |         |         +--- com.google.guava:failureaccess:1.0.3
-|         |         \--- com.google.errorprone:error_prone_annotations:2.41.0 -> 2.43.0
+|         |         +--- org.jspecify:jspecify:1.0.0
+|         |         +--- com.google.errorprone:error_prone_annotations:2.41.0 -> 2.43.0
+|         |         \--- com.google.j2objc:j2objc-annotations:3.1
 |         +--- com.autonomousapps:variant-artifacts:0.3.3
 |         |    +--- org.jetbrains.kotlin:kotlin-bom:2.0.21 (*)
 |         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.0 (*)
@@ -274,6 +270,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         +--- com.squareup.okio:okio:3.16.4 (*)
 |         +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.2.20 -> 2.3.0 (*)
 |         +--- com.github.ben-manes.caffeine:caffeine:3.2.3
+|         |    +--- org.jspecify:jspecify:1.0.0
 |         |    \--- com.google.errorprone:error_prone_annotations:2.43.0
 |         +--- com.autonomousapps:antlr:4.13.2.0
 |         +--- com.autonomousapps:asm-relocated:9.9.0
@@ -375,8 +372,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         |         +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3 -> 2.20.1
 |         |         |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (*)
 |         |         |    +--- org.yaml:snakeyaml:2.4
-|         |         |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1 (*)
-|         |         |    \--- com.fasterxml.jackson:jackson-bom:2.20.1 (*)
+|         |         |    \--- com.fasterxml.jackson.core:jackson-core:2.20.1
 |         |         \--- org.slf4j:slf4j-api:2.0.17 (*)
 |         \--- org.jspecify:jspecify:1.0.0
 +--- com.github.spotbugs:com.github.spotbugs.gradle.plugin:6.4.8
@@ -417,8 +413,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         |    |    +--- org.apache.httpcomponents.core5:httpcore5:5.3.6
 |         |    |    +--- org.apache.httpcomponents.core5:httpcore5-h2:5.3.6
 |         |    |    |    \--- org.apache.httpcomponents.core5:httpcore5:5.3.6
-|         |    |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17 (*)
-|         |    |    \--- org.apache.httpcomponents.client5:httpclient5:5.5.1 (c)
+|         |    |    \--- org.slf4j:slf4j-api:1.7.36 -> 2.0.17 (*)
 |         |    +--- org.springframework:spring-core:7.0.2
 |         |    |    +--- commons-logging:commons-logging:1.3.5 -> org.slf4j:jcl-over-slf4j:2.0.17
 |         |    |    |    +--- org.slf4j:slf4j-api:2.0.17 (*)
@@ -520,9 +515,8 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              |    |         |    +--- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.2 -> 2.20.1 (*)
 |              |    |         |    +--- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.19.2 -> 2.20.1
 |              |    |         |    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|              |    |         |    |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1 (*)
-|              |    |         |    |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (*)
-|              |    |         |    |    \--- com.fasterxml.jackson:jackson-bom:2.20.1 (*)
+|              |    |         |    |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1
+|              |    |         |    |    \--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (*)
 |              |    |         |    +--- io.swagger.core.v3:swagger-annotations:2.2.37
 |              |    |         |    +--- org.yaml:snakeyaml:2.3 -> 2.4
 |              |    |         |    +--- io.swagger.core.v3:swagger-models:2.2.37 (*)
@@ -561,7 +555,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              +--- com.fasterxml.jackson.datatype:jackson-datatype-guava:2.18.2 -> 2.20.1
 |              |    +--- com.google.guava:guava:25.1-jre -> 33.5.0-jre (*)
 |              |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|              |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1 (*)
+|              |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1
 |              |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (*)
 |              |    \--- com.fasterxml.jackson:jackson-bom:2.20.1 (*)
 |              +--- org.commonmark:commonmark:0.21.0
@@ -571,15 +565,14 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              +--- com.fasterxml.jackson.core:jackson-databind:2.18.2 -> 2.20.1 (*)
 |              +--- com.fasterxml.jackson.datatype:jackson-datatype-joda:2.18.2 -> 2.20.1
 |              |    +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|              |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1 (*)
+|              |    +--- com.fasterxml.jackson.core:jackson-core:2.20.1
 |              |    +--- com.fasterxml.jackson.core:jackson-databind:2.20.1 (*)
-|              |    +--- joda-time:joda-time:2.12.7
-|              |    \--- com.fasterxml.jackson:jackson-bom:2.20.1 (*)
+|              |    \--- joda-time:joda-time:2.12.7
 |              +--- com.fasterxml.jackson.core:jackson-annotations:2.18.2 -> 2.20
 |              +--- com.github.joschi.jackson:jackson-datatype-threetenbp:2.18.2
 |              |    +--- com.fasterxml.jackson.core:jackson-annotations:2.18.2 -> 2.20
 |              |    +--- org.threeten:threetenbp:1.7.0
-|              |    +--- com.fasterxml.jackson.core:jackson-core:2.18.2 -> 2.20.1 (*)
+|              |    +--- com.fasterxml.jackson.core:jackson-core:2.18.2 -> 2.20.1
 |              |    \--- com.fasterxml.jackson.core:jackson-databind:2.18.2 -> 2.20.1 (*)
 |              +--- org.openapitools:openapi-generator-core:7.18.0
 |              |    +--- com.google.guava:guava:32.1.3-jre -> 33.5.0-jre (*)
@@ -732,7 +725,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.eclipse.platform:org.eclipse.osgi:{strictly 3.23.200} -> 3.23.200 (c)
 +--- io.github.detekt.sarif4k:sarif4k-jvm:{strictly 0.6.0} -> 0.6.0 (c)
 +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:{strictly 1.8.0} -> 1.8.0 (c)
-+--- org.jetbrains.kotlinx:kotlinx-coroutines-core:{strictly 1.8.0} -> 1.8.0 (c)
++--- org.jetbrains.kotlinx:kotlinx-coroutines-core:{strictly 1.7.3} -> 1.7.3 (c)
 +--- com.fasterxml.jackson.module:jackson-module-kotlin:{strictly 2.20.1} -> 2.20.1 (c)
 +--- com.fasterxml.jackson.dataformat:jackson-dataformat-xml:{strictly 2.20.1} -> 2.20.1 (c)
 +--- net.sf.jopt-simple:jopt-simple:{strictly 5.0.4} -> 5.0.4 (c)
@@ -747,6 +740,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- com.squareup.retrofit2:converter-scalars:{strictly 2.12.0} -> 2.12.0 (c)
 +--- com.squareup.retrofit2:converter-moshi:{strictly 2.12.0} -> 2.12.0 (c)
 +--- com.google.guava:failureaccess:{strictly 1.0.3} -> 1.0.3 (c)
++--- com.google.j2objc:j2objc-annotations:{strictly 3.1} -> 3.1 (c)
 +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:{strictly 2.0.21} -> 2.0.21 (c)
 +--- com.squareup:kotlinpoet:{strictly 2.1.0} -> 2.1.0 (c)
 +--- com.squareup.moshi:moshi-adapters:{strictly 1.15.2} -> 1.15.2 (c)
@@ -805,10 +799,10 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.tukaani:xz:{strictly 1.9} -> 1.9 (c)
 +--- com.squareup.okhttp3:okhttp:{strictly 4.12.0} -> 4.12.0 (c)
 +--- com.diffplug.durian:durian-swt.os:{strictly 4.3.0} -> 4.3.0 (c)
-+--- com.fasterxml.jackson:jackson-bom:{strictly 2.20.1} -> 2.20.1 (c)
 +--- com.fasterxml.jackson.core:jackson-core:{strictly 2.20.1} -> 2.20.1 (c)
 +--- org.codehaus.woodstox:stax2-api:{strictly 4.2.2} -> 4.2.2 (c)
 +--- com.fasterxml.woodstox:woodstox-core:{strictly 7.1.1} -> 7.1.1 (c)
++--- com.fasterxml.jackson:jackson-bom:{strictly 2.20.1} -> 2.20.1 (c)
 +--- org.apache.maven:maven-api-xml:{strictly 4.0.0-rc-3} -> 4.0.0-rc-3 (c)
 +--- com.squareup:kotlinpoet-jvm:{strictly 2.1.0} -> 2.1.0 (c)
 +--- org.codehaus.plexus:plexus-sec-dispatcher:{strictly 2.0} -> 2.0 (c)
@@ -829,7 +823,6 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- dk.brics.automaton:automaton:{strictly 1.11-8} -> 1.11-8 (c)
 +--- joda-time:joda-time:{strictly 2.12.7} -> 2.12.7 (c)
 +--- org.threeten:threetenbp:{strictly 1.7.0} -> 1.7.0 (c)
-+--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:{strictly 1.8.0} -> 1.8.0 (c)
 +--- org.apache.maven:maven-api-annotations:{strictly 4.0.0-rc-3} -> 4.0.0-rc-3 (c)
 +--- org.codehaus.plexus:plexus-cipher:{strictly 2.0} -> 2.0 (c)
 +--- org.freemarker:freemarker:{strictly 2.3.32} -> 2.3.32 (c)
