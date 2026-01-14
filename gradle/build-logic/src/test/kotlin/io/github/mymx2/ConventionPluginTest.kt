@@ -7,11 +7,14 @@ import org.gradle.testkit.runner.TaskOutcome.SUCCESS
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
 class ConventionPluginTest {
 
+  @Execution(ExecutionMode.CONCURRENT)
   @ParameterizedTest
   @MethodSource("pluginIds")
   fun `each plugin can be applied individually without error`(pluginId: String) {

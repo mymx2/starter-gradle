@@ -128,7 +128,7 @@ extraJavaModuleInfo {
   versionsProvidingConfiguration = "mainRuntimeClasspath"
 
   // Disable module Jar patching for the JMH runtime classpath.
-  deactivate(sourceSets.named("jmh"))
+  runCatching { sourceSets.named("jmh") }.getOrNull()?.let { deactivate(it) }
 }
 
 configurations.implementation {
