@@ -37,7 +37,7 @@ object SpringBootHelper {
    *
    * @param springBootVersion The version of the dependency.
    */
-  fun Project.kaptSpringBootProcessor(springBootVersion: String = "") {
+  fun Project.kaptSpringBootProcessor(springBootVersion: String = getSpringBootVersion()) {
     val bootVersion = if (springBootVersion.isNotBlank()) ":$springBootVersion" else ""
     dependencies {
       add("kapt", "org.springframework.boot:spring-boot-autoconfigure-processor$bootVersion")
