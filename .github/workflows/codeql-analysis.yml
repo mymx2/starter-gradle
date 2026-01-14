@@ -33,7 +33,7 @@ jobs:
           - language: java-kotlin
             build-mode: manual
           - language: javascript-typescript
-            build-mode: autobuild
+            build-mode: none
 
     steps:
       - name: 📸 Snapshot Workflow Context
