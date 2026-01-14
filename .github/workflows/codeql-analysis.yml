@@ -77,6 +77,7 @@ jobs:
       - name: 🔧 Check build enabled
         id: check_build_enabled
         continue-on-error: true
+        if: matrix.language == 'java-kotlin'
         run: ./gradlew :help
 
       - name: 🏗 Build Java/Kotlin with Gradle
