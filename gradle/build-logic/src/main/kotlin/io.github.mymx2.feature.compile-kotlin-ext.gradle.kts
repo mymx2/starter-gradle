@@ -33,5 +33,6 @@ kapt {
 // https://www.baeldung.com/kotlin/instantiate-data-class-empty-constructor
 noArg {
   invokeInitializers = true // 执行属性初始化
+  annotation("lombok.NoArgsConstructor")
   annotation("io.swagger.v3.oas.annotations.media.Schema")
 }

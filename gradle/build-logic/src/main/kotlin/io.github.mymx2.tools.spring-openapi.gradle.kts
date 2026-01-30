@@ -18,9 +18,7 @@ val templateDirectory: File =
       .file("gradle/configs/openapi/scripts/typescript-fetch")
       .asFile
 
-val generatorName = "typescript-fetch"
-
-tasks.register<GenerateTask>("_api_${project.name}") {
+tasks.register<GenerateTask>("openapiTypescriptFetch") {
   group = "toolbox"
   cleanupOutput = true
   templateDir.set(templateDirectory.path)
@@ -28,7 +26,7 @@ tasks.register<GenerateTask>("_api_${project.name}") {
   outputDir.set(outputDirectory.asFile.invariantSeparatorsPath)
 
   // https://openapi-generator.tech/docs/generators/typescript-fetch
-  generatorName.set(generatorName)
+  generatorName.set("typescript-fetch")
   apiPackage.set("apis")
   modelPackage.set("models")
   configOptions.put("disallowAdditionalPropertiesIfNotPresent", "false")
@@ -56,7 +54,7 @@ tasks.register<GenerateTask>("_api_${project.name}") {
 
 tasks.withType<BuildInfo>().configureEach {
   properties {
-    additional.put("openapi.generatorName", generatorName)
+    additional.put("openapi.generatorName", "typescript-fetch")
     additional.put("openapi.resourcesDir", resourcesDir.asFile.invariantSeparatorsPath)
     additional.put("openapi.inputSpec", inputFile.asFile.invariantSeparatorsPath)
   }

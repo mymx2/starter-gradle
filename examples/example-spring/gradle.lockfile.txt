@@ -52,12 +52,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |    |         +--- org.springframework.boot:spring-boot:4.0.1 (*)
 |    |         \--- tools.jackson.core:jackson-databind:3.0.3
 |    |              +--- com.fasterxml.jackson.core:jackson-annotations:2.20
-|    |              +--- tools.jackson.core:jackson-core:3.0.3
-|    |              |    \--- tools.jackson:jackson-bom:3.0.3
-|    |              |         +--- com.fasterxml.jackson.core:jackson-annotations:2.20 (c)
-|    |              |         +--- tools.jackson.core:jackson-core:3.0.3 (c)
-|    |              |         \--- tools.jackson.core:jackson-databind:3.0.3 (c)
-|    |              \--- tools.jackson:jackson-bom:3.0.3 (*)
+|    |              \--- tools.jackson.core:jackson-core:3.0.3
 |    +--- org.springframework.boot:spring-boot-starter-tomcat:4.0.1
 |    |    +--- org.springframework.boot:spring-boot-starter:4.0.1 (*)
 |    |    +--- org.springframework.boot:spring-boot-starter-tomcat-runtime:4.0.1
@@ -81,18 +76,18 @@ runtimeClasspath - Runtime classpath of 'main'.
 |    |    +--- org.springframework.boot:spring-boot:4.0.1 (*)
 |    |    \--- org.springframework:spring-web:7.0.2 (*)
 |    \--- org.springframework.boot:spring-boot-webmvc:4.0.1
-|         +--- org.springframework.boot:spring-boot-http-converter:4.0.1 (*)
 |         +--- org.springframework.boot:spring-boot-servlet:4.0.1
 |         |    +--- org.springframework.boot:spring-boot:4.0.1 (*)
 |         |    \--- org.springframework:spring-web:7.0.2 (*)
 |         +--- org.springframework:spring-web:7.0.2 (*)
-|         \--- org.springframework:spring-webmvc:7.0.2
-|              +--- org.springframework:spring-aop:7.0.2 (*)
-|              +--- org.springframework:spring-beans:7.0.2 (*)
-|              +--- org.springframework:spring-context:7.0.2 (*)
-|              +--- org.springframework:spring-core:7.0.2 (*)
-|              +--- org.springframework:spring-expression:7.0.2 (*)
-|              \--- org.springframework:spring-web:7.0.2 (*)
+|         +--- org.springframework:spring-webmvc:7.0.2
+|         |    +--- org.springframework:spring-aop:7.0.2 (*)
+|         |    +--- org.springframework:spring-beans:7.0.2 (*)
+|         |    +--- org.springframework:spring-context:7.0.2 (*)
+|         |    +--- org.springframework:spring-core:7.0.2 (*)
+|         |    +--- org.springframework:spring-expression:7.0.2 (*)
+|         |    \--- org.springframework:spring-web:7.0.2 (*)
+|         \--- org.springframework.boot:spring-boot-http-converter:4.0.1 (*)
 +--- project :versions
 |    \--- org.slf4j:slf4j-bom:2.1.0-alpha1 (*)
 +--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.0

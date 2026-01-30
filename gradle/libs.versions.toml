@@ -55,7 +55,7 @@ org-nosphere-apache-rat = { id = "org.nosphere.apache.rat", version = "0.8.1" }
 io-freefair-lombok = { id = "io.freefair.lombok", version = "9.1.0" }
 org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.23.0" }
 org-springframework-boot = { id = "org.springframework.boot", version = "4.0.1" }
-org-openapi-generator = { id = "org.openapi.generator", version = "7.18.0" }
+org-openapi-generator = { id = "org.openapi.generator", version = "7.19.0" }
 
 # Convention Plugins
 io-github-mymx2-plugin-dy-example-settings = { id = "io.github.mymx2.plugin.dy.example.settings" }
