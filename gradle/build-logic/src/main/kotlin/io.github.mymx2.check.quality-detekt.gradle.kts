@@ -21,7 +21,7 @@ tasks.named("qualityGate") { dependsOn(tasks.detekt) }
 val defaultDetektExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
 
 tasks.withType<Detekt>().configureEach {
-  enabled = enableDetekt
+  enabled = true
   exclude(*defaultDetektExcludes)
 }
 

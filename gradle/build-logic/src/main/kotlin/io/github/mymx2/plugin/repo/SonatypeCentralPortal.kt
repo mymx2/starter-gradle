@@ -1,6 +1,6 @@
 package io.github.mymx2.plugin.repo
 
-import io.github.mymx2.plugin.utils.HttpUtil.httpClient
+import io.github.mymx2.plugin.utils.httpClient
 import java.io.File
 import java.io.IOException
 import java.net.URI

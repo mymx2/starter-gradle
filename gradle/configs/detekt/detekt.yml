@@ -26,7 +26,7 @@ style:
     active: false
   ForbiddenImport:
     active: false
-    imports:
+    forbiddenImports:
       - reason: "Use LocalDateTime instead"
         value: "java.util.Date"
       - reason: "Use Path instead"

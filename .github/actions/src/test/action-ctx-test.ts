@@ -7,7 +7,7 @@ import type {
 
 import console from 'node:console'
 import { context } from '@actions/github'
-import glob from '@actions/glob'
+import { create } from '@actions/glob'
 import { match, minimatch } from 'minimatch'
 import { githubCtx as github } from './action-ctx.ts'
 import { octokit } from './action-test.ts'
@@ -30,7 +30,7 @@ function patternMatchDemo() {
 
 async function globMatchDemo() {
   const patterns = ['**/*.ts', '**/*.yml'].map(p => `src/${p}`)
-  const globber = await glob.create(patterns.join('\n'))
+  const globber = await create(patterns.join('\n'))
   const matchFiles = await globber.glob()
   console.log('files', matchFiles)
   const searchPaths = globber.getSearchPaths()
@@ -101,5 +101,4 @@ async function ctxDemo() {
 export const fns = [
   patternMatchDemo,
   globMatchDemo,
-  ctxDemo,
 ]

@@ -8,10 +8,11 @@ import io.github.mymx2.plugin.tasks.DependencyVersionUpgradesCheck
 import io.github.mymx2.plugin.tasks.JavaVersionConsistencyCheck
 import io.github.mymx2.plugin.utils.Ansi
 import io.github.mymx2.plugin.utils.CatalogUtil
-import io.github.mymx2.plugin.utils.HttpUtil
+import io.github.mymx2.plugin.utils.HttpUtils
 import io.github.mymx2.plugin.utils.JsonParser
 import io.github.mymx2.plugin.utils.TextHandle
 import io.github.mymx2.plugin.utils.chunkedVirtual
+import java.net.URI
 import java.time.Duration
 import java.time.LocalDate
 import java.util.concurrent.atomic.AtomicReference
@@ -168,7 +169,7 @@ object CheckVersionPluginConfig {
     var jobMsg = metadataUrl
     val metadata =
       try {
-        HttpUtil.get(metadataUrl, Duration.ofSeconds(30))
+        HttpUtils.get(URI(metadataUrl), Duration.ofSeconds(30))
       } catch (_: Exception) {
         jobMsg += "\n  ❌ $dependency -> read metadata timeout${appendMsg}"
         ""
@@ -305,7 +306,7 @@ object CheckVersionPluginConfig {
             var jobMsg = moduleUrl
             val metadata =
               try {
-                HttpUtil.get(moduleUrl, Duration.ofSeconds(30))
+                HttpUtils.get(URI(moduleUrl), Duration.ofSeconds(30))
               } catch (_: Exception) {
                 jobMsg += "\n  ❌ $moduleId -> read metadata timeout${appendMsg}"
                 ""
@@ -339,7 +340,7 @@ object CheckVersionPluginConfig {
       var newestGradleVersion: String?
       val gradleVersionContent =
         try {
-          HttpUtil.get(gradleVersionUrl, Duration.ofSeconds(30))
+          HttpUtils.get(URI(gradleVersionUrl), Duration.ofSeconds(30))
         } catch (_: Exception) {
           ""
         }

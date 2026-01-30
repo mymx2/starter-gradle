@@ -54,15 +54,24 @@ tasks.withType<JavaCompile>().configureEach {
     defaultDisabledChecks().forEach { disable(it) }
 
     nullaway {
-      error()
-      treatGeneratedAsUnannotated = true
-      suggestSuppressions = true
-      isAssertsEnabled = true
-      handleTestAssertionLibraries = true
-      checkOptionalEmptiness = true
-      checkContracts = true
-      isJSpecifyMode = true
+      // 使用 JSpecify 语义
+      jspecifyMode = true
+      // 只分析 @NullMarked 的代码
       onlyNullMarked = true
+      // 生成代码不做强校验
+      treatGeneratedAsUnannotated = true
+      // Optional.get() 检查
+      checkOptionalEmptiness = true
+      // 支持 assert / Truth / AssertJ
+      assertsEnabled = true
+      handleTestAssertionLibraries = true
+      // 合约分析（@Contract）
+      checkContracts = true
+      // 给出 suppress 建议
+      suggestSuppressions = true
+      suppressionNameAliases.add("NullAway")
+      // 强制作为 error
+      error()
     }
   }
 }
@@ -76,7 +85,7 @@ tasks.compileTestJava { options.errorprone { isEnabled = false } }
  * - https://github.com/ben-manes/caffeine/blob/master/gradle/plugins/src/main/kotlin/quality/errorprone.caffeine.gradle.kts
  */
 
-fun defaultDisabledChecks() = listOf("MissingSummary", "Java8ApiChecker")
+fun defaultDisabledChecks() = listOf("AddNullMarkedToClass", "MissingSummary", "Java8ApiChecker")
 
 @Suppress("CanConvertToMultiDollarString")
 fun defaultDisabledRules() = listOf("ImmutableTableRules\\\$ImmutableTableBuilder")
