@@ -8,6 +8,7 @@ on:
 
 jobs:
   publish-snapshot:
+    if: github.repository == 'mymx2/starter-gradle'
     uses: ./.github/workflows/_publish.yml
     with:
       release: false
