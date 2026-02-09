@@ -2,6 +2,7 @@
 
 import com.github.spotbugs.snom.SpotBugsTask
 import io.github.mymx2.plugin.InternalDependencies
+import io.github.mymx2.plugin.libs
 
 plugins {
   java
@@ -10,7 +11,12 @@ plugins {
   id("io.github.mymx2.base.lifecycle")
 }
 
-dependencies { compileOnly(InternalDependencies.useLibrary("spotbugsAnnotations")) }
+dependencies {
+  compileOnly(
+    runCatching { libs.findLibrary("spotbugsAnnotations").get().get() }
+      .getOrElse { InternalDependencies.useLibrary("spotbugsAnnotations") }
+  )
+}
 
 // auto bind to checks task:
 // https://spotbugs.readthedocs.io/en/latest/gradle.html#tasks-introduced-by-this-gradle-plugin

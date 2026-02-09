@@ -23,7 +23,7 @@ object TextHandle {
         }
       }
     }
-    return sb.toString()
+    return sb.toString().replaceFirstChar { it.lowercase() }
   }
 
   /**

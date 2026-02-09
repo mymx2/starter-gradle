@@ -1,8 +1,15 @@
+@file:Suppress("UnstableApiUsage")
+
 import com.autonomousapps.tasks.ProjectHealthTask
+import gradle.kotlin.dsl.accessors._2e1eabce6886db90cafe9a120e6529b7.testing
 import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
+import io.github.mymx2.plugin.InternalDependencies
+import io.github.mymx2.plugin.libs
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.api.plugins.jvm.JvmTestSuite
+import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.withType
 
 object PluginHelpers {
@@ -19,6 +26,44 @@ object PluginHelpers {
     tasks.named("qualityCheck") { dependsOn(tasks.withType<DetectCollisionsTask>()) }
 
     tasks.named("qualityGate") { dependsOn(tasks.withType<DetectCollisionsTask>()) }
+  }
+
+  /**
+   * Enables the testing suite with dependencies.
+   *
+   * effect:
+   * ```
+   * dependencies {
+   *   implementation(platform("org.junit:junit-bom:<version>"))
+   *   implementation(platform("org.assertj:assertj-bom:<version>"))
+   *   runtimeOnly("org.junit.platform:junit-platform-launcher")
+   *   implementation("org.junit.jupiter:junit-jupiter")
+   *   implementation("org.assertj:assertj-core")
+   * }
+   * ```
+   */
+  fun Project.m2JvmTestSuite(junitBomVersion: String = "", assertjBomVersion: String = "") {
+    testing.suites.withType<JvmTestSuite> {
+      dependencies {
+        implementation(
+          platform(
+            runCatching { libs.findLibrary("junitBom").get().get() }
+              .getOrElse { InternalDependencies.useLibrary("junitBom") }
+              .toString()
+          )
+        )
+        implementation(
+          platform(
+            runCatching { libs.findLibrary("assertjBom").get().get() }
+              .getOrElse { InternalDependencies.useLibrary("assertjBom") }
+              .toString()
+          )
+        )
+        runtimeOnly("org.junit.platform:junit-platform-launcher")
+        implementation("org.junit.jupiter:junit-jupiter")
+        implementation("org.assertj:assertj-core")
+      }
+    }
   }
 }
 

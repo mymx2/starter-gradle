@@ -68,6 +68,8 @@ object LocalConfig {
     GPG_SIGNING_KEY("signingInMemoryKey", ""),
     // OpenPGP 密码
     GPG_SIGNING_PASSWORD("signingInMemoryKeyPassword", ""),
+    // 内置测试套件
+    M2_JVM_TEST_SUITE_ENABLED("M2_JVM_TEST_SUITE_ENABLED", ""),
   }
 
   /** The default local properties file. */

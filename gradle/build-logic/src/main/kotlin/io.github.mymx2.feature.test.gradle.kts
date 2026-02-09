@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
-import io.github.mymx2.plugin.InternalDependencies
+import PluginHelpers.m2JvmTestSuite
+import io.github.mymx2.plugin.environment.buildProperties
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
 import java.nio.charset.StandardCharsets
@@ -12,6 +13,14 @@ plugins {
 }
 
 val jepEnablePreview = project.getPropOrDefault(LocalConfig.Props.JEP_ENABLE_PREVIEW).toBoolean()
+
+val buildProperties = project.buildProperties()
+val m2JvmTestSuiteEnabled: String =
+  project.getPropOrDefault(LocalConfig.Props.M2_JVM_TEST_SUITE_ENABLED).ifBlank {
+    runCatching { buildProperties.getProperty("m2.jvm.test.suite.enabled", "") }
+      .getOrNull()
+      .orEmpty()
+  }
 
 testing {
   suites {
@@ -41,14 +50,8 @@ testing {
   }
 }
 
-testing.suites.withType<JvmTestSuite> {
-  dependencies {
-    implementation(platform(InternalDependencies.useLibrary("junitBom")))
-    implementation(platform(InternalDependencies.useLibrary("assertjBom")))
-    runtimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("org.junit.jupiter:junit-jupiter")
-    implementation("org.assertj:assertj-core")
-  }
+if (m2JvmTestSuiteEnabled != "false") {
+  m2JvmTestSuite()
 }
 
 configurations.testCompileOnly { extendsFrom(configurations.compileOnly.get()) }
