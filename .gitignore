@@ -96,3 +96,40 @@ Servers
 
 ### Kotlin ###
 .kotlin
+
+### Vim ###
+*.swp
+*.swo
+
+### Emacs ###
+*~
+#*
+
+### VS Code ###
+.vscode/
+
+### Coverage ###
+coverage/
+*.lcov
+
+### Docker ###
+.docker/
+Dockerfile*
+.dockerignore
+
+### CI/CD ###
+.github/
+.gitlab/
+.circleci/
+
+### Python ###
+*.pyc
+__pycache__/
+
+### Misc ###
+*.bak
+*.orig
+*.rej
+*.pid
+*.seed
+*.pid.lock
