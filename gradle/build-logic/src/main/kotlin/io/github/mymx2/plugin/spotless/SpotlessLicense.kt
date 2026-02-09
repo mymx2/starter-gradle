@@ -122,7 +122,7 @@ object SpotlessLicense {
     }
     return """
       |/*
-      |${license.lines().joinToString("\n") {" * $it"}}
+      |${license.lines().joinToString("\n") { if (it.isBlank()) " *" else " * $it"}}
       | */
       |
       """
@@ -137,7 +137,7 @@ object SpotlessLicense {
     return """
       |<?xml version="1.0" encoding="UTF-8" ?>
       |<!--
-      |${license.lines().joinToString("\n") {"  $it"}}
+      |${license.lines().joinToString("\n") { if (it.isBlank()) "" else "  $it"}}
       |-->
       |
       """
