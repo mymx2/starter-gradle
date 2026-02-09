@@ -17,9 +17,7 @@ val jepEnablePreview = project.getPropOrDefault(LocalConfig.Props.JEP_ENABLE_PRE
 val buildProperties = project.buildProperties()
 val m2JvmTestSuiteEnabled: String =
   project.getPropOrDefault(LocalConfig.Props.M2_JVM_TEST_SUITE_ENABLED).ifBlank {
-    runCatching { buildProperties.getProperty("m2.jvm.test.suite.enabled", "") }
-      .getOrNull()
-      .orEmpty()
+    buildProperties.getProperty("m2.jvm.test.suite.enabled", "")
   }
 
 testing {

@@ -1,4 +1,5 @@
 import io.github.mymx2.plugin.environment.EnvAccess
+import io.github.mymx2.plugin.environment.buildProperties
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
 import java.time.LocalDate
@@ -7,12 +8,18 @@ import net.swiftzer.semver.SemVer
 
 plugins { base }
 
+val buildProperties = project.buildProperties()
+
 // Set the group required to refer to a Module "from outside".
 // I.e., when it is published or used in Included Builds.
 group = project.getPropOrDefault(LocalConfig.Props.GROUP)
 
 val isCI = EnvAccess.isCi(providers)
-val currVer = SemVer.parse(project.getPropOrDefault(LocalConfig.Props.VERSION))
+val currVer =
+  buildProperties
+    .getProperty("version", "")
+    .ifBlank { project.getPropOrDefault(LocalConfig.Props.VERSION) }
+    .let { SemVer.parse(it) }
 
 currVer.preRelease?.also {
   val preReleasePattern = "SNAPSHOT|dev\\d*|preview\\d*|alpha\\d*|beta\\d*|m\\d+|rc\\d+"
