@@ -144,6 +144,9 @@ tasks {
 // 禁用 dokka
 dokka { dokkaSourceSets { configureEach { suppress = true } } }
 
+// detekt
+detekt { config.setFrom(rootDir.toPath().parent.resolve("configs/detekt/detekt.yml").toFile()) }
+
 // 禁用 spotlessKotlin
 gradle.projectsEvaluated {
   tasks.named { it.startsWith("spotlessKotlin") }.configureEach { enabled = false }
