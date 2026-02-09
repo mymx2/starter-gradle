@@ -47,16 +47,24 @@ object PluginHelpers {
       dependencies {
         implementation(
           platform(
-            runCatching { libs.findLibrary("junitBom").get().get() }
-              .getOrElse { InternalDependencies.useLibrary("junitBom") }
-              .toString()
+            if (junitBomVersion.isNotBlank()) {
+              "org.junit:junit-bom:${junitBomVersion}"
+            } else {
+              runCatching { libs.findLibrary("junitBom").get().get() }
+                .getOrElse { InternalDependencies.useLibrary("junitBom") }
+                .toString()
+            }
           )
         )
         implementation(
           platform(
-            runCatching { libs.findLibrary("assertjBom").get().get() }
-              .getOrElse { InternalDependencies.useLibrary("assertjBom") }
-              .toString()
+            if (assertjBomVersion.isNotBlank()) {
+              "org.assertj:assertj-bom:${assertjBomVersion}"
+            } else {
+              runCatching { libs.findLibrary("assertjBom").get().get() }
+                .getOrElse { InternalDependencies.useLibrary("assertjBom") }
+                .toString()
+            }
           )
         )
         runtimeOnly("org.junit.platform:junit-platform-launcher")
