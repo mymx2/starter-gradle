@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-import PluginHelpers.m2JvmTestSuite
+import PluginHelpers.useJUnitJupiterM2
 import io.github.mymx2.plugin.environment.buildProperties
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
@@ -15,10 +15,11 @@ plugins {
 val jepEnablePreview = project.getPropOrDefault(LocalConfig.Props.JEP_ENABLE_PREVIEW).toBoolean()
 
 val buildProperties = project.buildProperties()
-val m2JvmTestSuiteEnabled: String =
-  buildProperties.getProperty("m2.jvm.test.suite.enabled", "").ifBlank {
-    project.getPropOrDefault(LocalConfig.Props.M2_JVM_TEST_SUITE_ENABLED)
-  }
+val junitJupiterM2Enabled =
+  buildProperties
+    .getProperty("junit.jupiter.m2.enabled", "")
+    .ifBlank { project.getPropOrDefault(LocalConfig.Props.JUNIT_JUPITER_M2_ENABLED) }
+    .toBoolean()
 
 testing {
   suites {
@@ -48,8 +49,8 @@ testing {
   }
 }
 
-if (m2JvmTestSuiteEnabled != "false") {
-  m2JvmTestSuite()
+if (junitJupiterM2Enabled) {
+  useJUnitJupiterM2()
 }
 
 configurations.testCompileOnly { extendsFrom(configurations.compileOnly.get()) }

@@ -42,7 +42,7 @@ object PluginHelpers {
    * }
    * ```
    */
-  fun Project.m2JvmTestSuite(junitBomVersion: String = "", assertjBomVersion: String = "") {
+  fun Project.useJUnitJupiterM2(junitBomVersion: String = "", assertjBomVersion: String = "") {
     testing.suites.withType<JvmTestSuite> {
       dependencies {
         implementation(
