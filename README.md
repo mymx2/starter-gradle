@@ -1,42 +1,20 @@
-<p align="center">
-  <a href="https://central.sonatype.com/artifact/com.profiletailors/dy-gradle-plugin" target="_blank"><img alt="maven-central-version"
-    src="https://img.shields.io/maven-central/v/com.profiletailors/dy-gradle-plugin?strategy=latestProperty"/></a>
-  <a href="https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/dy-gradle-plugin/maven-metadata.xml" target="_blank"><img alt="maven-metadata-url"
-    src="https://img.shields.io/maven-metadata/v?label=snapshot&metadataUrl=https://central.sonatype.com/repository/maven-snapshots/io/github/mymx2/dy-gradle-plugin/maven-metadata.xml&strategy=latestProperty"/></a>
-  <a href="https://github.com/mymx2/starter-gradle/releases" target="_blank"><img alt="git-hub-release"
-    src="https://img.shields.io/github/v/release/mymx2/starter-gradle"/></a>
-</p>
+[![maven-central-version](https://img.shields.io/maven-central/v/com.profiletailors/dy-gradle-plugin?strategy=latestProperty)](https://central.sonatype.com/artifact/com.profiletailors/dy-gradle-plugin)
+[![maven-metadata-url](https://img.shields.io/maven-metadata/v?label=snapshot&metadataUrl=https://central.sonatype.com/repository/maven-snapshots/io/github/dallay/dy-gradle-plugin/maven-metadata.xml&strategy=latestProperty)](https://central.sonatype.com/repository/maven-snapshots/io/github/dallay/dy-gradle-plugin/maven-metadata.xml)
+[![git-hub-release](https://img.shields.io/github/v/release/dallay/starter-gradle)](https://github.com/dallay/starter-gradle/releases)
 
-<p align="center">
-  <a href="https://app.codacy.com/gh/mymx2/starter-gradle/dashboard" target="_blank"><img alt="codacy-grade"
-    src="https://img.shields.io/codacy/grade/64109c17cc5c4ea090db54cb773621fe"/></a>
-  <a href="https://app.codecov.io/gh/mymx2/starter-gradle" target="_blank"><img alt="codecov"
-    src="https://img.shields.io/codecov/c/github/mymx2/starter-gradle"/></a>
-  <a href="https://github.com/mymx2/starter-gradle/actions/workflows/publish-release.yml" target="_blank"><img alt="git-hub-actions-workflow-status"
-    src="https://img.shields.io/github/actions/workflow/status/mymx2/starter-gradle/publish-release.yml"/></a>
-</p>
+[![codacy-grade](https://img.shields.io/codacy/grade/64109c17cc5c4ea090db54cb773621fe)](https://app.codacy.com/gh/dallay/starter-gradle/dashboard)
+[![codecov](https://img.shields.io/codecov/c/github/dallay/starter-gradle)](https://app.codecov.io/gh/dallay/starter-gradle)
+[![git-hub-actions-workflow-status](https://img.shields.io/github/actions/workflow/status/dallay/starter-gradle/publish-release.yml)](https://github.com/dallay/starter-gradle/actions/workflows/publish-release.yml)
 
-<p align="center">
-  <a href="https://jdk.java.net" target="_blank"><img alt="JDK"
-    src="https://img.shields.io/badge/dynamic/toml?logo=openjdk&label=JDK&color=brightgreen&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmymx2%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.jdk&suffix=%2B"/></a>
-  <a href="https://gradle.org" target="_blank"><img alt="GRADLE"
-    src="https://img.shields.io/badge/dynamic/toml?logo=gradle&label=Gradle&color=209BC4&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmymx2%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.gradle"/></a>
-  <a href="https://kotlinlang.org/docs/getting-started.html" target="_blank"><img alt="KOTLIN"
-    src="https://img.shields.io/badge/dynamic/toml?logo=kotlin&label=Kotlin&color=7f52ff&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmymx2%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.kotlin"/></a>
-  <a href="https://nodejs.org/en/download" target="_blank"><img alt="NODE"
-    src="https://img.shields.io/badge/dynamic/toml?logo=nodedotjs&label=Node&color=5FA04E&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmymx2%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.node"/></a>
-</p>
+[![JDK](https://img.shields.io/badge/dynamic/toml?logo=openjdk&label=JDK&color=brightgreen&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdallay%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.jdk&suffix=%2B)](https://jdk.java.net)
+[![GRADLE](https://img.shields.io/badge/dynamic/toml?logo=gradle&label=Gradle&color=209BC4&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdallay%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.gradle)](https://gradle.org)
+[![KOTLIN](https://img.shields.io/badge/dynamic/toml?logo=kotlin&label=Kotlin&color=7f52ff&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdallay%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.kotlin)](https://kotlinlang.org/docs/getting-started.html)
+[![NODE](https://img.shields.io/badge/dynamic/toml?logo=nodedotjs&label=Node&color=5FA04E&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdallay%2Fstarter-gradle%2Fmain%2Fgradle%2Flibs.versions.toml&query=%24.versions.node)](https://nodejs.org/en/download)
 
-<p align="center">
-  <a href="https://github.com/mymx2" target="_blank"><img alt="mymx2"
-      src="https://img.shields.io/badge/author-🤖_mymx2-E07A28?logo=github"/></a>
-  <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax" target="_blank"><img alt="Markdown"
-      src="https://img.shields.io/badge/md-GFM-0070C0?logo=Markdown"/></a>
-  <a href="https://github.com/mymx2/starter-gradle" target="_blank"><img alt="git-hub-license"
-        src="https://img.shields.io/github/license/mymx2/starter-gradle"/></a>
-  <a href="https://deepwiki.com/mymx2/starter-gradle" target="_blank"><img alt="Ask DeepWiki"
-      src="https://deepwiki.com/badge.svg"/></a>
-</p>
+[![dallay](https://img.shields.io/badge/author-🤖_dallay-E07A28?logo=github)](https://github.com/dallay)
+[![Markdown](https://img.shields.io/badge/md-GFM-0070C0?logo=Markdown)](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+[![git-hub-license](https://img.shields.io/github/license/dallay/starter-gradle)](https://github.com/dallay/starter-gradle)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dallay/starter-gradle)
 
 ## 🏕️ Project Template
 

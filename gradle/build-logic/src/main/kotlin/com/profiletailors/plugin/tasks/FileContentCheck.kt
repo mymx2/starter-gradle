@@ -31,7 +31,7 @@ import org.gradle.work.InputChanges
  * ```kotlin
  * tasks.register<FileContentCheck>("fileContentChecker") {
  *   contentCheckMap.putAll(
- *     mapOf(".*\\/mymx2/spring/." to listOf("import java\\.sql\\.(.*)"))
+ *     mapOf(".*\\/dallay/spring/." to listOf("import java\\.sql\\.(.*)"))
  *   )
  * }
  * ```

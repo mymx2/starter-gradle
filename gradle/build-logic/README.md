@@ -132,7 +132,7 @@ The [Gradle TestKit](https://docs.gradle.org/current/userguide/test_kit.html) ca
 This can be helpful to enforce a certain structure, e.g. by testing if each plugin works on its own.
 And if you add custom tasks and advanced logic, you can add tests for that.
 
-[ConventionPluginTest.kt](src/test/kotlin/io/github/mymx2/ConventionPluginTest.kt)
+[ConventionPluginTest.kt](src/test/kotlin/io/github/dallay/ConventionPluginTest.kt)
 
 ### Continuously build and report using GitHub Actions and Dependabot
 

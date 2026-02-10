@@ -89,7 +89,7 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
         run: |
-          if [ "${GITHUB_REPOSITORY}" = "mymx2/starter-gradle" ]; then
+          if [ "${GITHUB_REPOSITORY}" = "dallay/starter-gradle" ]; then
             ./gradlew :build-logic:publishToMavenCentral publishToMavenCentral
           else
             ./gradlew publishToMavenCentral

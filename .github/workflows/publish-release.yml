@@ -15,8 +15,8 @@ jobs:
     if: >-
       github.event_name == 'push' &&
       startsWith(github.ref, 'refs/tags/v') &&
-      github.repository == 'mymx2/starter-gradle' &&
-      github.actor == 'mymx2'
+      github.repository == 'dallay/starter-gradle' &&
+      github.actor == 'dallay'
     uses: ./.github/workflows/_publish.yml
     with:
       release: true

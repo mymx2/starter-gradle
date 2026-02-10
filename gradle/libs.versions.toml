@@ -58,6 +58,6 @@ org-springframework-boot = { id = "org.springframework.boot", version = "4.1.0-M
 org-openapi-generator = { id = "org.openapi.generator", version = "7.19.0" }
 
 # Convention Plugins
-io-github-mymx2-plugin-dy-example-settings = { id = "com.profiletailors.plugin.dy.example.settings" }
-io-github-mymx2-plugin-dy-example-project = { id = "com.profiletailors.plugin.dy.example.project" }
-io-github-mymx2-plugin-dy-example-aware = { id = "com.profiletailors.plugin.dy.example.aware" }
+io-github-dallay-plugin-dy-example-settings = { id = "com.profiletailors.plugin.dy.example.settings" }
+io-github-dallay-plugin-dy-example-project = { id = "com.profiletailors.plugin.dy.example.project" }
+io-github-dallay-plugin-dy-example-aware = { id = "com.profiletailors.plugin.dy.example.aware" }
