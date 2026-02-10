@@ -1,135 +1,166 @@
-# https://git-scm.com/docs/gitignore#_pattern_format
-# https://github.com/github/gitignore
-
-### Ignore ###
-**/__*
-
-### Jte ###
-jte-classes
-
-### Vite ###
-**/.vite-ssg-dist/
-**/.vite-ssg-temp/
-dist-ssr
-cypress/downloads
-
-### --------------------------------------------------------------------------- ###
-
-### Temp ###
-*.log
-*.cache
-*.diff
-*.patch
-*.tmp
-*.local
-*.java~
-*.properties~
-*.xml~
-
-### Project ###
-**/build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-**/target/
-!**/src/main/**/target/
-!**/src/test/**/target/
-**/logs/
-!**/src/main/**/logs/
-!**/src/test/**/logs/
-
-### User ###
+# ------------------------------------------------------------------------------
+# SISTEMAS OPERATIVOS
 .DS_Store
 Thumbs.db
-Servers
-.metadata
+Desktop.ini
+$RECYCLE.BIN/
+Icon?
+._*
 
-### Gradle ###
-.gradle
-!gradle/wrapper/gradle-wrapper.jar
-
-### maven ###
-*.war
-
-### Node ###
-**/node_modules/
-
-### VitePress ###
-**/.vitepress/cache/
-**/.vitepress/dist/
-
-### --------------------------------------------------------------------------- ###
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-**/bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
-.idea
+# ------------------------------------------------------------------------------
+# IDEs Y EDITORES
+.idea/
 *.iws
 *.iml
 *.ipr
-**/out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+.vscode/
+*.code-workspace
+*.sublime*
+*.tmproj
+*.tmproject
+*.swp
+*.swo
+*~
+#*
+.hbuilderx/
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans/
+.sts4-cache/
 
-### VS Code ###
+# Eclipse
+/.metadata/
+/.recommenders/
+/bin/
+/build/
 
-### HbuilderX ###
-.hbuilderx
-
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# JetBrains Rider
+.idea/
+*.sln.iml
 
-### Kotlin ###
-.kotlin
+# ------------------------------------------------------------------------------
+# LENGUAJES Y HERRAMIENTAS
 
-### Vim ###
-*.swp
-*.swo
+# Java/Gradle/Maven
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+**/build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+**/target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.war
+*.jar
+*.class
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
+*.patch
+*.diff
+*.cache
+*.local
+*.java~
+*.properties~
+*.xml~
 
-### Emacs ###
-*~
-#*
+# Kotlin
+.kotlin/
 
-### VS Code ###
-.vscode/
+# Node.js
+**/node_modules/
+*.npmrc
+*.yarnrc
+.pnpm-debug.log*
 
-### Coverage ###
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Ruby
+*.gem
+*.rbc
+.bundle/
+
+# Go
+*.exe
+*.test
+*.out
+
+# Rust
+/target/
+Cargo.lock
+
+# ------------------------------------------------------------------------------
+# HERRAMIENTAS Y PLUGINS
+
+# Vite
+**/.vite-ssg-dist/
+**/.vite-ssg-temp/
+dist-ssr/
+cypress/downloads/
+
+# VitePress
+**/.vitepress/cache/
+**/.vitepress/dist/
+
+# Coverage
 coverage/
 *.lcov
 
-### Docker ###
+# Docker
 .docker/
 Dockerfile*
 .dockerignore
 
-### CI/CD ###
+# CI/CD
 .github/
 .gitlab/
 .circleci/
 
-### Python ###
-*.pyc
-__pycache__/
-
-### Misc ###
-*.bak
-*.orig
-*.rej
+# ------------------------------------------------------------------------------
+# ARCHIVOS TEMPORALES Y LOGS
+*.log
 *.pid
 *.seed
 *.pid.lock
+*.tmp
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+#*
+
+# ------------------------------------------------------------------------------
+# USUARIO Y PROYECTO
+Servers/
+.metadata/
+**/logs/
+!**/src/main/**/logs/
+!**/src/test/**/logs/
+
+# ------------------------------------------------------------------------------
+# EXTRAS
+*.lock
+*.lockfile
+*.lockfile.txt
+
+# ------------------------------------------------------------------------------
+# FIN DE IGNORE
