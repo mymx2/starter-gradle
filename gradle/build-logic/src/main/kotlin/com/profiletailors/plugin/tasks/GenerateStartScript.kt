@@ -20,7 +20,6 @@ import org.gradle.kotlin.dsl.property
  * ```
  *
  * Usage example:
- *
  * ```kotlin
  * tasks.register("generateStartScript", GenerateStartScript::class.java) {
  *   // Required: Java executable path

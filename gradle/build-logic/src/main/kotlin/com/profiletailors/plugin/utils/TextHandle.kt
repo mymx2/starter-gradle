@@ -3,8 +3,8 @@ package com.profiletailors.plugin.utils
 object TextHandle {
 
   /**
-   * Convert string containing '-' or '_' to camelCase (only capitalize the next character after the delimiter). E.g.: a-bb-cCc -> aBbCCc hello_world -> helloWorld
-   * a-b_c-d -> aBCD
+   * Convert string containing '-' or '_' to camelCase (only capitalize the next character after the
+   * delimiter). E.g.: a-bb-cCc -> aBbCCc hello_world -> helloWorld a-b_c-d -> aBCD
    */
   fun toCamelCase(str: String): String {
     val sb = StringBuilder()

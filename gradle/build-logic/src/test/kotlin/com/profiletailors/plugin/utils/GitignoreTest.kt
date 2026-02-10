@@ -302,7 +302,8 @@ open class GitignoreGitCommandTest {
   /**
    * Gitignore unit tests
    *
-   * Git checks .gitignore line by line from top to bottom. If multiple rules match a path, the LAST matching rule applies.
+   * Git checks .gitignore line by line from top to bottom. If multiple rules match a path, the LAST
+   * matching rule applies.
    *
    * [Git Rules](https://git-scm.com/docs/gitignore#_pattern_format)：
    * - Starts with `#` -> Comment line

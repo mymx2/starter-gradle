@@ -24,10 +24,10 @@ import org.gradle.work.InputChanges
  *
  * A cacheable, incrementally executable file content check task.
  *
- * Scans all .java / .kt files under src, and checks whether forbidden patterns exist in the file content based on the path regex and content regex configured in [contentCheckMap].
+ * Scans all .java / .kt files under src, and checks whether forbidden patterns exist in the file
+ * content based on the path regex and content regex configured in [contentCheckMap].
  *
  * Example:
- *
  * ```kotlin
  * tasks.register<FileContentCheck>("fileContentChecker") {
  *   contentCheckMap.putAll(
@@ -45,7 +45,10 @@ import org.gradle.work.InputChanges
 @CacheableTask
 abstract class FileContentCheck : DefaultTask(), Injected {
 
-  /** Collection of source files to scan, supporting incremental, caching, and relative path sensitivity. */
+  /**
+   * Collection of source files to scan, supporting incremental, caching, and relative path
+   * sensitivity.
+   */
   @get:InputFiles
   @get:Incremental
   @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -60,7 +63,8 @@ abstract class FileContentCheck : DefaultTask(), Injected {
   /**
    * Path regex -> Forbidden content regex list.
    *
-   * key is the file path regex (matched using invariantSeparatorsPath, path separator unified as "/"); value is the list of forbidden content regexes in the corresponding file.
+   * key is the file path regex (matched using invariantSeparatorsPath, path separator unified as
+   * "/"); value is the list of forbidden content regexes in the corresponding file.
    */
   @get:Input abstract val contentCheckMap: MapProperty<String, List<String>>
 

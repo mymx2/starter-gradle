@@ -22,10 +22,12 @@ import org.gradle.work.InputChanges
  *
  * only copy files that have changed to the output directory
  *
- * [org.gradle.api.Project.files] itself does not actively traverse subdirectories, but some Gradle APIs, such as [InputChanges.getFileChanges]
- * will automatically recurse into files in the directory when consuming it.
+ * [org.gradle.api.Project.files] itself does not actively traverse subdirectories, but some Gradle
+ * APIs, such as [InputChanges.getFileChanges] will automatically recurse into files in the
+ * directory when consuming it.
  *
- * See [file_trees](https://docs.gradle.org/nightly/userguide/working_with_files.html#sec:file_trees)
+ * See
+ * [file_trees](https://docs.gradle.org/nightly/userguide/working_with_files.html#sec:file_trees)
  *
  * usage:
  * ```

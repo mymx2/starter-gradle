@@ -204,7 +204,10 @@ class JsonParserTest {
           .trimIndent()
       val ex = assertThrows<JsonParser.JsonException> { JsonParser.parse(json) }
       assertTrue(ex.message!!.contains("line"), "Should contain correct line number info")
-      assertTrue(ex.message!!.contains("column") || ex.message!!.contains("col"), "Should contain column info")
+      assertTrue(
+        ex.message!!.contains("column") || ex.message!!.contains("col"),
+        "Should contain column info",
+      )
       consoleLog("✅ PASS: Missing value multi-line - ${ex.message}")
     }
 

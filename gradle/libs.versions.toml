@@ -9,12 +9,11 @@ latest = "latest.release"
 gradle = "9.5.0-milestone-1"
 kotlin = "2.3.0"
 jdk = "25"
-node = "24.10.0"
+node = "22.13.0"
 
 [libraries]
 # https://mvnrepository.com/artifact/org.jspecify/jspecify
 # https://repo1.maven.org/maven2/org/jspecify/jspecify/maven-metadata.xml
-# https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml
 jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
 semver = { module = "net.swiftzer.semver:semver", version = "2.1.0" }
 slf4jBom = { module = "org.slf4j:slf4j-bom", version = "2.1.0-alpha1" }
@@ -25,7 +24,6 @@ slf4jBom = { module = "org.slf4j:slf4j-bom", version = "2.1.0-alpha1" }
 [plugins]
 # https://plugins.gradle.org/plugin/id
 # https://plugins.gradle.org/plugin/org.jetbrains.kotlin.jvm
-# https://plugins.gradle.org/m2/org/jetbrains/kotlin/jvm/org.jetbrains.kotlin.jvm.gradle.plugin/maven-metadata.xml
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
 net-ltgt-errorprone = { id = "net.ltgt.errorprone", version = "5.0.0" }
 net-ltgt-nullaway = { id = "net.ltgt.nullaway", version = "3.0.0" }
@@ -42,7 +40,6 @@ org-gradlex-java-module-testing = { id = "org.gradlex.java-module-testing", vers
 org-gradlex-extra-java-module-info = { id = "org.gradlex.extra-java-module-info", version = "1.14" }
 com-gradleup-shadow = { id = "com.gradleup.shadow", version = "9.3.1" }
 com-gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "2.0.0" }
-# https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/vanniktech/gradle-maven-publish-plugin/maven-metadata.xml
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.36.0" }
 com-autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version = "3.5.1" }
 io-fuchs-gradle-classpath-collision-detector = { id = "io.fuchs.gradle.classpath-collision-detector", version = "1.0.0" }
@@ -57,7 +54,3 @@ org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.25.0" }
 org-springframework-boot = { id = "org.springframework.boot", version = "4.1.0-M1" }
 org-openapi-generator = { id = "org.openapi.generator", version = "7.19.0" }
 
-# Convention Plugins
-io-github-dallay-plugin-dy-example-settings = { id = "com.profiletailors.plugin.dy.example.settings" }
-io-github-dallay-plugin-dy-example-project = { id = "com.profiletailors.plugin.dy.example.project" }
-io-github-dallay-plugin-dy-example-aware = { id = "com.profiletailors.plugin.dy.example.aware" }

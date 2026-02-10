@@ -17,7 +17,8 @@ class CastConcurrentHashMap<K : Any, V : Any> : ConcurrentHashMap<K, V>() {
 /**
  * Batch execution of virtual threads
  *
- * [Virtual threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html), suitable for IO-intensive operations.
+ * [Virtual threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html), suitable
+ * for IO-intensive operations.
  *
  * Wastes at most size virtual threads, and timeout time.
  *

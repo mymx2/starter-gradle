@@ -64,7 +64,8 @@ object LocalConfig {
     SONATYPE_PASSWORD("mavenCentralPassword", ""),
     // OpenPGP key ID (optional, if not filled, the key must be the primary key)
     GPG_SIGNING_KEY_ID("signingInMemoryKeyId", ""),
-    // OpenPGP key (if GPG_SIGNING_KEY_ID is not filled, it is the primary key, otherwise it is the subkey)
+    // OpenPGP key (if GPG_SIGNING_KEY_ID is not filled, it is the primary key, otherwise it is the
+    // subkey)
     GPG_SIGNING_KEY("signingInMemoryKey", ""),
     // OpenPGP password
     GPG_SIGNING_PASSWORD("signingInMemoryKeyPassword", ""),

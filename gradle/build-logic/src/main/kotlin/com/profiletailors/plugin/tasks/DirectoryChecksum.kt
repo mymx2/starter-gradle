@@ -17,7 +17,8 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 
 /**
- * A custom Gradle task to calculate the SHA-256 checksum of all files in a directory and write the final total checksum to a file.
+ * A custom Gradle task to calculate the SHA-256 checksum of all files in a directory and write the
+ * final total checksum to a file.
  *
  * Gradle task based on 'Checksum' Ant Task but stripped down to what we need in this build.
  *

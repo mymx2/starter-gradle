@@ -7,9 +7,12 @@ import org.gradle.api.provider.ProviderFactory
 /**
  * Repository configuration
  *
- * Release repositories should only upload Release packages, Snapshot repositories should only upload Snapshot packages (i.e., packages ending in -SNAPSHOT)
- * - [Reference: https://central.sonatype.org/publish/publish-portal-snapshots/](https://central.sonatype.org/publish/publish-portal-snapshots/)
- * - [Reference: https://help.aliyun.com/zh/yunxiao/user-guide/faq-13](https://help.aliyun.com/zh/yunxiao/user-guide/faq-13)
+ * Release repositories should only upload Release packages, Snapshot repositories should only
+ * upload Snapshot packages (i.e., packages ending in -SNAPSHOT)
+ * - [Reference:
+ *   https://central.sonatype.org/publish/publish-portal-snapshots/](https://central.sonatype.org/publish/publish-portal-snapshots/)
+ * - [Reference:
+ *   https://help.aliyun.com/zh/yunxiao/user-guide/faq-13](https://help.aliyun.com/zh/yunxiao/user-guide/faq-13)
  */
 object RepositoryConfig {
   /** Private repository configuration. Key must be all uppercase */

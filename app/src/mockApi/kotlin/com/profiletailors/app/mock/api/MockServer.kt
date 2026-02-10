@@ -11,7 +11,7 @@ class MockServer {
    * @return The list of mock endpoints.
    */
   fun get(): List<String> {
-      MainModule()
+    MainModule()
     return listOf()
   }
 }

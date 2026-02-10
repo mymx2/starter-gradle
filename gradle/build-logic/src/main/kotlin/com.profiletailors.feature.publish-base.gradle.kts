@@ -73,7 +73,8 @@ publishing.repositories {
     url = uri(layout.buildDirectory.dir("publishing/tmpRepo"))
   }
   if (GradleExtTool.isSnapshot(version.toString()) && !vanniktechPlugin) {
-    // central.sonatype.com repository address (-SNAPSHOT versions are not verified and will be cleaned up after a period of time (currently 90 days))
+    // central.sonatype.com repository address (-SNAPSHOT versions are not verified and will be
+    // cleaned up after a period of time (currently 90 days))
     // See https://central.sonatype.org/publish/publish-portal-snapshots/
     maven("https://central.sonatype.com/repository/maven-snapshots/") {
       name = "CentralSnapshot"

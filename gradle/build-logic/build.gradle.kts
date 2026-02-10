@@ -11,15 +11,9 @@ plugins {
   alias(libs.plugins.com.vanniktech.maven.publish)
 }
 
-java {
-  toolchain {
-    languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get()))
-  }
-}
+java { toolchain { languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get())) } }
 
-tasks.withType<JavaCompile> {
-  options.release.set(libs.versions.jdk.get().toInt())
-}
+tasks.withType<JavaCompile> { options.release.set(libs.versions.jdk.get().toInt()) }
 
 description = "Zero-config Gradle plugin for building production-ready standalone JVM apps"
 

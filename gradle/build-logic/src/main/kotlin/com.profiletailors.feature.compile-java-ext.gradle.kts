@@ -1,6 +1,6 @@
-import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import com.profiletailors.plugin.gradle.eagerSharedCache
 import com.profiletailors.plugin.utils.SemVerUtils
+import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 
 plugins {
   java
