@@ -3,7 +3,7 @@ package com.profiletailors.plugin.utils
 object TextHandle {
 
   /**
-   * 将包含 '-' 或 '_' 的字符串按规则转换为小驼峰式（仅在分隔符后将下一个字符大写）。 例如： a-bb-cCc -> aBbCCc hello_world -> helloWorld
+   * Convert string containing '-' or '_' to camelCase (only capitalize the next character after the delimiter). E.g.: a-bb-cCc -> aBbCCc hello_world -> helloWorld
    * a-b_c-d -> aBCD
    */
   fun toCamelCase(str: String): String {
@@ -39,13 +39,13 @@ object TextHandle {
     var currentLine = StringBuilder()
 
     for (word in words) {
-      // 检查添加单词后是否超过行宽
+      // Check if adding the word exceeds the line width
       if (currentLine.isNotEmpty() && currentLine.length + word.length + 1 > lineWidth) {
         result.appendLine(currentLine)
         currentLine = StringBuilder()
       }
 
-      // 添加单词到当前行
+      // Add word to current line
       if (currentLine.isEmpty()) {
         currentLine.append(word)
       } else {
@@ -53,7 +53,7 @@ object TextHandle {
       }
     }
 
-    // 添加最后一行
+    // Add the last line
     if (currentLine.isNotEmpty()) {
       result.append(currentLine)
     }

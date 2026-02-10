@@ -73,8 +73,8 @@ publishing.repositories {
     url = uri(layout.buildDirectory.dir("publishing/tmpRepo"))
   }
   if (GradleExtTool.isSnapshot(version.toString()) && !vanniktechPlugin) {
-    // central.sonatype.com 仓库地址（-SNAPSHOT 版本不执行任何验证，会在一段时间（当前为 90 天）后清理）
-    // 详见 https://central.sonatype.org/publish/publish-portal-snapshots/
+    // central.sonatype.com repository address (-SNAPSHOT versions are not verified and will be cleaned up after a period of time (currently 90 days))
+    // See https://central.sonatype.org/publish/publish-portal-snapshots/
     maven("https://central.sonatype.com/repository/maven-snapshots/") {
       name = "CentralSnapshot"
       if (url.scheme == "https") {

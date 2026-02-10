@@ -1,13 +1,13 @@
 ########################################
-## Spotless 禁止规则, 例如:
+## Spotless forbidden rules, e.g.:
 #
-## 禁止导入
+## Forbid import
 #^\s*import\s+java\.sql\..*$
 #
-## 禁止 System.out.println
+## Forbid System.out.println
 #^\s*System\.out\.println\(.*\).*$
 #
-## 禁止 XXX 注释
+## Forbid XXX comments
 #^\s*//\s*XXX:.*
 ########################################
 

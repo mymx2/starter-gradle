@@ -203,8 +203,8 @@ class JsonParserTest {
         """
           .trimIndent()
       val ex = assertThrows<JsonParser.JsonException> { JsonParser.parse(json) }
-      assertTrue(ex.message!!.contains("line"), "应包含正确行号信息")
-      assertTrue(ex.message!!.contains("column") || ex.message!!.contains("col"), "应包含列信息")
+      assertTrue(ex.message!!.contains("line"), "Should contain correct line number info")
+      assertTrue(ex.message!!.contains("column") || ex.message!!.contains("col"), "Should contain column info")
       consoleLog("✅ PASS: Missing value multi-line - ${ex.message}")
     }
 
@@ -262,7 +262,7 @@ class JsonParserTest {
         """
           .trimIndent()
       val ex = assertThrows<JsonParser.JsonException> { JsonParser.parse(json) }
-      assertTrue(ex.message!!.contains("line"), "应包含正确出错行信息")
+      assertTrue(ex.message!!.contains("line"), "Should contain correct error line info")
       consoleLog("✅ PASS: Deep nested error line - ${ex.message}")
     }
   }

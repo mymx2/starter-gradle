@@ -22,11 +22,11 @@ import org.gradle.work.InputChanges
 /**
  * FileContentCheck
  *
- * 一个可缓存、可增量执行的文件内容检查任务。
+ * A cacheable, incrementally executable file content check task.
  *
- * 用于扫描 src 下所有 .java / .kt 文件， 并根据 [contentCheckMap] 中配置的路径正则与内容正则， 检查文件内容中是否存在禁止的模式。
+ * Scans all .java / .kt files under src, and checks whether forbidden patterns exist in the file content based on the path regex and content regex configured in [contentCheckMap].
  *
- * 示例：
+ * Example:
  *
  * ```kotlin
  * tasks.register<FileContentCheck>("fileContentChecker") {
@@ -36,16 +36,16 @@ import org.gradle.work.InputChanges
  * }
  * ```
  *
- * 增量逻辑说明：
- * - 首次运行或输入不可增量时，会检查所有源文件；
- * - 之后仅检查修改/新增文件；
- * - 被删除的文件会被忽略。
+ * Incremental logic description:
+ * - Upon first run or when inputs are not incremental, all source files are checked;
+ * - Thereafter, only modified/new files are checked;
+ * - Deleted files are ignored.
  */
 @Suppress("UnstableApiUsage")
 @CacheableTask
 abstract class FileContentCheck : DefaultTask(), Injected {
 
-  /** 要扫描的源文件集合，支持增量、缓存、相对路径敏感。 */
+  /** Collection of source files to scan, supporting incremental, caching, and relative path sensitivity. */
   @get:InputFiles
   @get:Incremental
   @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -58,9 +58,9 @@ abstract class FileContentCheck : DefaultTask(), Injected {
       )
 
   /**
-   * 路径正则 -> 禁止内容正则列表。
+   * Path regex -> Forbidden content regex list.
    *
-   * key 为文件路径正则（使用 invariantSeparatorsPath 匹配，路径分隔符统一为 "/"）； value 为对应文件中禁止出现的内容正则列表。
+   * key is the file path regex (matched using invariantSeparatorsPath, path separator unified as "/"); value is the list of forbidden content regexes in the corresponding file.
    */
   @get:Input abstract val contentCheckMap: MapProperty<String, List<String>>
 
@@ -101,11 +101,11 @@ abstract class FileContentCheck : DefaultTask(), Injected {
   }
 
   /**
-   * 检查单个文件是否违反内容规则。
+   * Check if a single file violates content rules.
    *
-   * @param file 要检查的源文件
-   * @param compiledRules 预编译好的路径与内容正则规则
-   * @param violations 存储违规信息
+   * @param file The source file to check
+   * @param compiledRules Pre-compiled path and content regex rules
+   * @param violations Stores violation information
    */
   @Suppress("detekt:NestedBlockDepth")
   private fun checkFile(

@@ -43,49 +43,49 @@ import org.gradle.process.ExecOperations
 import org.gradle.work.Incremental
 
 // ===============================
-// Gradle 属性类型统一别名
-// 前缀：GradleProp
+// Unified alias for Gradle property types
+// Prefix: GradleProp
 // https://docs.gradle.org/nightly/userguide/properties_providers.html#mutable_managed_properties
 // ===============================
 
-// ---------- 单值类型 ----------
-/** 单个字符串属性 */
+// ---------- Single value types ----------
+/** Single string property */
 private typealias GradlePropStr = Property<String>
 
-/** 单个整数属性 */
+/** Single integer property */
 private typealias GradlePropInt = Property<Int>
 
-/** 单个长整型属性 */
+/** Single long property */
 private typealias GradlePropLong = Property<Long>
 
-/** 单个布尔属性 */
+/** Single boolean property */
 private typealias GradlePropBool = Property<Boolean>
 
-/** 单个浮点数属性 */
+/** Single double property */
 private typealias GradlePropDouble = Property<Double>
 
-// ---------- 文件/目录 ----------
-/** 单个文件属性（推荐代替 Property<File>） */
+// ---------- File/Directory ----------
+/** Single file property (Recommended to replace Property<File>) */
 private typealias GradlePropFile = RegularFileProperty
 
-/** 单个目录属性（推荐代替 Property<File>） */
+/** Single directory property (Recommended to replace Property<File>) */
 private typealias GradlePropDir = DirectoryProperty
 
-// ---------- 集合类型 ----------
-/** 列表属性 */
+// ---------- Collection types ----------
+/** List property */
 private typealias GradlePropList<T> = ListProperty<T>
 
-/** 集合属性（去重，不保证顺序） */
+/** Set property (Deduplication, no order guarantee) */
 private typealias GradlePropSet<T> = SetProperty<T>
 
-/** 键值对属性 */
+/** Map property */
 private typealias GradlePropMap<K, V> = MapProperty<K, V>
 
-// ---------- 文件集合 ----------
-/** 文件集合（多个离散文件/目录） */
+// ---------- File collection ----------
+/** File collection (Multiple discrete files/directories) */
 private typealias GradlePropFiles = ConfigurableFileCollection
 
-/** 文件树（包含层级结构，常用于源码树/资源树） */
+/** File tree (Includes hierarchy, commonly used for source/resource trees) */
 private typealias GradlePropFileTree = ConfigurableFileTree
 
 /**
@@ -204,17 +204,17 @@ private fun demos(project: Project) {
     run {
       configurations.configureEach {
         withDependencies {
-          // 丢弃依赖
+          // Discard dependency
           removeIf { it.group == "commons-codec" && it.name == "commons-codec" }
         }
         // https://docs.gradle.org/nightly/userguide/resolution_rules.html
         resolutionStrategy {
-          // 冲突则报错
+          // Fail on conflict
           // 7. Force Failed Resolution Strategies
           // https://docs.gradle.org/nightly/userguide/resolution_rules.html#sec:conflict-resolution-strategy
           failOnVersionConflict()
 
-          // 丢弃依赖
+          // Discard dependency
           // Capabilities
           // https://docs.gradle.org/nightly/userguide/component_capabilities.html
           // https://gradlex.org/jvm-dependency-conflict-resolution/#conflict
@@ -222,11 +222,11 @@ private fun demos(project: Project) {
             withCapability("com.example:logging") { selectHighestVersion() }
           }
 
-          // 固定版本
+          // Force version
           // https://docs.gradle.org/nightly/userguide/how_to_downgrade_transitive_dependencies.html
           force("commons-codec:commons-codec:1.9")
 
-          // 固定版本
+          // Force version
           // 9. Dependency Resolve Rules and Other Conditionals
           // https://docs.gradle.org/nightly/userguide/resolution_rules.html#sec:dependency-resolve-rules
           eachDependency {

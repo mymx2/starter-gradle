@@ -12,9 +12,9 @@ class HttpUtilsTest {
   fun testBaidu() {
     val baidu =
       runCatching { HttpUtils.get(URI("https://www.baidu.com"), Duration.ofSeconds(10)) }
-        .getOrDefault("获取失败") ?: ""
+        .getOrDefault("Fetch failed") ?: ""
 
     consoleLog(baidu)
-    assert(baidu.contains("百度一下"))
+    assert(baidu.contains("Baidu"))
   }
 }

@@ -17,7 +17,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 
 /**
- * 一个Gradle自定义任务，用于计算一个目录下所有文件的SHA-256校验和，并将最终的总校验和写入一个文件。
+ * A custom Gradle task to calculate the SHA-256 checksum of all files in a directory and write the final total checksum to a file.
  *
  * Gradle task based on 'Checksum' Ant Task but stripped down to what we need in this build.
  *

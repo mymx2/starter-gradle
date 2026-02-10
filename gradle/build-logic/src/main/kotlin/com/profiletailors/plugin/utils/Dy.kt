@@ -15,15 +15,15 @@ class CastConcurrentHashMap<K : Any, V : Any> : ConcurrentHashMap<K, V>() {
 }
 
 /**
- * 分批执行虚拟线程
+ * Batch execution of virtual threads
  *
- * [虚拟线程](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html)，适合 IO 密集型操作.
+ * [Virtual threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html), suitable for IO-intensive operations.
  *
- * 最多浪费 size 个虚拟线程，浪费 timeout 时间.
+ * Wastes at most size virtual threads, and timeout time.
  *
- * @param size 分批大小 默认 20
- * @param timeout 分批超时时间，默认 100 分钟
- * @param consumer 消费者函数
+ * @param size Batch size, default 20
+ * @param timeout Batch timeout, default 100 minutes
+ * @param consumer Consumer function
  */
 fun <T, E> Iterable<T>.chunkedVirtual(
   size: Int = 20,

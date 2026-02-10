@@ -276,7 +276,7 @@ object GradleExtTool {
 
   fun openBrowser(providers: ProviderFactory, url: String) {
     try {
-      //    // 使用 Java AWT 的跨平台解决方案
+      //    // Use Java AWT cross-platform solution
       //    if (Desktop.isDesktopSupported() &&
       // Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
       //      Desktop.getDesktop().browse(URI(url))

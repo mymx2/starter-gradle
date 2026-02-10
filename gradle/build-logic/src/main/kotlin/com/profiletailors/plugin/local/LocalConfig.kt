@@ -21,19 +21,19 @@ object LocalConfig {
   enum class Props(val key: String, val defaultValue: String) {
     IS_DEBUG("IS_DEBUG", "false"),
     IS_JMH("IS_JMH", "false"),
-    // CI环境
+    // CI Environment
     CI("CI", "false"),
-    // 项目的group
+    // Project group
     GROUP("GROUP", "starter.gradle"),
-    // 项目的version
+    // Project version
     VERSION("VERSION", "1.0.0-SNAPSHOT"),
     LICENSE("LICENSE", ""),
-    // gradle远程缓存账户名
+    // Gradle remote cache username
     BUILD_CACHE_USER("BUILD_CACHE_USER", ""),
-    // gradle远程缓存密码
+    // Gradle remote cache password
     BUILD_CACHE_PWD("BUILD_CACHE_PWD", ""),
     ENABLE_AUTO_STRUCTURE("ENABLE_AUTO_STRUCTURE", "false"),
-    // 是否国内仓库代理
+    // Whether to use domestic repository proxy
     ENABLE_PROXY_REPO("ENABLE_PROXY_REPO", "false"),
     PRIREPO_URL_RELEASE("PRIREPO_URL_RELEASE", ""),
     PRIREPO_USERNAME_RELEASE("PRIREPO_USERNAME_RELEASE", ""),
@@ -41,34 +41,34 @@ object LocalConfig {
     PRIREPO_URL_SNAPSHOT("PRIREPO_URL_SNAPSHOT", ""),
     PRIREPO_USERNAME_SNAPSHOT("PRIREPO_USERNAME_SNAPSHOT", ""),
     PRIREPO_PASSWORD_SNAPSHOT("PRIREPO_PASSWORD_SNAPSHOT", ""),
-    // 是否开启JPMS
+    // Whether to enable JPMS
     JPMS_ENABLED("JPMS_ENABLED", "false"),
-    // 是否开启JEP新特性
+    // Whether to enable JEP preview features
     JEP_ENABLE_PREVIEW("JEP_ENABLE_PREVIEW", "false"),
     DOC_FAIL_ON_ERROR("DOC_FAIL_ON_ERROR", "false"),
     DOC_JAR_ENABLED("DOC_JAR_ENABLED", "true"),
     DOCKER_REGISTRY_URL("DOCKER_REGISTRY_URL", ""),
     DOCKER_REGISTRY_USERNAME("DOCKER_REGISTRY_USERNAME", ""),
     DOCKER_REGISTRY_PASSWORD("DOCKER_REGISTRY_PASSWORD", ""),
-    // 产物信息: 开发者名称
+    // Artifact info: Developer name
     POM_DEVELOPER_NAME("POM_DEVELOPER_NAME", "dallay"),
-    // 产物信息: 项目地址
+    // Artifact info: Project URL
     POM_URL("POM_URL", "https://github.com/dallay"),
-    // 产物信息: 源码仓库地址
+    // Artifact info: Source code repository URL
     POM_SCM_CONNECTION("POM_SCM_CONNECTION", "scm:git:https://github.com/dallay/404-page.git"),
-    // 产物信息: 许可证地址
+    // Artifact info: License URL
     POM_LICENSE_URL("POM_LICENSE_URL", "https://mit-license.org"),
-    // central.sonatype.com 账号
+    // central.sonatype.com account
     SONATYPE_USERNAME("mavenCentralUsername", ""),
-    // central.sonatype.com 密码
+    // central.sonatype.com password
     SONATYPE_PASSWORD("mavenCentralPassword", ""),
-    // OpenPGP 密钥标识符（可选，如未填写，则密钥需为主密钥）
+    // OpenPGP key ID (optional, if not filled, the key must be the primary key)
     GPG_SIGNING_KEY_ID("signingInMemoryKeyId", ""),
-    // OpenPGP 密钥（如未填写GPG_SIGNING_KEY_ID，则为主密钥，否则为子密钥）
+    // OpenPGP key (if GPG_SIGNING_KEY_ID is not filled, it is the primary key, otherwise it is the subkey)
     GPG_SIGNING_KEY("signingInMemoryKey", ""),
-    // OpenPGP 密码
+    // OpenPGP password
     GPG_SIGNING_PASSWORD("signingInMemoryKeyPassword", ""),
-    // 内置测试套件
+    // Built-in test suite
     JUNIT_JUPITER_M2_ENABLED("JUNIT_JUPITER_M2_ENABLED", "false"),
   }
 

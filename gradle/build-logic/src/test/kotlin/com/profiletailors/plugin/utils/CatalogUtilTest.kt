@@ -3,10 +3,10 @@ package com.profiletailors.plugin.utils
 import com.profiletailors.fixtures.consoleLog
 import org.junit.jupiter.api.Test
 
-/** CatalogUtil 单元测试类 */
+/** CatalogUtil unit test class */
 class CatalogUtilTest {
 
-  /** 测试 library & plugin */
+  /** Test library & plugin */
   @Test
   fun getUrls() {
     val module = "org.jspecify:jspecify"

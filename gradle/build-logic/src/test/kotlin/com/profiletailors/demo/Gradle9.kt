@@ -19,7 +19,7 @@ internal object Gradle9 {
   // https://docs.gradle.org/current/userguide/upgrading_major_version_9.html
 
   /**
-   * 应尽量使用惰性APIs
+   * Lazy APIs should be used as much as possible
    * - [https://docs.gradle.org/nightly/userguide/lazy_eager_evaluation.html](https://docs.gradle.org/nightly/userguide/lazy_eager_evaluation.html)
    * - [https://docs.gradle.org/current/userguide/task_configuration_avoidance.html#sec:old_vs_new_configuration_api_overview](https://docs.gradle.org/current/userguide/task_configuration_avoidance.html#sec:old_vs_new_configuration_api_overview)
    * - [https://github.com/gradle/gradle/issues/29384](https://github.com/gradle/gradle/issues/29384)

@@ -221,42 +221,42 @@ export const {{classname}}PropertyValidationAttributesMap: {
 {{#hasValidation}}
     {{name}}: {
         {{#maxLength}}
-        /** 最大长度 */
+        /** Max length */
         maxLength: {{maxLength}},
         {{/maxLength}}
         {{#minLength}}
-        /** 最小长度 */
+        /** Min length */
         minLength: {{minLength}},
         {{/minLength}}
         {{#pattern}}
-        /** 正则表达式 */
+        /** Regular expression */
         pattern: '{{pattern}}',
         {{/pattern}}
         {{#maximum}}
-        /** 最大值 */
+        /** Maximum */
         maximum: {{maximum}},
-        /** 是否排除最大值 */
+        /** Exclusive maximum */
         exclusiveMaximum: {{exclusiveMaximum}},
         {{/maximum}}
         {{#minimum}}
-        /** 最小值 */
+        /** Minimum */
         minimum: {{minimum}},
-        /** 是否排除最小值 */
+        /** Exclusive minimum */
         exclusiveMinimum: {{exclusiveMinimum}},
         {{/minimum}}
         {{#multipleOf}}
         multipleOf: {{multipleOf}},
         {{/multipleOf}}
         {{#maxItems}}
-        /** 最大项数 */
+        /** Max items */
         maxItems: {{maxItems}},
         {{/maxItems}}
         {{#minItems}}
-        /** 最小项数 */
+        /** Min items */
         minItems: {{minItems}},
         {{/minItems}}
         {{#isArray}}
-        /** 是否唯一项 */
+        /** Unique items */
         uniqueItems: {{uniqueItems}},
         {{/isArray}}
     },

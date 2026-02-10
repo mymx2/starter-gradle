@@ -13,27 +13,27 @@ import org.gradle.kotlin.dsl.listProperty
 import org.gradle.kotlin.dsl.property
 
 /**
- * 生成 Java 启动脚本（Linux bash）
+ * Generate Java startup script (Linux bash)
  *
  * ```
- * java [Java 可执行文件] [系统属性/参数 -D...] [JVM 参数 -X...] [特殊参数 -XX...] -jar app.jar [应用参数]
+ * java [Java executable] [System properties/args -D...] [JVM args -X...] [Special args -XX...] -jar app.jar [App args]
  * ```
  *
- * 用法示例：
+ * Usage example:
  *
  * ```kotlin
  * tasks.register("generateStartScript", GenerateStartScript::class.java) {
- *   // 必填：Java 可执行文件路径
+ *   // Required: Java executable path
  *   javaCmd.set(File(System.getProperty("java.home"), "bin/java").invariantSeparatorsPath)
- *   // 可选：JVM 参数
+ *   // Optional: JVM arguments
  *   jvmOpts.addAll("-Duser.timezone=Asia/Shanghai", "-Xms512m", "-Xmx1024m")
- *   // 必填：可运行 jar 文件名
+ *   // Required: Runnable jar filename
  *   appJar.set("app.jar")
- *   // 可选：Spring Profile
+ *   // Optional: Spring Profile
  *   springProfile.set("prod")
- *   // 可选：传给应用的参数（如 --server.port=8080）
+ *   // Optional: Arguments passed to the application (e.g. --server.port=8080)
  *   appArgs.addAll("--server.port=8080")
- *   // 可选：输出脚本文件，默认 build/archives/<jarName>.sh
+ *   // Optional: Output script file, default build/archives/<jarName>.sh
  *   outputFile.set(layout.buildDirectory.file("scripts/start.sh"))
  * }
  * ```
@@ -41,7 +41,7 @@ import org.gradle.kotlin.dsl.property
 @CacheableTask
 abstract class GenerateStartScript : DefaultTask(), Injected {
 
-  /** 必填：Java 可执行文件路径（默认为当前 JDK 的 java） */
+  /** Required: Java executable path (defaults to current JDK java) */
   @get:Input
   @get:Option(option = "java-cmd", description = "executable java path")
   val javaCmd =
@@ -49,7 +49,7 @@ abstract class GenerateStartScript : DefaultTask(), Injected {
       .property<String>()
       .convention(File(System.getProperty("java.home"), "bin/java").invariantSeparatorsPath)
 
-  /** 可选：JVM 参数 */
+  /** Optional: JVM arguments */
   @get:Input
   @get:Optional
   val jvmOpts =
@@ -57,26 +57,26 @@ abstract class GenerateStartScript : DefaultTask(), Injected {
       .listProperty<String>()
       .convention(
         listOf(
-          "-Duser.timezone=Asia/Shanghai", // 固定时区
+          "-Duser.timezone=Asia/Shanghai", // Fixed timezone
           "-Xms512m",
-          "-Xmx1024m", // 堆大小
-          "-Xlog:gc*:file=./logs/gc.log:time,uptime,level,tags:filecount=5,filesize=50m", // GC 日志
+          "-Xmx1024m", // Heap size
+          "-Xlog:gc*:file=./logs/gc.log:time,uptime,level,tags:filecount=5,filesize=50m", // GC log
           "-XX:+HeapDumpOnOutOfMemoryError", // OOM dump
-          "-XX:+ExitOnOutOfMemoryError", // OOM 退出
+          "-XX:+ExitOnOutOfMemoryError", // OOM exit
         )
       )
 
-  /** 必填：可运行 jar 文件名 */
+  /** Required: Runnable jar filename */
   @get:Input
   val appJar = objects.property<String>().convention("app.jar").apply { finalizeValueOnRead() }
 
-  /** 可选：Spring Profile */
+  /** Optional: Spring Profile */
   @get:Input @get:Optional val springProfile = objects.property<String>()
 
-  /** 可选：传给应用的参数（如 --server.port=8080） */
+  /** Optional: Arguments passed to the application (e.g. --server.port=8080) */
   @get:Input @get:Optional val appArgs = objects.listProperty<String>().convention(emptyList())
 
-  /** 可选：输出脚本文件，默认 build/archives/[appJar].sh */
+  /** Optional: Output script file, default build/archives/[appJar].sh */
   @get:OutputFile
   val outputFile =
     objects.fileProperty().convention(layout.buildDirectory.file(appJar.map { "archives/$it.sh" }))
@@ -193,9 +193,9 @@ abstract class GenerateStartScript : DefaultTask(), Injected {
       .trimMargin()
   }
 
-  /** 对 Bash 安全转义参数 */
+  /** Escape arguments safely for Bash */
   private fun escapeBash(s: String): String {
-    // 使用单引号包裹，单引号内部再处理单引号
+    // Wrap in single quotes, handle single quotes inside
     return if (s.isEmpty()) "''" else s.replace("'", "'\"'\"'")
   }
 }

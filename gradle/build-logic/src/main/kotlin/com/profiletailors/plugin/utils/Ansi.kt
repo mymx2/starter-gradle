@@ -1,6 +1,6 @@
 package com.profiletailors.plugin.utils
 
-/** ANSI控制台工具类 */
+/** ANSI Console Utility Class */
 object Ansi {
 
   enum class Color(val code: String) {
@@ -33,10 +33,10 @@ object Ansi {
   }
 
   /**
-   * 彩色打印
+   * Color print
    *
-   * @param str 字符串
-   * @param colorCode 颜色代码
+   * @param str String
+   * @param colorCode Color code
    */
   fun color(str: String, colorCode: String? = "39"): String {
     return "${colorCode!!.toAnsiCode()}$str${Color.RESET.code.toAnsiCode()}"

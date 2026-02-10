@@ -22,25 +22,25 @@ tasks.register("downloadActionlint") {
       inject.layout.buildDirectory.dir(inputs.properties["installDir"].toString()).get().asFile
     if (!destDir.exists()) destDir.mkdirs()
 
-    // 1. 检测操作系统
+    // 1. Detect operating system
     val osName = System.getProperty("os.name").lowercase()
     val (os, ext) =
       when {
         osName.contains("win") -> "windows" to "zip"
         osName.contains("mac") -> "darwin" to "tar.gz"
-        else -> "linux" to "tar.gz" // 默认为 linux
+        else -> "linux" to "tar.gz" // Default to linux
       }
 
-    // 2. 检测架构
+    // 2. Detect architecture
     val osArch = System.getProperty("os.arch").lowercase()
     val arch =
       when {
         osArch == "aarch64" || osArch == "arm64" -> "arm64"
         osArch.contains("arm") -> "armv6"
-        else -> "amd64" // 覆盖 x86_64, amd64 等
+        else -> "amd64" // Covers x86_64, amd64, etc.
       }
 
-    // 3. 构建下载 URL
+    // 3. Build download URL
     val fileName = "actionlint_${downloadVersion}_${os}_${arch}.${ext}"
     val downloadUrl =
       "https://github.com/rhysd/actionlint/releases/download/v${downloadVersion}/${fileName}"
@@ -49,12 +49,12 @@ tasks.register("downloadActionlint") {
     logger.lifecycle("Detect OS: $os, Arch: $arch")
     logger.lifecycle("Downloading actionlint v$downloadVersion from $downloadUrl ...")
 
-    // 4. 下载文件
+    // 4. Download file
     URI.create(downloadUrl).toURL().openStream().use { input ->
       Files.copy(input, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
     }
 
-    // 5. 解压文件
+    // 5. Extract file
     logger.lifecycle("Extracting to $destDir ...")
 
     inject.files.copy {
@@ -65,14 +65,14 @@ tasks.register("downloadActionlint") {
       into(destDir)
     }
 
-    // 6. 设置可执行权限
+    // 6. Set executable permissions
     if (os != "windows") {
       File(destDir, "actionlint").setExecutable(true)
     }
 
     logger.lifecycle("actionlint installed successfully at: ${destDir.absolutePath}")
 
-    // 清理临时文件
+    // Clean up temporary files
     tempFile.delete()
   }
 }

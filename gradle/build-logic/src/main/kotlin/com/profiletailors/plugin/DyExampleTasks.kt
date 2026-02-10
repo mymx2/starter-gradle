@@ -22,10 +22,10 @@ import org.gradle.work.InputChanges
  *
  * only copy files that have changed to the output directory
  *
- * [org.gradle.api.Project.files] 本身不会主动遍历子目录，但 Gradle 的某些 API, 例如 [InputChanges.getFileChanges]
- * 在消费它时会自动递归目录里的文件。
+ * [org.gradle.api.Project.files] itself does not actively traverse subdirectories, but some Gradle APIs, such as [InputChanges.getFileChanges]
+ * will automatically recurse into files in the directory when consuming it.
  *
- * 详见 [file_trees](https://docs.gradle.org/nightly/userguide/working_with_files.html#sec:file_trees)
+ * See [file_trees](https://docs.gradle.org/nightly/userguide/working_with_files.html#sec:file_trees)
  *
  * usage:
  * ```
@@ -77,7 +77,7 @@ abstract class DyCopyExampleTask : DefaultTask(), Injected {
       error("Output directory must be a subdirectory of the build directory.")
     }
 
-    println(if (inputChanges.isIncremental) "incremental 增量构建:" else "full 全量构建:")
+    println(if (inputChanges.isIncremental) "incremental build:" else "full build:")
     inputChanges.getFileChanges(from).forEach { change ->
       if (change.fileType != FileType.FILE) return@forEach
       val changeFile = change.file

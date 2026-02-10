@@ -7,8 +7,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试空字符串输入
-   * Expected: 返回空字符串
+   * Test empty string input
+   * Expected: Return empty string
    * ```
    */
   @Test
@@ -19,8 +19,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试单个单词输入
-   * Expected: 返回原单词
+   * Test single word input
+   * Expected: Return original word
    * ```
    */
   @Test
@@ -31,8 +31,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试多个短单词在行宽内的情况
-   * Expected: 所有单词在同一行，用空格分隔
+   * Test multiple short words within line width
+   * Expected: All words on the same line, separated by spaces
    * ```
    */
   @Test
@@ -43,8 +43,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试单词长度超过行宽的情况
-   * Expected: 长单词会被换行到新行
+   * Test word length exceeding line width
+   * Expected: Long word will be wrapped to a new line
    * ```
    */
   @Test
@@ -56,8 +56,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试正好等于行宽的情况
-   * Expected: 正好填满一行，不需要换行
+   * Test exactly equal to line width
+   * Expected: Fills one line exactly, no wrapping needed
    * ```
    */
   @Test
@@ -68,8 +68,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试行宽为1的情况
-   * Expected: 每个单词都换行
+   * Test line width of 1
+   * Expected: Each word wraps
    * ```
    */
   @Test
@@ -81,13 +81,13 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试默认行宽(80)的情况
-   * Expected: 使用默认行宽进行包装
+   * Test default line width (80)
+   * Expected: Wrap using default line width
    * ```
    */
   @Test
   fun `wrapText with default line width should use 80 characters`() {
-    val longText = "A".repeat(79) + " B" // 79个A + 空格 + B = 81个字符
+    val longText = "A".repeat(79) + " B" // 79 As + space + B = 81 characters
     val result = TextHandle.wrapText(longText)
     val expected = "${"A".repeat(79)}\nB"
     assertEquals(expected, result)
@@ -95,8 +95,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试多个连续空格的处理
-   * Expected: 多个空格被规范化为单个空格
+   * Test handling of multiple consecutive spaces
+   * Expected: Multiple spaces are normalized to a single space
    * ```
    */
   @Test
@@ -107,8 +107,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试包含换行符的文本
-   * Expected: 原始换行符被保留并规范化
+   * Test text containing newlines
+   * Expected: Original newlines are preserved and normalized
    * ```
    */
   @Test
@@ -119,8 +119,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试很长的单词需要被强制换行
-   * Expected: 长单词独占一行
+   * Test very long words need to be forcibly wrapped
+   * Expected: Long word occupies a line alone
    * ```
    */
   @Test
@@ -132,8 +132,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试最后一行的处理
-   * Expected: 最后一行正确添加到结果中
+   * Test handling of the last line
+   * Expected: The last line is correctly added to the result
    * ```
    */
   @Test
@@ -145,8 +145,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试只有空格的字符串
-   * Expected: 返回空字符串
+   * Test string with only spaces
+   * Expected: Return empty string
    * ```
    */
   @Test
@@ -157,8 +157,8 @@ class TextHandleTest {
 
   /**
    * ```
-   * 测试行宽刚好容纳单词加空格的情况
-   * Expected: 正确换行
+   * Test line width exactly accommodates word plus space
+   * Expected: Wrap correctly
    * ```
    */
   @Test

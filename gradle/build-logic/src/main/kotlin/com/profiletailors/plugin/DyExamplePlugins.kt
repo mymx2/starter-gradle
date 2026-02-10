@@ -21,22 +21,22 @@ import org.gradle.kotlin.dsl.embeddedKotlinVersion
 import org.gradle.work.DisableCachingByDefault
 
 /*
-   初始化阶段 (Initialization)
+   Initialization phase
     ├── beforeSettings {}
-    ├── 解析 settings.gradle
+    ├── Parse settings.gradle
     ├── settingsEvaluated {}
     ├── projectsLoaded {}
 
-   配置阶段 (Configuration)
+   Configuration phase
     ├── beforeProject { Project }
-    ├── 执行 build.gradle
+    ├── Execute build.gradle
     ├── afterProject { Project }
-    ├── 所有项目完成 -> projectsEvaluated {}
+    ├── All projects evaluated -> projectsEvaluated {}
 
-   执行阶段 (Execution)
-    ├── 构建 TaskExecutionGraph
+   Execution phase
+    ├── Build TaskExecutionGraph
     ├── taskGraph.whenReady {}
-    ├── 执行 Task:
+    ├── Execute Task:
     │     ├── doFirst {}
     │     ├── action
     │     └── doLast {}
@@ -87,14 +87,14 @@ class DyExampleSettingsPlugin : Plugin<Settings> {
  */
 class DyExampleProjectPlugin : Plugin<Project> {
 
-  // -------- DSL 对象定义 --------
+  // -------- DSL object definition --------
 
-  /** prop 配置，用于控制是否打印项目属性 */
+  /** prop configuration, used to control whether to print project properties */
   interface PropConfig {
     @get:Input val enabled: Property<Boolean>
   }
 
-  /** dep 配置，用于控制是否打印依赖 */
+  /** dep configuration, used to control whether to print dependencies */
   interface DepConfig {
     @get:Input val enabled: Property<Boolean>
 
@@ -105,7 +105,7 @@ class DyExampleProjectPlugin : Plugin<Project> {
     fun rules(action: Action<DepRuleConfig>) = action.execute(rules)
   }
 
-  /** 二层嵌套规则配置（可选） */
+  /** Two-level nested rule configuration (optional) */
   interface DepRuleConfig {
     @get:Input val includes: ListProperty<String>
 
@@ -116,7 +116,7 @@ class DyExampleProjectPlugin : Plugin<Project> {
     fun exclude(vararg patterns: String) = excludes.addAll(patterns.asList())
   }
 
-  // -------- 插件扩展 (顶级 DSL) --------
+  // -------- Plugin extension (top-level DSL) --------
 
   interface MyPluginExtension {
     @get:Nested val propConfig: PropConfig
@@ -127,7 +127,7 @@ class DyExampleProjectPlugin : Plugin<Project> {
     fun dep(action: Action<DepConfig>) = action.execute(depConfig)
   }
 
-  // -------- Task 定义 --------
+  // -------- Task definition --------
   @DisableCachingByDefault(because = "Not cacheable")
   abstract class MyTask : DefaultTask(), Injected {
 
@@ -158,13 +158,13 @@ class DyExampleProjectPlugin : Plugin<Project> {
         |"""
           .trimMargin()
 
-      // 打印项目属性
+      // Print project properties
       if (propConfig.enabled.get()) {
         println("=== Project Properties ===")
         println("  $gradleIssue")
       }
 
-      // 打印依赖
+      // Print dependencies
       if (depConfig.enabled.get()) {
         val rules = depConfig.rules
         println("\n=== Dependencies Used ===")
@@ -175,7 +175,7 @@ class DyExampleProjectPlugin : Plugin<Project> {
     }
   }
 
-  // -------- 插件入口 --------
+  // -------- Plugin entry point --------
 
   override fun apply(target: Project) {
     with(target) {

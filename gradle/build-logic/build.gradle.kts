@@ -89,7 +89,7 @@ gradlePlugin {
   website = pomUrl
   vcsUrl = pomScmConnection
   // Relying on Gradle script to generate plugins is slowing out the build:
-  // 使用 gradle.kts 方式生成插件会很慢:
+  // Generating plugins using gradle.kts is very slow:
   // https://github.com/android/nowinandroid/issues/39
   // https://github.com/gradle/gradle/issues/15886
   plugins {

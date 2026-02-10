@@ -14,11 +14,11 @@ import java.util.*
 import java.util.concurrent.Executors
 
 /**
- * httpClient 构建虚拟线程
+ * httpClient build virtual thread
  *
- * 默认参数：
- * - 默认超时 10m
- * - 默认执行器 虚拟线程
+ * Default parameters:
+ * - Default timeout 10m
+ * - Default executor: virtual thread
  */
 val httpClient: HttpClient.Builder =
   HttpClient.newBuilder()
@@ -26,10 +26,10 @@ val httpClient: HttpClient.Builder =
     .connectTimeout(Duration.ofMinutes(10))
     .followRedirects(HttpClient.Redirect.NORMAL)
 
-/** HTTP / URL 相关工具方法。 */
+/** HTTP / URL related utility methods. */
 object HttpUtils {
 
-  /** 构建 URI */
+  /** Build URI */
   @Suppress("detekt:ReturnCount")
   fun toURI(base: String, query: Map<String, Any?>? = null): URI {
     if (query.isNullOrEmpty()) return URI.create(base)
@@ -40,12 +40,12 @@ object HttpUtils {
   }
 
   /**
-   * GET 请求
+   * GET request
    *
-   * @param uri 请求地址
-   * @param timeout 响应超时 默认 10m
-   * @param connectTimeout 连接超时 默认 = [timeout]
-   * @return body 内容
+   * @param uri Request URL
+   * @param timeout Response timeout, default 10m
+   * @param connectTimeout Connection timeout, default = [timeout]
+   * @return body content
    */
   fun get(
     uri: URI,
@@ -62,12 +62,12 @@ object HttpUtils {
   }
 
   /**
-   * HEAD 请求
+   * HEAD request
    *
-   * @param uri 请求地址
-   * @param timeout 响应超时 默认 5m
-   * @param connectTimeout 连接超时 默认 = [timeout]
-   * @return 响应状态码
+   * @param uri Request URL
+   * @param timeout Response timeout, default 5m
+   * @param connectTimeout Connection timeout, default = [timeout]
+   * @return Response status code
    */
   fun head(
     uri: URI,
@@ -87,12 +87,12 @@ object HttpUtils {
   }
 
   /**
-   * 下载文件
+   * Download file
    *
-   * @param uri 完整 URL
-   * @param timeout 响应超时 默认 10m
-   * @param connectTimeout 连接超时 默认 = [timeout]
-   * @return 下载的文件
+   * @param uri Complete URL
+   * @param timeout Response timeout, default 10m
+   * @param connectTimeout Connection timeout, default = [timeout]
+   * @return Downloaded file
    */
   fun download(
     uri: URI,
@@ -116,24 +116,24 @@ object HttpUtils {
   }
 
   /**
-   * 将参数 Map 编码为 URL 查询字符串。
+   * Encode parameter Map into URL query string.
    *
    * ```
-   * ### 编码规则
+   * ### Encoding rules
    * - `value == null`
-   *   - 编码为 `key`
-   *   - 表示 **presence-only 参数**
+   *   - Encoded as `key`
+   *   - Represents **presence-only parameter**
    * - `value == ""`
-   *   - 编码为 `key=`
-   *   - 表示 **显式空值**
+   *   - Encoded as `key=`
+   *   - Represents **explicit null value**
    * - `value is String && value.isNotEmpty()`
-   *   - 编码为 `key=value`
+   *   - Encoded as `key=value`
    * - `value is Iterable / Array`
-   *   - 每个元素独立应用上述规则
-   *   - 支持 `null / "" / 非空值` 混合存在
+   *   - Each element applies the above rules independently
+   *   - Supports mixed existence of `null / "" / non-null value`
    * ```
    *
-   * ### 示例
+   * ### Example
    *
    * ```
    * mapOf("flag" to null)              -> "flag"
@@ -142,8 +142,8 @@ object HttpUtils {
    * mapOf("a" to listOf(1, 2))         -> "a=1&a=2"
    * ```
    *
-   * @param map 参数 Map，value 允许为 null / Iterable / Array
-   * @return URL 查询字符串（不包含 `?`）
+   * @param map Parameter Map, value allows null / Iterable / Array
+   * @return URL query string (excluding `?`)
    */
   fun encodeMapToQuery(map: Map<String, Any?>): String {
     val pairs = buildList {
@@ -179,25 +179,25 @@ object HttpUtils {
   }
 
   /**
-   * 将 URL（或查询字符串）解码为查询参数 Map。
+   * Decode URL (or query string) into query parameter Map.
    *
-   * ### 解码规则（三态语义）
+   * ### Decoding rules (three-state semantics)
    *
    * ```
    * - `flag`
-   *   - 解析为 `flag -> null`
+   *   - Parsed as `flag -> null`
    *
    * - `flag=`
-   *   - 解析为 `flag -> ""`
+   *   - Parsed as `flag -> ""`
    *
    * - `flag=value`
-   *   - 解析为 `flag -> "value"`
+   *   - Parsed as `flag -> "value"`
    *
-   * - 同名参数出现多次
-   *   - 按出现顺序收集为 `List`
+   * - Multiple parameters with the same name
+   *   - Collected as `List` in order of appearance
    * ```
    *
-   * ### 示例
+   * ### Example
    *
    * ```
    * "?flag"                  -> { flag=[null] }
@@ -206,8 +206,8 @@ object HttpUtils {
    * "?a=1&a=2"               -> { a=["1", "2"] }
    * ```
    *
-   * @param url 完整 URL 或仅包含查询部分的字符串
-   * @return 参数 Map，value 使用 `List<String?>` 表示三态语义
+   * @param url Complete URL or string containing only the query part
+   * @return Parameter Map, value uses `List<String?>` to represent three-state semantics
    */
   fun decodeQueryToMap(url: String): Map<String, List<String?>> {
     val rawQuery = url.substringAfter('?', "")

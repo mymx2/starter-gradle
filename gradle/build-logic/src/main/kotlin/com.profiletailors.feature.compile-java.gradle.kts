@@ -33,13 +33,13 @@ tasks.withType<JavaCompile>().configureEach {
     isFork = true
     encoding = StandardCharsets.UTF_8.name()
     if (jepEnablePreview) {
-      compilerArgs.add("--enable-preview") // 启用预览特性
+      compilerArgs.add("--enable-preview") // Enable preview features
     }
     // javac
-    compilerArgs.add("-parameters") // 保留方法参数名，方便反射/框架
-    compilerArgs.add("-implicit:none") // 禁止编译未显式指定的源码
-    compilerArgs.add("-Werror") // 把所有警告当成错误
-    compilerArgs.add("-Xlint:all") // 打开全部lint警告
+    compilerArgs.add("-parameters") // Retain method parameter names for reflection/frameworks
+    compilerArgs.add("-implicit:none") // Disable compilation of implicitly loaded source files
+    compilerArgs.add("-Werror") // Treat all warnings as errors
+    compilerArgs.add("-Xlint:all") // Enable all lint warnings
   }
 }
 

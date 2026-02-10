@@ -6,10 +6,10 @@ import kotlin.io.path.createTempDirectory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-/** Gitignore 单元测试类 */
+/** Gitignore unit test class */
 class GitignorePatternsTest : GitignoreGitCommandTest() {
 
-  /** 测试通配符 * 的行为 */
+  /** Test asterisk wildcard behavior */
   @Test
   fun testAsteriskPattern() {
     val gitignore =
@@ -22,9 +22,9 @@ class GitignorePatternsTest : GitignoreGitCommandTest() {
 
     val cases =
       mapOf(
-        "a.txt" to true, // *.txt 忽略
-        "b.log" to true, // *.log 忽略
-        "temp123" to true, // temp* 忽略
+        "a.txt" to true, // *.txt ignored
+        "b.log" to true, // *.log ignored
+        "temp123" to true, // temp* ignored
       )
 
     runGitignoreTests(gitignore, cases)
@@ -32,111 +32,111 @@ class GitignorePatternsTest : GitignoreGitCommandTest() {
 
   @Test
   fun testNoSlashPattern() {
-    // 任意层级的名为 build 的文件或目录
+    // File or directory named build at any level
     val gitignore =
       """
       build
       """
         .trimIndent()
 
-    // 文件
+    // Files
     val cases =
       mapOf(
-        "build" to true, // 忽略
-        "app/build" to true, // 忽略
+        "build" to true, // ignored
+        "app/build" to true, // ignored
       )
     runGitignoreTests(gitignore, cases)
 
-    // 目录
+    // Directories
     val cases1 =
       mapOf(
-        "build/" to true, // 忽略
-        "app/build/" to true, // 忽略
-        "app/build/data.txt" to true, // 忽略
+        "build/" to true, // ignored
+        "app/build/" to true, // ignored
+        "app/build/data.txt" to true, // ignored
       )
     runGitignoreTests(gitignore, cases1)
   }
 
   @Test
   fun testSlashAtStartPattern() {
-    // 仅根目录下的 build（文件或目录）
+    // build (file or directory) only under the root directory
     val gitignore =
       """
       /build
       """
         .trimIndent()
 
-    // 文件
+    // Files
     val cases =
       mapOf(
-        "build" to true, // 忽略
-        "app/build" to false, // 不忽略
+        "build" to true, // ignored
+        "app/build" to false, // not ignored
       )
     runGitignoreTests(gitignore, cases)
 
-    // 目录
+    // Directories
     val cases1 =
       mapOf(
-        "build/" to true, // 忽略
-        "app/build/" to false, // 不忽略
-        "app/build/data.txt" to false, // 不忽略
+        "build/" to true, // ignored
+        "app/build/" to false, // not ignored
+        "app/build/data.txt" to false, // not ignored
       )
     runGitignoreTests(gitignore, cases1)
   }
 
   @Test
   fun testSlashAtMiddlePatterns() {
-    // 仅根目录下的 build/cache 路径
+    // build/cache path only under the root directory
     val gitignore =
       """
       build/cache
       """
         .trimIndent()
 
-    // 文件
+    // Files
     val cases =
       mapOf(
-        "build/cache" to true, // 忽略
-        "app/build/cache" to false, // 不忽略
+        "build/cache" to true, // ignored
+        "app/build/cache" to false, // not ignored
       )
     runGitignoreTests(gitignore, cases)
 
-    // 目录
+    // Directories
     val cases1 =
       mapOf(
-        "build/cache/" to true, // 忽略
-        "build/cache/data.txt" to true, // 忽略
-        "build/cache/data/data.txt" to true, // 忽略
-        "app/build/cache/" to false, // 不忽略
-        "app/build/cache/data.txt" to false, // 不忽略
-        "app/build/cache/data/data.txt" to false, // 不忽略
+        "build/cache/" to true, // ignored
+        "build/cache/data.txt" to true, // ignored
+        "build/cache/data/data.txt" to true, // ignored
+        "app/build/cache/" to false, // not ignored
+        "app/build/cache/data.txt" to false, // not ignored
+        "app/build/cache/data/data.txt" to false, // not ignored
       )
     runGitignoreTests(gitignore, cases1)
   }
 
   @Test
   fun testSlashAtEndPattern() {
-    // 任意层级的名为 build 的目录及其内容（不包含同名文件）
+    // Directory named build at any level and its content (excluding files with the same name)
     val gitignore =
       """
       build/
       """
         .trimIndent()
 
-    // 文件
+    // Files
     val cases =
       mapOf(
-        "build" to false, // 不忽略
-        "app/build" to false, // 不忽略
+        "build" to false, // not ignored
+        "app/build" to false, // not ignored
       )
     runGitignoreTests(gitignore, cases)
 
-    // 目录
+    // Directories
     val cases1 =
       mapOf(
-        "build/" to true, // 忽略
-        "app/build/" to true, // 忽略
-        "app/build/data.txt" to true, // 忽略
+        "build/" to true, // ignored
+        "app/build/" to true, // ignored
+        "app/build/data.txt" to true, // ignored
       )
     runGitignoreTests(gitignore, cases1)
   }
@@ -149,20 +149,20 @@ class GitignorePatternsTest : GitignoreGitCommandTest() {
       """
         .trimIndent()
 
-    // 文件
+    // Files
     val cases =
       mapOf(
-        "build" to true, // 忽略
-        "app/build" to true, // 忽略
+        "build" to true, // ignored
+        "app/build" to true, // ignored
       )
     runGitignoreTests(gitignore, cases)
 
-    // 目录
+    // Directories
     val cases1 =
       mapOf(
-        "build/" to true, // 忽略
-        "app/build/" to true, // 忽略
-        "app/build/data.txt" to true, // 忽略
+        "build/" to true, // ignored
+        "app/build/" to true, // ignored
+        "app/build/data.txt" to true, // ignored
       )
     runGitignoreTests(gitignore, cases1)
   }
@@ -175,51 +175,51 @@ class GitignorePatternsTest : GitignoreGitCommandTest() {
       """
         .trimIndent()
 
-    // 文件
+    // Files
     val cases =
       mapOf(
-        "build" to true, // 忽略
-        "app/build" to true, // 忽略
+        "build" to true, // ignored
+        "app/build" to true, // ignored
       )
     runGitignoreTests(gitignore, cases)
 
-    // 目录
+    // Directories
     val cases1 =
       mapOf(
-        "build/" to true, // 忽略
-        "build/data.txt" to true, // 忽略
-        "app/build/" to true, // 忽略
-        "app/build/data.txt" to true, // 忽略
+        "build/" to true, // ignored
+        "build/data.txt" to true, // ignored
+        "app/build/" to true, // ignored
+        "app/build/data.txt" to true, // ignored
       )
     runGitignoreTests(gitignore, cases1)
   }
 
   @Test
   fun testEndWithAsteriskPattern() {
-    // 相对根目录
+    // Relative to root directory
     val gitignore =
       """
       build/*
       """
         .trimIndent()
 
-    // 文件
+    // Files
     val cases =
       mapOf(
-        "build" to false, // 不忽略
-        "app/build" to false, // 不忽略
+        "build" to false, // not ignored
+        "app/build" to false, // not ignored
       )
     runGitignoreTests(gitignore, cases)
 
-    // 目录
+    // Directories
     val cases1 =
       mapOf(
-        "build/" to true, // 忽略
-        "build/data.txt" to true, // 忽略
-        "build/sub/data.txt" to true, // 忽略
-        "app/build/" to false, // 不忽略
-        "app/build/data.txt" to false, // 不忽略
-        "app/build/sub/data.txt" to false, // 不忽略
+        "build/" to true, // ignored
+        "build/data.txt" to true, // ignored
+        "build/sub/data.txt" to true, // ignored
+        "app/build/" to false, // not ignored
+        "app/build/data.txt" to false, // not ignored
+        "app/build/sub/data.txt" to false, // not ignored
       )
     runGitignoreTests(gitignore, cases1)
   }
@@ -232,7 +232,7 @@ open class GitignoreGitCommandTest {
   /**
    * @see <a
    *   href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners">GitHub
-   *   定义负责存储库中代码的个人或团队</a>
+   *   Define individuals or teams responsible for code in a repository</a>
    */
   private val codeOwnerRules =
     listOf(
@@ -250,18 +250,18 @@ open class GitignoreGitCommandTest {
       "/apps/github     @doctocat",
     )
 
-  /** 创建临时 Git 仓库并写入 .gitignore */
+  /** Create temporary Git repository and write .gitignore */
   private fun setupRepo(gitignoreContent: String): File {
     val repoDir = createTempDirectory("gitignore_" + UUID.randomUUID().toString()).toFile()
 
-    try { // 初始化 Git 仓库
+    try { // Initialize Git repository
       runGitCommand(repoDir, "git", "init")
 
-      // 设置必要的 Git 配置
+      // Set necessary Git config
       runGitCommand(repoDir, "git", "config", "user.email", "test@example.com")
       runGitCommand(repoDir, "git", "config", "user.name", "Test User")
 
-      // 创建并提交 .gitignore 文件
+      // Create and commit .gitignore file
       File(repoDir, ".gitignore").writeText(gitignoreContent)
       runGitCommand(repoDir, "git", "add", ".gitignore")
       runGitCommand(repoDir, "git", "commit", "-m", "Add gitignore")
@@ -273,7 +273,7 @@ open class GitignoreGitCommandTest {
     return repoDir
   }
 
-  /** 执行 Git 命令并等待完成 */
+  /** Execute Git command and wait for completion */
   private fun runGitCommand(repoDir: File, vararg command: String) {
     val process = ProcessBuilder(*command).directory(repoDir).redirectErrorStream(true).start()
     if (process.waitFor() != 0) {
@@ -282,7 +282,7 @@ open class GitignoreGitCommandTest {
     }
   }
 
-  /** 判断路径是否被 Git 忽略 */
+  /** Check if path is ignored by Git */
   private fun isIgnored(repoDir: File, relativePath: String): Boolean {
     val process =
       ProcessBuilder("git", "check-ignore", "-v", relativePath)
@@ -296,26 +296,26 @@ open class GitignoreGitCommandTest {
     } else {
       println("✅ $relativePath")
     }
-    return exitCode == 0 // 0 表示被忽略，1 表示不被忽略
+    return exitCode == 0 // 0 means ignored, 1 means not ignored
   }
 
   /**
-   * Gitignore 单元测试类
+   * Gitignore unit tests
    *
-   * Git 会按行从上到下检查 .gitignore，如果多个规则都能匹配某路径，则 最后一个匹配规则 生效。
+   * Git checks .gitignore line by line from top to bottom. If multiple rules match a path, the LAST matching rule applies.
    *
-   * [Git 规则](https://git-scm.com/docs/gitignore#_pattern_format)：
-   * - 开头带 `#` → 注释行
-   * - 开头带 `!` → 否定规则（取消忽略）
-   * - 开头带 `/` → 从.gitignore 文件所在目录开始匹配
-   * - 中间带 `/` → 必须匹配对应的路径层级（不是任意层级）
-   * - 结尾带 `/` → 只匹配目录
-   * - 不带 `/` → 匹配同名文件或目录，任意层级均可
-   * - 通配符
-   *     - `*` → 匹配多个字符，不含 `/`
-   *     - `**` → 匹配多个字符，包含 `/`
-   *     - `?` → 匹配单个字符，不含 `/`
-   *     - `[...]` → 匹配任意一个字符，不含 `/`
+   * [Git Rules](https://git-scm.com/docs/gitignore#_pattern_format)：
+   * - Starts with `#` -> Comment line
+   * - Starts with `!` -> Negation rule (un-ignore)
+   * - Starts with `/` -> Match from the directory where .gitignore is located
+   * - Contains `/` -> Must match corresponding path hierarchy (not arbitrary levels)
+   * - Ends with `/` -> Only matches directories
+   * - No `/` -> Matches files or directories with the same name at any level
+   * - Wildcards
+   *     - `*` -> Matches multiple characters, excluding `/`
+   *     - `**` -> Matches multiple characters, including `/`
+   *     - `?` -> Matches a single character, excluding `/`
+   *     - `[...]` -> Matches any single character, excluding `/`
    */
   protected fun runGitignoreTests(
     gitignoreContent: String,
@@ -337,7 +337,7 @@ open class GitignoreGitCommandTest {
           file.parentFile?.mkdirs()
           file.createNewFile()
         }
-        // 确保文件系统状态稳定
+        // Ensure file system state is stable
         Thread.sleep(5)
 
         val result = isIgnored(repoDir, relativePath)
@@ -345,7 +345,7 @@ open class GitignoreGitCommandTest {
       }
     } finally {
       println(Ansi.color("============End Test Rule============\n\n", Ansi.Color.GREEN.code))
-      // 清理临时目录
+      // Clean up temporary directory
       repoDir.deleteRecursively()
     }
   }

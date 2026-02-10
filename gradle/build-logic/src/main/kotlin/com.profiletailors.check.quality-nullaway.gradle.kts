@@ -54,23 +54,23 @@ tasks.withType<JavaCompile>().configureEach {
     defaultDisabledChecks().forEach { disable(it) }
 
     nullaway {
-      // 使用 JSpecify 语义
+      // Use JSpecify semantics
       jspecifyMode = true
-      // 只分析 @NullMarked 的代码
+      // Only analyze @NullMarked code
       onlyNullMarked = true
-      // 生成代码不做强校验
+      // Do not strongly validate generated code
       treatGeneratedAsUnannotated = true
-      // Optional.get() 检查
+      // Optional.get() check
       checkOptionalEmptiness = true
-      // 支持 assert / Truth / AssertJ
+      // Support assert / Truth / AssertJ
       assertsEnabled = true
       handleTestAssertionLibraries = true
-      // 合约分析（@Contract）
+      // Contract analysis (@Contract)
       checkContracts = true
-      // 给出 suppress 建议
+      // Suggest suppressions
       suggestSuppressions = true
       suppressionNameAliases.add("NullAway")
-      // 强制作为 error
+      // Force as error
       error()
     }
   }

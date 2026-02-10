@@ -4,25 +4,25 @@ import org.gradle.api.file.ProjectLayout
 import org.gradle.api.provider.ProviderFactory
 
 /**
- * 工具类：封装 Gradle reject 版本区间规则
+ * Utility class: Encapsulate Gradle reject version range rules
  *
  * gt: greater than > x ge: greater or equal >= x lt: less than < x le: less or equal <= x
  */
 object VersionRange {
 
-  /** 拒绝所有 < version */
+  /** Reject all < version */
   fun lt(version: String): String = "(,$version)"
 
-  /** 拒绝所有 <= version */
+  /** Reject all <= version */
   fun le(version: String): String = "(,$version]"
 
-  /** 拒绝所有 > version */
+  /** Reject all > version */
   fun gt(version: String): String = "($version,)"
 
-  /** 拒绝所有 >= version */
+  /** Reject all >= version */
   fun ge(version: String): String = "[$version,)"
 
-  /** 自定义区间 */
+  /** Custom range */
   fun range(
     from: String,
     to: String,

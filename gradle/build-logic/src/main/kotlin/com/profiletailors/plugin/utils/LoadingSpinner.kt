@@ -7,7 +7,7 @@ import kotlin.math.min
 import kotlin.math.pow
 import kotlin.system.measureTimeMillis
 
-/** Spinner 风格枚举 */
+/** Spinner style enum */
 enum class SpinnerStyle(val frames: List<String>) {
   CLASSIC(listOf("|", "/", "-", "\\", "|", "/", "-", "\\", "|", "/", "-", "\\")),
   PULSE(listOf("██", "▓▓", "▒▒", "░░")),
@@ -21,20 +21,20 @@ enum class SpinnerStyle(val frames: List<String>) {
   PROGRESS_BLOCK(listOf("▱▱▱▱▱▱", "▰▱▱▱▱▱", "▰▰▱▱▱▱", "▰▰▰▱▱▱", "▰▰▰▰▱▱", "▰▰▰▰▰▱", "▰▰▰▰▰▰")),
 }
 
-/** LoadingSpinner 工具类 */
+/** LoadingSpinner utility class */
 object LoadingSpinner {
 
   private val renderingPaused = AtomicBoolean(false)
   private val spinnerRendered = AtomicBoolean(false)
   private val resetLine by lazy { "\r" + " ".repeat(500) + "\r" }
 
-  /** 暂停 spinner 渲染 */
+  /** Pause spinner rendering */
   private fun pauseRendering() = renderingPaused.set(true)
 
-  /** 恢复 spinner 渲染 */
+  /** Resume spinner rendering */
   private fun resumeRendering() = renderingPaused.set(false)
 
-  /** 自定义 PrintStream，用于拦截输出 */
+  /** Custom PrintStream for intercepting output */
   private class SpinnerPrintStream(original: PrintStream, private val spinner: LoadingSpinner) :
     PrintStream(original, true) {
 
@@ -60,14 +60,14 @@ object LoadingSpinner {
   }
 
   /**
-   * 显示加载动画，同时执行 block 任务
+   * Show loading animation while executing block task
    *
-   * @param message 显示消息
-   * @param interval 帧间隔（ms）
-   * @param style spinner 风格
-   * @param showResult 是否在完成后输出最终结果
-   * @param block 需要执行的任务
-   * @return block 的返回值
+   * @param message Display message
+   * @param interval Frame interval (ms)
+   * @param style Spinner style
+   * @param showResult Whether to output final result after completion
+   * @param block Task to execute
+   * @return Return value of block
    */
   fun <T> run(
     message: String = "",
@@ -84,7 +84,7 @@ object LoadingSpinner {
     val originalOut = System.out
     val originalErr = System.err
 
-    // 替换全局输出
+    // Replace global output
     System.setOut(SpinnerPrintStream(originalOut, this))
     System.setErr(SpinnerPrintStream(originalErr, this))
 
