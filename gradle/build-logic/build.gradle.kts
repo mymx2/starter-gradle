@@ -119,24 +119,24 @@ gradlePlugin {
         }
       }
     // Manual registration for class-based plugins
-    register("dyExampleSettingsPlugin") {
-      id = "com.profiletailors.plugin.dy.example.settings"
-      implementationClass = "com.profiletailors.plugin.DyExampleSettingsPlugin"
-      displayName = "DyExampleSettingsPlugin"
+    register("exampleSettingsPlugin") {
+      id = "com.profiletailors.plugin.example.settings"
+      implementationClass = "com.profiletailors.plugin.ExampleSettingsPlugin"
+      displayName = "ExampleSettingsPlugin"
       description = "Example settings plugin"
       tags.set(listOf("example", "settings"))
     }
-    register("dyExampleProjectPlugin") {
-      id = "com.profiletailors.plugin.dy.example.project"
-      implementationClass = "com.profiletailors.plugin.DyExampleProjectPlugin"
-      displayName = "DyExampleProjectPlugin"
+    register("exampleProjectPlugin") {
+      id = "com.profiletailors.plugin.example.project"
+      implementationClass = "com.profiletailors.plugin.ExampleProjectPlugin"
+      displayName = "ExampleProjectPlugin"
       description = "Example project plugin"
       tags.set(listOf("example", "project"))
     }
-    register("dyExampleAwarePlugin") {
-      id = "com.profiletailors.plugin.dy.example.aware"
-      implementationClass = "com.profiletailors.plugin.DyExampleAwarePlugin"
-      displayName = "DyExampleAwarePlugin"
+    register("exampleAwarePlugin") {
+      id = "com.profiletailors.plugin.example.aware"
+      implementationClass = "com.profiletailors.plugin.ExampleAwarePlugin"
+      displayName = "ExampleAwarePlugin"
       description = "Example aware plugin"
       tags.set(listOf("example", "aware"))
     }

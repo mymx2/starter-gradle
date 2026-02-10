@@ -43,8 +43,8 @@ import org.gradle.work.DisableCachingByDefault
     └── buildFinished { BuildResult }
 */
 
-/** id("com.profiletailors.plugin.dy.example.settings") */
-class DyExampleSettingsPlugin : Plugin<Settings> {
+/** id("com.profiletailors.plugin.example.settings") */
+class ExampleSettingsPlugin : Plugin<Settings> {
   override fun apply(target: Settings) {
     with(target) {
       println(
@@ -80,12 +80,12 @@ class DyExampleSettingsPlugin : Plugin<Settings> {
 }
 
 /**
- * id("com.profiletailors.plugin.dy.example.project")
+ * id("com.profiletailors.plugin.example.project")
  * - [developing_binary_plugin_advanced](https://docs.gradle.org/nightly/userguide/developing_binary_plugin_advanced.html)
  * - [plugin-development](https://docs.gradle.org/nightly/userguide/implementing_gradle_plugins_binary.html#plugin-development)
  * - [task_input_output_annotations](https://docs.gradle.org/nightly/userguide/incremental_build.html#sec:task_input_output_annotations)
  */
-class DyExampleProjectPlugin : Plugin<Project> {
+class ExampleProjectPlugin : Plugin<Project> {
 
   // -------- DSL object definition --------
 
@@ -179,8 +179,8 @@ class DyExampleProjectPlugin : Plugin<Project> {
 
   override fun apply(target: Project) {
     with(target) {
-      val ext = extensions.create("dyPlugin", MyPluginExtension::class.java)
-      tasks.register("dyExample", MyTask::class.java) {
+      val ext = extensions.create("examplePlugin", MyPluginExtension::class.java)
+      tasks.register("exampleTask", MyTask::class.java) {
         // notCompatibleWithConfigurationCache()
         config(ext.propConfig, ext.depConfig)
       }
@@ -189,13 +189,13 @@ class DyExampleProjectPlugin : Plugin<Project> {
 }
 
 /**
- * id("com.profiletailors.plugin.dy.example.aware")
+ * id("com.profiletailors.plugin.example.aware")
  *
  * plugin type: `InitPlugin` `SettingsPlugin` `ProjectPlugin`
  *
  * [plugin_scope](https://docs.gradle.org/nightly/userguide/plugin_introduction_advanced.html#plugin_scope)
  */
-class DyExampleAwarePlugin : Plugin<PluginAware> {
+class ExampleAwarePlugin : Plugin<PluginAware> {
 
   override fun apply(target: PluginAware) {
     when (target) {

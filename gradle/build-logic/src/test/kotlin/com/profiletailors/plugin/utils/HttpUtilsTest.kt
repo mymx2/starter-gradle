@@ -10,11 +10,11 @@ class HttpUtilsTest {
 
   @Test
   fun testBaidu() {
-    val baidu =
-      runCatching { HttpUtils.get(URI("https://www.baidu.com"), Duration.ofSeconds(10)) }
+    val google =
+      runCatching { HttpUtils.get(URI("https://www.google.com"), Duration.ofSeconds(10)) }
         .getOrDefault("Fetch failed") ?: ""
 
-    consoleLog(baidu)
-    assert(baidu.contains("Baidu"))
+    consoleLog(google)
+    assert(google.contains("Google"))
   }
 }

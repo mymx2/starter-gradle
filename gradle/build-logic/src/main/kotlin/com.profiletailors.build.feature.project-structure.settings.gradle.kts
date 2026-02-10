@@ -1,5 +1,5 @@
 import com.profiletailors.plugin.DefaultProjects
-import com.profiletailors.plugin.dyIncludeProjects
+import com.profiletailors.plugin.includeProjects
 import com.profiletailors.plugin.local.LocalConfig
 import com.profiletailors.plugin.local.getPropOrDefault
 
@@ -10,7 +10,7 @@ if (enableAutoStructure) {
   applyIncludes(rootDir)
 }
 
-dyIncludeProjects(
+includeProjects(
   mapOf(
     // Platform project
     DefaultProjects.versionsPath to DefaultProjects.versions,

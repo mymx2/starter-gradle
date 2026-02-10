@@ -19,7 +19,7 @@ object DefaultProjects {
  *
  * @param map The map of version catalog names and paths.
  */
-fun Settings.dyCreateVersionCatalogs(map: Map<String, String>) {
+fun Settings.createVersionCatalogs(map: Map<String, String>) {
   dependencyResolutionManagement {
     versionCatalogs {
       map.forEach { (name, path) -> create(name) { from(layout.settingsDirectory.files(path)) } }
@@ -32,7 +32,7 @@ fun Settings.dyCreateVersionCatalogs(map: Map<String, String>) {
  *
  * @param map The map of project names and paths.
  */
-fun Settings.dyIncludeProjects(map: Map<String, String>) {
+fun Settings.includeProjects(map: Map<String, String>) {
   map.forEach { (name, path) ->
     val projectDir = rootDir.resolve(path)
     if (projectDir.exists()) {
