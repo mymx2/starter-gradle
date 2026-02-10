@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# SISTEMAS OPERATIVOS
+# OPERATING SYSTEMS
 .DS_Store
 Thumbs.db
 Desktop.ini
@@ -8,7 +8,7 @@ Icon?
 ._*
 
 # ------------------------------------------------------------------------------
-# IDEs Y EDITORES
+# IDEs AND EDITORS
 .idea/
 *.iws
 *.iml
@@ -49,7 +49,7 @@ Icon?
 *.sln.iml
 
 # ------------------------------------------------------------------------------
-# LENGUAJES Y HERRAMIENTAS
+# LANGUAGES AND TOOLS
 
 # Java/Gradle/Maven
 .gradle/
@@ -107,7 +107,7 @@ __pycache__/
 Cargo.lock
 
 # ------------------------------------------------------------------------------
-# HERRAMIENTAS Y PLUGINS
+# TOOLS AND PLUGINS
 
 # Vite
 **/.vite-ssg-dist/
@@ -134,7 +134,7 @@ Dockerfile*
 .circleci/
 
 # ------------------------------------------------------------------------------
-# ARCHIVOS TEMPORALES Y LOGS
+# TEMPORARY FILES AND LOGS
 *.log
 *.pid
 *.seed
@@ -149,7 +149,7 @@ Dockerfile*
 #*
 
 # ------------------------------------------------------------------------------
-# USUARIO Y PROYECTO
+# USER AND PROJECT
 Servers/
 .metadata/
 **/logs/
@@ -163,4 +163,4 @@ Servers/
 *.lockfile.txt
 
 # ------------------------------------------------------------------------------
-# FIN DE IGNORE
+# END OF IGNORE
