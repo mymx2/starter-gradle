@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/openrewrite/rewrite/main/rewrite-core/openrewrite.json
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: io.github.mymx2.openrewrite.SanityCheck
+name: com.profiletailors.openrewrite.SanityCheck
 displayName: Apply all Java & Gradle best practices
 description: Comprehensive code quality recipe combining modernization, security, and best practices. see https://github.com/diffplug/spotless/blob/main/rewrite.yml
 tags:
@@ -57,7 +57,7 @@ recipeList:
   - org.openrewrite.java.spring.data.UpgradeSpringData_3_4
 ---
 type: specs.openrewrite.org/v1beta/style
-name: io.github.mymx2.openrewrite.SpotlessFormat
+name: com.profiletailors.openrewrite.SpotlessFormat
 displayName: Apply all formatting styles
 description: Comprehensive formatting style recipe combining all styles.
 styleConfigs:

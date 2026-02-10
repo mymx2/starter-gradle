@@ -1,13 +1,24 @@
 @file:Suppress("UnstableApiUsage", "detekt:MaxLineLength")
 
-import io.github.mymx2.plugin.resetTaskGroup
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
   `kotlin-dsl` // https://plugins.gradle.org/plugin/org.gradle.kotlin.kotlin-dsl
   alias(libs.plugins.com.gradle.plugin.publish)
-  id("io.github.mymx2.module.kotlin")
-  id("io.github.mymx2.feature.publish-vanniktech")
+  kotlin("jvm") version embeddedKotlinVersion
+  `maven-publish`
+  signing
+  alias(libs.plugins.com.vanniktech.maven.publish)
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get()))
+  }
+}
+
+tasks.withType<JavaCompile> {
+  options.release.set(libs.versions.jdk.get().toInt())
 }
 
 description = "Zero-config Gradle plugin for building production-ready standalone JVM apps"
@@ -107,6 +118,28 @@ gradlePlugin {
           }
         }
       }
+    // Manual registration for class-based plugins
+    register("dyExampleSettingsPlugin") {
+      id = "com.profiletailors.plugin.dy.example.settings"
+      implementationClass = "com.profiletailors.plugin.DyExampleSettingsPlugin"
+      displayName = "DyExampleSettingsPlugin"
+      description = "Example settings plugin"
+      tags.set(listOf("example", "settings"))
+    }
+    register("dyExampleProjectPlugin") {
+      id = "com.profiletailors.plugin.dy.example.project"
+      implementationClass = "com.profiletailors.plugin.DyExampleProjectPlugin"
+      displayName = "DyExampleProjectPlugin"
+      description = "Example project plugin"
+      tags.set(listOf("example", "project"))
+    }
+    register("dyExampleAwarePlugin") {
+      id = "com.profiletailors.plugin.dy.example.aware"
+      implementationClass = "com.profiletailors.plugin.DyExampleAwarePlugin"
+      displayName = "DyExampleAwarePlugin"
+      description = "Example aware plugin"
+      tags.set(listOf("example", "aware"))
+    }
   }
   val printPlugins = false
   if (printPlugins) println("|----------publish plugins----------")
@@ -131,7 +164,7 @@ buildscript {
   }
 }
 
-listOf(".*PluginMarker.*".toRegex() to "others").forEach { resetTaskGroup(it.first, it.second) }
+// Plugin marker tasks are grouped automatically
 
 tasks {
   validatePlugins {
@@ -141,16 +174,9 @@ tasks {
   javadoc { isFailOnError = false }
 }
 
-// 禁用 dokka
-dokka { dokkaSourceSets { configureEach { suppress = true } } }
-
-// detekt
-detekt { config.setFrom(rootDir.toPath().parent.resolve("configs/detekt/detekt.yml").toFile()) }
-
-// 禁用 spotlessKotlin
-gradle.projectsEvaluated {
-  tasks.named { it.startsWith("spotlessKotlin") }.configureEach { enabled = false }
-}
+// Note: Code quality plugins (dokka, detekt, spotless) were removed
+// because this build-logic project must be self-contained and cannot
+// use convention plugins defined within itself.
 
 // TODO remove it
 configurations.configureEach { resolutionStrategy { force("org.projectlombok:lombok:1.18.42") } }

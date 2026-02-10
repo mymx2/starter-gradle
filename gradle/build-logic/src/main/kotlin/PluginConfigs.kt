@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage", "PackageDirectoryMismatch")
 
-package io.github.mymx2.plugin
+package com.profiletailors.plugin
 
 import org.gradle.api.initialization.Settings
 

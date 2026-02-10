@@ -1,16 +1,16 @@
 @file:Suppress("UnstableApiUsage")
 
-import io.github.mymx2.plugin.environment.EnvAccess
-import io.github.mymx2.plugin.gradle.cachedFlatMap
-import io.github.mymx2.plugin.gradle.cachedProvider
-import io.github.mymx2.plugin.injected
-import io.github.mymx2.plugin.spotless.SpotlessConfig
-import io.github.mymx2.plugin.spotless.defaultStep
+import com.profiletailors.plugin.environment.EnvAccess
+import com.profiletailors.plugin.gradle.cachedFlatMap
+import com.profiletailors.plugin.gradle.cachedProvider
+import com.profiletailors.plugin.injected
+import com.profiletailors.plugin.spotless.SpotlessConfig
+import com.profiletailors.plugin.spotless.defaultStep
 import java.io.ByteArrayOutputStream
 
 plugins {
   alias(libs.plugins.com.github.node.gradle.node)
-  id("io.github.mymx2.check.format-base")
+  id("com.profiletailors.check.format-base")
 }
 
 val isCI = EnvAccess.isCi(providers)

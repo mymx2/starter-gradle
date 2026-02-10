@@ -1,6 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package io.github.mymx2.plugin
+package com.profiletailors.plugin
 
 object InternalDependencies {
 

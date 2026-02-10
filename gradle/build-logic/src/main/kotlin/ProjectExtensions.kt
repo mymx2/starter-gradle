@@ -1,8 +1,8 @@
 @file:Suppress("PackageDirectoryMismatch", "UnstableApiUsage")
 
-package io.github.mymx2.plugin
+package com.profiletailors.plugin
 
-import io.github.mymx2.plugin.gradle.ExecValueSource
+import com.profiletailors.plugin.gradle.ExecValueSource
 import java.io.File
 import javax.inject.Inject
 import kotlin.jvm.optionals.getOrNull

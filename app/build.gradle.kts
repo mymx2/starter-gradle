@@ -1,22 +1,22 @@
 @file:Suppress("UnstableApiUsage")
 
-import io.github.mymx2.plugin.local.LocalConfig
-import io.github.mymx2.plugin.local.getPropOrDefault
+import com.profiletailors.plugin.local.LocalConfig
+import com.profiletailors.plugin.local.getPropOrDefault
 
 plugins {
-  id("io.github.mymx2.module.kotlin")
-  id("io.github.mymx2.module.app")
-  id("io.github.mymx2.feature.test-end2end")
-  id("io.github.mymx2.feature.benchmark") apply false
+  id("com.profiletailors.module.kotlin")
+  id("com.profiletailors.module.app")
+  id("com.profiletailors.feature.test-end2end")
+  id("com.profiletailors.feature.benchmark") apply false
 }
 
 val isJmh = project.getPropOrDefault(LocalConfig.Props.IS_JMH).toBoolean()
 
 if (isJmh) {
-  apply(plugin = "io.github.mymx2.feature.benchmark")
+  apply(plugin = "com.profiletailors.feature.benchmark")
 }
 
-application { mainClass.set("io.github.mymx2.app.Application") }
+application { mainClass.set("com.profiletailors.app.Application") }
 
 dependencies {
   implementation("org.slf4j:slf4j-api")

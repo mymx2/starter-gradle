@@ -1,7 +1,7 @@
 plugins {
-  id("io.github.mymx2.module.java")
-  id("io.github.mymx2.module.app")
-  id("io.github.mymx2.feature.publish-vanniktech")
+  id("com.profiletailors.module.java")
+  id("com.profiletailors.module.app")
+  id("com.profiletailors.feature.publish-vanniktech")
 }
 
-application { mainClass.set("io.github.mymx2.java.JavaApp") }
+application { mainClass.set("com.profiletailors.java.JavaApp") }

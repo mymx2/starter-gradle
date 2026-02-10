@@ -1,7 +1,7 @@
 plugins {
-  id("io.github.mymx2.module.kotlin")
-  id("io.github.mymx2.module.app")
-  id("io.github.mymx2.feature.publish-vanniktech")
+  id("com.profiletailors.module.kotlin")
+  id("com.profiletailors.module.app")
+  id("com.profiletailors.feature.publish-vanniktech")
 }
 
-application { mainClass.set("io.github.mymx2.kotlin.KotlinApp") }
+application { mainClass.set("com.profiletailors.kotlin.KotlinApp") }

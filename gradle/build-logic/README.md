@@ -31,12 +31,12 @@ Code Quality: `Dependency Security` `Test Coverage Visualization` `Comprehensive
 
 _Build_ script plugins are applied to the root project.
 
-[io.github.mymx2.build.feature.build-cache.settings.gradle.kts](src/main/kotlin/io.github.mymx2.build.feature.build-cache.settings.gradle.kts)
-[io.github.mymx2.build.feature.catalogs.settings.gradle.kts](src/main/kotlin/io.github.mymx2.build.feature.catalogs.settings.gradle.kts)
-[io.github.mymx2.build.feature.project-structure.settings.gradle.kts](src/main/kotlin/io.github.mymx2.build.feature.project-structure.settings.gradle.kts)
-[io.github.mymx2.build.feature.repositories.settings.gradle.kts](src/main/kotlin/io.github.mymx2.build.feature.repositories.settings.gradle.kts)
-[io.github.mymx2.build.report.develocity.settings.gradle.kts](src/main/kotlin/io.github.mymx2.build.report.develocity.settings.gradle.kts)
-[io.github.mymx2.build.settings.gradle.kts](src/main/kotlin/io.github.mymx2.build.settings.gradle.kts)
+[com.profiletailors.build.feature.build-cache.settings.gradle.kts](src/main/kotlin/com.profiletailors.build.feature.build-cache.settings.gradle.kts)
+[com.profiletailors.build.feature.catalogs.settings.gradle.kts](src/main/kotlin/com.profiletailors.build.feature.catalogs.settings.gradle.kts)
+[com.profiletailors.build.feature.project-structure.settings.gradle.kts](src/main/kotlin/com.profiletailors.build.feature.project-structure.settings.gradle.kts)
+[com.profiletailors.build.feature.repositories.settings.gradle.kts](src/main/kotlin/com.profiletailors.build.feature.repositories.settings.gradle.kts)
+[com.profiletailors.build.report.develocity.settings.gradle.kts](src/main/kotlin/com.profiletailors.build.report.develocity.settings.gradle.kts)
+[com.profiletailors.build.settings.gradle.kts](src/main/kotlin/com.profiletailors.build.settings.gradle.kts)
 
 #### Base Plugins
 
@@ -44,10 +44,10 @@ _Base_ plugins need to be used in all Modules to establish a certain foundation 
 For example, the same dependency management configuration should be applied everywhere to consistently use the same
 3rd party libraries everywhere.
 
-[io.github.mymx2.base.identity.gradle.kts](src/main/kotlin/io.github.mymx2.base.identity.gradle.kts)
-[io.github.mymx2.base.jpms-modules.gradle.kts](src/main/kotlin/io.github.mymx2.base.jpms-modules.gradle.kts)
-[io.github.mymx2.base.jvm-conflict.gradle.kts](src/main/kotlin/io.github.mymx2.base.jvm-conflict.gradle.kts)
-[io.github.mymx2.base.lifecycle.gradle.kts](src/main/kotlin/io.github.mymx2.base.lifecycle.gradle.kts)
+[com.profiletailors.base.identity.gradle.kts](src/main/kotlin/com.profiletailors.base.identity.gradle.kts)
+[com.profiletailors.base.jpms-modules.gradle.kts](src/main/kotlin/com.profiletailors.base.jpms-modules.gradle.kts)
+[com.profiletailors.base.jvm-conflict.gradle.kts](src/main/kotlin/com.profiletailors.base.jvm-conflict.gradle.kts)
+[com.profiletailors.base.lifecycle.gradle.kts](src/main/kotlin/com.profiletailors.base.lifecycle.gradle.kts)
 
 #### Check Plugins (optional)
 
@@ -56,20 +56,20 @@ They check things like the dependency setup or code formatting.
 More style checkers or static code analysis tools could be added in this category.
 Check plugins are not necessarily needed to build a working software.
 
-[io.github.mymx2.check.actionlint-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.actionlint-root.gradle.kts)
-[io.github.mymx2.check.dependencies.gradle.kts](src/main/kotlin/io.github.mymx2.check.dependencies.gradle.kts)
-[io.github.mymx2.check.dependencies-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.dependencies-root.gradle.kts)
-[io.github.mymx2.check.format-base.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-base.gradle.kts)
-[io.github.mymx2.check.format-gradle.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-gradle.gradle.kts)
-[io.github.mymx2.check.format-gradle-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-gradle-root.gradle.kts)
-[io.github.mymx2.check.format-java.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-java.gradle.kts)
-[io.github.mymx2.check.format-kotlin.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-kotlin.gradle.kts)
-[io.github.mymx2.check.format-misc.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-misc.gradle.kts)
-[io.github.mymx2.check.quality-check-style.gradle.kts](src/main/kotlin/io.github.mymx2.check.quality-check-style.gradle.kts)
-[io.github.mymx2.check.quality-detekt.gradle.kts](src/main/kotlin/io.github.mymx2.check.quality-detekt.gradle.kts)
-[io.github.mymx2.check.quality-nullaway.gradle.kts](src/main/kotlin/io.github.mymx2.check.quality-nullaway.gradle.kts)
-[io.github.mymx2.check.quality-pmd.gradle.kts](src/main/kotlin/io.github.mymx2.check.quality-pmd.gradle.kts)
-[io.github.mymx2.check.quality-spotbugs.gradle.kts](src/main/kotlin/io.github.mymx2.check.quality-spotbugs.gradle.kts)
+[com.profiletailors.check.actionlint-root.gradle.kts](src/main/kotlin/com.profiletailors.check.actionlint-root.gradle.kts)
+[com.profiletailors.check.dependencies.gradle.kts](src/main/kotlin/com.profiletailors.check.dependencies.gradle.kts)
+[com.profiletailors.check.dependencies-root.gradle.kts](src/main/kotlin/com.profiletailors.check.dependencies-root.gradle.kts)
+[com.profiletailors.check.format-base.gradle.kts](src/main/kotlin/com.profiletailors.check.format-base.gradle.kts)
+[com.profiletailors.check.format-gradle.gradle.kts](src/main/kotlin/com.profiletailors.check.format-gradle.gradle.kts)
+[com.profiletailors.check.format-gradle-root.gradle.kts](src/main/kotlin/com.profiletailors.check.format-gradle-root.gradle.kts)
+[com.profiletailors.check.format-java.gradle.kts](src/main/kotlin/com.profiletailors.check.format-java.gradle.kts)
+[com.profiletailors.check.format-kotlin.gradle.kts](src/main/kotlin/com.profiletailors.check.format-kotlin.gradle.kts)
+[com.profiletailors.check.format-misc.gradle.kts](src/main/kotlin/com.profiletailors.check.format-misc.gradle.kts)
+[com.profiletailors.check.quality-check-style.gradle.kts](src/main/kotlin/com.profiletailors.check.quality-check-style.gradle.kts)
+[com.profiletailors.check.quality-detekt.gradle.kts](src/main/kotlin/com.profiletailors.check.quality-detekt.gradle.kts)
+[com.profiletailors.check.quality-nullaway.gradle.kts](src/main/kotlin/com.profiletailors.check.quality-nullaway.gradle.kts)
+[com.profiletailors.check.quality-pmd.gradle.kts](src/main/kotlin/com.profiletailors.check.quality-pmd.gradle.kts)
+[com.profiletailors.check.quality-spotbugs.gradle.kts](src/main/kotlin/com.profiletailors.check.quality-spotbugs.gradle.kts)
 
 #### Report Plugins (optional)
 
@@ -79,52 +79,52 @@ They may generate data that is picked up and displayed by external tools like
 More reporting tools may be integrated in this category.
 Report plugins are not necessarily needed to build a working software.
 
-[io.github.mymx2.report.code-coverage.gradle.kts](src/main/kotlin/io.github.mymx2.report.code-coverage.gradle.kts)
-[io.github.mymx2.report.sbom.gradle.kts](src/main/kotlin/io.github.mymx2.report.sbom.gradle.kts)
-[io.github.mymx2.report.test.gradle.kts](src/main/kotlin/io.github.mymx2.report.test.gradle.kts)
+[com.profiletailors.report.code-coverage.gradle.kts](src/main/kotlin/com.profiletailors.report.code-coverage.gradle.kts)
+[com.profiletailors.report.sbom.gradle.kts](src/main/kotlin/com.profiletailors.report.sbom.gradle.kts)
+[com.profiletailors.report.test.gradle.kts](src/main/kotlin/com.profiletailors.report.test.gradle.kts)
 
 #### Feature Plugins (optional)
 
 Each _feature_ plugin configures one aspect of building the different software(java, android, kotlin, etc.) – like
 _compiling code_ or _testing code_.
 
-[io.github.mymx2.feature.aggregation.gradle.kts](src/main/kotlin/io.github.mymx2.feature.aggregation.gradle.kts)
-[io.github.mymx2.feature.benchmark.gradle.kts](src/main/kotlin/io.github.mymx2.feature.benchmark.gradle.kts)
-[io.github.mymx2.feature.checksum.gradle.kts](src/main/kotlin/io.github.mymx2.feature.checksum.gradle.kts)
-[io.github.mymx2.feature.compile-java.gradle.kts](src/main/kotlin/io.github.mymx2.feature.compile-java.gradle.kts)
-[io.github.mymx2.feature.compile-java-ext.gradle.kts](src/main/kotlin/io.github.mymx2.feature.compile-java-ext.gradle.kts)
-[io.github.mymx2.feature.compile-kotlin.gradle.kts](src/main/kotlin/io.github.mymx2.feature.compile-kotlin.gradle.kts)
-[io.github.mymx2.feature.compile-kotlin-ext.gradle.kts](src/main/kotlin/io.github.mymx2.feature.compile-kotlin-ext.gradle.kts)
-[io.github.mymx2.feature.copy-jar.gradle.kts](src/main/kotlin/io.github.mymx2.feature.copy-jar.gradle.kts)
-[io.github.mymx2.feature.doc-java.gradle.kts](src/main/kotlin/io.github.mymx2.feature.doc-java.gradle.kts)
-[io.github.mymx2.feature.doc-kotlin.gradle.kts](src/main/kotlin/io.github.mymx2.feature.doc-kotlin.gradle.kts)
-[io.github.mymx2.feature.git-hook.gradle.kts](src/main/kotlin/io.github.mymx2.feature.git-hook.gradle.kts)
-[io.github.mymx2.feature.openrewrite.gradle.kts](src/main/kotlin/io.github.mymx2.feature.openrewrite.gradle.kts)
-[io.github.mymx2.feature.publish-base.gradle.kts](src/main/kotlin/io.github.mymx2.feature.publish-base.gradle.kts)
-[io.github.mymx2.feature.publish-bom.gradle.kts](src/main/kotlin/io.github.mymx2.feature.publish-bom.gradle.kts)
-[io.github.mymx2.feature.publish-library.gradle.kts](src/main/kotlin/io.github.mymx2.feature.publish-library.gradle.kts)
-[io.github.mymx2.feature.publish-vanniktech.gradle.kts](src/main/kotlin/io.github.mymx2.feature.publish-vanniktech.gradle.kts)
-[io.github.mymx2.feature.shadow.gradle.kts](src/main/kotlin/io.github.mymx2.feature.shadow.gradle.kts)
-[io.github.mymx2.feature.test.gradle.kts](src/main/kotlin/io.github.mymx2.feature.test.gradle.kts)
-[io.github.mymx2.feature.test-end2end.gradle.kts](src/main/kotlin/io.github.mymx2.feature.test-end2end.gradle.kts)
-[io.github.mymx2.feature.test-fixtures.gradle.kts](src/main/kotlin/io.github.mymx2.feature.test-fixtures.gradle.kts)
-[io.github.mymx2.feature.use-all-catalog-versions.gradle.kts](src/main/kotlin/io.github.mymx2.feature.use-all-catalog-versions.gradle.kts)
-[io.github.mymx2.feature.war.gradle.kts](src/main/kotlin/io.github.mymx2.feature.war.gradle.kts)
-[io.github.mymx2.tools.check-version.gradle.kts](src/main/kotlin/io.github.mymx2.tools.check-version.gradle.kts)
-[io.github.mymx2.tools.spring-openapi.gradle.kts](src/main/kotlin/io.github.mymx2.tools.spring-openapi.gradle.kts)
+[com.profiletailors.feature.aggregation.gradle.kts](src/main/kotlin/com.profiletailors.feature.aggregation.gradle.kts)
+[com.profiletailors.feature.benchmark.gradle.kts](src/main/kotlin/com.profiletailors.feature.benchmark.gradle.kts)
+[com.profiletailors.feature.checksum.gradle.kts](src/main/kotlin/com.profiletailors.feature.checksum.gradle.kts)
+[com.profiletailors.feature.compile-java.gradle.kts](src/main/kotlin/com.profiletailors.feature.compile-java.gradle.kts)
+[com.profiletailors.feature.compile-java-ext.gradle.kts](src/main/kotlin/com.profiletailors.feature.compile-java-ext.gradle.kts)
+[com.profiletailors.feature.compile-kotlin.gradle.kts](src/main/kotlin/com.profiletailors.feature.compile-kotlin.gradle.kts)
+[com.profiletailors.feature.compile-kotlin-ext.gradle.kts](src/main/kotlin/com.profiletailors.feature.compile-kotlin-ext.gradle.kts)
+[com.profiletailors.feature.copy-jar.gradle.kts](src/main/kotlin/com.profiletailors.feature.copy-jar.gradle.kts)
+[com.profiletailors.feature.doc-java.gradle.kts](src/main/kotlin/com.profiletailors.feature.doc-java.gradle.kts)
+[com.profiletailors.feature.doc-kotlin.gradle.kts](src/main/kotlin/com.profiletailors.feature.doc-kotlin.gradle.kts)
+[com.profiletailors.feature.git-hook.gradle.kts](src/main/kotlin/com.profiletailors.feature.git-hook.gradle.kts)
+[com.profiletailors.feature.openrewrite.gradle.kts](src/main/kotlin/com.profiletailors.feature.openrewrite.gradle.kts)
+[com.profiletailors.feature.publish-base.gradle.kts](src/main/kotlin/com.profiletailors.feature.publish-base.gradle.kts)
+[com.profiletailors.feature.publish-bom.gradle.kts](src/main/kotlin/com.profiletailors.feature.publish-bom.gradle.kts)
+[com.profiletailors.feature.publish-library.gradle.kts](src/main/kotlin/com.profiletailors.feature.publish-library.gradle.kts)
+[com.profiletailors.feature.publish-vanniktech.gradle.kts](src/main/kotlin/com.profiletailors.feature.publish-vanniktech.gradle.kts)
+[com.profiletailors.feature.shadow.gradle.kts](src/main/kotlin/com.profiletailors.feature.shadow.gradle.kts)
+[com.profiletailors.feature.test.gradle.kts](src/main/kotlin/com.profiletailors.feature.test.gradle.kts)
+[com.profiletailors.feature.test-end2end.gradle.kts](src/main/kotlin/com.profiletailors.feature.test-end2end.gradle.kts)
+[com.profiletailors.feature.test-fixtures.gradle.kts](src/main/kotlin/com.profiletailors.feature.test-fixtures.gradle.kts)
+[com.profiletailors.feature.use-all-catalog-versions.gradle.kts](src/main/kotlin/com.profiletailors.feature.use-all-catalog-versions.gradle.kts)
+[com.profiletailors.feature.war.gradle.kts](src/main/kotlin/com.profiletailors.feature.war.gradle.kts)
+[com.profiletailors.tools.check-version.gradle.kts](src/main/kotlin/com.profiletailors.tools.check-version.gradle.kts)
+[com.profiletailors.tools.spring-openapi.gradle.kts](src/main/kotlin/com.profiletailors.tools.spring-openapi.gradle.kts)
 
 #### Module Plugins
 
 _Module_ plugins combine plugins from all categories above to define _Module Types_ that are then used in the
 `build.gradle.kts` files of the individual Modules of our software.
 
-[io.github.mymx2.module.android.gradle.kts](src/main/kotlin/io.github.mymx2.module.android.gradle.kts)
-[io.github.mymx2.module.app.gradle.kts](src/main/kotlin/io.github.mymx2.module.app.gradle.kts)
-[io.github.mymx2.module.bom.gradle.kts](src/main/kotlin/io.github.mymx2.module.bom.gradle.kts)
-[io.github.mymx2.module.java.gradle.kts](src/main/kotlin/io.github.mymx2.module.java.gradle.kts)
-[io.github.mymx2.module.kotlin.gradle.kts](src/main/kotlin/io.github.mymx2.module.kotlin.gradle.kts)
-[io.github.mymx2.module.spring-boot.gradle.kts](src/main/kotlin/io.github.mymx2.module.spring-boot.gradle.kts)
-[io.github.mymx2.module.war.gradle.kts](src/main/kotlin/io.github.mymx2.module.war.gradle.kts)
+[com.profiletailors.module.android.gradle.kts](src/main/kotlin/com.profiletailors.module.android.gradle.kts)
+[com.profiletailors.module.app.gradle.kts](src/main/kotlin/com.profiletailors.module.app.gradle.kts)
+[com.profiletailors.module.bom.gradle.kts](src/main/kotlin/com.profiletailors.module.bom.gradle.kts)
+[com.profiletailors.module.java.gradle.kts](src/main/kotlin/com.profiletailors.module.java.gradle.kts)
+[com.profiletailors.module.kotlin.gradle.kts](src/main/kotlin/com.profiletailors.module.kotlin.gradle.kts)
+[com.profiletailors.module.spring-boot.gradle.kts](src/main/kotlin/com.profiletailors.module.spring-boot.gradle.kts)
+[com.profiletailors.module.war.gradle.kts](src/main/kotlin/com.profiletailors.module.war.gradle.kts)
 
 #### Gradle Testing Plugins
 

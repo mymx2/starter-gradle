@@ -1,11 +1,11 @@
 plugins {
-  id("io.github.mymx2.base.identity")
-  id("io.github.mymx2.base.lifecycle")
-  id("io.github.mymx2.feature.aggregation")
-  id("io.github.mymx2.check.format-gradle")
-  id("io.github.mymx2.report.sbom")
-  id("io.github.mymx2.report.test")
-  id("io.github.mymx2.report.code-coverage")
+  id("com.profiletailors.base.identity")
+  id("com.profiletailors.base.lifecycle")
+  id("com.profiletailors.feature.aggregation")
+  id("com.profiletailors.check.format-gradle")
+  id("com.profiletailors.report.sbom")
+  id("com.profiletailors.report.test")
+  id("com.profiletailors.report.code-coverage")
 }
 
 dependencies { runCatching { implementation(project(":app")) } }

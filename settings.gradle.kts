@@ -1,11 +1,11 @@
-import io.github.mymx2.plugin.dyIncludeProjects
+import com.profiletailors.plugin.dyIncludeProjects
 
 pluginManagement { includeBuild("gradle/build-logic") }
 
 plugins {
-  id("io.github.mymx2.build")
-  id("io.github.mymx2.build.feature.catalogs")
-  id("io.github.mymx2.plugin.dy.example.settings")
+  id("com.profiletailors.build")
+  id("com.profiletailors.build.feature.catalogs")
+  id("com.profiletailors.plugin.dy.example.settings")
   id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
