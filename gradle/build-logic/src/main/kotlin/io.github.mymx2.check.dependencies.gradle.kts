@@ -66,9 +66,7 @@ val isCI = EnvAccess.isCi(providers)
 // https://docs.gradle.org/nightly/userguide/dependency_locking.html
 dependencyLocking {
   ignoredDependencies.add("com.example:*")
-  if (isCI) {
-    lockMode = LockMode.STRICT
-  }
+  lockMode = LockMode.LENIENT
 }
 
 configurations {

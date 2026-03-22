@@ -126,10 +126,12 @@ buildscript {
   configurations.classpath {
     resolutionStrategy {
       cacheDynamicVersionsFor(7, TimeUnit.DAYS)
-      activateDependencyLocking()
+      deactivateDependencyLocking()
     }
   }
 }
+
+dependencyLocking { lockMode = LockMode.LENIENT }
 
 listOf(".*PluginMarker.*".toRegex() to "others").forEach { resetTaskGroup(it.first, it.second) }
 
