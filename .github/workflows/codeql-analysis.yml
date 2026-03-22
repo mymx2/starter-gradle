@@ -67,7 +67,7 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
-          tools: latest
+          tools: linked
           config-file: ./.github/config/codeql.yml
 
       - name: 🏗 Build Java/Kotlin with Gradle
