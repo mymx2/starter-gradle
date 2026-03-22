@@ -52,7 +52,12 @@ runtimeClasspath - Runtime classpath of 'main'.
 |    |         +--- org.springframework.boot:spring-boot:4.1.0-M3 (*)
 |    |         \--- tools.jackson.core:jackson-databind:3.1.0
 |    |              +--- com.fasterxml.jackson.core:jackson-annotations:2.21
-|    |              \--- tools.jackson.core:jackson-core:3.1.0
+|    |              +--- tools.jackson.core:jackson-core:3.1.0
+|    |              |    \--- tools.jackson:jackson-bom:3.1.0
+|    |              |         +--- com.fasterxml.jackson.core:jackson-annotations:2.21 (c)
+|    |              |         +--- tools.jackson.core:jackson-core:3.1.0 (c)
+|    |              |         \--- tools.jackson.core:jackson-databind:3.1.0 (c)
+|    |              \--- tools.jackson:jackson-bom:3.1.0 (*)
 |    +--- org.springframework.boot:spring-boot-starter-tomcat:4.1.0-M3
 |    |    +--- org.springframework.boot:spring-boot-starter:4.1.0-M3 (*)
 |    |    +--- org.springframework.boot:spring-boot-starter-tomcat-runtime:4.1.0-M3
