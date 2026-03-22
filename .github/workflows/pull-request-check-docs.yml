@@ -28,7 +28,7 @@ env:
   APP_DIR: docs
 
 jobs:
-  pr-checks-github-app:
+  pr-checks-docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +47,9 @@ jobs:
 
       - name: 🏗 Run main checks
         working-directory: docs
-        run: vp check
+        run: |
+          vp i
+          vp check
 
       - name: ⏸ Pause for VSCode Debug
         env:
