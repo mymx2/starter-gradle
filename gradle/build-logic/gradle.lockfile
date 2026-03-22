@@ -272,4 +272,5 @@ org.vafer:jdependency:2.15=runtimeClasspath
 org.yaml:snakeyaml:2.4=runtimeClasspath
 tools.jackson.core:jackson-core:3.1.0=runtimeClasspath
 tools.jackson.core:jackson-databind:3.1.0=runtimeClasspath
+tools.jackson:jackson-bom:3.1.0=runtimeClasspath
 empty=
