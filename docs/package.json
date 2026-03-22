@@ -1,0 +1,26 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "preview": "vitepress preview",
+    "build": "vitepress build"
+  },
+  "dependencies": {
+    "vitepress": "2.0.0-alpha.15"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "npm:@voidzero-dev/vite-plus-core@^0.1.13",
+    "vite-plus": "latest"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:@voidzero-dev/vite-plus-core@latest",
+      "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+    }
+  }
+}

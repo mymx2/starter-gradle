@@ -40,8 +40,9 @@ internal fun Project.nodeFile(
   version: String = "",
 ): Provider<File> {
   return lazySharedCache<File>("nodeFile") {
-    val nodeVersion =
-      version.ifBlank { runCatching { versionFromCatalog("node") }.getOrNull().orEmpty() }
+    val nodeVersion = version.ifBlank {
+      runCatching { versionFromCatalog("node") }.getOrNull().orEmpty()
+    }
 
     isolated.rootProject.projectDirectory.dir(path).asFile.let nodeFile@{
       if (it.exists()) {

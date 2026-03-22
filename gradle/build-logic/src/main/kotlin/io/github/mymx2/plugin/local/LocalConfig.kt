@@ -70,6 +70,8 @@ object LocalConfig {
     GPG_SIGNING_PASSWORD("signingInMemoryKeyPassword", ""),
     // 内置测试套件
     JUNIT_JUPITER_M2_ENABLED("JUNIT_JUPITER_M2_ENABLED", "false"),
+    // 是否开启内部依赖检查
+    INTERNAL_DEPENDENCIES_CHECK_M2_ENABLED("INTERNAL_DEPENDENCIES_CHECK_M2_ENABLED", "false"),
   }
 
   /** The default local properties file. */

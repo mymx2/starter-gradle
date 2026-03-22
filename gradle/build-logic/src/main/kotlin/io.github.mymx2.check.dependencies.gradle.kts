@@ -125,19 +125,6 @@ val writeLocks: TaskProvider<Task> =
         standardOutput = output
       }
       val outputString = output.toString()
-      // https://github.com/gradle/gradle/issues/19900
-      if (!org.gradle.internal.os.OperatingSystem.current().isUnix) {
-        listOf("buildscript-gradle.lockfile", "gradle.lockfile").forEach {
-          inject.layout.projectDirectory.file(it).asFile.also { file ->
-            if (file.exists()) {
-              file.writeText(
-                file.readText().replace(System.lineSeparator(), "\n"),
-                StandardCharsets.UTF_8,
-              )
-            }
-          }
-        }
-      }
       val runtimeClasspath =
         Regex(
             """(^runtimeClasspath - Runtime classpath of.*\.[\s\S]*)(runtimeElements\s-\s)""",

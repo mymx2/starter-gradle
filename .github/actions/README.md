@@ -1,5 +1,7 @@
 ### Start
 
+TODO: refactor to vite+
+
 ```bash
 npm config get registry
 npm config set registry https://mirrors.cloud.tencent.com/npm/

@@ -24,7 +24,7 @@ object InternalDependencies {
     errorProneCore = { module = "com.google.errorprone:error_prone_core", version = "2.48.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/google/errorprone/error_prone_core/maven-metadata.xml" }
     errorProneContrib = { module = "tech.picnic.error-prone-support:error-prone-contrib", version = "0.28.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/error-prone-contrib/maven-metadata.xml" }
     refasterRunner = { module = "tech.picnic.error-prone-support:refaster-runner", version = "0.28.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/refaster-runner/maven-metadata.xml" }
-    comFacebookKtfmt = { module = "com.facebook:ktfmt", version = "0.61", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/facebook/ktfmt/maven-metadata.xml" }
+    comFacebookKtfmt = { module = "com.facebook:ktfmt", version = "0.62", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/facebook/ktfmt/maven-metadata.xml" }
     spotbugsAnnotations = { module = "com.github.spotbugs:spotbugs-annotations", version = "4.9.8", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml" }
 
     # NPM dependencies

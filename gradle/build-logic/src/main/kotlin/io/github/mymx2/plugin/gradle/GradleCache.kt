@@ -4,6 +4,8 @@ package io.github.mymx2.plugin.gradle
 
 import io.github.mymx2.plugin.sharedGradle
 import java.io.File
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 import java.util.*
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -136,6 +138,13 @@ fun PluginAware.computedDiskBuildService(
       }
     val cache = LinkedHashMap<String, String>()
     if (cacheFile != null) {
+      if (cacheFile.exists()) {
+        // auto cache for 7 days
+        val lastModified = cacheFile.lastModified()
+        if (Instant.now().isAfter(Instant.ofEpochMilli(lastModified).plus(7, ChronoUnit.DAYS))) {
+          cacheFile.delete()
+        }
+      }
       cacheFile.ensureParentDirsCreated()
       cache.putAll(DiskCache.loadCache(cacheFile))
       cache["DISK_CACHE"] = cacheFile.absolutePath

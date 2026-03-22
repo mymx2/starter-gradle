@@ -13,7 +13,6 @@ rootProject.name = rootDir.name
 
 dyIncludeProjects(
   mapOf(
-    ":docs" to "docs",
     ":app" to "app",
     ":example-java" to "examples/example-java",
     ":example-kotlin" to "examples/example-kotlin",

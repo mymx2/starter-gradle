@@ -4,6 +4,8 @@ import io.github.mymx2.plugin.DefaultProjects
 import io.github.mymx2.plugin.Injected
 import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.injected
+import io.github.mymx2.plugin.local.LocalConfig
+import io.github.mymx2.plugin.local.getPropOrDefault
 import io.github.mymx2.plugin.tasks.DependencyVersionUpgradesCheck
 import io.github.mymx2.plugin.tasks.JavaVersionConsistencyCheck
 import io.github.mymx2.plugin.utils.Ansi
@@ -85,13 +87,18 @@ tasks.register<DependencyVersionUpgradesCheck>("checkVersionUpgrades") {
   )
 }
 
+val internalDependenciesCheckM2Enabled =
+  project.getPropOrDefault(LocalConfig.Props.INTERNAL_DEPENDENCIES_CHECK_M2_ENABLED).toBoolean()
+
 val currentGradleVersion: String = gradle.gradleVersion
 val projectExtensions: ExtensionContainer = project.extensions
 
 tasks.register("checkVersions") {
   group = "toolbox"
   description = "Check gradle/*.versions.toml for updates"
-  CheckVersionPluginConfig.taskConfigureCheckProjectDependencies(this)
+  if (internalDependenciesCheckM2Enabled) {
+    CheckVersionPluginConfig.taskConfigureCheckProjectDependencies(this)
+  }
   if (isVersionProject) {
     CheckVersionPluginConfig.taskConfigureCheckVersions(this, injected, projectExtensions)
   }
