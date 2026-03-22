@@ -1,6 +1,6 @@
 # Starter-Gradle官方文档
 
-站点采用 [VitePress](https://vitepress.dev/zh/guide/getting-started) 构建。使用 [**Vite+**](https://viteplus.dev/guide/)
+站点采用 [VitePress](https://vitepress.dev/zh/guide/getting-started) 构建，使用 [**Vite+**](https://viteplus.dev/guide/)
 创建及管理项目。
 
 ## Vite+
