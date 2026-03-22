@@ -6,15 +6,19 @@ import com.diffplug.gradle.spotless.FormatExtension
 import com.diffplug.spotless.FormatterStep
 import com.diffplug.spotless.generic.ReplaceRegexStep
 import com.diffplug.spotless.kotlin.KtfmtStep
+import com.diffplug.spotless.npm.NpmPathResolver
 import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.gradle.computedExtension
+import io.github.mymx2.plugin.gradle.eagerDiskCache
 import io.github.mymx2.plugin.gradle.eagerSharedCache
 import io.github.mymx2.plugin.gradle.lazySharedCache
-import io.github.mymx2.plugin.versionFromCatalog
+import io.github.mymx2.plugin.utils.ExeFinder
 import java.io.File
 import java.math.BigDecimal
+import java.util.*
 import org.gradle.api.Project
+import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.provider.Provider
 
 /**
@@ -35,46 +39,28 @@ fun FormatExtension.defaultStep(step: () -> Unit) {
   endWithNewline()
 }
 
-internal fun Project.nodeFile(
-  path: String = ".gradle/nodejs",
-  version: String = "",
-): Provider<File> {
-  return lazySharedCache<File>("nodeFile") {
-    val nodeVersion = version.ifBlank {
-      runCatching { versionFromCatalog("node") }.getOrNull().orEmpty()
-    }
-
-    isolated.rootProject.projectDirectory.dir(path).asFile.let nodeFile@{
-      if (it.exists()) {
-        val workDir =
-          it.listFiles().firstOrNull { file -> file.name.startsWith("node-v${nodeVersion}") }
-        if (workDir != null) {
-          return@nodeFile workDir.resolve("node.exe")
-        }
+internal fun Project.npmFile(path: String? = null): Provider<File> {
+  return lazySharedCache<File>("npmFile") {
+    val npmPath =
+      if (!path.isNullOrBlank()) path
+      else {
+        eagerDiskCache("npmExePath") { ExeFinder.findExePath(providers, layout, "npm").orEmpty() }
       }
-      return@nodeFile it
-    }
-  }
-}
-
-internal fun Project.npmFile(nodeFile: Provider<File>): Provider<File> {
-  return provider {
-    val workDir = nodeFile.orNull?.parentFile ?: return@provider null
-    //    val isWindows = System.getProperty("os.name").lowercase().contains("windows")
-    val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
-    if (isWindows) {
-      workDir.resolve("npm.cmd")
-    } else {
-      workDir.resolve("bin/npm")
-    }
+    val npmFile =
+      if (npmPath.isNotBlank()) {
+        File(npmPath)
+      } else {
+        runCatching { NpmPathResolver(null, null, null, listOf()).resolveNpmExecutable() }
+          .getOrNull()
+      }
+    npmFile?.takeIf { it.exists() } ?: File(UUID.randomUUID().toString())
   }
 }
 
 /** Spotless configuration */
 object SpotlessConfig {
   /**
-   * Returns a [org.gradle.api.file.ConfigurableFileTree] for the given source directory (default:
-   * "src").
+   * Returns a [ConfigurableFileTree] for the given source directory (default: "src").
    *
    * It excludes:
    * - Any directory starting with "__" (recursively, all its content excluded).
@@ -85,7 +71,7 @@ object SpotlessConfig {
    *
    * @param src Relative source directory path (defaults to "src").
    */
-  fun Project.spotlessFileTree(src: String = "src") =
+  fun Project.spotlessFileTree(src: String = "src"): ConfigurableFileTree =
     fileTree(isolated.projectDirectory.dir(src)) {
       // default excludes.
       val defaultSpotlessExcludes =
@@ -94,7 +80,7 @@ object SpotlessConfig {
       exclude(defaultSpotlessExcludes)
     }
 
-  val ktfmtVersion = run {
+  val ktfmtVersion: String = run {
     val ktfmtVersion = InternalDependencies.get("comFacebookKtfmt").version.toBigDecimal()
     val defaultKtfmtVersion = KtfmtStep.defaultVersion()
     return@run if (ktfmtVersion >= BigDecimal(defaultKtfmtVersion)) {
@@ -169,7 +155,6 @@ object SpotlessConfig {
           if (trimmed.isEmpty() || trimmed.startsWith("#")) return@forEachLine
 
           if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
-            @Suppress("AssignedValueIsNeverRead")
             inStarGroup = trimmed == "[*]"
             return@forEachLine
           }

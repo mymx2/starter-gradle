@@ -5,15 +5,14 @@ import io.github.mymx2.plugin.spotless.SpotlessConfig
 import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
 import io.github.mymx2.plugin.spotless.defaultStep
-import io.github.mymx2.plugin.spotless.nodeFile
+import io.github.mymx2.plugin.spotless.npmFile
 
 plugins { id("io.github.mymx2.check.format-base") }
 
 // only root project
 if (path == ":") {
   val buildLogic = DefaultProjects.buildLogic
-  val subProjects =
-    listOf(buildLogic, DefaultProjects.versions, DefaultProjects.aggregation, DefaultProjects.docs)
+  val subProjects = listOf(buildLogic, DefaultProjects.versions, DefaultProjects.aggregation)
 
   spotless {
     val ktAndKtsFiles =
@@ -55,35 +54,37 @@ if (path == ":") {
     val misc = listOf("**/*.md", "**/*.json", "**/*.json5", "**/*.yaml", "**/*.yml")
     val xml = listOf("**/*.xml")
     val targetFiles = spotlessFileTree("gradle/configs").apply { include(misc + xml) }
-    val nodeExecutable = nodeFile().orNull
+    val npmExecutable = npmFile().orNull
 
-    format("prettierXmlRoot") {
-      defaultStep {
-        prettier(SpotlessConfig.prettierDevDependenciesWithXmlPlugin)
-          .nodeExecutable(nodeExecutable)
-          .config(
-            mapOf(
-              "plugins" to listOf("@prettier/plugin-xml"),
-              "parser" to "xml",
-              "useTabs" to false,
-              "tabWidth" to 2,
+    if (npmExecutable?.exists() == true) {
+      format("prettierXmlRoot") {
+        defaultStep {
+          prettier(SpotlessConfig.prettierDevDependenciesWithXmlPlugin)
+            .npmExecutable(npmExecutable)
+            .config(
+              mapOf(
+                "plugins" to listOf("@prettier/plugin-xml"),
+                "parser" to "xml",
+                "useTabs" to false,
+                "tabWidth" to 2,
+              )
             )
-          )
+        }
+        target(targetFiles.matching { include(xml) })
       }
-      target(targetFiles.matching { include(xml) })
-    }
-    format("prettierMiscRoot") {
-      defaultStep {
-        prettier(SpotlessConfig.prettierDevDependencies).nodeExecutable(nodeExecutable)
+      format("prettierMiscRoot") {
+        defaultStep {
+          prettier(SpotlessConfig.prettierDevDependencies).npmExecutable(npmExecutable)
+        }
+        target(
+          isolated.projectDirectory.files("README.md"),
+          spotlessFileTree(".github").include(misc).exclude("**/*-lock.yaml"),
+          targetFiles.matching {
+            include(misc)
+            exclude("**/*-lock.yaml")
+          },
+        )
       }
-      target(
-        isolated.projectDirectory.files("README.md"),
-        spotlessFileTree(".github").include(misc).exclude("**/*-lock.yaml"),
-        targetFiles.matching {
-          include(misc)
-          exclude("**/*-lock.yaml")
-        },
-      )
     }
   }
 }
