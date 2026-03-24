@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/detekt-1.22.0.json
-# spotless:disable
+# spotless-disable
 config:
   validation: true
   warningsAsErrors: false

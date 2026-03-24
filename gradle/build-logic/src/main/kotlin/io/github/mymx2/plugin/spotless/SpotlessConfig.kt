@@ -29,7 +29,7 @@ import org.gradle.api.provider.Provider
  * doesn't cover all files same as .editorconfig.
  */
 fun FormatExtension.defaultStep(step: () -> Unit) {
-  targetExcludeIfContentContains("spotless${":"}disable")
+  targetExcludeIfContentContains("spotless${"-"}disable")
   toggleOffOn()
   step()
   leadingTabsToSpaces(2)
