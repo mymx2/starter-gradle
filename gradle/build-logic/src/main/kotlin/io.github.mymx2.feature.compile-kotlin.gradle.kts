@@ -20,5 +20,6 @@ tasks.withType<KotlinCompile>().configureEach {
   compilerOptions.freeCompilerArgs.addAll(
     "-Xjsr305=strict", // 严格空安全
     "-Xemit-jvm-type-annotations", // 在泛型上保留类型注解
+    "-Xannotation-target-all", // 允许注解所有目标
   )
 }

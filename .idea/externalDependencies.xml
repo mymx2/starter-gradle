@@ -13,13 +13,9 @@
     <plugin id="com.github.wangji92.arthas.plugin" />
     <plugin id="com.github.xepozz.gitcodeowners" />
     <plugin id="com.haulmont.jpab" />
-    <plugin id="com.intellij.bigdatatools" />
-    <plugin id="com.intellij.bigdatatools.kafka" />
     <plugin id="com.intellij.spring.debugger" />
     <plugin id="com.robohorse.robopojogenerator" />
     <plugin id="detekt" />
-    <plugin id="dev.meanmail.plugin.nginx-intellij-plugin" />
-    <plugin id="io.github.godfather1103.alibaba.p3c" />
     <plugin id="izhangzhihao.rainbow.brackets" />
     <plugin id="me.rerere.unocss-intellij" />
     <plugin id="org.jusecase.jte-intellij" />
