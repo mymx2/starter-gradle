@@ -131,6 +131,7 @@ val writeLocks: TaskProvider<Task> =
           .find(outputString)
           ?.groupValues[1]
           ?.trim()
+          ?.let { if (it.endsWith("\n")) it else "$it\n" }
       if (!runtimeClasspath.isNullOrBlank()) {
         inject.layout.projectDirectory
           .file("gradle.lockfile.txt")

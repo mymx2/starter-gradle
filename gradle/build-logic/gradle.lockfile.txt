@@ -1,49 +1,49 @@
 runtimeClasspath - Runtime classpath of 'main'.
-+--- org.jetbrains.kotlin:kotlin-reflect:2.3.10
-|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.10 -> 2.3.20-RC3
++--- org.jetbrains.kotlin:kotlin-reflect:2.3.20
+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.3.20-RC3
 |         +--- org.jetbrains:annotations:13.0 -> 23.0.0
 |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.0.21 (c)
 |         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.0.21 (c)
-+--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.10
-|    +--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.10
-|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:fus-statistics-gradle-plugin:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-allopen:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-lombok:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-noarg:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-sam-with-receiver:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:2.3.10 (c)
-|    |    +--- org.jetbrains.kotlin:kotlin-native-utils:2.3.10 (c)
-|    |    \--- org.jetbrains.kotlin:kotlin-tooling-core:2.3.10 (c)
-|    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.10
-|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.10 (*)
-|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:2.3.10
-|    |    +--- org.jetbrains.kotlin:kotlin-native-utils:2.3.10
-|    |    |    +--- org.jetbrains.kotlin:kotlin-util-io:2.3.10
-|    |    |    \--- org.jetbrains.kotlin:kotlin-util-klib:2.3.10
-|    |    |         \--- org.jetbrains.kotlin:kotlin-util-io:2.3.10
-|    |    +--- org.jetbrains.kotlin:kotlin-tooling-core:2.3.10
-|    |    \--- org.jetbrains.kotlin:kotlin-build-tools-api:2.3.10
-|    +--- org.jetbrains.kotlin:fus-statistics-gradle-plugin:2.3.10
-|    |    \--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.10 (*)
-|    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea:2.3.10
-|    |    +--- org.jetbrains.kotlin:kotlin-tooling-core:2.3.10
-|    |    \--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:2.3.10
-|    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea-proto:2.3.10
-|    |    \--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea:2.3.10 (*)
-|    +--- org.jetbrains.kotlin:kotlin-klib-commonizer-api:2.3.10
-|    |    \--- org.jetbrains.kotlin:kotlin-native-utils:2.3.10 (*)
-|    +--- org.jetbrains.kotlin:kotlin-build-statistics:2.3.10
-|    |    +--- org.jetbrains.kotlin:kotlin-build-tools-api:2.3.10
++--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.20
+|    +--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.20
+|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:fus-statistics-gradle-plugin:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:kotlin-allopen:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:kotlin-lombok:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:kotlin-noarg:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:kotlin-sam-with-receiver:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:2.3.20 (c)
+|    |    +--- org.jetbrains.kotlin:kotlin-native-utils:2.3.20 (c)
+|    |    \--- org.jetbrains.kotlin:kotlin-tooling-core:2.3.20 (c)
+|    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.20
+|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.20 (*)
+|    |    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:2.3.20
+|    |    +--- org.jetbrains.kotlin:kotlin-native-utils:2.3.20
+|    |    |    +--- org.jetbrains.kotlin:kotlin-util-io:2.3.20
+|    |    |    \--- org.jetbrains.kotlin:kotlin-util-klib:2.3.20
+|    |    |         \--- org.jetbrains.kotlin:kotlin-util-io:2.3.20
+|    |    +--- org.jetbrains.kotlin:kotlin-tooling-core:2.3.20
+|    |    \--- org.jetbrains.kotlin:kotlin-build-tools-api:2.3.20
+|    +--- org.jetbrains.kotlin:fus-statistics-gradle-plugin:2.3.20
+|    |    \--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.20 (*)
+|    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea:2.3.20
+|    |    +--- org.jetbrains.kotlin:kotlin-tooling-core:2.3.20
+|    |    \--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:2.3.20
+|    +--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea-proto:2.3.20
+|    |    \--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea:2.3.20 (*)
+|    +--- org.jetbrains.kotlin:kotlin-klib-commonizer-api:2.3.20
+|    |    \--- org.jetbrains.kotlin:kotlin-native-utils:2.3.20 (*)
+|    +--- org.jetbrains.kotlin:kotlin-build-statistics:2.3.20
+|    |    +--- org.jetbrains.kotlin:kotlin-build-tools-api:2.3.20
 |    |    \--- com.google.code.gson:gson:2.11.0
 |    |         \--- com.google.errorprone:error_prone_annotations:2.27.0 -> 2.43.0
-|    +--- org.jetbrains.kotlin:kotlin-util-klib-metadata:2.3.10
-|    |    +--- org.jetbrains.kotlin:kotlin-util-io:2.3.10
-|    |    \--- org.jetbrains.kotlin:kotlin-util-klib:2.3.10 (*)
-|    +--- org.jetbrains.kotlin:abi-tools-api:2.3.10
-|    \--- org.jetbrains.kotlin:kotlin-compiler-runner:2.3.10
-|         +--- org.jetbrains.kotlin:kotlin-daemon-client:2.3.10
+|    +--- org.jetbrains.kotlin:kotlin-util-klib-metadata:2.3.20
+|    |    +--- org.jetbrains.kotlin:kotlin-util-io:2.3.20
+|    |    \--- org.jetbrains.kotlin:kotlin-util-klib:2.3.20 (*)
+|    +--- org.jetbrains.kotlin:abi-tools-api:2.3.20
+|    \--- org.jetbrains.kotlin:kotlin-compiler-runner:2.3.20
+|         +--- org.jetbrains.kotlin:kotlin-daemon-client:2.3.20
 |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0 -> 1.10.2
 |              +--- org.jetbrains:annotations:23.0.0
 |              \--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2
@@ -60,24 +60,24 @@ runtimeClasspath - Runtime classpath of 'main'.
 |                   |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0 (c)
 |                   |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0 (c)
 |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.3.20-RC3 (*)
-+--- org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:2.3.10
-|    \--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.10 (*)
-+--- org.jetbrains.kotlin.plugin.lombok:org.jetbrains.kotlin.plugin.lombok.gradle.plugin:2.3.10
-|    \--- org.jetbrains.kotlin:kotlin-lombok:2.3.10
-|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.10 (*)
-|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.10 (*)
-+--- org.jetbrains.kotlin.plugin.sam.with.receiver:org.jetbrains.kotlin.plugin.sam.with.receiver.gradle.plugin:2.3.10
-|    \--- org.jetbrains.kotlin:kotlin-sam-with-receiver:2.3.10
-|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.10 (*)
-|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.10 (*)
-+--- org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:2.3.10
-|    \--- org.jetbrains.kotlin:kotlin-allopen:2.3.10
-|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.10 (*)
-|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.10 (*)
-+--- org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:2.3.10
-|    \--- org.jetbrains.kotlin:kotlin-noarg:2.3.10
-|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.10 (*)
-|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.10 (*)
++--- org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:2.3.20
+|    \--- org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.20 (*)
++--- org.jetbrains.kotlin.plugin.lombok:org.jetbrains.kotlin.plugin.lombok.gradle.plugin:2.3.20
+|    \--- org.jetbrains.kotlin:kotlin-lombok:2.3.20
+|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.20 (*)
+|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.20 (*)
++--- org.jetbrains.kotlin.plugin.sam.with.receiver:org.jetbrains.kotlin.plugin.sam.with.receiver.gradle.plugin:2.3.20
+|    \--- org.jetbrains.kotlin:kotlin-sam-with-receiver:2.3.20
+|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.20 (*)
+|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.20 (*)
++--- org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:2.3.20
+|    \--- org.jetbrains.kotlin:kotlin-allopen:2.3.20
+|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.20 (*)
+|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.20 (*)
++--- org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:2.3.20
+|    \--- org.jetbrains.kotlin:kotlin-noarg:2.3.20
+|         +--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.3.20 (*)
+|         \--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.3.20 (*)
 +--- net.ltgt.errorprone:net.ltgt.errorprone.gradle.plugin:5.1.0
 |    \--- net.ltgt.gradle:gradle-errorprone-plugin:5.1.0
 +--- net.ltgt.nullaway:net.ltgt.nullaway.gradle.plugin:3.0.0
@@ -226,15 +226,15 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              +--- com.squareup.moshi:moshi:1.15.2 (*)
 |              \--- com.squareup.moshi:moshi-kotlin:1.15.2
 |                   +--- com.squareup.moshi:moshi:1.15.2 (*)
-|                   +--- org.jetbrains.kotlin:kotlin-reflect:1.8.21 -> 2.3.10 (*)
+|                   +--- org.jetbrains.kotlin:kotlin-reflect:1.8.21 -> 2.3.20 (*)
 |                   \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.0.21 (*)
 +--- com.autonomousapps.dependency-analysis:com.autonomousapps.dependency-analysis.gradle.plugin:3.6.1
 |    \--- com.autonomousapps:dependency-analysis-gradle-plugin:3.6.1
 |         +--- org.jetbrains.kotlin:kotlin-bom:2.0.21
 |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.20-RC3 (c)
 |         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21 (c)
-|         |    +--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.3.10 (c)
-|         |    +--- org.jetbrains.kotlin:kotlin-daemon-client:2.0.21 -> 2.3.10 (c)
+|         |    +--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.3.20 (c)
+|         |    +--- org.jetbrains.kotlin:kotlin-daemon-client:2.0.21 -> 2.3.20 (c)
 |         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21 (c)
 |         +--- com.squareup.okio:okio-bom:3.16.4
 |         |    +--- com.squareup.okio:okio:3.16.4 (c)
@@ -264,8 +264,8 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         |    +--- com.squareup:kotlinpoet:2.1.0
 |         |    |    \--- com.squareup:kotlinpoet-jvm:2.1.0
 |         |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.10 -> 2.3.20-RC3 (*)
-|         |    |         \--- org.jetbrains.kotlin:kotlin-reflect:2.1.10 -> 2.3.10 (*)
-|         |    +--- org.jetbrains.kotlin:kotlin-reflect:2.1.20 -> 2.3.10 (*)
+|         |    |         \--- org.jetbrains.kotlin:kotlin-reflect:2.1.10 -> 2.3.20 (*)
+|         |    +--- org.jetbrains.kotlin:kotlin-reflect:2.1.20 -> 2.3.20 (*)
 |         |    +--- com.squareup.moshi:moshi:1.15.2 (*)
 |         |    +--- com.squareup.moshi:moshi-adapters:1.15.2 (*)
 |         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.3.20-RC3 (*)
@@ -278,7 +278,7 @@ runtimeClasspath - Runtime classpath of 'main'.
 |         +--- com.autonomousapps:asm-relocated:9.9.0
 |         +--- com.squareup.moshi:moshi:1.15.2 (*)
 |         +--- dev.zacsweers.moshix:moshi-sealed-runtime:0.30.0 (*)
-|         \--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.3.10 (*)
+|         \--- org.jetbrains.kotlin:kotlin-reflect:2.0.21 -> 2.3.20 (*)
 +--- io.fuchs.gradle.classpath-collision-detector:io.fuchs.gradle.classpath-collision-detector.gradle.plugin:1.0.0
 |    \--- io.fuchs.gradle.classpath-collision-detector:classpath-collision-detector:1.0.0
 +--- org.cyclonedx.bom:org.cyclonedx.bom.gradle.plugin:3.2.2
@@ -587,17 +587,17 @@ runtimeClasspath - Runtime classpath of 'main'.
 |              \--- org.yaml:snakeyaml:2.4
 +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2 (*)
 +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 (*)
-+--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.10 -> 2.3.20-RC3 (*)
-+--- org.jetbrains.kotlin:kotlin-reflect:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-gradle-plugin:{strictly 2.3.10} -> 2.3.10 (c)
++--- org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.20 -> 2.3.20-RC3 (*)
++--- org.jetbrains.kotlin:kotlin-reflect:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-gradle-plugin:{strictly 2.3.20} -> 2.3.20 (c)
 +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:{strictly 1.10.2} -> 1.10.2 (c)
 +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:{strictly 1.10.2} -> 1.10.2 (c)
 +--- net.swiftzer.semver:semver:{strictly 2.1.0} -> 2.1.0 (c)
-+--- org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin.plugin.lombok:org.jetbrains.kotlin.plugin.lombok.gradle.plugin:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin.plugin.sam.with.receiver:org.jetbrains.kotlin.plugin.sam.with.receiver.gradle.plugin:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:{strictly 2.3.10} -> 2.3.10 (c)
++--- org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin.plugin.lombok:org.jetbrains.kotlin.plugin.lombok.gradle.plugin:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin.plugin.sam.with.receiver:org.jetbrains.kotlin.plugin.sam.with.receiver.gradle.plugin:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin.plugin.jpa:org.jetbrains.kotlin.plugin.jpa.gradle.plugin:{strictly 2.3.20} -> 2.3.20 (c)
 +--- net.ltgt.errorprone:net.ltgt.errorprone.gradle.plugin:{strictly 5.1.0} -> 5.1.0 (c)
 +--- net.ltgt.nullaway:net.ltgt.nullaway.gradle.plugin:{strictly 3.0.0} -> 3.0.0 (c)
 +--- com.gradle.develocity:com.gradle.develocity.gradle.plugin:{strictly 4.3.2} -> 4.3.2 (c)
@@ -623,21 +623,21 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.springframework.boot:org.springframework.boot.gradle.plugin:{strictly 4.1.0-M3} -> 4.1.0-M3 (c)
 +--- org.openapi.generator:org.openapi.generator.gradle.plugin:{strictly 7.20.0} -> 7.20.0 (c)
 +--- org.jetbrains.kotlin:kotlin-stdlib:{strictly 2.3.20-RC3} -> 2.3.20-RC3 (c)
-+--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:fus-statistics-gradle-plugin:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea-proto:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-klib-commonizer-api:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-build-statistics:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-util-klib-metadata:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:abi-tools-api:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-compiler-runner:{strictly 2.3.10} -> 2.3.10 (c)
++--- org.jetbrains.kotlin:kotlin-gradle-plugins-bom:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-gradle-plugin-api:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:fus-statistics-gradle-plugin:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-gradle-plugin-idea-proto:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-klib-commonizer-api:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-build-statistics:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-util-klib-metadata:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:abi-tools-api:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-compiler-runner:{strictly 2.3.20} -> 2.3.20 (c)
 +--- net.swiftzer.semver:semver-jvm:{strictly 2.1.0} -> 2.1.0 (c)
-+--- org.jetbrains.kotlin:kotlin-lombok:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-sam-with-receiver:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-allopen:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-noarg:{strictly 2.3.10} -> 2.3.10 (c)
++--- org.jetbrains.kotlin:kotlin-lombok:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-sam-with-receiver:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-allopen:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-noarg:{strictly 2.3.20} -> 2.3.20 (c)
 +--- net.ltgt.gradle:gradle-errorprone-plugin:{strictly 5.1.0} -> 5.1.0 (c)
 +--- net.ltgt.gradle:gradle-nullaway-plugin:{strictly 3.0.0} -> 3.0.0 (c)
 +--- com.gradle:develocity-gradle-plugin:{strictly 4.3.2} -> 4.3.2 (c)
@@ -663,14 +663,14 @@ runtimeClasspath - Runtime classpath of 'main'.
 +--- org.openapitools:openapi-generator-gradle-plugin:{strictly 7.20.0} -> 7.20.0 (c)
 +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:{strictly 1.10.2} -> 1.10.2 (c)
 +--- org.jetbrains:annotations:{strictly 23.0.0} -> 23.0.0 (c)
-+--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-native-utils:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-tooling-core:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-build-tools-api:{strictly 2.3.10} -> 2.3.10 (c)
++--- org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-native-utils:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-tooling-core:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-build-tools-api:{strictly 2.3.20} -> 2.3.20 (c)
 +--- com.google.code.gson:gson:{strictly 2.11.0} -> 2.11.0 (c)
-+--- org.jetbrains.kotlin:kotlin-util-io:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-util-klib:{strictly 2.3.10} -> 2.3.10 (c)
-+--- org.jetbrains.kotlin:kotlin-daemon-client:{strictly 2.3.10} -> 2.3.10 (c)
++--- org.jetbrains.kotlin:kotlin-util-io:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-util-klib:{strictly 2.3.20} -> 2.3.20 (c)
++--- org.jetbrains.kotlin:kotlin-daemon-client:{strictly 2.3.20} -> 2.3.20 (c)
 +--- org.jetbrains.kotlinx:kotlinx-serialization-core:{strictly 1.8.0} -> 1.8.0 (c)
 +--- com.diffplug.durian:durian-core:{strictly 1.2.0} -> 1.2.0 (c)
 +--- com.diffplug.durian:durian-io:{strictly 1.2.0} -> 1.2.0 (c)
