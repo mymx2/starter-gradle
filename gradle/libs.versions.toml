@@ -29,18 +29,18 @@ slf4jBom = { module = "org.slf4j:slf4j-bom", version = "2.1.0-alpha1" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
 net-ltgt-errorprone = { id = "net.ltgt.errorprone", version = "5.1.0" }
 net-ltgt-nullaway = { id = "net.ltgt.nullaway", version = "3.0.0" }
-com-gradle-develocity = { id = "com.gradle.develocity", version = "4.3.2" }
+com-gradle-develocity = { id = "com.gradle.develocity", version = "4.4.0" }
 org-ec4j-editorconfig = { id = "org.ec4j.editorconfig", version = "0.1.0" }
 com-diffplug-spotless = { id = "com.diffplug.spotless", version = "8.4.0" }
 com-github-node-gradle-node = { id = "com.github.node-gradle.node", version = "7.1.0" }
 dev-detekt = { id = "dev.detekt", version = "2.0.0-alpha.2" }
-org-jetbrains-dokka = { id = "org.jetbrains.dokka", version = "2.2.0-Beta" }
+org-jetbrains-dokka = { id = "org.jetbrains.dokka", version = "2.2.0" }
 me-champeau-jmh = { id = "me.champeau.jmh", version = "0.7.3" }
 org-gradlex-jvm-dependency-conflict-resolution = { id = "org.gradlex.jvm-dependency-conflict-resolution", version = "2.5" }
 org-gradlex-java-module-dependencies = { id = "org.gradlex.java-module-dependencies", version = "1.12.1" }
-org-gradlex-java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.8" }
+org-gradlex-java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.8.1" }
 org-gradlex-extra-java-module-info = { id = "org.gradlex.extra-java-module-info", version = "1.14" }
-com-gradleup-shadow = { id = "com.gradleup.shadow", version = "9.4.0" }
+com-gradleup-shadow = { id = "com.gradleup.shadow", version = "9.4.1" }
 com-gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "2.1.1" }
 # https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/vanniktech/gradle-maven-publish-plugin/maven-metadata.xml
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.36.0" }
@@ -48,14 +48,14 @@ com-autonomousapps-dependency-analysis = { id = "com.autonomousapps.dependency-a
 io-fuchs-gradle-classpath-collision-detector = { id = "io.fuchs.gradle.classpath-collision-detector", version = "1.0.0" }
 org-cyclonedx-bom = { id = "org.cyclonedx.bom", version = "3.2.2" }
 com-github-spotbugs = { id = "com.github.spotbugs", version = "6.4.8" }
-org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.7" }
+org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.8" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.6" }
 com-google-cloud-tools-jib = { id = "com.google.cloud.tools.jib", version = "3.5.3" }
 org-nosphere-apache-rat = { id = "org.nosphere.apache.rat", version = "0.8.1" }
 io-freefair-lombok = { id = "io.freefair.lombok", version = "9.2.0" }
-org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.28.2" }
-org-springframework-boot = { id = "org.springframework.boot", version = "4.1.0-M3" }
-org-openapi-generator = { id = "org.openapi.generator", version = "7.20.0" }
+org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.29.0" }
+org-springframework-boot = { id = "org.springframework.boot", version = "4.1.0-M4" }
+org-openapi-generator = { id = "org.openapi.generator", version = "7.21.0" }
 
 # Convention Plugins
 io-github-mymx2-plugin-dy-example-settings = { id = "io.github.mymx2.plugin.dy.example.settings" }
