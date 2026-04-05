@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
 
       - name: 📦 Setup Vite+
-        uses: voidzero-dev/setup-vp@fd19e0626188613eec92a77e875180c6445b56ba # v1
+        uses: voidzero-dev/setup-vp@8ecb39174989ce55af90f45cf55b02738599831d # v1
 
       - name: ☕ Setup Java
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
