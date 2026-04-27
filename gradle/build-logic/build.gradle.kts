@@ -158,6 +158,6 @@ gradle.projectsEvaluated {
 configurations.configureEach { resolutionStrategy { force("org.projectlombok:lombok:1.18.44") } }
 
 dependencies {
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0-rc01")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0-rc01")
 }
