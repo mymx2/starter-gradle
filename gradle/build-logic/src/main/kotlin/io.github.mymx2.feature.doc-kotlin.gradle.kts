@@ -2,7 +2,6 @@ import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
 
 plugins {
-  id("org.jetbrains.kotlin.jvm")
   // https://kotlinlang.org/docs/dokka-migration.html
   id("org.jetbrains.dokka")
 }

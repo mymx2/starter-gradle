@@ -1,4 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/openrewrite/rewrite/main/rewrite-core/openrewrite.json
+# feat: https://github.com/openrewrite/rewrite/issues/1714. 建议不要使用openrewrite， ai重写更符合当下潮流
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: io.github.mymx2.openrewrite.SanityCheck
@@ -11,12 +12,10 @@ tags:
   - cleanup
 recipeList:
   - org.openrewrite.java.migrate.UpgradeToJava25
-  - org.openrewrite.java.migrate.lang.UseVar
   - org.openrewrite.java.migrate.lang.FindVirtualThreadOpportunities
   - org.openrewrite.java.migrate.util.JavaUtilAPIs
   - org.openrewrite.java.migrate.lombok.LombokBestPractices
   - org.openrewrite.java.migrate.guava.NoGuava
-  - org.openrewrite.java.migrate.jakarta.JakartaEE11
   - org.openrewrite.java.jspecify.JSpecifyBestPractices
   - org.openrewrite.java.recipes.JavaRecipeBestPractices
   - org.openrewrite.java.recipes.RecipeNullabilityBestPractices
@@ -53,7 +52,7 @@ recipeList:
   - tech.picnic.errorprone.refasterrules.StreamRulesRecipes
   - tech.picnic.errorprone.refasterrules.StringRulesRecipes
   - tech.picnic.errorprone.refasterrules.TimeRulesRecipes
-  - org.openrewrite.java.spring.boot4.UpgradeSpringBoot_4_0
+  # - org.openrewrite.java.spring.boot4.UpgradeSpringBoot_4_0
   - org.openrewrite.java.spring.data.UpgradeSpringData_3_4
 ---
 type: specs.openrewrite.org/v1beta/style

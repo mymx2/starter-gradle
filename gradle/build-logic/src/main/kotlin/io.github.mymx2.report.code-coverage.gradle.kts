@@ -6,17 +6,17 @@ plugins {
   java
   `jacoco-report-aggregation`
   // https://kotlin.github.io/kotlinx-kover/gradle-plugin/
-  id("org.jetbrains.kotlinx.kover")
+  // id("org.jetbrains.kotlinx.kover")
   id("io.github.mymx2.base.lifecycle")
   id("io.github.mymx2.base.jvm-conflict")
 }
 
-kover {
-  // default excludes.
-  val defaultKoverExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
-  useJacoco()
-  reports { filters { excludes { defaultKoverExcludes.forEach { classes(it) } } } }
-}
+// kover {
+//  // default excludes.
+//  val defaultKoverExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+//  useJacoco()
+//  reports { filters { excludes { defaultKoverExcludes.forEach { classes(it) } } } }
+// }
 
 tasks.withType<ModuleDirectivesScopeCheck> { enabled = false }
 

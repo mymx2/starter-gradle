@@ -51,7 +51,7 @@ dependencies {
       libs.plugins.io.fuchs.gradle.classpath.collision.detector,
       libs.plugins.org.cyclonedx.bom,
       libs.plugins.com.github.spotbugs,
-      libs.plugins.org.jetbrains.kotlinx.kover,
+      // libs.plugins.org.jetbrains.kotlinx.kover,
       libs.plugins.com.google.devtools.ksp,
       libs.plugins.io.freefair.lombok,
       libs.plugins.org.openrewrite.rewrite,
@@ -156,8 +156,3 @@ gradle.projectsEvaluated {
 
 // TODO remove it
 configurations.configureEach { resolutionStrategy { force("org.projectlombok:lombok:1.18.46") } }
-
-dependencies {
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
-}

@@ -64,7 +64,7 @@ object SpotlessLicense {
       |See the License for the specific language governing permissions and
       |limitations under the License.
       """
-        .trimIndent()
+        .trimMargin()
     ),
   }
 

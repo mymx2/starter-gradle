@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vitepress dev",
     "preview": "vitepress preview",
-    "build": "vitepress build"
+    "build": "vitepress build",
+    "fmt": "vp fmt"
   },
   "dependencies": {
     "vitepress": "2.0.0-alpha.15"

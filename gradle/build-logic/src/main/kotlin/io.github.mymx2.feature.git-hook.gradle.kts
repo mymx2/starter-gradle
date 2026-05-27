@@ -36,7 +36,7 @@ fun Task.installGitHooks() {
 object GitHooks {
 
   fun install(hooksSource: File, hooksTarget: File) {
-    if (hooksSource.exists() && hooksTarget.exists()) {
+    if (hooksSource.exists()) {
       hooksTarget.mkdirs()
       hooksSource.listFiles()?.forEach { file ->
         if (file.isFile && !file.name.endsWith(".sample")) {
