@@ -54,7 +54,7 @@ jobs:
       #          git merge --no-ff target-branch
 
       - name: 📦 Setup Vite+
-        uses: voidzero-dev/setup-vp@8ecb39174989ce55af90f45cf55b02738599831d # v1
+        uses: voidzero-dev/setup-vp@ca1c46663915d6c1042ae23bd39ab85718bfb0fa # v1
 
       - name: ☕ Setup Java
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
@@ -63,7 +63,7 @@ jobs:
           distribution: "corretto"
 
       - name: 🐘 Setup Gradle
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
         with:
           gradle-version: wrapper
           cache-read-only: false
@@ -97,7 +97,7 @@ jobs:
 
       - name: 📤 Upload coverage to Codecov
         if: github.event_name != 'pull_request' && github.actor != 'dependabot[bot]'
-        uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe # v5.5.4
+        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
         with:
           fail_ci_if_error: true
           verbose: true
