@@ -31,7 +31,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-  val m2Version = "1.4.1"
+  val m2Version = "1.4.2"
   id("io.github.mymx2.build.feature.repositories").version(m2Version)
   id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
