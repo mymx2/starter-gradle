@@ -57,5 +57,6 @@
     "taze": "19.9.2",
     "typescript": "5.9.3",
     "vitest": "4.0.15"
-  }
+  },
+  "packageManager": "pnpm@11.6.0"
 }
