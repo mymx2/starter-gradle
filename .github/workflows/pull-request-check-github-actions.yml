@@ -48,9 +48,7 @@ jobs:
       - name: 🏗 Run main checks
         working-directory: .github/actions
         run: |
-          npm i -g pnpm
-          pnpm i
-          pnpm lint
+          vp run lint
 
       - name: ⏸ Pause for VSCode Debug
         env:
