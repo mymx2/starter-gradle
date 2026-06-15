@@ -21,11 +21,7 @@ if (path == ":") {
     val spotlessLicenseHeader = SpotlessLicense.getComment(project)
 
     kotlinGradle {
-      defaultStep {
-        ktfmt(SpotlessConfig.ktfmtVersion).googleStyle().configure {
-          it.setRemoveUnusedImports(true)
-        }
-      }
+      defaultStep { ktfmt().googleStyle().configure { it.setRemoveUnusedImports(true) } }
       target(
         isolated.projectDirectory.files(
           "settings.gradle.kts",
@@ -40,11 +36,7 @@ if (path == ":") {
       }
     }
     kotlin {
-      defaultStep {
-        ktfmt(SpotlessConfig.ktfmtVersion).googleStyle().configure {
-          it.setRemoveUnusedImports(true)
-        }
-      }
+      defaultStep { ktfmt().googleStyle().configure { it.setRemoveUnusedImports(true) } }
       target(ktAndKtsFiles.matching { include("**/*.kt") })
       if (spotlessLicenseHeader.isNotBlank()) {
         licenseHeader(spotlessLicenseHeader)

@@ -10,9 +10,7 @@ val sources: FileTree = spotlessFileTree().matching { include("**/*.kt") }
 
 spotless {
   kotlin {
-    defaultStep {
-      ktfmt(SpotlessConfig.ktfmtVersion).googleStyle().configure { it.setRemoveUnusedImports(true) }
-    }
+    defaultStep { ktfmt().googleStyle().configure { it.setRemoveUnusedImports(true) } }
     target(sources)
     val spotlessLicenseHeader = SpotlessLicense.getComment(project)
     if (spotlessLicenseHeader.isNotBlank()) {

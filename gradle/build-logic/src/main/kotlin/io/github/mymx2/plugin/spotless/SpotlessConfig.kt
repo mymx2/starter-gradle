@@ -5,7 +5,6 @@ package io.github.mymx2.plugin.spotless
 import com.diffplug.gradle.spotless.FormatExtension
 import com.diffplug.spotless.FormatterStep
 import com.diffplug.spotless.generic.ReplaceRegexStep
-import com.diffplug.spotless.kotlin.KtfmtStep
 import com.diffplug.spotless.npm.NpmPathResolver
 import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.InternalDependencies
@@ -15,7 +14,6 @@ import io.github.mymx2.plugin.gradle.eagerSharedCache
 import io.github.mymx2.plugin.gradle.lazySharedCache
 import io.github.mymx2.plugin.utils.ExeFinder
 import java.io.File
-import java.math.BigDecimal
 import java.util.*
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
@@ -79,16 +77,6 @@ object SpotlessConfig {
           listOf("**/nocheck/**", "**/autogen/**", "**/generated/**", "**/node_modules/**")
       exclude(defaultSpotlessExcludes)
     }
-
-  val ktfmtVersion: String = run {
-    val ktfmtVersion = InternalDependencies.get("comFacebookKtfmt").version.toBigDecimal()
-    val defaultKtfmtVersion = KtfmtStep.defaultVersion()
-    return@run if (ktfmtVersion >= BigDecimal(defaultKtfmtVersion)) {
-      ktfmtVersion.toString()
-    } else {
-      defaultKtfmtVersion
-    }
-  }
 
   val prettierDevDependencies =
     mutableMapOf(InternalDependencies.get("prettier").let { it.module to it.version })
