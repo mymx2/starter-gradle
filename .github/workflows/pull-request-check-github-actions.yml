@@ -48,6 +48,7 @@ jobs:
       - name: 🏗 Run main checks
         working-directory: .github/actions
         run: |
+          vp i
           vp run lint
 
       - name: ⏸ Pause for VSCode Debug
