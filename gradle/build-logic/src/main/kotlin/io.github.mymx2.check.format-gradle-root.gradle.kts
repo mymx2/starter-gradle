@@ -70,7 +70,7 @@ if (path == ":") {
         }
         target(
           isolated.projectDirectory.files("README.md"),
-          spotlessFileTree(".github").include(misc).exclude("**/*-lock.yaml"),
+          spotlessFileTree(".github").include(misc).exclude("actions/**", "**/*-lock.yaml"),
           targetFiles.matching {
             include(misc)
             exclude("**/*-lock.yaml")
