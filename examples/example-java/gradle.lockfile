@@ -2,5 +2,11 @@
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
 # To regenerate this file, run: ./gradlew :example-java:dependencies --write-locks
-org.slf4j:slf4j-bom:2.1.0-alpha1=runtimeClasspath
+org.jetbrains.kotlin:kotlin-metadata-jvm:2.3.21=mainRuntimeClasspath
+org.jetbrains.kotlin:kotlin-reflect:2.3.21=mainRuntimeClasspath
+org.jetbrains.kotlin:kotlin-stdlib:2.3.21=mainRuntimeClasspath
+org.jetbrains:annotations:13.0=mainRuntimeClasspath
+org.slf4j:slf4j-api:2.1.0-alpha1=mainRuntimeClasspath
+org.slf4j:slf4j-bom:2.1.0-alpha1=mainRuntimeClasspath,runtimeClasspath
+org.slf4j:slf4j-simple:2.1.0-alpha1=mainRuntimeClasspath
 empty=
