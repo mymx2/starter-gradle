@@ -30,8 +30,9 @@ class GradleProject {
 
   fun moduleBuildFile(content: String) = moduleBuildFile.also { it.writeText(content) }
 
-  fun moduleBuildPropertiesFile(content: String) =
-    moduleBuildPropertiesFile.also { it.writeText(content) }
+  fun moduleBuildPropertiesFile(content: String) = moduleBuildPropertiesFile.also {
+    it.writeText(content)
+  }
 
   fun file(path: String, content: String? = null) =
     File(projectDir, path).also {

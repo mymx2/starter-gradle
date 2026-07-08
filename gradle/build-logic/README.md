@@ -107,6 +107,7 @@ _compiling code_ or _testing code_.
 [io.github.mymx2.feature.shadow.gradle.kts](src/main/kotlin/io.github.mymx2.feature.shadow.gradle.kts)
 [io.github.mymx2.feature.test.gradle.kts](src/main/kotlin/io.github.mymx2.feature.test.gradle.kts)
 [io.github.mymx2.feature.test-end2end.gradle.kts](src/main/kotlin/io.github.mymx2.feature.test-end2end.gradle.kts)
+[io.github.mymx2.feature.unzip-sources.gradle.kts](src/main/kotlin/io.github.mymx2.feature.unzip-sources.gradle.kts)
 [io.github.mymx2.feature.test-fixtures.gradle.kts](src/main/kotlin/io.github.mymx2.feature.test-fixtures.gradle.kts)
 [io.github.mymx2.feature.use-all-catalog-versions.gradle.kts](src/main/kotlin/io.github.mymx2.feature.use-all-catalog-versions.gradle.kts)
 [io.github.mymx2.feature.war.gradle.kts](src/main/kotlin/io.github.mymx2.feature.war.gradle.kts)

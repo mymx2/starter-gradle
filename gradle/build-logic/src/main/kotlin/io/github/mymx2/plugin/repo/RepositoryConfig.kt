@@ -41,16 +41,15 @@ object RepositoryConfig {
         .map { it.key.substringAfter(URL_PREFIX, "").uppercase() }
         .filter { it.isNotBlank() }
         .toSet()
-    val repos =
-      repoNameSet.map {
-        Repository(
-          name = it,
-          url = getLocalValue(infos, URL_PREFIX + it),
-          username = getLocalValue(infos, USERNAME_PREFIX + it),
-          password = getLocalValue(infos, PASSWORD_PREFIX + it),
-          open = getLocalValue(infos, OPEN_PREFIX + it),
-        )
-      }
+    val repos = repoNameSet.map {
+      Repository(
+        name = it,
+        url = getLocalValue(infos, URL_PREFIX + it),
+        username = getLocalValue(infos, USERNAME_PREFIX + it),
+        password = getLocalValue(infos, PASSWORD_PREFIX + it),
+        open = getLocalValue(infos, OPEN_PREFIX + it),
+      )
+    }
     return repos
   }
 

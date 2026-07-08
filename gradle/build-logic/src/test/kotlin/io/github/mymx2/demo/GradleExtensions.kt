@@ -16,8 +16,8 @@ import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.internal.file.FileOperations
-import org.gradle.api.internal.tasks.JvmConstants
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
@@ -247,10 +247,10 @@ private fun demos(project: Project) {
     run {
       val classPathDependencies =
         listOf(
-          JvmConstants.COMPILE_CLASSPATH_CONFIGURATION_NAME,
-          JvmConstants.TEST_COMPILE_CLASSPATH_CONFIGURATION_NAME,
-          JvmConstants.RUNTIME_CLASSPATH_CONFIGURATION_NAME,
-          JvmConstants.TEST_RUNTIME_CLASSPATH_CONFIGURATION_NAME,
+          JavaPlugin.COMPILE_CLASSPATH_CONFIGURATION_NAME,
+          JavaPlugin.TEST_COMPILE_CLASSPATH_CONFIGURATION_NAME,
+          JavaPlugin.RUNTIME_CLASSPATH_CONFIGURATION_NAME,
+          JavaPlugin.TEST_RUNTIME_CLASSPATH_CONFIGURATION_NAME,
         )
       val useFlat = true
       configurations
