@@ -9,6 +9,10 @@ object ExeFinder {
   /**
    * Find exe path
    *
+   * Uses absolute path for system commands (where.exe / which) to avoid PATH resolution failures in
+   * the Gradle daemon, especially under configuration cache mode where the daemon process may not
+   * inherit the shell's PATH.
+   *
    * @param providers Gradle providers
    * @param layout Gradle layout
    * @param name exe name
@@ -17,7 +21,9 @@ object ExeFinder {
   fun findExePath(providers: ProviderFactory, layout: ProjectLayout, name: String): String? {
     return runCatching {
         val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
-        val execCommand = if (isWindows) listOf("where.exe", name) else listOf("which", name)
+        val execCommand =
+          if (isWindows) listOf("C:\\Windows\\System32\\where.exe", name)
+          else listOf("/usr/bin/which", name)
         val fullCommit =
           providers
             .exec {
