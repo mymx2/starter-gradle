@@ -42,7 +42,7 @@ internal fun Project.npmFile(path: String? = null): Provider<File> {
     val npmPath =
       if (!path.isNullOrBlank()) path
       else {
-        eagerDiskCache("npmExePath") { ExeFinder.findExePath(providers, layout, "npm").orEmpty() }
+        eagerDiskCache("npmExePath") { ExeFinder.findExePath(providers, layout, "npm").get() }
       }
     val npmFile =
       if (npmPath.isNotBlank()) {

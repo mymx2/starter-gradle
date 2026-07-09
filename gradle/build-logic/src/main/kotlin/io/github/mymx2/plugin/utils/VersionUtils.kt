@@ -37,21 +37,22 @@ object VersionRange {
 
 object SemVerUtils {
 
-  /** return the short commit hash of the current Git commit. If not available, returns null. */
+  /**
+   * return the short commit hash of the current Git commit. If not available, returns "unknown".
+   */
   fun gitBuildMetadata(providers: ProviderFactory, layout: ProjectLayout): String {
     return runCatching {
-        val fullCommit =
+        val output =
           providers
-            .exec {
-              isIgnoreExitValue = true
-              commandLine("git", "rev-parse", "HEAD")
-              workingDir = layout.projectDirectory.asFile
+            .of(CommandOutputValueSource::class.java) {
+              parameters {
+                commandLine = listOf("git", "rev-parse", "HEAD")
+                workingDir = layout.projectDirectory.asFile.absolutePath
+              }
             }
-            .standardOutput
-            .asText
             .get()
             .trim()
-        fullCommit.ifBlank { "unknown" }
+        output.ifBlank { "unknown" }
       }
       .getOrDefault("unknown")
   }
