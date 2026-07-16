@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.autonomousapps.tasks.ProjectHealthTask
-import gradle.kotlin.dsl.accessors._2e1eabce6886db90cafe9a120e6529b7.testing
 import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.libs
@@ -11,6 +10,7 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.plugins.jvm.JvmTestSuite
 import org.gradle.kotlin.dsl.invoke
 import org.gradle.kotlin.dsl.withType
+import org.gradle.testing.base.TestingExtension
 
 object PluginHelpers {
 
@@ -43,7 +43,7 @@ object PluginHelpers {
    * ```
    */
   fun Project.useJUnitJupiterM2(junitBomVersion: String = "", assertjBomVersion: String = "") {
-    testing.suites.withType<JvmTestSuite> {
+    extensions.getByType(TestingExtension::class.java).suites.withType<JvmTestSuite> {
       dependencies {
         implementation(
           platform(

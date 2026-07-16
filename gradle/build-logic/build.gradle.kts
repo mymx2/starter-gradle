@@ -14,7 +14,17 @@ description = "Zero-config Gradle plugin for building production-ready standalon
 
 dependencies {
   // implementation(embeddedKotlin("test-junit5"))
-  implementation(embeddedKotlin("gradle-plugin"))
+  // kotlin-dsl provides kotlin-gradle-plugin at the embedded Kotlin version.
+  // We do NOT add it explicitly here (especially not as implementation) to avoid baking a
+  // different Kotlin version into published .module metadata.
+  // See: https://github.com/gradle/gradle/issues/13020
+  //
+  // NOTE: This does NOT silence the 'Unsupported Kotlin plugin version' warning during
+  // self-bootstrap across Gradle versions — kapt/spring/jpa/sam markers still transitively pull
+  // KGP into the .pom. The warning comes from kotlin-dsl's warnOnDifferentKotlinVersion in the
+  // Gradle classloader, which an included build cannot override (tried: compileOnly, project
+  // properties, copying EmbeddedKotlinPlugin — all ineffective). Only affects build-logic
+  // self-bootstrap; consumer projects not using kotlin-dsl are unaffected. Awaits #22647.
   implementation(embeddedKotlin("reflect"))
   implementation(libs.semver)
 }
@@ -53,7 +63,6 @@ dependencies {
       libs.plugins.com.github.spotbugs,
       // libs.plugins.org.jetbrains.kotlinx.kover,
       libs.plugins.com.google.devtools.ksp,
-      libs.plugins.io.freefair.lombok,
       libs.plugins.org.openrewrite.rewrite,
       libs.plugins.org.springframework.boot,
       libs.plugins.org.openapi.generator,

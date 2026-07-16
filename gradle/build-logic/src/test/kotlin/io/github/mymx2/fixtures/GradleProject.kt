@@ -49,7 +49,7 @@ class GradleProject {
   fun runner(args: List<String>): GradleRunner =
     GradleRunner.create()
       .forwardOutput()
-      .withGradleVersion("9.6.1")
+      // .withGradleVersion("9.6.1")
       .withPluginClasspath()
       .withProjectDir(projectDir)
       .withArguments(args + listOf("-s", "--warning-mode=all"))

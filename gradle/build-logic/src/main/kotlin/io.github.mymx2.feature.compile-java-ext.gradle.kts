@@ -4,7 +4,6 @@ import io.github.mymx2.plugin.utils.SemVerUtils
 
 plugins {
   java
-  id("io.freefair.lombok")
   id("io.github.mymx2.feature.openrewrite")
   id("io.github.mymx2.feature.unzip-sources")
   id("io.github.mymx2.check.quality-nullaway")
