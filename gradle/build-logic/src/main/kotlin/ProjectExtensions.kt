@@ -174,6 +174,7 @@ fun PluginAware.propOrDefault(
   fromProvider: Boolean = true,
 ): String {
   // TODO: https://github.com/gradle/gradle/issues/29700
+  // https://github.com/gradle/gradle/issues/37605
   val waitingFixThisBug = true
   val value =
     when (this) {

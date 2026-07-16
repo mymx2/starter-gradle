@@ -49,7 +49,11 @@ dependencyResolutionManagement {
     }
     maven {
       setUrl("https://jitpack.io")
-      content { includeGroupByRegex("com\\.github.*") }
+      content {
+        includeGroupByRegex("com\\.github.*")
+        excludeGroup("com.github.spotbugs.snom")
+        excludeGroup("com.github.spotbugs")
+      }
     }
     google {
       content {

@@ -2,10 +2,7 @@
 
 rootProject.name = "dy-gradle-plugin"
 
-run {
-  enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-  enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
-}
+// TYPESAFE_PROJECT_ACCESSORS and STABLE_CONFIGURATION_CACHE are enabled by default in Gradle 9.x
 
 pluginManagement {
   repositories {

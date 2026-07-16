@@ -24,7 +24,7 @@ dependencies {
       // https://kotlinlang.org/docs/kapt.html
       "org.jetbrains.kotlin.kapt",
       // https://kotlinlang.org/docs/lombok.html
-      "org.jetbrains.kotlin.plugin.lombok",
+      // "org.jetbrains.kotlin.plugin.lombok",
       // https://kotlinlang.org/docs/sam-with-receiver-plugin.html
       "org.jetbrains.kotlin.plugin.sam.with.receiver",
       // https://kotlinlang.org/docs/all-open-plugin.html
@@ -153,6 +153,3 @@ detekt { config.setFrom(rootDir.toPath().parent.resolve("configs/detekt/detekt.y
 gradle.projectsEvaluated {
   tasks.named { it.startsWith("spotlessKotlin") }.configureEach { enabled = false }
 }
-
-// TODO remove it
-configurations.configureEach { resolutionStrategy { force("org.projectlombok:lombok:1.18.46") } }

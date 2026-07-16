@@ -1,11 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
 // Allow local projects to be referred to by accessor
-// https://doc.qzxdp.cn/gradle/8.1.1/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
+// https://docs.gradle.org/current/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
-// https://docs.gradle.org.cn/current/userguide/configuration_cache.html#config_cache:stable
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 plugins {
   id("org.gradlex.java-module-dependencies")
@@ -17,17 +14,17 @@ plugins {
 
 gradle.lifecycle.beforeProject {
   // only root project
-  if (this.path == ":") {
+  if (path == ":") {
     // lifecycle tasks
-    apply(plugin = "io.github.mymx2.base.lifecycle")
+    plugins.apply("io.github.mymx2.base.lifecycle")
     // git hook
-    apply(plugin = "io.github.mymx2.feature.git-hook")
+    plugins.apply("io.github.mymx2.feature.git-hook")
     // spotless format
-    apply(plugin = "io.github.mymx2.check.format-gradle-root")
+    plugins.apply("io.github.mymx2.check.format-gradle-root")
     // action lint
-    apply(plugin = "io.github.mymx2.check.actionlint-root")
+    plugins.apply("io.github.mymx2.check.actionlint-root")
     // dependency check
-    apply(plugin = "io.github.mymx2.check.dependencies-root")
+    plugins.apply("io.github.mymx2.check.dependencies-root")
   }
 }
 

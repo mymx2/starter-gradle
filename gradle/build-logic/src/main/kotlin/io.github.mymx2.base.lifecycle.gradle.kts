@@ -56,7 +56,6 @@ gradle.projectsEvaluated { tasks.configureEach { configureGroup(groupRegex, grou
 
 listOf(
     "run" to "build",
-    "buildDependents" to "toolbox",
     "distZip" to "toolbox",
     "publishPlugins" to "publishing",
   )
