@@ -15,6 +15,10 @@
   ignoreUnstable: false,
   minimumReleaseAge: "7 days",
   dependencyDashboard: true,
+  env: {
+    "GRADLE_OPTS": "-Dorg.gradle.jvmargs=-Xmx2048M -Dkotlin.compiler.execution.strategy=\"in-process\""
+  },
+  branchConcurrentLimit: 3,
   packageRules: [
     {
       matchFileNames: ["**/rcLibs.versions.toml"],
