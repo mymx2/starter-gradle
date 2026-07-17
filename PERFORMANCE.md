@@ -10,7 +10,7 @@
 真正的瓶颈不在构建脚本，而在**环境**：一个损坏的全局 `init.gradle` 和一个过低的 JDK 版本让构建根本跑不起来。
 修复环境后，再做的"优化"尝试（给 JVM/Kotlin daemon 限堆）反而**退化**了，证明大内存机器不该限堆。
 
-最有价值的后续杠杆是**启用远程构建缓存**（项目已接线，只差 `BUILD_CACHE_USER`/`BUILD_CACHE_PWD` 凭证）。其次，本报告提出的"把重型静态分析从本地 `build` 解耦到 CI"**已实施**：通过 `SKIP_QUALITY` 门控，本地 `build` 任务图里的质量任务从 10 个降到 0 个（解耦正确，见 §4.2 / §4.6）。但需注意——项目默认开启构建缓存（`org.gradle.caching=true`），无改动的热重建里质量产物从缓存恢复，SKIP_QUALITY 的**墙钟收益被缓存掩盖**（见 §4.6 的缓存热度实验）；真正收益体现在缓存未命中 / 冷构建 / 改代码后的场景。本地用 `check` 替代 `build` 可进一步跳过打包分发物（见 §4.7）。`isolated-projects` 经实验确认与本工程不兼容，已排除。本 PR **不改动 `gradle.properties`**（含 `max-problems`、toolchain 路径等本地项均留作可选调整）。
+最有价值的后续杠杆是**启用远程构建缓存**（项目已接线，只差 `BUILD_CACHE_USER`/`BUILD_CACHE_PWD` 凭证）。其次，本报告提出的"把重型静态分析 / 覆盖率采集从本地 `build`/`check` 解耦到 CI"**已实施**：通过 `SKIP_QUALITY` 与 `SKIP_COVERAGE` 两个门控，本地 `build` 任务图质量任务 10 → 0、`check` 任务图 jacoco 任务 5 → 0（解耦正确，见 §4.2 / §4.6 / §4.10）。但需注意——项目默认开启构建缓存（`org.gradle.caching=true`），无改动的热重建里质量产物从缓存恢复，SKIP_QUALITY 的**墙钟收益被缓存掩盖**（见 §4.6 的缓存热度实验）；真正收益体现在缓存未命中 / 冷构建 / 改代码后的场景。本地用 `check` 替代 `build` 可进一步跳过打包分发物（见 §4.7）。`isolated-projects` 经实验确认与本工程不兼容，已排除。本 PR **不改动 `gradle.properties`**（含 `max-problems`、toolchain 路径等本地项均留作可选调整）。
 
 ---
 
@@ -200,6 +200,50 @@ org.gradle.java.installations.paths=/path/to/sdkman/candidates/java/25-open
 `NoClassDefFoundError: Could not initialize class com.facebook.ktfmt.format.Formatter`
 ——ktfmt 格式化器在 JDK 25 下初始化失败（老版本 ASM/Guava 与 JDK25 不兼容）。平时 spotless 结果从构建缓存恢复，所以默认 `build` 不报错；一旦缓存失效（或全新机器无缓存）就会直接失败。这是**独立于本优化的预存环境问题**，建议单独处理（升级 spotless/ktfmt 到兼容 JDK25 的版本，或评估 JDK 版本）。附带好处：`SKIP_QUALITY=true` 时 `spotlessCheck` 也被跳过，本地开发循环恰好绕开了这个雷。详测见 §4.6-C。
 
+### 4.10 把 jacoco 覆盖率采集从本地 `check` 解耦到 CI —— 已实施 ✅
+`SKIP_QUALITY` 解耦了"静态分析"，但 `check` 仍跑 jacoco 覆盖率：每个 `Test` 任务挂着 jacoco **agent 插桩**，且 `check` 依赖各模块的 `jacocoTestReport` 与跨模块聚合 `testCodeCoverageReport`。本地"我改坏没"的验证其实不需要覆盖率。沿用 §4.2 同款门控模式再解耦一层。
+
+**改动文件：**
+1. `gradle/build-logic/.../io/github/mymx2/plugin/local/LocalConfig.kt`
+   新增枚举项 `SKIP_COVERAGE("SKIP_COVERAGE", "false")`（默认 `false`，保持原行为）。
+2. `gradle/build-logic/.../io.github.mymx2.feature.test.gradle.kts`
+   把 `tasks.check { dependsOn(tasks.jacocoTestReport) }` 门控，并在 `SKIP_COVERAGE=true` 时关闭 jacoco agent：
+   ```kotlin
+   val skipCoverage = project.getPropOrDefault(LocalConfig.Props.SKIP_COVERAGE).toBoolean()
+   tasks.check {
+     if (!skipCoverage) {
+       dependsOn(tasks.jacocoTestReport)
+     }
+   }
+   if (skipCoverage) {
+     // 关闭 jacoco java agent，避免对每个 Test 任务做字节码插桩（主要的单测开销）
+     tasks.withType<Test>().configureEach {
+       extensions.findByType(JacocoTaskExtension::class)?.isEnabled = false
+     }
+   }
+   ```
+3. `gradle/build-logic/.../io.github.mymx2.report.code-coverage.gradle.kts`
+   把 `tasks.check { dependsOn(tasks.testCodeCoverageReport) }` 门控为 `if (!skipCoverage)`。
+
+**用法：**
+```bash
+# 本地最快验证循环：跳过静态分析 + 跳过覆盖率采集
+./gradlew check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true
+```
+
+**实测收益（lean loop `clean check -PSKIP_QUALITY=true`，同硬件）：**
+
+| 指标 | 覆盖率 ON | 覆盖率 OFF (`SKIP_COVERAGE=true`) | 说明 |
+|---|---:|---:|---|
+| 进入 `check` 的 jacoco/coverage 任务 | 5 | **0** | 每个模块 `jacocoTestReport` + 聚合 `testCodeCoverageReport` 全部退出任务图 |
+| lean loop 总任务数 | 126 | 108 | 结构性减少 18 个 |
+| jacoco 报告+聚合任务耗时（热） | 0.37s | 0 | 确定性移除（冷构建约 1.2s） |
+| `:example-spring:test` 内 jacoco agent 开销 | 子秒级，难隔离 | 0 | 见下 |
+
+- **确定性收益**：`SKIP_COVERAGE` 直接移除覆盖率的报告与聚合任务（热构建 ~0.37s、冷构建 ~1.2s，来自 `--profile` 实测），并关闭 jacoco agent——这部分不依赖缓存、始终生效，对 CI 与默认行为零影响（`false` 时 `check` 仍跑完整覆盖率）。
+- **一个诚实的坑**：lean loop 真正的耗时大户是 `:example-spring:test`（Spring 上下文启动），且该任务**运行间方差极大（2.9s–9.3s，随 daemon/JVM 预热波动）**。jacoco agent 在单测上的插桩开销被这个方差完全淹没——背靠背同 daemon 测一次竟出现 ON 2.84s / OFF 5.07s（反序），说明 agent 增量（早前隔离测量估 ~0.9s）在 Spring 启动噪声下**无法稳定复现**。结论：agent 开销是"子秒级、可忽略但有"的量级，不能夸大成主要收益；`SKIP_COVERAGE` 的主要价值在于**确定性移除报告/聚合任务 + 关掉插桩（降测试 JVM 内存/GC 压力）**。
+- **剩余瓶颈是应用层，非构建配置层**：`:example-spring:test` 的 Spring 上下文启动是测试本身的固有成本，构建脚本无法在不改测试的前提下压缩（除非引入测试切片 / 上下文缓存等应用层改造，超出本报告范围）。
+
 ---
 
 ## 5. 复现命令
@@ -225,8 +269,8 @@ org.gradle.java.installations.paths=/path/to/sdkman/candidates/java/25-open
 - **构建本身已高度优化**（配置缓存 + 构建缓存 + 增量编译），开发内循环 1–13s。
 - **最大的"优化"是让构建能跑起来**：修复损坏的全局 `init.gradle`、补齐 JDK 25、按 local-env 安装 `fd`。
 - **堆上限调优是负优化**：大内存机器保持默认堆。
-- **质量门禁的 CI 解耦已实施**：`SKIP_QUALITY` 门控下本地 `build` 任务图质量任务 **10 → 0（解耦正确）**；默认 `false` 对 CI 与现有行为零影响（见 §4.2 / §4.6）。墙钟收益依赖缓存——无改动热重建仅省 ~0.8s（质量产物已缓存），冷构建 / 缓存 miss / 改代码后场景省 ~13.6s。
-- **本地开发循环进一步加速**：用 `check` 替代 `build` 跳过打包分发物，任务数 43 → 19（见 §4.7）。
+- **质量门禁 + 覆盖率的 CI 解耦已实施**：`SKIP_QUALITY` 门控下本地 `build` 任务图质量任务 **10 → 0（解耦正确）**；`SKIP_COVERAGE` 门控下本地 `check` 任务图 jacoco 任务 **5 → 0（解耦正确）**，并关闭 jacoco agent。两者默认 `false`，对 CI 与现有行为零影响（见 §4.2 / §4.6 / §4.10）。`SKIP_QUALITY` 墙钟收益依赖缓存——无改动热重建仅省 ~0.8s（质量产物已缓存），冷构建 / 缓存 miss / 改代码后场景省 ~13.6s；`SKIP_COVERAGE` 确定性移除报告+聚合任务（热 ~0.37s / 冷 ~1.2s），与缓存无关。
+- **本地最快验证循环**：`./gradlew check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true`（跳过静态分析 + 跳过覆盖率 + 跳过打包）；`check` 替代 `build` 本身已将任务数 43 → 19（见 §4.7 / §4.10）。
 - **本 PR 不改动 `gradle.properties`**：`max-problems` 维持原值 `1`、`toolchain` 路径等本地项均留作可选调整（见 §4.4 / §4.3）。如需更健壮可本地提到 5–10。
 - **已排除项**：`isolated-projects` 与本工程 build-logic 复合构建不兼容（BUILD FAILED），不启用（见 §4.8）。
 - **顺带发现**：spotless/ktfmt 在 JDK25 下 `NoClassDefFoundError`，被构建缓存掩盖，建议另修（见 §4.9）。

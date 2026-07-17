@@ -75,6 +75,9 @@ object LocalConfig {
     // [perf] 本地开发时跳过重型静态分析(detekt/spotbugs/pmd/checkstyle/spotless)，仅 CI 运行；
     // 默认 false 保持原行为(check 仍依赖 qualityCheck)
     SKIP_QUALITY("SKIP_QUALITY", "false"),
+    // [perf] 本地开发时跳过 jacoco 覆盖率采集(agent 插桩 + report + 聚合)，仅 CI 运行；
+    // 默认 false 保持原行为(check 仍依赖 jacocoTestReport / testCodeCoverageReport)
+    SKIP_COVERAGE("SKIP_COVERAGE", "false"),
   }
 
   /** The default local properties file. */
