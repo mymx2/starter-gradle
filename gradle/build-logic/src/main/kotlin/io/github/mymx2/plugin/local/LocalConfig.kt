@@ -72,6 +72,9 @@ object LocalConfig {
     JUNIT_JUPITER_M2_ENABLED("JUNIT_JUPITER_M2_ENABLED", "false"),
     // 是否开启内部依赖检查
     INTERNAL_DEPENDENCIES_CHECK_M2_ENABLED("INTERNAL_DEPENDENCIES_CHECK_M2_ENABLED", "false"),
+    // [perf] 本地开发时跳过重型静态分析(detekt/spotbugs/pmd/checkstyle/spotless)，仅 CI 运行；
+    // 默认 false 保持原行为(check 仍依赖 qualityCheck)
+    SKIP_QUALITY("SKIP_QUALITY", "false"),
   }
 
   /** The default local properties file. */

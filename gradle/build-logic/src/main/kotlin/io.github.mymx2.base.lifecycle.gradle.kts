@@ -1,3 +1,5 @@
+import io.github.mymx2.plugin.local.LocalConfig
+import io.github.mymx2.plugin.local.getPropOrDefault
 import io.github.mymx2.plugin.resetTaskGroup
 import io.github.mymx2.plugin.utils.Ansi
 
@@ -20,7 +22,15 @@ tasks.register("qualityGate") {
   dependsOn(tasks.assemble)
 }
 
-tasks.check { dependsOn(tasks.named("qualityCheck")) }
+// [perf] Decouple heavy static analysis (detekt/spotbugs/pmd/checkstyle/spotless) from the
+// local dev loop. By default (SKIP_QUALITY=false) `check` still depends on `qualityCheck`,
+// preserving the original behavior. Set SKIP_QUALITY=true (gradle.properties or -PSKIP_QUALITY)
+// for fast local builds; CI should keep running `qualityCheck` / `qualityGate` explicitly.
+val skipQuality = project.getPropOrDefault(LocalConfig.Props.SKIP_QUALITY).toBoolean()
+
+if (!skipQuality) {
+  tasks.check { dependsOn(tasks.named("qualityCheck")) }
+}
 
 val groups =
   mapOf(
