@@ -10,7 +10,7 @@
 真正的瓶颈不在构建脚本，而在**环境**：一个损坏的全局 `init.gradle` 和一个过低的 JDK 版本让构建根本跑不起来。
 修复环境后，再做的"优化"尝试（给 JVM/Kotlin daemon 限堆）反而**退化**了，证明大内存机器不该限堆。
 
-最有价值的后续杠杆是**启用远程构建缓存**（项目已接线，只差 `BUILD_CACHE_USER`/`BUILD_CACHE_PWD` 凭证）。其次，本报告提出的"把重型静态分析 / 覆盖率采集从本地 `build`/`check` 解耦到 CI"**已实施**：通过 `SKIP_QUALITY` 与 `SKIP_COVERAGE` 两个门控，本地 `build` 任务图质量任务 10 → 0、`check` 任务图 jacoco 任务 5 → 0（解耦正确，见 §4.2 / §4.6 / §4.10）。但需注意——项目默认开启构建缓存（`org.gradle.caching=true`），无改动的热重建里质量产物从缓存恢复，SKIP_QUALITY 的**墙钟收益被缓存掩盖**（见 §4.6 的缓存热度实验）；真正收益体现在缓存未命中 / 冷构建 / 改代码后的场景。本地用 `check` 替代 `build` 可进一步跳过打包分发物（见 §4.7）。`isolated-projects` 经实验确认与本工程不兼容，已排除。本 PR **不改动 `gradle.properties`**（含 `max-problems`、toolchain 路径等本地项均留作可选调整）。
+最有价值的后续杠杆是**启用远程构建缓存**（项目已接线，只差 `BUILD_CACHE_USER`/`BUILD_CACHE_PWD` 凭证）。其次，本报告提出的"把重型静态分析 / 覆盖率采集 / 端到端测试套件从本地 `build`/`check` 解耦到 CI"**已实施**：通过 `SKIP_QUALITY`、`SKIP_COVERAGE`、`SKIP_E2E` 三个门控，本地 `build` 任务图质量任务 10 → 0、`check` 任务图 jacoco 任务 5 → 0、`:app` 的 e2e 套件 + mockApi 整套 −16 任务（解耦正确，见 §4.2 / §4.6 / §4.10 / §4.11）。但需注意——项目默认开启构建缓存（`org.gradle.caching=true`），无改动的热重建里质量产物从缓存恢复，SKIP_QUALITY 的**墙钟收益被缓存掩盖**（见 §4.6 的缓存热度实验）；真正收益体现在缓存未命中 / 冷构建 / 改代码后的场景。本地用 `check` 替代 `build` 可进一步跳过打包分发物（见 §4.7）。`isolated-projects` 经实验确认与本工程不兼容，已排除。本 PR **不改动 `gradle.properties`**（含 `max-problems`、toolchain 路径等本地项均留作可选调整）。
 
 ---
 
@@ -244,6 +244,52 @@ org.gradle.java.installations.paths=/path/to/sdkman/candidates/java/25-open
 - **一个诚实的坑**：lean loop 真正的耗时大户是 `:example-spring:test`（Spring 上下文启动），且该任务**运行间方差极大（2.9s–9.3s，随 daemon/JVM 预热波动）**。jacoco agent 在单测上的插桩开销被这个方差完全淹没——背靠背同 daemon 测一次竟出现 ON 2.84s / OFF 5.07s（反序），说明 agent 增量（早前隔离测量估 ~0.9s）在 Spring 启动噪声下**无法稳定复现**。结论：agent 开销是"子秒级、可忽略但有"的量级，不能夸大成主要收益；`SKIP_COVERAGE` 的主要价值在于**确定性移除报告/聚合任务 + 关掉插桩（降测试 JVM 内存/GC 压力）**。
 - **剩余瓶颈是应用层，非构建配置层**：`:example-spring:test` 的 Spring 上下文启动是测试本身的固有成本，构建脚本无法在不改测试的前提下压缩（除非引入测试切片 / 上下文缓存等应用层改造，超出本报告范围）。
 
+### 4.11 把端到端测试套件从本地 `check` 解耦到 CI —— 已实施 ✅（排除法最大收获）
+用「按插件有无的排除法」逐插件剖析本地 loop 后发现：在 `SKIP_QUALITY` + `SKIP_COVERAGE` 之后，lean loop（`clean check`）里**唯一剩余的"可选"重插件层**是 `:app` 无条件应用的 `io.github.mymx2.feature.test-end2end`——它创建了 `mockApi` 源码集，并注册 `testEndToEnd`（接 `check`）+ `testEndToEndSlow` 两个测试套件。基线实测这两个 e2e 套件各 ~3.3s，**合计 ~6.6s 测试执行，约占整条 check 循环的 70%**——是最大的单一本地循环杠杆。
+
+**改动文件：**
+1. `gradle/build-logic/.../io/github/mymx2/plugin/local/LocalConfig.kt`
+   新增枚举项 `SKIP_E2E("SKIP_E2E", "false")`（默认 `false`，保持原行为）。
+2. `app/build.gradle.kts`（模块文件，非 build-logic）
+   把 `feature.test-end2end` 的应用与 e2e/mockApi 依赖整体门控：
+   ```kotlin
+   val skipE2E = project.getPropOrDefault(LocalConfig.Props.SKIP_E2E).toBoolean()
+   if (!skipE2E) {
+     apply(plugin = "io.github.mymx2.feature.test-end2end")
+   }
+   // ...
+   if (!skipE2E) {
+     dependencies {
+       // 用字符串形式声明，避免插件未应用时 kotlin-dsl 访问器缺失导致编译失败
+       "mockApiImplementation"(projects.app)
+       "testEndToEndImplementation"(projects.app) {
+         capabilities { requireFeature("mock-api") }
+       }
+     }
+   }
+   ```
+   > 踩坑：kotlin-dsl 只为"已应用插件"生成 `mockApiImplementation` / `testEndToEndImplementation` 访问器；插件不应用时即便写在 `if (!skipE2E)` 里也是**编译期**报错。改用字符串形式 `"mockApiImplementation"(...)` 声明（运行期按名解析），门控才成立。
+
+**用法：**
+```bash
+# 本地最快 TDD 循环：跳过静态分析 + 跳过覆盖率 + 跳过 e2e 套件（仅跑单元/集成测试）
+./gradlew check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true -PSKIP_E2E=true
+```
+
+**实测收益（lean loop `clean check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true`）：**
+
+| 指标 | e2e ON | e2e OFF (`SKIP_E2E=true`) | 说明 |
+|---|---:|---:|---|
+| `:app` 任务数 | 38 | 22 | 移除 mockApi 源码集 + testEndToEnd/testEndToEndSlow 套件 |
+| lean loop 总任务数 | 108 | 92 | 结构性 −16 |
+| `:app:testEndToEnd` + `:app:testEndToEndSlow` 执行 | 6.6s | 0 | e2e 测试执行时间（并行，见下） |
+| 墙钟（暖，同 daemon 背靠背） | 7.2s | 4.4s | **约 −40%** |
+
+- **确定性收益**：`SKIP_E2E` 把 `:app` 的 e2e 套件 + mockApi 源码集整套移出任务图（−16 任务），与缓存无关；默认 `false` 对 CI 与现有行为零影响（`testAggregateTestReport` 在 `:app` 不产出 e2e 结果时正常空聚合，构建仍 `BUILD SUCCESSFUL`）。
+- **墙钟约 −40%**：e2e 两个套件执行合计 6.6s，但因 `maxParallelForks=4` 与 `:app:test`/`:example-spring:test` 并行，墙钟节省约 2.8s（7.2s → 4.4s）。加上 §4.10 的覆盖率、§4.2 的质量解耦，本地最快循环已能砍掉整条 `check` 的大部分非编译/非单元-集成测试开销。
+- **诚实提示（与 §4.2/§4.10 的本质区别）**：`SKIP_E2E` 跳过的是**真实功能 e2e 测试**（不是"质量检查"或"覆盖率采集"）。默认 `false` 全部保留，CI 不受影响；本地用它可以极快做 TDD 内循环，但**推送前务必跑一次完整 `check`（不带此旗）**以补回 e2e 覆盖。
+- **附带观察（未实施）**：`dokkaGenerateModuleHtml`（dokka 文档生成）也出现在本地 `check` 循环任务图里，若本地完全不需要文档，可再加一个 `SKIP_DOC` 门控作为下一杠杆（本 PR 未做）。
+
 ---
 
 ## 5. 复现命令
@@ -269,8 +315,8 @@ org.gradle.java.installations.paths=/path/to/sdkman/candidates/java/25-open
 - **构建本身已高度优化**（配置缓存 + 构建缓存 + 增量编译），开发内循环 1–13s。
 - **最大的"优化"是让构建能跑起来**：修复损坏的全局 `init.gradle`、补齐 JDK 25、按 local-env 安装 `fd`。
 - **堆上限调优是负优化**：大内存机器保持默认堆。
-- **质量门禁 + 覆盖率的 CI 解耦已实施**：`SKIP_QUALITY` 门控下本地 `build` 任务图质量任务 **10 → 0（解耦正确）**；`SKIP_COVERAGE` 门控下本地 `check` 任务图 jacoco 任务 **5 → 0（解耦正确）**，并关闭 jacoco agent。两者默认 `false`，对 CI 与现有行为零影响（见 §4.2 / §4.6 / §4.10）。`SKIP_QUALITY` 墙钟收益依赖缓存——无改动热重建仅省 ~0.8s（质量产物已缓存），冷构建 / 缓存 miss / 改代码后场景省 ~13.6s；`SKIP_COVERAGE` 确定性移除报告+聚合任务（热 ~0.37s / 冷 ~1.2s），与缓存无关。
-- **本地最快验证循环**：`./gradlew check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true`（跳过静态分析 + 跳过覆盖率 + 跳过打包）；`check` 替代 `build` 本身已将任务数 43 → 19（见 §4.7 / §4.10）。
+- **质量门禁 + 覆盖率 + e2e 套件的 CI 解耦已实施**：`SKIP_QUALITY` 门控下本地 `build` 任务图质量任务 **10 → 0（解耦正确）**；`SKIP_COVERAGE` 门控下本地 `check` 任务图 jacoco 任务 **5 → 0（解耦正确）**并关闭 agent；`SKIP_E2E` 门控下本地 `check` 的 `:app` e2e 套件 + mockApi 源码集整套 **−16 任务（解耦正确）**。三者默认 `false`，对 CI 与现有行为零影响（见 §4.2 / §4.6 / §4.10 / §4.11）。`SKIP_QUALITY` 墙钟收益依赖缓存（无改动热重建仅省 ~0.8s，冷构建/改代码后省 ~13.6s）；`SKIP_COVERAGE` 确定性移除报告+聚合任务（热 ~0.37s / 冷 ~1.2s）；`SKIP_E2E` 墙钟约 **−40%**（7.2s → 4.4s 暖循环），是本地循环最大单一杠杆，但跳过的是**真实 e2e 功能测试**，推送前需跑完整 `check` 补回。
+- **本地最快验证循环**：`./gradlew check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true -PSKIP_E2E=true`（跳过静态分析 + 覆盖率 + e2e 套件 + 打包）；`check` 替代 `build` 本身已将任务数 43 → 19（见 §4.7 / §4.10 / §4.11）。
 - **本 PR 不改动 `gradle.properties`**：`max-problems` 维持原值 `1`、`toolchain` 路径等本地项均留作可选调整（见 §4.4 / §4.3）。如需更健壮可本地提到 5–10。
 - **已排除项**：`isolated-projects` 与本工程 build-logic 复合构建不兼容（BUILD FAILED），不启用（见 §4.8）。
 - **顺带发现**：spotless/ktfmt 在 JDK25 下 `NoClassDefFoundError`，被构建缓存掩盖，建议另修（见 §4.9）。

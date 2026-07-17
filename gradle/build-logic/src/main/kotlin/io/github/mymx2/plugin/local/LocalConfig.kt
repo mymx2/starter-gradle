@@ -78,6 +78,9 @@ object LocalConfig {
     // [perf] 本地开发时跳过 jacoco 覆盖率采集(agent 插桩 + report + 聚合)，仅 CI 运行；
     // 默认 false 保持原行为(check 仍依赖 jacocoTestReport / testCodeCoverageReport)
     SKIP_COVERAGE("SKIP_COVERAGE", "false"),
+    // [perf] 本地开发时跳过端到端测试套件(testEndToEnd + testEndToEndSlow 及其 mockApi 源码集)，仅 CI 运行；
+    // 默认 false 保持原行为(check 仍运行 e2e 套件)
+    SKIP_E2E("SKIP_E2E", "false"),
   }
 
   /** The default local properties file. */
