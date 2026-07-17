@@ -19,6 +19,8 @@ on:
         required: true
       mavenCentralPassword:
         required: true
+      mavenCentralAutoRelease:
+        required: false
       ACTION_DEBUG_TOKEN:
         required: false
 
@@ -88,6 +90,8 @@ jobs:
           # ⚠️ Warning: Do not use never-expiring User Token!!!
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.mavenCentralUsername }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.mavenCentralPassword }}
+          ORG_GRADLE_PROJECT_mavenCentralAutomaticPublishing: ${{ secrets.mavenCentralAutoRelease == 'true' }}
+          ORG_GRADLE_PROJECT_mavenCentralDeploymentValidation: ${{ secrets.mavenCentralAutoRelease == 'true' }}
         run: |
           if [ "${GITHUB_REPOSITORY}" = "mymx2/starter-gradle" ]; then
             ./gradlew :build-logic:publishToMavenCentral publishToMavenCentral
