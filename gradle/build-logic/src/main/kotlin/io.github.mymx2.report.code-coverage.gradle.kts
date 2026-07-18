@@ -1,5 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
+import io.github.mymx2.plugin.local.LocalConfig
+import io.github.mymx2.plugin.local.getPropOrDefault
 import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesScopeCheck
 
 plugins {
@@ -51,4 +53,14 @@ tasks.testCodeCoverageReport {
 }
 
 // Generate report when running 'check'
-tasks.check { dependsOn(tasks.testCodeCoverageReport) }
+// [perf] Decouple jacoco coverage aggregation from the local dev loop.
+// By default (SKIP_COVERAGE=false) `check` still depends on `testCodeCoverageReport`,
+// preserving the original behavior. Set SKIP_COVERAGE=true ... for fast local builds.
+val skipCoverage = project.getPropOrDefault(LocalConfig.Props.SKIP_COVERAGE).toBoolean()
+val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
+
+tasks.check {
+  if (!skipCoverage && !skipAllLocal) {
+    dependsOn(tasks.testCodeCoverageReport)
+  }
+}

@@ -72,6 +72,25 @@ object LocalConfig {
     JUNIT_JUPITER_M2_ENABLED("JUNIT_JUPITER_M2_ENABLED", "false"),
     // 是否开启内部依赖检查
     INTERNAL_DEPENDENCIES_CHECK_M2_ENABLED("INTERNAL_DEPENDENCIES_CHECK_M2_ENABLED", "false"),
+    // [perf] 本地开发时跳过重型静态分析(detekt/spotbugs/pmd/checkstyle/spotless)，仅 CI 运行；
+    // 默认 false 保持原行为(check 仍依赖 qualityCheck)
+    SKIP_QUALITY("SKIP_QUALITY", "false"),
+    // [perf] 本地开发时跳过 jacoco 覆盖率采集(agent 插桩 + report + 聚合)，仅 CI 运行；
+    // 默认 false 保持原行为(check 仍依赖 jacocoTestReport / testCodeCoverageReport)
+    SKIP_COVERAGE("SKIP_COVERAGE", "false"),
+    // [perf] 本地开发时跳过端到端测试套件(testEndToEnd + testEndToEndSlow 及其 mockApi 源码集)，仅 CI 运行；
+    // 默认 false 保持原行为(check 仍运行 e2e 套件)
+    SKIP_E2E("SKIP_E2E", "false"),
+    // [perf] 本地开发时跳过 dokka 文档生成(dokkaGenerateModuleHtml / dokkaGeneratePublicationHtml)，
+    // 文档非本地"我改坏没"验证所需；默认 false 保持原行为(check 仍生成文档)
+    SKIP_DOC("SKIP_DOC", "false"),
+    // [perf] 本地开发时跳过被 @Tag("integration") 标记的集成测试(如 example-spring 的 @SpringBootTest)，
+    // 这类测试启动重(上下文 + forked JVM)；默认 false 保持原行为(CI 仍运行它们)
+    SKIP_INTEGRATION("SKIP_INTEGRATION", "false"),
+    // [perf] 一次性跳过所有本地开发可省略的环节(质量 / 覆盖率 / e2e 套件 / 文档 / 集成测试)，
+    // 等价于同时设 SKIP_QUALITY + SKIP_COVERAGE + SKIP_E2E + SKIP_DOC + SKIP_INTEGRATION；
+    // 默认 false 保持原行为
+    SKIP_ALL_LOCAL("SKIP_ALL_LOCAL", "false"),
   }
 
   /** The default local properties file. */

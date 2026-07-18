@@ -12,6 +12,7 @@ export default defineConfig({
     nav: [
       { text: "Home", link: "/" },
       { text: "Examples", link: "/examples/markdown-examples" },
+      { text: "Engineering", link: "/engineering/perf-skip-quality-decoupling" },
     ],
 
     sidebar: [
@@ -21,6 +22,15 @@ export default defineConfig({
           { text: "Markdown Examples", link: "/examples/markdown-examples" },
           { text: "Runtime API Examples", link: "/examples/api-examples" },
           { text: "Learn CURL", link: "/examples/learn-curl" },
+        ],
+      },
+      {
+        text: "Engineering",
+        items: [
+          {
+            text: "构建性能优化（SKIP 门控）",
+            link: "/engineering/perf-skip-quality-decoupling",
+          },
         ],
       },
     ],

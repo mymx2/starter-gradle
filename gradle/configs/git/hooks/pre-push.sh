@@ -1,10 +1,6 @@
 #!/bin/sh
-set -e
-
 echo "🚀 Pre-push check start"
-
-./gradlew check
-
+./gradlew check -PSKIP_ALL_LOCAL=false
 if [ $? -eq 0 ]; then
     echo "✅ Pre-push check passed"
 else
