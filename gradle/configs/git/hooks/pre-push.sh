@@ -1,10 +1,10 @@
 #!/bin/sh
 echo "🚀 Pre-push check start"
 
-# Prettier formatting check (via pnpm, not Gradle)
-pnpm run format:check
+# Prettier formatting check (via vp, not Gradle)
+vp run format:check
 if [ $? -ne 0 ]; then
-    echo "❌ Prettier format check failed. Run 'pnpm run format' to fix."
+    echo "❌ Prettier format check failed. Run 'vp run format' to fix."
     exit 1
 fi
 

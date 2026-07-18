@@ -9,5 +9,12 @@
   "devDependencies": {
     "prettier": "3.9.4",
     "@prettier/plugin-xml": "3.4.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.15.0",
+      "onFail": "download"
+    }
   }
 }
