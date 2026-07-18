@@ -1,0 +1,20 @@
+{
+  "name": "starter-gradle",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"**/*.{md,json,json5,yaml,yml,xml}\"",
+    "format:check": "prettier --check \"**/*.{md,json,json5,yaml,yml,xml}\""
+  },
+  "devDependencies": {
+    "prettier": "3.9.4",
+    "@prettier/plugin-xml": "3.4.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.15.0",
+      "onFail": "download"
+    }
+  }
+}

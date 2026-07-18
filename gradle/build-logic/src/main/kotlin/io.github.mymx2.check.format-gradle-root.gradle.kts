@@ -1,11 +1,9 @@
 @file:Suppress("UnstableApiUsage")
 
 import io.github.mymx2.plugin.DefaultProjects
-import io.github.mymx2.plugin.spotless.SpotlessConfig
 import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
 import io.github.mymx2.plugin.spotless.defaultStep
-import io.github.mymx2.plugin.spotless.npmFile
 
 plugins { id("io.github.mymx2.check.format-base") }
 
@@ -43,40 +41,6 @@ if (path == ":") {
       }
     }
 
-    val misc = listOf("**/*.md", "**/*.json", "**/*.json5", "**/*.yaml", "**/*.yml")
-    val xml = listOf("**/*.xml")
-    val targetFiles = spotlessFileTree("gradle/configs").apply { include(misc + xml) }
-    val npmExecutable = npmFile().orNull
-
-    if (npmExecutable?.exists() == true) {
-      format("prettierXmlRoot") {
-        defaultStep {
-          prettier(SpotlessConfig.prettierDevDependenciesWithXmlPlugin)
-            .npmExecutable(npmExecutable)
-            .config(
-              mapOf(
-                "plugins" to listOf("@prettier/plugin-xml"),
-                "parser" to "xml",
-                "useTabs" to false,
-                "tabWidth" to 2,
-              )
-            )
-        }
-        target(targetFiles.matching { include(xml) })
-      }
-      format("prettierMiscRoot") {
-        defaultStep {
-          prettier(SpotlessConfig.prettierDevDependencies).npmExecutable(npmExecutable)
-        }
-        target(
-          isolated.projectDirectory.files("README.md"),
-          spotlessFileTree(".github").include(misc).exclude("actions/**", "**/*-lock.yaml"),
-          targetFiles.matching {
-            include(misc)
-            exclude("**/*-lock.yaml")
-          },
-        )
-      }
-    }
+    // prettier formatting is handled by io.github.mymx2.check.format-prettier (root project)
   }
 }

@@ -1,6 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.autonomousapps.tasks.ProjectHealthTask
 import io.fuchs.gradle.collisiondetector.DetectCollisionsTask
 import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.libs
@@ -13,13 +12,6 @@ import org.gradle.kotlin.dsl.withType
 import org.gradle.testing.base.TestingExtension
 
 object PluginHelpers {
-
-  /** Enables the project health plugin. */
-  fun Project.enableProjectHealth() {
-    tasks.named("qualityCheck") { dependsOn(tasks.withType<ProjectHealthTask>()) }
-
-    tasks.named("qualityGate") { dependsOn(tasks.withType<ProjectHealthTask>()) }
-  }
 
   /** Enables the collision detection plugin. */
   fun Project.enableCollisionDetection() {

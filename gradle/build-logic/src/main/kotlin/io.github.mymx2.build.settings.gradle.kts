@@ -23,8 +23,6 @@ gradle.lifecycle.beforeProject {
     plugins.apply("io.github.mymx2.check.format-gradle-root")
     // action lint
     plugins.apply("io.github.mymx2.check.actionlint-root")
-    // dependency check
-    plugins.apply("io.github.mymx2.check.dependencies-root")
   }
 }
 

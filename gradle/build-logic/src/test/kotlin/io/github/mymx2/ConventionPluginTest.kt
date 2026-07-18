@@ -139,14 +139,7 @@ class ConventionPluginTest {
       """
         .trimIndent()
     )
-    rootBuildFile.writeText(
-      """
-      plugins {
-        id("com.autonomousapps.dependency-analysis")
-      }
-      """
-        .trimIndent()
-    )
+    rootBuildFile.writeText("")
     versions.writeText(
       """
       plugins {
