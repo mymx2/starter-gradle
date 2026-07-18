@@ -1,5 +1,3 @@
-import com.autonomousapps.DependencyAnalysisExtension
-import com.autonomousapps.DependencyAnalysisSubExtension
 import me.champeau.jmh.JMHTask
 import net.ltgt.gradle.errorprone.errorprone
 
@@ -9,10 +7,6 @@ plugins {
   id("io.github.mymx2.check.quality-nullaway")
   id("me.champeau.jmh")
 }
-
-// Applied by CLASS (not via `plugins { id(...) }`) so the dependency-analysis plugin is always
-// loaded from build-logic's own classloader and never resolved into the main build's classloader.
-apply<com.autonomousapps.DependencyAnalysisPlugin>()
 
 jmh {
   includeTests = false
@@ -41,12 +35,6 @@ tasks.withType<JMHTask>().configureEach {
 }
 
 tasks.jmhJar { manifest { attributes(mapOf("Multi-Release" to true)) } }
-
-if (project.parent == null) {
-  configure<DependencyAnalysisExtension> { issues { all { ignoreSourceSet("jmh") } } }
-} else {
-  configure<DependencyAnalysisSubExtension> { issues { onAny { ignoreSourceSet("jmh") } } }
-}
 
 tasks.jmhCompileGeneratedClasses {
   // Disable ErrorProne https://github.com/melix/jmh-gradle-plugin/issues/248

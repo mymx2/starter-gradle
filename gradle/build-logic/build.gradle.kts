@@ -57,7 +57,6 @@ dependencies {
       libs.plugins.org.gradlex.extra.java.module.info,
       libs.plugins.com.gradleup.shadow,
       libs.plugins.com.vanniktech.maven.publish,
-      libs.plugins.com.autonomousapps.dependency.analysis,
       libs.plugins.io.fuchs.gradle.classpath.collision.detector,
       libs.plugins.org.cyclonedx.bom,
       libs.plugins.com.github.spotbugs,

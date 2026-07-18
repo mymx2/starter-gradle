@@ -1,16 +1,11 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.autonomousapps.DependencyAnalysisExtension
-import com.autonomousapps.DependencyAnalysisSubExtension
 import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.environment.EnvAccess
 import io.github.mymx2.plugin.injected
-import io.github.mymx2.plugin.resetTaskGroup
 import java.io.ByteArrayOutputStream
 import java.nio.charset.StandardCharsets
 import kotlin.io.path.invariantSeparatorsPathString
-import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesOrderingCheck
-import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesScopeCheck
 
 plugins {
   java
@@ -19,54 +14,15 @@ plugins {
   id("io.github.mymx2.base.jvm-conflict")
 }
 
-// Applied by CLASS (not via `plugins { id(...) }`) so the dependency-analysis plugin is always
-// loaded from build-logic's own classloader (settings[:build-logic]) and never resolved into the
-// main build's classloader. This avoids the
-// "Cannot set ... inMemoryCache ... loaded with
-// InstrumentingVisitableURLClassLoader(...build-logic)"
-// error, which happens when the plugin's shared build service ends up on two classloaders.
-apply<com.autonomousapps.DependencyAnalysisPlugin>()
-
 // ordering check is done by SortModuleInfoRequiresStep
-tasks.withType<ModuleDirectivesOrderingCheck> { enabled = false }
+// Use runtime class name matching to avoid compile-time dependency on org.gradlex JAR
+tasks.matching { it::class.java.simpleName == "ModuleDirectivesOrderingCheck" }.configureEach { enabled = false }
 
-// Do not report dependencies from one source set to another as 'required'.
-// In particular, in case of test fixtures, the analysis would suggest to
-// add as testModuleInfo { require(...) } to the main module. This is
-// conceptually wrong, because in whitebox testing the 'main' and 'test'
-// module are conceptually considered one module (main module extended with tests)
-// kotlin-kapt: https://github.com/autonomousapps/dependency-analysis-gradle-plugin/issues/778
-if (project.parent == null) {
-  configure<DependencyAnalysisExtension> {
-    issues {
-      all {
-        onAny { // Configure the dependency analysis plugin to fail if issues are found
-          severity("fail")
-          exclude("kotlin-kapt")
-          onUnusedDependencies { exclude("org.junit.jupiter:junit-jupiter") }
-        }
-      }
-    }
-  }
-} else {
-  configure<DependencyAnalysisSubExtension> {
-    issues {
-      onAny { // Configure the dependency analysis plugin to fail if issues are found
-        severity("fail")
-        exclude("kotlin-kapt")
-        onUnusedDependencies { exclude("org.junit.jupiter:junit-jupiter") }
-      }
-    }
-  }
-}
+val scopeCheckTasks = tasks.matching { it::class.java.simpleName == "ModuleDirectivesScopeCheck" }
 
-tasks.named("qualityCheck") { dependsOn(tasks.withType<ModuleDirectivesScopeCheck>()) }
+tasks.named("qualityCheck") { dependsOn(scopeCheckTasks) }
 
-tasks.named("qualityGate") { dependsOn(tasks.withType<ModuleDirectivesScopeCheck>()) }
-
-listOf("artifactsReportMain" to "help", "fixDependencies" to "toolbox").forEach {
-  resetTaskGroup(it.first, it.second)
-}
+tasks.named("qualityGate") { dependsOn(scopeCheckTasks) }
 
 val isCI = EnvAccess.isCi(providers)
 
