@@ -14,6 +14,11 @@ plugins {
 }
 
 val jepEnablePreview = project.getPropOrDefault(LocalConfig.Props.JEP_ENABLE_PREVIEW).toBoolean()
+// [perf] 本地开发时跳过被 @Tag("integration") 标记的集成测试(如 example-spring 的 @SpringBootTest)，
+// 这类测试启动重(上下文 + forked JVM)。SKIP_INTEGRATION 单独控制，也随 SKIP_ALL_LOCAL 一并跳过；
+// 默认 false 保持原行为(CI 仍运行它们)。推送前需跑一次完整 check 补回。
+val skipIntegration = project.getPropOrDefault(LocalConfig.Props.SKIP_INTEGRATION).toBoolean()
+val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
 
 val buildProperties = project.buildProperties()
 val junitJupiterM2Enabled =
@@ -44,6 +49,10 @@ testing {
             }
           )
           systemProperty("file.encoding", StandardCharsets.UTF_8.name())
+          if (skipIntegration || skipAllLocal) {
+            // 本地循环排除 @Tag("integration") 的集成测试(如 @SpringBootTest)，保留单元/其他测试
+            useJUnitPlatform { excludeTags("integration") }
+          }
         }
       }
     }
@@ -60,7 +69,6 @@ configurations.testCompileOnly { extendsFrom(configurations.compileOnly.get()) }
 // By default (SKIP_COVERAGE=false) `check` still depends on `jacocoTestReport`,
 // preserving the original behavior. Set SKIP_COVERAGE=true ... for fast local builds.
 val skipCoverage = project.getPropOrDefault(LocalConfig.Props.SKIP_COVERAGE).toBoolean()
-val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
 
 tasks.check {
   if (!skipCoverage && !skipAllLocal) {

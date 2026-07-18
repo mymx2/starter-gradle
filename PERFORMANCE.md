@@ -10,7 +10,7 @@
 真正的瓶颈不在构建脚本，而在**环境**：一个损坏的全局 `init.gradle` 和一个过低的 JDK 版本让构建根本跑不起来。
 修复环境后，再做的"优化"尝试（给 JVM/Kotlin daemon 限堆）反而**退化**了，证明大内存机器不该限堆。
 
-最有价值的后续杠杆是**启用远程构建缓存**（项目已接线，只差 `BUILD_CACHE_USER`/`BUILD_CACHE_PWD` 凭证）。其次，本报告提出的"把重型静态分析 / 覆盖率采集 / 端到端测试套件从本地 `build`/`check` 解耦到 CI"**已实施**：通过 `SKIP_QUALITY`、`SKIP_COVERAGE`、`SKIP_E2E` 三个门控，本地 `build` 任务图质量任务 10 → 0、`check` 任务图 jacoco 任务 5 → 0、`:app` 的 e2e 套件 + mockApi 整套 −16 任务（解耦正确，见 §4.2 / §4.6 / §4.10 / §4.11）。但需注意——项目默认开启构建缓存（`org.gradle.caching=true`），无改动的热重建里质量产物从缓存恢复，SKIP_QUALITY 的**墙钟收益被缓存掩盖**（见 §4.6 的缓存热度实验）；真正收益体现在缓存未命中 / 冷构建 / 改代码后的场景。本地用 `check` 替代 `build` 可进一步跳过打包分发物（见 §4.7）。`isolated-projects` 经实验确认与本工程不兼容，已排除。本 PR 已提交一项**通用、与机器无关**的 `gradle.properties` 改动：`org.gradle.configuration-cache.max-problems` 由 `1 → 5`（见 §4.4，避免单点问题静默废掉配置缓存）；机器专属项（如 toolchain 路径、`watch-fs` 默认已开）仍不提交。作为收尾，新增复合门控 `SKIP_ALL_LOCAL`，让三旗解耦收成一面旗（见 §4.12）。
+最有价值的后续杠杆是**启用远程构建缓存**（项目已接线，只差 `BUILD_CACHE_USER`/`BUILD_CACHE_PWD` 凭证）。其次，本报告提出的"把本地 `build`/`check` 中可省略的环节——重型静态分析 / 覆盖率采集 / 端到端测试套件 / dokka 文档生成 / 被 `@Tag("integration")` 标记的集成测试——解耦到 CI"**已实施**：通过 `SKIP_QUALITY`、`SKIP_COVERAGE`、`SKIP_E2E`、`SKIP_DOC`、`SKIP_INTEGRATION` 五个门控，本地 `build` 任务图质量任务 10 → 0、`check` 任务图 jacoco 任务 5 → 0、`:app` 的 e2e 套件 + mockApi 整套 −16 任务、dokka 文档生成退出任务图、`:example-spring` 的 `@SpringBootTest` 集成测试被排除（解耦正确，见 §4.2 / §4.6 / §4.10 / §4.11 / §4.13 / §4.14）。但需注意——项目默认开启构建缓存（`org.gradle.caching=true`），无改动的热重建里质量产物从缓存恢复，SKIP_QUALITY 的**墙钟收益被缓存掩盖**（见 §4.6 的缓存热度实验）；真正收益体现在缓存未命中 / 冷构建 / 改代码后的场景。本地用 `check` 替代 `build` 可进一步跳过打包分发物（见 §4.7）。`isolated-projects` 经实验确认与本工程不兼容，已排除。本 PR 已提交一项**通用、与机器无关**的 `gradle.properties` 改动：`org.gradle.configuration-cache.max-problems` 由 `1 → 5`（见 §4.4，避免单点问题静默废掉配置缓存）；机器专属项（如 toolchain 路径、`watch-fs` 默认已开）仍不提交。作为收尾，新增复合门控 `SKIP_ALL_LOCAL`，把五旗解耦收成一面旗（见 §4.12），本地最快循环暖态已压到约 **2s**（见 §4.12 / §4.14）。
 
 ---
 
@@ -300,43 +300,131 @@ org.gradle.configuration-cache.max-problems=5
 - **确定性收益**：`SKIP_E2E` 把 `:app` 的 e2e 套件 + mockApi 源码集整套移出任务图（−16 任务），与缓存无关；默认 `false` 对 CI 与现有行为零影响（`testAggregateTestReport` 在 `:app` 不产出 e2e 结果时正常空聚合，构建仍 `BUILD SUCCESSFUL`）。
 - **墙钟约 −40%**：e2e 两个套件执行合计 6.6s，但因 `maxParallelForks=4` 与 `:app:test`/`:example-spring:test` 并行，墙钟节省约 2.8s（7.2s → 4.4s）。加上 §4.10 的覆盖率、§4.2 的质量解耦，本地最快循环已能砍掉整条 `check` 的大部分非编译/非单元-集成测试开销。
 - **诚实提示（与 §4.2/§4.10 的本质区别）**：`SKIP_E2E` 跳过的是**真实功能 e2e 测试**（不是"质量检查"或"覆盖率采集"）。默认 `false` 全部保留，CI 不受影响；本地用它可以极快做 TDD 内循环，但**推送前务必跑一次完整 `check`（不带此旗）**以补回 e2e 覆盖。
-- **附带观察（未实施）**：`dokkaGenerateModuleHtml`（dokka 文档生成）也出现在本地 `check` 循环任务图里，若本地完全不需要文档，可再加一个 `SKIP_DOC` 门控作为下一杠杆（本 PR 未做）。
+- **附带观察（已实施，见 §4.13）**：`dokkaGenerateModuleHtml`（dokka 文档生成）也出现在本地 `check` 循环任务图里，已按此思路新增 `SKIP_DOC` 门控；同期还新增了应用层的 `SKIP_INTEGRATION`（`@Tag("integration")` 集成测试排除，见 §4.14），二者一并并入 `SKIP_ALL_LOCAL`。
 
-### 4.12 一次性开关 `SKIP_ALL_LOCAL` —— 把三条旗收成一面（本次"最后优化"）
-到 §4.2 / §4.10 / §4.11 为止，本地最快循环需要**三个旗同时开**：`-PSKIP_QUALITY=true -PSKIP_COVERAGE=true -PSKIP_E2E=true`。
-作为配置层压榨的收尾，新增一个**复合门控** `SKIP_ALL_LOCAL`，等价于同时开启三者，让「完全优化的本地循环」只需**一面旗**。
+### 4.12 一次性开关 `SKIP_ALL_LOCAL` —— 把五条旗收成一面（本次"最后优化"）
+到 §4.2 / §4.10 / §4.11 / §4.13 / §4.14 为止，本地最快循环需要**五个旗同时开**：`-PSKIP_QUALITY=true -PSKIP_COVERAGE=true -PSKIP_E2E=true -PSKIP_DOC=true -PSKIP_INTEGRATION=true`。
+作为配置层 + 应用层压榨的收尾，新增一个**复合门控** `SKIP_ALL_LOCAL`，等价于同时开启五者，让「完全优化的本地循环」只需**一面旗**。
 
 **改动文件（沿用既有 `LocalConfig.Props` 门控模式）：**
 1. `gradle/build-logic/.../io/github/mymx2/plugin/local/LocalConfig.kt`
    新增枚举项 `SKIP_ALL_LOCAL("SKIP_ALL_LOCAL", "false")`（默认 `false`，保持原行为）。
-2. 五个已有门控点各自 `|| skipAllLocal`（禁用路径）/`&& !skipAllLocal`（接线路径）与既有旗取并/交：
+2. 七个门控点各自 `|| skipAllLocal`（禁用路径）/`&& !skipAllLocal`（接线路径）与既有旗取并/交：
    - `io.github.mymx2.base.lifecycle.gradle.kts`：`check → qualityCheck` 接线加 `&& !skipAllLocal`
    - `io.github.mymx2.check.quality-detekt.gradle.kts`：`Detekt` 禁用条件 `skipQuality || skipAllLocal`
-   - `io.github.mymx2.feature.test.gradle.kts`：jacoco 接线 `&& !skipAllLocal`、agent 关闭 `skipCoverage || skipAllLocal`
+   - `io.github.mymx2.feature.test.gradle.kts`：jacoco 接线 `&& !skipAllLocal`、agent 关闭 `skipCoverage || skipAllLocal`、JUnit `excludeTags("integration")` 条件 `skipIntegration || skipAllLocal`
    - `io.github.mymx2.report.code-coverage.gradle.kts`：`testCodeCoverageReport` 接线 `&& !skipAllLocal`
+   - `io.github.mymx2.feature.doc-kotlin.gradle.kts`：`dokkaGenerate*` 任务禁用条件 `skipDoc || skipAllLocal`
    - `app/build.gradle.kts`：`feature.test-end2end` 应用 + e2e/mockApi 依赖整体 `!skipE2E && !skipAllLocal`
 
 > 纯组合，无新逻辑：每个既有门控的"跳过"条件 `||` 进 `skipAllLocal`、"保留"条件 `&& !` 进 `skipAllLocal`，不引入新的跳过维度。
 
 **用法：**
 ```bash
-# 本地最快 TDD 循环：一面旗替代三条旗（跳过静态分析 + 覆盖率 + e2e 套件 + 打包）
+# 本地最快 TDD 循环：一面旗替代五条旗（跳过静态分析 + 覆盖率 + e2e 套件 + dokka 文档 + 集成测试 + 打包）
 ./gradlew check -PSKIP_ALL_LOCAL=true
 ```
 
 **实测收益（lean loop `clean check -PSKIP_ALL_LOCAL=true`，同硬件）：**
 
-| 指标 | 三旗分别开 | `SKIP_ALL_LOCAL=true` | 说明 |
+| 指标 | 五旗分别开 | `SKIP_ALL_LOCAL=true` | 说明 |
 |---|---:|---:|---|
 | `check` 质量任务 (detekt 等) | 0 | **0** | 等价 |
 | `check` jacoco / coverage 任务 | 0 | **0** | 等价 |
 | `:app` e2e 套件 + mockApi | 已移除 | **已移除** | 等价 |
-| 暖循环墙钟 | 4.4s | **4.4s** | 完全等价（同一组任务图） |
-| 需要的命令行旗数 | 3 | **1** | 收口，开发者体验提升 |
+| dokka 文档生成 (`dokkaGenerate*`) | 退出任务图 | **退出任务图（SKIPPED）** | 等价 |
+| `:example-spring` 集成测试 (`@Tag("integration")`) | 0 | **0（被排除）** | 等价 |
+| 暖循环墙钟 | ~2s | **~2s（实测 1.97s）** | 完全等价（同一组任务图） |
+| 需要的命令行旗数 | 5 | **1** | 收口，开发者体验提升 |
 
-- **行为等价、墙钟等价**：`SKIP_ALL_LOCAL` 只是把三个独立门控的"跳过"集合并成一个开关，进入任务图与三旗同开完全一致（已验证 `clean check -PSKIP_ALL_LOCAL=true` `BUILD SUCCESSFUL`，`detekt` SKIPPED、jacoco / coverage / e2e / mockApi 任务全部缺席）。默认 `false` 对 CI 与现有行为零影响。
-- **价值在开发者体验**：把"记住三个属性名 + 敲一长串 `-P`"收敛为单面旗，降低本地快循环的使用门槛；同时保留三旗可独立启停的细粒度（比如只想跳过 e2e、保留质量门禁做 `./gradlew check -PSKIP_E2E=true`）。
-- **收尾定位**：这是配置层对本地循环的最后一次压榨——任务图层面 `SKIP_*` 三旗已把所有"非编译 / 非单元-集成测试"开销解耦干净，`SKIP_ALL_LOCAL` 是这层优化的收口开关，无新增优化维度。再往下只能靠 §4.1 的远程构建缓存（应用层凭证）或 §4.11 末尾提到的 `SKIP_DOC` 等应用层取舍。
+- **行为等价、墙钟等价**：`SKIP_ALL_LOCAL` 只是把五个独立门控的"跳过"集合并成一个开关，进入任务图与五旗同开完全一致（已验证 `clean check -PSKIP_ALL_LOCAL=true` `BUILD SUCCESSFUL`，`detekt` SKIPPED、jacoco / coverage / e2e / mockApi / dokkaGenerateModuleHtml 任务全部缺席或 SKIPPED、`:example-spring` 集成测试被排除）。默认 `false` 对 CI 与现有行为零影响。
+- **价值在开发者体验**：把"记住五个属性名 + 敲一长串 `-P`"收敛为单面旗，降低本地快循环的使用门槛；同时保留五旗可独立启停的细粒度（比如只想跳过 e2e、保留质量门禁做 `./gradlew check -PSKIP_E2E=true`）。
+- **收尾定位**：这是配置层（§4.2 / §4.10 / §4.11 / §4.13）与应用层（§4.14）对本地循环的最后一次压榨——任务图层面 `SKIP_*` 五旗已把所有"非编译 / 非单元-集成测试"开销解耦干净，`SKIP_ALL_LOCAL` 是这层优化的收口开关，无新增优化维度。再往下只能靠 §4.1 的远程构建缓存（应用层凭证）。
+
+### 4.13 把 dokka 文档生成从本地 `check` 解耦 —— 已实施 ✅（lean loop 的下一杠杆）
+在 §4.11 解耦 e2e 之后，lean loop（`clean check -PSKIP_QUALITY -PSKIP_COVERAGE -PSKIP_E2E`）里**唯一剩余的非测试重插件层**是 dokka 文档生成：`check` 经由 `javadocJar → dokkaGeneratePublicationHtml` 拉起 `dokkaGenerateModuleHtml`。dokka 输出**不可缓存**（`--rerun-tasks` 下每次都重跑），是 lean loop 里最大的**经常性**税（约 ~7s，且随模块数放大）。本地"我改坏没"的验证根本不需要文档。
+
+**改动文件：**
+1. `gradle/build-logic/.../io/github/mymx2/plugin/local/LocalConfig.kt`
+   新增枚举项 `SKIP_DOC("SKIP_DOC", "false")`（默认 `false`，保持原行为）。
+2. `gradle/build-logic/.../io.github.mymx2.feature.doc-kotlin.gradle.kts`
+   - 门控 `javadocJar → dokkaGeneratePublicationHtml` 的接线：`if (!vanniktechPlugin && !(skipDoc || skipAllLocal)) { ... }`。
+   - 按**任务名**禁用 dokka 生成任务（关键坑见下）：
+   ```kotlin
+   if (skipDoc || skipAllLocal) {
+     // dokka 模块任务类型是 DokkaTaskPartial(非 DokkaTask)，故按任务名匹配更稳
+     tasks.configureEach {
+       if (name.startsWith("dokkaGenerate")) {
+         enabled = false
+       }
+     }
+   }
+   ```
+
+> **踩坑（本小节最关键）**：dokka 的模块/发布任务（`dokkaGenerateModuleHtml`、`dokkaGeneratePublicationHtml`）类型是 `DokkaTaskPartial`（继承链 `DokkaTask` 的子类），而 `tasks.withType<DokkaTask>()` **只匹配精确类型、不匹配子类** → 实际匹配到 **0 个任务**。直接用 `withType<DokkaTask>()` 禁用时，`SKIP_DOC`/`SKIP_ALL_LOCAL` 看似"生效"其实是假象（dokka 已 UP-TO-DATE/缓存，所以"缺席"≠"被禁用"）。`unzip` 拆解 `dokka-gradle-plugin-2.2.0.jar` 确认 `dokkaGenerateModuleHtml` 由 `org.jetbrains.dokka.gradle.formats.DokkaHtmlPlugin` 注册且为 `DokkaTaskPartial`。**修正**：改为按任务名 `name.startsWith("dokkaGenerate")` 匹配，已验证 `:app:dokkaGenerateModuleHtml SKIPPED`。
+
+**用法：**
+```bash
+# 本地最快验证循环：跳过静态分析 + 覆盖率 + e2e + 文档生成
+./gradlew check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true -PSKIP_E2E=true -PSKIP_DOC=true
+```
+
+**实测收益（同硬件，lean loop `:app:check`）：**
+
+| 场景 | 耗时 | dokka 任务 | 说明 |
+|---|---:|---|---|
+| 默认 `check` | 22s | 执行 | CI 路径，文档照常生成 |
+| `-PSKIP_DOC=true` (`:app:check`) | **2s** | 无 | dokka 退出任务图 |
+
+- **确定性收益**：`SKIP_DOC` 把不可缓存的 dokka 文档生成移出任务图，与缓存无关、始终生效；默认 `false` 对 CI 与现有行为零影响（`docKotlin` 任务仍可用，手动生成文档不受影响）。
+- **诚实提示**：`SKIP_DOC` 跳过的不是测试而是**文档产物**。本地快循环用它极快，但推送前务必跑一次完整 `check`（不带此旗）以补回文档生成（CI 发布的 javadoc/javadocJar 依赖它）。
+
+### 4.14 应用层：把 `@Tag("integration")` 集成测试从本地 `check` 解耦 —— 已实施 ✅（用户授权的应用层优化）
+到 §4.11 为止，lean loop 的剩余大头是 **应用层**成本：`:example-spring:test` 里的 `@SpringBootTest` 上下文启动（§4.10 已诚实指出这是"测试本身的固有成本，构建脚本无法在不改测试的前提下压缩"）。用户明确授权"应用层优化也可以进行"，故新增一个**应用层门控** `SKIP_INTEGRATION`：给重型集成测试打 `@Tag("integration")`，本地循环用 JUnit `excludeTags` 排除它们，保留单元/其他测试。
+
+**改动文件：**
+1. `gradle/build-logic/.../io/github/mymx2/plugin/local/LocalConfig.kt`
+   新增枚举项 `SKIP_INTEGRATION("SKIP_INTEGRATION", "false")`（默认 `false`，保持原行为）。
+2. `gradle/build-logic/.../io.github.mymx2.feature.test.gradle.kts`
+   在 JVM Test Suite 的 `testTask.configure` 里排除标签：
+   ```kotlin
+   if (skipIntegration || skipAllLocal) {
+     // 本地循环排除 @Tag("integration") 的集成测试(如 @SpringBootTest)，保留单元/其他测试
+     useJUnitPlatform { excludeTags("integration") }
+   }
+   ```
+3. `examples/example-spring/src/test/kotlin/io/github/mymx2/spring/SpringAppTest.kt`（应用层，非 build-logic）
+   给 `@SpringBootTest` 测试类加 `@Tag("integration")`：
+   ```kotlin
+   @SpringBootTest
+   @Tag("integration")
+   @AutoConfigureMockMvc(print = MockMvcPrint.SYSTEM_ERR, printOnlyOnFailure = false)
+   // ...
+   class DemoApplicationTests(...)
+   ```
+
+> **设计取舍**：用 JUnit 5 `@Tag` + `excludeTags` 而非"删测试 / 按源集拆分"，是因为标签法零侵入、可组合——CI 默认 `SKIP_INTEGRATION=false` 仍跑全部集成测试；本地只想排除集成测试时 `excludeTags` 只挡这一类，单元/其他 `@SpringBootTest` 之外的测试照跑。这是与 §4.2/§4.10/§4.11/§4.13 同款的"默认保留、本地可跳"门控哲学。
+
+**用法：**
+```bash
+# 本地最快 TDD 循环：跳过集成测试（保留单元/其他测试）
+./gradlew check -PSKIP_QUALITY=true -PSKIP_COVERAGE=true -PSKIP_E2E=true -PSKIP_DOC=true -PSKIP_INTEGRATION=true
+# 或一面旗：
+./gradlew check -PSKIP_ALL_LOCAL=true
+```
+
+**实测收益（同硬件）：**
+
+| 场景 | `:example-spring:test` 测试数 | 耗时 | 说明 |
+|---|---:|---:|---|
+| 默认 | 3（`@SpringBootTest` ×3） | ~9–11s | 上下文启动 + forked JVM，含 Spring 启动噪声 |
+| `-PSKIP_INTEGRATION=true` | **0** | **2s** | 集成测试被 `excludeTags` 排除 |
+| `-PSKIP_ALL_LOCAL=true` | **0** | **1s** | 兼跳质量/覆盖率/e2e/文档 |
+
+- **确定性收益**：`SKIP_INTEGRATION` 直接排除被 `@Tag("integration")` 标记的集成测试，本地 `:example-spring:test` 从 3 个 Spring 上下文测试降到 0（这部分不依赖缓存、始终生效）；默认 `false` 对 CI 与现有行为零影响（集成测试仍运行）。
+- **完整 lean loop 实测**：`clean check -PSKIP_ALL_LOCAL=true` → `BUILD SUCCESSFUL in ~1.97s`（暖、缓存），32 actionable tasks（4 executed、28 up-to-date），`:app:dokkaGenerateModuleHtml SKIPPED`，`:example-spring` 集成测试被排除。相对 §4.12 早前的 4.4s 三旗循环、Phase A 的 11s 首版，暖态本地快循环已压到 **~2s**。
+- **诚实提示（与 §4.11 同类）**：`SKIP_INTEGRATION` 跳过的是**真实 `@SpringBootTest` 集成测试**（非"质量检查"/"覆盖率"）。默认 `false` 全部保留，CI 不受影响；本地用它做极快 TDD 内循环，但**推送前务必跑一次完整 `check`（不带此旗）**以补回集成覆盖。应用层 `@Tag` 标记是"语义化排除"，团队可在更多重测试中复用同一标签。
+
 
 ---
 
@@ -363,8 +451,8 @@ org.gradle.configuration-cache.max-problems=5
 - **构建本身已高度优化**（配置缓存 + 构建缓存 + 增量编译），开发内循环 1–13s。
 - **最大的"优化"是让构建能跑起来**：修复损坏的全局 `init.gradle`、补齐 JDK 25、按 local-env 安装 `fd`。
 - **堆上限调优是负优化**：大内存机器保持默认堆。
-- **质量门禁 + 覆盖率 + e2e 套件的 CI 解耦已实施**：`SKIP_QUALITY` 门控下本地 `build` 任务图质量任务 **10 → 0（解耦正确）**；`SKIP_COVERAGE` 门控下本地 `check` 任务图 jacoco 任务 **5 → 0（解耦正确）**并关闭 agent；`SKIP_E2E` 门控下本地 `check` 的 `:app` e2e 套件 + mockApi 源码集整套 **−16 任务（解耦正确）**。三者默认 `false`，对 CI 与现有行为零影响（见 §4.2 / §4.6 / §4.10 / §4.11）。`SKIP_QUALITY` 墙钟收益依赖缓存（无改动热重建仅省 ~0.8s，冷构建/改代码后省 ~13.6s）；`SKIP_COVERAGE` 确定性移除报告+聚合任务（热 ~0.37s / 冷 ~1.2s）；`SKIP_E2E` 墙钟约 **−40%**（7.2s → 4.4s 暖循环），是本地循环最大单一杠杆，但跳过的是**真实 e2e 功能测试**，推送前需跑完整 `check` 补回。三者已收口为复合门控 `SKIP_ALL_LOCAL`（默认 `false`，等价同时开启三者，见 §4.12），本地快循环一面旗即可。
-- **本地最快验证循环**：`./gradlew check -PSKIP_ALL_LOCAL=true`（收口开关，等价于 `SKIP_QUALITY`+`SKIP_COVERAGE`+`SKIP_E2E`，跳过静态分析 + 覆盖率 + e2e 套件 + 打包）；若需细粒度，仍可用三旗任意组合（如只想跳 e2e：`-PSKIP_E2E=true`）。`check` 替代 `build` 本身已将任务数 43 → 19（见 §4.7 / §4.10 / §4.11 / §4.12）。
+- **质量门禁 + 覆盖率 + e2e 套件 + dokka 文档 + 集成测试的 CI 解耦已实施**：`SKIP_QUALITY` 门控下本地 `build` 任务图质量任务 **10 → 0（解耦正确）**；`SKIP_COVERAGE` 门控下本地 `check` 任务图 jacoco 任务 **5 → 0（解耦正确）**并关闭 agent；`SKIP_E2E` 门控下本地 `check` 的 `:app` e2e 套件 + mockApi 源码集整套 **−16 任务（解耦正确）**；`SKIP_DOC` 门控下不可缓存的 dokka 文档生成退出任务图（`:app:dokkaGenerateModuleHtml` SKIPPED）；`SKIP_INTEGRATION` 门控下 `:example-spring` 的 `@SpringBootTest` 集成测试被 JUnit `excludeTags` 排除（3 → 0）。五者默认 `false`，对 CI 与现有行为零影响（见 §4.2 / §4.6 / §4.10 / §4.11 / §4.13 / §4.14）。`SKIP_QUALITY` 墙钟收益依赖缓存（无改动热重建仅省 ~0.8s，冷构建/改代码后省 ~13.6s）；`SKIP_COVERAGE` 确定性移除报告+聚合任务（热 ~0.37s / 冷 ~1.2s）；`SKIP_E2E` 墙钟约 **−40%**（7.2s → 4.4s 暖循环），是本地循环最大单一杠杆；`SKIP_DOC` 确定性移除不可缓存的 dokka 生成（~7s）；`SKIP_INTEGRATION` 确定性排除 Spring 上下文集成测试（`:example-spring:test` 3 → 0，~9–11s → 2s）。`SKIP_E2E`/`SKIP_INTEGRATION` 跳过的是**真实功能/集成测试**，推送前需跑完整 `check` 补回。五者已收口为复合门控 `SKIP_ALL_LOCAL`（默认 `false`，等价同时开启五者，见 §4.12），本地快循环一面旗即可，暖态已压到 **~2s**（实测 1.97s，见 §4.14）。
+- **本地最快验证循环**：`./gradlew check -PSKIP_ALL_LOCAL=true`（收口开关，等价于 `SKIP_QUALITY`+`SKIP_COVERAGE`+`SKIP_E2E`+`SKIP_DOC`+`SKIP_INTEGRATION`，跳过静态分析 + 覆盖率 + e2e 套件 + dokka 文档 + 集成测试 + 打包）；若需细粒度，仍可用五旗任意组合（如只想跳 e2e：`-PSKIP_E2E=true`）。`check` 替代 `build` 本身已将任务数 43 → 19（见 §4.7 / §4.10 / §4.11 / §4.12）。
 - **本 PR 已提交一项通用 `gradle.properties` 改动**：`org.gradle.configuration-cache.max-problems` `1 → 5`（非机器专属，CI 行为不受影响，见 §4.4）；机器专属项（`toolchain` 路径、`watch-fs` 默认已开）仍**不提交**（见 §4.4 / §4.3）。
 - **已排除项**：`isolated-projects` 与本工程 build-logic 复合构建不兼容（BUILD FAILED），不启用（见 §4.8）。
 - **顺带发现**：spotless/ktfmt 在 JDK25 下 `NoClassDefFoundError`，被构建缓存掩盖，建议另修（见 §4.9）。

@@ -1,6 +1,7 @@
 package io.github.mymx2.spring
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.info.BuildProperties
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.client.RestTestClient
 import org.springframework.test.web.servlet.client.assertj.RestTestClientResponse
 
 @SpringBootTest
+@Tag("integration")
 @AutoConfigureMockMvc(print = MockMvcPrint.SYSTEM_ERR, printOnlyOnFailure = false)
 @AutoConfigureRestTestClient
 @ExtendWith(OutputCaptureExtension::class)
