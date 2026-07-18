@@ -1,0 +1,9 @@
+{
+  "name": "starter-gradle",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "prettier": "3.9.4",
+    "@prettier/plugin-xml": "3.4.2"
+  }
+}

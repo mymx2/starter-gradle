@@ -1,0 +1,12 @@
+build/
+.gradle/
+node_modules/
+gradle/build-logic/build/
+gradle/build-logic/.kotlin/
+docs/
+**/*-lock.yaml
+**/*-lock.json
+.github/actions/
+**/nocheck/**
+**/autogen/**
+**/generated/**

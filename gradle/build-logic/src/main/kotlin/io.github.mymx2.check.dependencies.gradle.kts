@@ -16,7 +16,9 @@ plugins {
 
 // ordering check is done by SortModuleInfoRequiresStep
 // Use runtime class name matching to avoid compile-time dependency on org.gradlex JAR
-tasks.matching { it::class.java.simpleName == "ModuleDirectivesOrderingCheck" }.configureEach { enabled = false }
+tasks
+  .matching { it::class.java.simpleName == "ModuleDirectivesOrderingCheck" }
+  .configureEach { enabled = false }
 
 val scopeCheckTasks = tasks.matching { it::class.java.simpleName == "ModuleDirectivesScopeCheck" }
 

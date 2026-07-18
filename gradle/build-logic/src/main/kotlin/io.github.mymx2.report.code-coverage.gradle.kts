@@ -20,7 +20,9 @@ plugins {
 // }
 
 // Use runtime class name matching to avoid compile-time dependency on org.gradlex JAR
-tasks.matching { it::class.java.simpleName == "ModuleDirectivesScopeCheck" }.configureEach { enabled = false }
+tasks
+  .matching { it::class.java.simpleName == "ModuleDirectivesScopeCheck" }
+  .configureEach { enabled = false }
 
 // Make aggregation "classpath" use the platform for versions (gradle/versions)
 configurations.aggregateCodeCoverageReportResults { extendsFrom(configurations["internal"]) }
