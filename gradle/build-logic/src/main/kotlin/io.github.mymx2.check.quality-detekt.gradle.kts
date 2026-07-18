@@ -32,7 +32,10 @@ tasks.withType<Detekt>().configureEach {
 // enough to keep detekt out of the local dev loop. When SKIP_QUALITY is set, disable all
 // detekt tasks so they drop out of the task graph entirely. CI keeps SKIP_QUALITY=false,
 // so qualityGate / qualityCheck still run detekt there.
-if (project.getPropOrDefault(LocalConfig.Props.SKIP_QUALITY).toBoolean()) {
+val skipQuality = project.getPropOrDefault(LocalConfig.Props.SKIP_QUALITY).toBoolean()
+val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
+
+if (skipQuality || skipAllLocal) {
   tasks.withType<Detekt>().configureEach { enabled = false }
 }
 

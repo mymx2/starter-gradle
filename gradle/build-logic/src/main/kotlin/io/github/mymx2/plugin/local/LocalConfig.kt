@@ -81,6 +81,9 @@ object LocalConfig {
     // [perf] 本地开发时跳过端到端测试套件(testEndToEnd + testEndToEndSlow 及其 mockApi 源码集)，仅 CI 运行；
     // 默认 false 保持原行为(check 仍运行 e2e 套件)
     SKIP_E2E("SKIP_E2E", "false"),
+    // [perf] 一次性跳过所有本地开发可省略的环节(质量 / 覆盖率 / e2e 套件)，
+    // 等价于同时设 SKIP_QUALITY + SKIP_COVERAGE + SKIP_E2E；默认 false 保持原行为
+    SKIP_ALL_LOCAL("SKIP_ALL_LOCAL", "false"),
   }
 
   /** The default local properties file. */

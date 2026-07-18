@@ -60,14 +60,15 @@ configurations.testCompileOnly { extendsFrom(configurations.compileOnly.get()) }
 // By default (SKIP_COVERAGE=false) `check` still depends on `jacocoTestReport`,
 // preserving the original behavior. Set SKIP_COVERAGE=true ... for fast local builds.
 val skipCoverage = project.getPropOrDefault(LocalConfig.Props.SKIP_COVERAGE).toBoolean()
+val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
 
 tasks.check {
-  if (!skipCoverage) {
+  if (!skipCoverage && !skipAllLocal) {
     dependsOn(tasks.jacocoTestReport)
   }
 }
 
-if (skipCoverage) {
+if (skipCoverage || skipAllLocal) {
   // Disable the jacoco java agent so test execution is not instrumented (the main
   // per-test overhead). The report tasks are simply no longer wired into `check`.
   tasks.withType<Test>().configureEach {
