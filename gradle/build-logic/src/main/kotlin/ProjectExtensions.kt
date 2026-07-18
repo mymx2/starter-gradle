@@ -130,8 +130,8 @@ fun Project.resetTaskGroup(taskName: Any, distGroup: String) {
 fun Gradle.serviceRegistry(): ServiceRegistry = (this as DefaultGradle).services
 
 /**
- * 项目属性加载优先级（从高到低，高优先级覆盖低优先级）
- * -P 项目参数 > -Dorg.gradle.project.* 系统属性 > ORG_GRADLE_PROJECT_* 环境变量 > gradle.properties
+ * 项目属性加载优先级（从高到低，高优先级覆盖低优先级） -P 项目参数 > -Dorg.gradle.project.* 系统属性 > ORG_GRADLE_PROJECT_* 环境变量 >
+ * gradle.properties
  *
  * [see doc](https://docs.gradle.org/current/userguide/build_environment.html)
  *
@@ -144,17 +144,13 @@ fun Gradle.serviceRegistry(): ServiceRegistry = (this as DefaultGradle).services
  * project.getOrDefault(LocalConfig.Props.XXX)
  * ```
  *
- * // 读取纯JVM系统属性（仅 -DXXX 不带前缀时使用）
- * providers.systemProperty(key)
- * via:
+ * // 读取纯JVM系统属性（仅 -DXXX 不带前缀时使用） providers.systemProperty(key) via:
  * ```
  * // 普通JVM系统属性，无法被gradleProperty读取
  * ./gradlew build -DXXX='YYY'
  * ```
  *
- * // 读取项目属性（-P / 带前缀-D / 环境变量 / gradle.properties 统一读取入口）
- * providers.gradleProperty(key)
- * via:
+ * // 读取项目属性（-P / 带前缀-D / 环境变量 / gradle.properties 统一读取入口） providers.gradleProperty(key) via:
  * ```
  * // 命令行项目属性：-P 优先级高于 -Dorg.gradle.project.*
  * ./gradlew build -PXXX='YYY'
