@@ -15,10 +15,17 @@ import org.gradlex.javamodule.dependencies.tasks.ModuleDirectivesScopeCheck
 plugins {
   java
   id("io.fuchs.gradle.classpath-collision-detector")
-  id("com.autonomousapps.dependency-analysis")
   id("io.github.mymx2.base.lifecycle")
   id("io.github.mymx2.base.jvm-conflict")
 }
+
+// Applied by CLASS (not via `plugins { id(...) }`) so the dependency-analysis plugin is always
+// loaded from build-logic's own classloader (settings[:build-logic]) and never resolved into the
+// main build's classloader. This avoids the
+// "Cannot set ... inMemoryCache ... loaded with
+// InstrumentingVisitableURLClassLoader(...build-logic)"
+// error, which happens when the plugin's shared build service ends up on two classloaders.
+apply<com.autonomousapps.DependencyAnalysisPlugin>()
 
 // ordering check is done by SortModuleInfoRequiresStep
 tasks.withType<ModuleDirectivesOrderingCheck> { enabled = false }

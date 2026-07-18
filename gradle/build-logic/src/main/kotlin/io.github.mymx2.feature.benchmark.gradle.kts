@@ -6,10 +6,13 @@ import net.ltgt.gradle.errorprone.errorprone
 plugins {
   id("java")
   id("io.github.mymx2.base.jvm-conflict")
-  id("com.autonomousapps.dependency-analysis")
   id("io.github.mymx2.check.quality-nullaway")
   id("me.champeau.jmh")
 }
+
+// Applied by CLASS (not via `plugins { id(...) }`) so the dependency-analysis plugin is always
+// loaded from build-logic's own classloader and never resolved into the main build's classloader.
+apply<com.autonomousapps.DependencyAnalysisPlugin>()
 
 jmh {
   includeTests = false
