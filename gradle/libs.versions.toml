@@ -52,9 +52,9 @@ com-gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "2.1.1
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.37.0" }
 io-fuchs-gradle-classpath-collision-detector = { id = "io.fuchs.gradle.classpath-collision-detector", version = "1.0.0" }
 org-cyclonedx-bom = { id = "org.cyclonedx.bom", version = "3.2.4" }
-com-github-spotbugs = { id = "com.github.spotbugs", version = "6.5.8" }
+com-github-spotbugs = { id = "com.github.spotbugs", version = "6.5.9" }
 org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.8" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.9" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.10" }
 # todo 集成 jib
 com-google-cloud-tools-jib = { id = "com.google.cloud.tools.jib", version = "3.5.3" }
 org-nosphere-apache-rat = { id = "org.nosphere.apache.rat", version = "0.8.1" }
