@@ -209,10 +209,10 @@ importers:
     devDependencies:
       '@prettier/plugin-xml':
         specifier: 3.4.2
-        version: 3.4.2(prettier@3.9.4)
+        version: 3.4.2(prettier@3.9.5)
       prettier:
-        specifier: 3.9.4
-        version: 3.9.4
+        specifier: 3.9.5
+        version: 3.9.5
 
 packages:
 
@@ -227,8 +227,8 @@ packages:
   chevrotain@7.1.1:
     resolution: {integrity: sha512-wy3mC1x4ye+O+QkEinVJkPf5u2vsrDIYW9G7ZuwFl6v/Yu0LwUuT2POsb+NUWApebyxfkQq6+yDfRExbnI5rcw==}
 
-  prettier@3.9.4:
-    resolution: {integrity: sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==}
+  prettier@3.9.5:
+    resolution: {integrity: sha512-/FVl766LpUfB5vXgCYOYa0MeV/441Ia99AeICQIQFTY/Nw0roZwULcXpku5i1/m5kt/baz+s4Zogspd839HSMg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -237,10 +237,10 @@ packages:
 
 snapshots:
 
-  '@prettier/plugin-xml@3.4.2(prettier@3.9.4)':
+  '@prettier/plugin-xml@3.4.2(prettier@3.9.5)':
     dependencies:
       '@xml-tools/parser': 1.0.11
-      prettier: 3.9.4
+      prettier: 3.9.5
 
   '@xml-tools/parser@1.0.11':
     dependencies:
@@ -250,6 +250,6 @@ snapshots:
     dependencies:
       regexp-to-ast: 0.5.0
 
-  prettier@3.9.4: {}
+  prettier@3.9.5: {}
 
   regexp-to-ast@0.5.0: {}
