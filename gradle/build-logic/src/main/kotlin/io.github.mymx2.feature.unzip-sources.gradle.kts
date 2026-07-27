@@ -10,6 +10,7 @@
  * Apply this plugin to any sub-project that needs dependency source indexing.
  */
 import io.github.mymx2.plugin.tasks.UnzipSourceJarsTask
+import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.attributes.Bundling
 import org.gradle.api.attributes.Category
 import org.gradle.api.attributes.DocsType
@@ -33,11 +34,14 @@ val classpathNames =
     JavaPlugin.TEST_RUNTIME_CLASSPATH_CONFIGURATION_NAME,
   )
 
-// Build a lazy Provider<Set<File>> that resolves source JARs at execution time.
+// Build a lazy Provider<Set<String>> that resolves source JARs at execution time.
+// Each entry is "group|artifact|version|absolutePath" — GAV comes from the component
+// identifier, NOT from parsing the file path, so artifacts outside Gradle's files-2.1
+// cache (mavenLocal, flatDir, ivy) are handled correctly.
 // Avoids ConfigurableFileCollection.from() chain which causes StackOverflowError in Gradle 9.x
 // due to recursive finalization across artifact views sharing parent configurations.
 // Configurations are matched lazily — no afterEvaluate needed.
-val sourceFilesProvider: Provider<Set<File>> = providers.provider {
+val sourceFilesProvider: Provider<Set<String>> = providers.provider {
   configurations
     .matching { it.name in classpathNames }
     .flatMap { config ->
@@ -53,8 +57,14 @@ val sourceFilesProvider: Provider<Set<File>> = providers.provider {
           }
         }
         .artifacts
-        .artifactFiles
-        .files
+        .mapNotNull { artifact ->
+          val id = artifact.id.componentIdentifier
+          if (id is ModuleComponentIdentifier) {
+            "${id.group}|${id.module}|${id.version}|${artifact.file.absolutePath}"
+          } else {
+            null
+          }
+        }
     }
     .toSet()
 }

@@ -9,10 +9,8 @@ import java.nio.file.StandardCopyOption
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.SetProperty
-import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.work.DisableCachingByDefault
 
@@ -37,13 +35,12 @@ import org.gradle.work.DisableCachingByDefault
  *
  * ## Implementation notes
  * - Source JARs are resolved lazily via [Property] — only iterated at execution time, so
- *   configuration phase stays cheap. Uses `SetProperty<File>` instead of
+ *   configuration phase stays cheap. Uses `SetProperty<String>` instead of
  *   `ConfigurableFileCollection` to avoid `from()` chain recursion in Gradle 9.x.
  * - Uses Java NIO Zip FileSystem instead of `Project.zipTree` to avoid coupling with the Project
  *   instance at execution time.
- * - GAV coordinates are derived from the Gradle cache path
- *   (`files-2.1/<group>/<artifact>/<version>`), so this only works for dependencies resolved
- *   through the standard Gradle cache layout.
+ * - GAV coordinates come from the resolved artifact's component identifier, so artifacts outside
+ *   Gradle's `files-2.1` cache layout (mavenLocal, flatDir, ivy) are handled correctly.
  *
  * @see
  *   [Variant-aware resolution](https://docs.gradle.org/nightly/userguide/variant_aware_resolution.html)
@@ -52,10 +49,11 @@ import org.gradle.work.DisableCachingByDefault
 @DisableCachingByDefault(because = "Outputs to shared project cache, not task-specific")
 abstract class UnzipSourceJarsTask : DefaultTask(), Injected {
 
-  /** Source JAR files resolved lazily via artifact views — only iterated at execution time. */
-  @get:InputFiles
-  @get:PathSensitive(PathSensitivity.NONE)
-  abstract val sourceFiles: SetProperty<File>
+  /**
+   * Source JAR entries resolved lazily via artifact views — only iterated at execution time. Each
+   * entry is `group|artifact|version|absolutePath`.
+   */
+  @get:Input abstract val sourceFiles: SetProperty<String>
 
   /** Output directory for extracted sources, defaults to <rootProject>/.gradle/gradle_module */
   @get:Internal abstract val outputDir: DirectoryProperty
@@ -74,25 +72,24 @@ abstract class UnzipSourceJarsTask : DefaultTask(), Injected {
     var skipped = 0
     var failed = 0
 
-    sourceFiles.get().forEach { jarFile ->
+    sourceFiles.get().forEach { entry ->
+      val parts = entry.split('|')
+      if (parts.size != 4) {
+        logger.warn("Malformed source entry, skipping: {}", entry)
+        skipped++
+        return@forEach
+      }
+      val group = parts[0]
+      val artifact = parts[1]
+      val version = parts[2]
+      val jarFile = File(parts[3])
+      val displayName = "$group:$artifact:$version"
+
       // Skip non-existent files or non-JAR artifacts (e.g. POM-only dependencies)
       if (!jarFile.exists() || !jarFile.name.endsWith(".jar")) {
         skipped++
         return@forEach
       }
-
-      // Derive <group>/<artifact>/<version> from the Gradle cache path:
-      //   …/files-2.1/<group>/<artifact>/<version>/<hash>/<file>-sources.jar
-      val pathParts = jarFile.toPath().iterator().asSequence().map { it.toString() }.toList()
-      val f21Idx = pathParts.indexOfFirst { it.startsWith("files-2.1") }
-      if (f21Idx < 0 || f21Idx + 3 >= pathParts.size) {
-        skipped++
-        return@forEach
-      }
-      val group = pathParts[f21Idx + 1]
-      val artifact = pathParts[f21Idx + 2]
-      val version = pathParts[f21Idx + 3]
-      val displayName = "$group:$artifact:$version"
 
       val targetDir = outDir.resolve(group).resolve(artifact).resolve(version)
       // Skip if already extracted and the target directory is non-empty
