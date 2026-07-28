@@ -2,9 +2,9 @@
 echo "🚀 Pre-push check start"
 
 # Prettier formatting check (via vp, not Gradle)
-vp run format:check
+vp run check
 if [ $? -ne 0 ]; then
-    echo "❌ Prettier format check failed. Run 'vp run format' to fix."
+    echo "❌ Prettier format check failed. Run 'vp run fmt' to fix."
     exit 1
 fi
 
