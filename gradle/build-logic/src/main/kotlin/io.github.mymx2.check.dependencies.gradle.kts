@@ -14,18 +14,6 @@ plugins {
   id("io.github.mymx2.base.jvm-conflict")
 }
 
-// ordering check is done by SortModuleInfoRequiresStep
-// Use runtime class name matching to avoid compile-time dependency on org.gradlex JAR
-tasks
-  .matching { it::class.java.simpleName == "ModuleDirectivesOrderingCheck" }
-  .configureEach { enabled = false }
-
-val scopeCheckTasks = tasks.matching { it::class.java.simpleName == "ModuleDirectivesScopeCheck" }
-
-tasks.named("qualityCheck") { dependsOn(scopeCheckTasks) }
-
-tasks.named("qualityGate") { dependsOn(scopeCheckTasks) }
-
 val isCI = EnvAccess.isCi(providers)
 
 // https://docs.gradle.org/nightly/userguide/dependency_locking.html
