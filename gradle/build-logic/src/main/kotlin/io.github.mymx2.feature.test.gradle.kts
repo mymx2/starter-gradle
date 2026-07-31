@@ -38,6 +38,7 @@ testing {
         testTask.configure {
           group = "verification"
           maxParallelForks = 4
+          failOnNoDiscoveredTests = false
           testLogging.showStandardStreams = true
           maxHeapSize = "1g"
           // Enable dynamic agent loading for tests - eg: Mockito, ByteBuddy
