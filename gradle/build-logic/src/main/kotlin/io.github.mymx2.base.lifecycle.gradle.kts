@@ -37,6 +37,7 @@ if (!skipQuality && !skipAllLocal) {
 
 val groups =
   mapOf(
+    "alias" to setOf(".*".toRegex()),
     "build" to setOf("assemble", "build", "clean", "qualityGate"),
     "docs" to setOf("doc.*".toRegex()),
     "help" to
