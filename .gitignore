@@ -28,6 +28,7 @@ cypress/downloads
 *.xml~
 
 ### Project ###
+**/dist/
 **/build/
 !**/src/main/**/build/
 !**/src/test/**/build/
