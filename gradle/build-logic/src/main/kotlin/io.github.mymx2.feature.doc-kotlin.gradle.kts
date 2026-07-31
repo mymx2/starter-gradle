@@ -13,7 +13,9 @@ val skipDoc = project.getPropOrDefault(LocalConfig.Props.SKIP_DOC).toBoolean()
 val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
 
 gradle.projectsEvaluated {
-  val vanniktechPlugin = plugins.hasPlugin("com.vanniktech.maven.publish")
+  // 注意：此 lambda 的接收者是 Gradle，裸写 `plugins` 会解析到 Gradle.getPlugins()
+  // （isolated projects 下禁止访问），必须显式用 project 查询本项目的插件。
+  val vanniktechPlugin = project.pluginManager.hasPlugin("com.vanniktech.maven.publish")
   if (!vanniktechPlugin && !(skipDoc || skipAllLocal)) {
     val javadocJar = tasks.findByName("javadocJar")
     if (javadocJar != null) {

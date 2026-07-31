@@ -20,7 +20,7 @@ outline: deep
 
 ## 1. 测试环境与剖析方法
 
-**测试环境（复现基准）**：Ubuntu 22.04 / 32 核 / 123 GiB RAM / JDK 25（sdkman）/ Gradle 9.7.0-milestone-3。
+**测试环境（复现基准）**：Ubuntu 22.04 / 32 核 / 123 GiB RAM / JDK 25（sdkman）/ Gradle 9.7.0-rc-2。
 所有耗时数据均在此环境测得；不同硬件的墙钟绝对值会变化，但**任务图层面的解耦结论与相对收益（任务增减、缓存命中/未命中的差异）与硬件无关**，可跨环境复现。
 
 **剖析手段**：使用 Gradle 官方排查方法——
@@ -190,7 +190,7 @@ org.gradle.java.installations.paths=/path/to/sdkman/candidates/java/25-open
 
 ### 4.8 解耦实测：`SKIP_QUALITY` 的正确性 + 墙钟收益（依赖缓存）
 
-环境同上（32 核 / 123 GiB / JDK25 / Gradle 9.7.0-milestone-3），项目默认 `org.gradle.caching=true`。
+环境同上（32 核 / 123 GiB / JDK25 / Gradle 9.7.0-rc-2），项目默认 `org.gradle.caching=true`。
 测量分"首次（缓存较冷）"与"复现（缓存已热，复现前将 gradle.properties 回退到 main 原状）"两批。
 
 **A. 解耦正确性（最关键）——任务图层面已验证：**
