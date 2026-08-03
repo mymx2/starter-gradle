@@ -46,21 +46,21 @@ org-gradlex-jvm-dependency-conflict-resolution = { id = "org.gradlex.jvm-depende
 org-gradlex-java-module-dependencies = { id = "org.gradlex.java-module-dependencies", version = "1.13.1" }
 org-gradlex-java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.8.1" }
 org-gradlex-extra-java-module-info = { id = "org.gradlex.extra-java-module-info", version = "1.14.2" }
-com-gradleup-shadow = { id = "com.gradleup.shadow", version = "9.5.1" }
+com-gradleup-shadow = { id = "com.gradleup.shadow", version = "9.6.1" }
 com-gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "2.1.1" }
 # https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/vanniktech/gradle-maven-publish-plugin/maven-metadata.xml
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.37.0" }
 io-fuchs-gradle-classpath-collision-detector = { id = "io.fuchs.gradle.classpath-collision-detector", version = "1.0.0" }
-org-cyclonedx-bom = { id = "org.cyclonedx.bom", version = "3.2.4" }
+org-cyclonedx-bom = { id = "org.cyclonedx.bom", version = "3.3.0" }
 com-github-spotbugs = { id = "com.github.spotbugs", version = "6.5.9" }
-org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.8" }
+org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.9" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.10" }
 # todo 集成 jib
-com-google-cloud-tools-jib = { id = "com.google.cloud.tools.jib", version = "3.5.3" }
+com-google-cloud-tools-jib = { id = "com.google.cloud.tools.jib", version = "3.5.4" }
 org-nosphere-apache-rat = { id = "org.nosphere.apache.rat", version = "0.8.1" }
-org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.36.0" }
+org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.37.0" }
 org-springframework-boot = { id = "org.springframework.boot", version = "4.1.0" }
-org-openapi-generator = { id = "org.openapi.generator", version = "7.23.0" }
+org-openapi-generator = { id = "org.openapi.generator", version = "7.24.0" }
 
 # Convention Plugins
 io-github-mymx2-plugin-dy-example-settings = { id = "io.github.mymx2.plugin.dy.example.settings" }
