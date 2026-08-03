@@ -6,7 +6,7 @@
     "check": "prettier --check \"**/*.{md,json,json5,yaml,yml,xml}\""
   },
   "devDependencies": {
-    "prettier": "3.9.5",
+    "prettier": "3.9.6",
     "@prettier/plugin-xml": "3.4.2"
   },
   "devEngines": {
