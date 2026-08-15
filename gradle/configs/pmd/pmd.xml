@@ -32,9 +32,7 @@
     <exclude name="CloseResource" />
     <exclude name="CognitiveComplexity" />
     <exclude name="CommentDefaultAccessModifier" />
-    <exclude
-      name="CommentRequired"
-    /> <!-- 有条件情况下还是放开，注释是重要的一个环节 -->
+    <exclude name="CommentRequired" /> <!-- 有条件情况下还是放开，注释是重要的一个环节 -->
     <exclude name="CommentSize" />
     <!--		<exclude name="CompareObjectsWithEquals"/>-->
     <exclude name="ConfusingTernary" />

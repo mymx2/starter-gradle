@@ -19,14 +19,14 @@ import org.gradle.work.DisableCachingByDefault
  *
  * Resolves ALL dependency source JARs (compile + runtime + test classpaths, including transitive
  * dependencies) using Gradle's variant-aware artifact resolution, then extracts them into
- * `<rootProject>/.gradle/gradle_module/<group>/<artifact>/<version>/`.
+ * `<rootProject>/.gradle/gradle_modules/<group>/<artifact>/<version>/`.
  *
  * ## Caching strategy
  *
  * Acts as a persistent, incremental cache: already-extracted artifacts are skipped on subsequent
  * runs, and old versions are preserved so that multiple projects can share the same source index.
- * Output is written to the root project's `.gradle/gradle_module` directory — NOT into Gradle's own
- * dependency cache — to keep it project-scoped and inspectable.
+ * Output is written to the root project's `.gradle/gradle_modules` directory — NOT into Gradle's
+ * own dependency cache — to keep it project-scoped and inspectable.
  *
  * ## Use case
  *
@@ -55,7 +55,7 @@ abstract class UnzipSourceJarsTask : DefaultTask(), Injected {
    */
   @get:Input abstract val sourceFiles: SetProperty<String>
 
-  /** Output directory for extracted sources, defaults to <rootProject>/.gradle/gradle_module */
+  /** Output directory for extracted sources, defaults to <rootProject>/.gradle/gradle_modules */
   @get:Internal abstract val outputDir: DirectoryProperty
 
   init {

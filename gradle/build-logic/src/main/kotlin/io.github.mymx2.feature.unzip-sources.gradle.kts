@@ -19,10 +19,12 @@ import org.gradle.api.plugins.JavaPlugin
 
 plugins { java }
 
-// Output to root project's .gradle/gradle_module — shared across all sub-projects,
+// Output to root project's .gradle/gradle_modules — shared across all sub-projects,
 // no need to write into Gradle's own dependency cache.
 val outputDirProvider: Provider<Directory> =
-  providers.provider { rootProject.layout.projectDirectory }.map { it.dir(".gradle/gradle_module") }
+  providers
+    .provider { rootProject.layout.projectDirectory }
+    .map { it.dir(".gradle/gradle_modules") }
 
 // Resolve source JARs from all four standard classpaths (compile, runtime, testCompile,
 // testRuntime).

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE import-control PUBLIC
-  "-//Checkstyle//DTD ImportControl Configuration 1.4//EN"
+<!DOCTYPE import-control PUBLIC "-//Checkstyle//DTD ImportControl Configuration 1.4//EN"
   "https://checkstyle.org/dtds/import_control_1_4.dtd">
 <!-- see: https://checkstyle.sourceforge.io/checks/imports/importcontrol.html#ImportControl -->
 <!--<import-control pkg="com.example">-->

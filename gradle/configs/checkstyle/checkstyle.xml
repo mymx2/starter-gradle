@@ -207,10 +207,7 @@
     </module>
     <module name="PackageName">
       <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$" />
-      <message
-        key="name.invalidPattern"
-        value="Package name ''{0}'' must match pattern ''{1}''."
-      />
+      <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''." />
     </module>
     <module name="TypeName">
       <property
@@ -218,17 +215,11 @@
         value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
                     ANNOTATION_DEF, RECORD_DEF"
       />
-      <message
-        key="name.invalidPattern"
-        value="Type name ''{0}'' must match pattern ''{1}''."
-      />
+      <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''." />
     </module>
     <module name="MemberName">
       <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$" />
-      <message
-        key="name.invalidPattern"
-        value="Member name ''{0}'' must match pattern ''{1}''."
-      />
+      <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''." />
     </module>
     <module name="ParameterName">
       <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$" />
@@ -302,14 +293,8 @@
     </module>
     <module name="NoFinalizer" />
     <module name="GenericWhitespace">
-      <message
-        key="ws.followed"
-        value="GenericWhitespace ''{0}'' is followed by whitespace."
-      />
-      <message
-        key="ws.preceded"
-        value="GenericWhitespace ''{0}'' is preceded with whitespace."
-      />
+      <message key="ws.followed" value="GenericWhitespace ''{0}'' is followed by whitespace." />
+      <message key="ws.preceded" value="GenericWhitespace ''{0}'' is preceded with whitespace." />
       <message
         key="ws.illegalFollow"
         value="GenericWhitespace ''{0}'' should followed by whitespace."
@@ -343,10 +328,7 @@
     <module name="CustomImportOrder">
       <property name="sortImportsInGroupAlphabetically" value="true" />
       <property name="separateLineBetweenGroups" value="true" />
-      <property
-        name="customImportOrderRules"
-        value="STATIC###THIRD_PARTY_PACKAGE"
-      />
+      <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE" />
       <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF" />
     </module>
     <module name="MethodParamPad">
@@ -445,20 +427,14 @@
     <!--    </module>-->
     <module name="MethodName">
       <property name="format" value="^[a-z][a-z0-9]\w*$" />
-      <message
-        key="name.invalidPattern"
-        value="Method name ''{0}'' must match pattern ''{1}''."
-      />
+      <message key="name.invalidPattern" value="Method name ''{0}'' must match pattern ''{1}''." />
     </module>
     <module name="SingleLineJavadoc" />
     <module name="EmptyCatchBlock">
       <property name="exceptionVariableName" value="expected" />
     </module>
     <module name="CommentsIndentation">
-      <property
-        name="tokens"
-        value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"
-      />
+      <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN" />
     </module>
     <!-- https://checkstyle.org/filters/suppressionxpathfilter.html -->
     <module name="SuppressionXpathFilter">
@@ -493,10 +469,7 @@
     </module>
     <module name="EmptyLineSeparator">
       <property name="allowMultipleEmptyLines" value="false" />
-      <property
-        name="allowMultipleEmptyLinesInsideClassMembers"
-        value="false"
-      />
+      <property name="allowMultipleEmptyLinesInsideClassMembers" value="false" />
     </module>
     <module name="NoWhitespaceAfter" />
     <module name="TypecastParenPad" />
