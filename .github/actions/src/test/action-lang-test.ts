@@ -1,22 +1,29 @@
 import console from 'node:console'
 import { data, Evaluator, Lexer, Parser } from '@actions/expressions'
 import { contains } from '@actions/expressions/funcs/contains'
-import { parseWorkflow } from '@actions/workflow-parser'
+import { parseWorkflow, type TraceWriter } from '@actions/workflow-parser'
 
 function actionExpressionTest() {
-  const lexer = new Lexer('\'monalisa\' == context.name')
+  const lexer = new Lexer("'monalisa' == context.name")
   const lr = lexer.lex()
 
   const parser = new Parser(lr.tokens, ['context'], [])
   const expr = parser.parse()
 
-  const evaluator = new Evaluator(expr, new data.Dictionary([{
-    key: 'context',
-    value: new data.Dictionary([{
-      key: 'name',
-      value: new data.StringData('monalisa'),
-    }]),
-  }]))
+  const evaluator = new Evaluator(
+    expr,
+    new data.Dictionary([
+      {
+        key: 'context',
+        value: new data.Dictionary([
+          {
+            key: 'name',
+            value: new data.StringData('monalisa'),
+          },
+        ]),
+      },
+    ]),
+  )
   const result = evaluator.evaluate()
 
   console.log(result.coerceString()) // true
@@ -34,7 +41,7 @@ function expressionDemo() {
   // join(github.event.issue.labels.*.name, ', ')
 }
 
-export function actionWorkflowParserTest() {
+export function actionWorkflowParserTest(entryFile: File, trace: TraceWriter) {
   const result = parseWorkflow(
     {
       name: 'test.yaml',
@@ -45,13 +52,10 @@ export function actionWorkflowParserTest() {
                     steps:
                       - run: echo 'hello'`,
     },
+    trace,
   )
   console.log(result.context)
   console.log(result.value)
 }
 
-export const fns = [
-  actionExpressionTest,
-  expressionDemo,
-  actionWorkflowParserTest,
-]
+export const fns = [actionExpressionTest, expressionDemo, actionWorkflowParserTest]

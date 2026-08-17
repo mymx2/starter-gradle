@@ -18,5 +18,5 @@ export const secretsCtx = {} as Record<string, string>
 export const strategy = {} as StrategyContext
 // eslint-disable-next-line ts/no-explicit-any
 export const matrixCtx = {} as Record<string, any>
-export const needsCtx = {} as Record<string, { outputs: Record<string, string>, result: string }>
+export const needsCtx = {} as Record<string, { outputs: Record<string, string>; result: string }>
 export const inputsCtx = {} as Record<string, string | number | boolean>

@@ -9,12 +9,12 @@ export function octokit() {
 
 export function ghAuth() {
   gLog('获取当前用户信息\n-----------------------------------')
-  octokit().rest.users.getAuthenticated().then((result) => {
-    console.log(result)
-    gLog('-----------------------------------')
-  })
+  void octokit()
+    .rest.users.getAuthenticated()
+    .then(result => {
+      console.log(result)
+      gLog('-----------------------------------')
+    })
 }
 
-export const fns = [
-  ghAuth,
-]
+export const fns = [ghAuth]

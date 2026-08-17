@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Starter Gradle Doc"
-  text: "A VitePress Site"
+  name: 'Starter Gradle Doc'
+  text: 'A VitePress Site'
   tagline: My great project tagline
   actions:
     - theme: brand

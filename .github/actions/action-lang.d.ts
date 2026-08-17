@@ -477,7 +477,7 @@ export interface ActionsContext {
    * 包含定义为当前作业依赖项的所有作业的输出。
    * 更多信息请参阅 [`needs` 上下文](https://docs.github.com/actions/learn-github-actions/contexts#needs-context)。
    */
-  needs: Record<string, { outputs: Record<string, string>, result: string }>
+  needs: Record<string, { outputs: Record<string, string>; result: string }>
 
   /**
    * 包含可重用或手动触发工作流的输入。

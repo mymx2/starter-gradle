@@ -11,11 +11,7 @@ export class SimpleGit {
   private readonly _shell: string | undefined
   private readonly _log: Debugger
 
-  constructor(
-    cwd = process.cwd(),
-    shell = process.env.SHELL,
-    log = Debug('simple-git'),
-  ) {
+  constructor(cwd = process.cwd(), shell = process.env.SHELL, log = Debug('simple-git')) {
     this._cwd = cwd
     this._shell = shell
     this._log = log
@@ -40,19 +36,18 @@ export class SimpleGit {
     return new Promise<string>((resolve, reject) => {
       let stdout = ''
       let stderr = ''
-      child.stdout.on('data', (data) => {
+      child.stdout.on('data', data => {
         stdout += data
         this._log(`StdOut: ${stdout}`)
       })
-      child.stderr.on('data', (data) => {
+      child.stderr.on('data', data => {
         stderr += data
         this._log(`StdErr: ${stderr}`)
       })
-      child.on('close', (code) => {
+      child.on('close', code => {
         if (code === 0) {
           resolve(stdout)
-        }
-        else {
+        } else {
           this._log(`Error, in: ${command}`)
           this._log(`Error, out: ${stderr}`)
           reject(new Error(stderr))
@@ -61,7 +56,7 @@ export class SimpleGit {
     })
   }
 
-  run = this.git
+  run = (...args: string[]) => this.git(...args)
 
   private _curriedCommand(...name: string[]) {
     return (...args: string[]) => {
@@ -69,12 +64,14 @@ export class SimpleGit {
     }
   }
 
-  async init(options: {
-    cwd?: string
-    name?: string
-    email?: string
-    gpgsign?: boolean
-  } = {}) {
+  async init(
+    options: {
+      cwd?: string
+      name?: string
+      email?: string
+      gpgsign?: boolean
+    } = {},
+  ) {
     const cwd = options.cwd ?? '.'
     await this.run('init', cwd)
     if (options.name) {

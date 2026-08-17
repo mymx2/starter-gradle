@@ -1,6 +1,10 @@
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@0.2.2
-  vite-plus: 0.2.2
+  '@types/node': ^26.2.0
+  '@typescript/native-preview': 7.0.0-dev.20260707.2
+  typescript: ^6.0.3
+  vite: npm:@voidzero-dev/vite-plus-core@^0.2.8
+  vite-plus: ^0.2.9
+  vitepress: 2.0.0-alpha.19
 overrides:
   vite: "catalog:"
 peerDependencyRules:

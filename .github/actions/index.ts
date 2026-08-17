@@ -8,8 +8,7 @@ const testEnv = process.env.ENV === 'test'
 
 if (!testEnv) {
   globalize(...main.default)
-}
-else {
+} else {
   globalize(...test.default)
 }
 
@@ -23,7 +22,7 @@ function globalize(...fns: Function[]) {
   // @ts-expect-error any
   const globalMethods = globalThis.__methods__
 
-  fns.forEach((fn) => {
+  fns.forEach(fn => {
     if (fn.name) {
       globalMethods[fn.name] = fn
     }
@@ -39,8 +38,7 @@ const globalMethods = globalThis.__methods__
 let fnToCall: Function | undefined
 if (methodName) {
   fnToCall = globalMethods?.[methodName]
-}
-else {
+} else {
   fnToCall = globalMethods?.main
 }
 

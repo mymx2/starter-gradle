@@ -22,4 +22,14 @@ export default defineConfig({
   run: {
     cache: true,
   },
+  test: {
+    passWithNoTests: true,
+  },
+  resolve: {
+    tsconfigPaths: true,
+  },
+  pack: {
+    entry: ['index.ts'],
+    dts: true,
+  },
 })

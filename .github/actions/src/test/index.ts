@@ -15,8 +15,4 @@ function main(args: string[]) {
   }
 }
 
-export default [
-  main,
-  ...actionTestFns,
-  ...actionCtxTestFns,
-]
+export default [main, ...actionTestFns, ...actionCtxTestFns]

@@ -1,17 +1,21 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
+  "name": "g/actions",
+  "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.10.0",
-  "engines": {
-    "node": ">=24.8.0"
+  "main": "index.ts",
+  "types": "index.ts",
+  "exports": {
+    ".": "index.ts",
+    "./*": "./src/*"
   },
   "scripts": {
-    "debug": "cross-env CI=false DEBUG=* node index.ts",
-    "dev": "node index.ts",
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
     "clean": "rimraf node_modules",
-    "lint": "eslint . --cache-location node_modules/.cache/eslint/",
-    "fix": "eslint . --fix",
-    "up": "taze major -I",
+    "up": "taze -r -w -i",
     "_ni": "npm i -g pnpm @antfu/ni && pnpm i --force"
   },
   "dependencies": {
@@ -25,13 +29,10 @@
     "@actions/http-client": "catalog:",
     "@actions/io": "catalog:",
     "@actions/tool-cache": "catalog:",
-    "@antfu/utils": "catalog:",
     "@octokit/action": "catalog:",
-    "cross-env": "catalog:",
+    "debug": "catalog:",
     "es-toolkit": "catalog:",
     "execa": "catalog:",
-    "fs-extra": "catalog:",
-    "kleur": "catalog:",
     "octokit": "catalog:",
     "ofetch": "catalog:",
     "rimraf": "catalog:"
@@ -40,23 +41,27 @@
     "@actions/expressions": "catalog:",
     "@actions/languageservice": "catalog:",
     "@actions/workflow-parser": "catalog:",
-    "@antfu/eslint-config": "catalog:",
     "@octokit/openapi-types": "catalog:",
     "@octokit/types": "catalog:",
     "@octokit/webhooks-definitions": "catalog:",
     "@types/debug": "catalog:",
-    "@types/fs-extra": "catalog:",
     "@types/node": "catalog:",
-    "baseline-browser-mapping": "catalog:",
-    "cypress": "catalog:",
-    "debug": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-cypress": "catalog:",
-    "eslint-plugin-format": "catalog:",
+    "@typescript/native-preview": "catalog:",
     "minimatch": "catalog:",
-    "prettier": "catalog:",
     "taze": "catalog:",
     "typescript": "catalog:",
+    "vite-plus": "catalog:",
     "vitest": "catalog:"
-  }
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.20.0",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=24.19.0"
+  },
+  "packageManager": "pnpm@11.20.0"
 }
