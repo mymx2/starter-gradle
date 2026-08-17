@@ -17,9 +17,9 @@ object InternalDependencies {
     """
     [libraries]
     # Maven dependencies
-    junitBom = { module = "org.junit:junit-bom", version = "6.1.2", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/junit/junit-bom/maven-metadata.xml" }
+    junitBom = { module = "org.junit:junit-bom", version = "6.1.3", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/junit/junit-bom/maven-metadata.xml" }
     assertjBom = { module = "org.assertj:assertj-bom", version = "4.0.0-M1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/assertj/assertj-bom/maven-metadata.xml" }
-    jspecify = { module = "org.jspecify:jspecify", version = "1.0.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml" }
+    jspecify = { module = "org.jspecify:jspecify", version = "1.0.1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml" }
     nullaway = { module = "com.uber.nullaway:nullaway", version = "0.13.8", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/uber/nullaway/nullaway/maven-metadata.xml" }
     errorProneCore = { module = "com.google.errorprone:error_prone_core", version = "2.50.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/google/errorprone/error_prone_core/maven-metadata.xml" }
     errorProneContrib = { module = "tech.picnic.error-prone-support:error-prone-contrib", version = "0.30.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/error-prone-contrib/maven-metadata.xml" }

@@ -21,7 +21,7 @@ node = "24.14.0"
 # https://mvnrepository.com/artifact/org.jspecify/jspecify
 # https://repo1.maven.org/maven2/org/jspecify/jspecify/maven-metadata.xml
 # https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml
-jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
+jspecify = { module = "org.jspecify:jspecify", version = "1.0.1" }
 semver = { module = "net.swiftzer.semver:semver", version = "2.1.0" }
 slf4jBom = { module = "org.slf4j:slf4j-bom", version = "2.1.0-alpha1" }
 
@@ -37,9 +37,9 @@ net-ltgt-errorprone = { id = "net.ltgt.errorprone", version = "5.1.0" }
 net-ltgt-nullaway = { id = "net.ltgt.nullaway", version = "3.1.0" }
 com-gradle-develocity = { id = "com.gradle.develocity", version = "4.5.0" }
 org-ec4j-editorconfig = { id = "org.ec4j.editorconfig", version = "0.1.0" }
-com-diffplug-spotless = { id = "com.diffplug.spotless", version = "8.8.0" }
+com-diffplug-spotless = { id = "com.diffplug.spotless", version = "8.9.0" }
 com-github-node-gradle-node = { id = "com.github.node-gradle.node", version = "7.1.0" }
-dev-detekt = { id = "dev.detekt", version = "2.0.0-alpha.5" }
+dev-detekt = { id = "dev.detekt", version = "2.0.0-alpha.6" }
 org-jetbrains-dokka = { id = "org.jetbrains.dokka", version = "2.2.0" }
 me-champeau-jmh = { id = "me.champeau.jmh", version = "0.7.3" }
 org-gradlex-jvm-dependency-conflict-resolution = { id = "org.gradlex.jvm-dependency-conflict-resolution", version = "2.5" }
@@ -51,14 +51,14 @@ com-gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "2.1.1
 # https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/vanniktech/gradle-maven-publish-plugin/maven-metadata.xml
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version = "0.37.0" }
 io-fuchs-gradle-classpath-collision-detector = { id = "io.fuchs.gradle.classpath-collision-detector", version = "1.0.0" }
-org-cyclonedx-bom = { id = "org.cyclonedx.bom", version = "3.3.0" }
-com-github-spotbugs = { id = "com.github.spotbugs", version = "6.5.9" }
+org-cyclonedx-bom = { id = "org.cyclonedx.bom", version = "3.4.0" }
+com-github-spotbugs = { id = "com.github.spotbugs", version = "6.5.10" }
 org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.9" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.10" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version = "2.3.11" }
 # todo 集成 jib
 com-google-cloud-tools-jib = { id = "com.google.cloud.tools.jib", version = "3.5.4" }
 org-nosphere-apache-rat = { id = "org.nosphere.apache.rat", version = "0.8.1" }
-org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.37.0" }
+org-openrewrite-rewrite = { id = "org.openrewrite.rewrite", version = "7.38.0" }
 org-springframework-boot = { id = "org.springframework.boot", version = "4.1.0" }
 org-openapi-generator = { id = "org.openapi.generator", version = "7.24.0" }
 
