@@ -31,6 +31,9 @@ object InternalDependencies {
     errorProneContrib = { module = "tech.picnic.error-prone-support:error-prone-contrib", version = "0.30.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/error-prone-contrib/maven-metadata.xml" }
     refasterRunner = { module = "tech.picnic.error-prone-support:refaster-runner", version = "0.30.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/tech/picnic/error-prone-support/refaster-runner/maven-metadata.xml" }
     spotbugsAnnotations = { module = "com.github.spotbugs:spotbugs-annotations", version = "4.10.4", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml" }
+    # 与根 gradle/libs.versions.toml 同步——TestKit 测试项目无根 catalog，libsOrInternal 回退需在此登记
+    # 版本须与 guava 33.5.0-jre 的 transitive jspecify 对齐（consistent resolution 锁到 1.0.0）
+    jspecify = { module = "org.jspecify:jspecify", version = "1.0.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml" }
 
     # Android 测试坐标（Android 依赖不进 libs.versions.toml——它只放纯 JVM；但版本须纳入 checkVersions 升级检查，故在此登记）
     uiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version = "1.13.0-alpha03", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/androidx/compose/ui/ui-test-junit4/maven-metadata.xml" }

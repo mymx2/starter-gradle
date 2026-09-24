@@ -167,11 +167,24 @@ class ConventionPluginTest {
   companion object {
     @JvmStatic
     fun pluginIds(): Array<String> {
+      // 这些插件需宿主已应用 Android/Java 插件（依赖宿主 configuration），
+      // 不能独立 apply，从"独立应用"测试中排除——它们由 module.android 集成测试覆盖。
+      val exclude =
+        setOf(
+          "io.github.mymx2.check.quality-nullaway-android",
+          "io.github.mymx2.feature.android-common",
+          "io.github.mymx2.feature.android-test-e2e",
+          "io.github.mymx2.feature.android-test-robolectric",
+          "io.github.mymx2.feature.android-test-roborazzi",
+          "io.github.mymx2.feature.android-test-unit",
+          "io.github.mymx2.module.android.library",
+        )
       val pluginList =
         File("src/main/kotlin")
           .listFiles()!!
           .filter { it.isFile && it.name.endsWith(".gradle.kts") }
           .map { it.name.substringBeforeLast(".gradle.kts") }
+          .filter { it !in exclude }
       return pluginList.toTypedArray()
     }
   }

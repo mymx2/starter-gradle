@@ -6,6 +6,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 
 /**
  * 生成时间序 versionCode：yyMMdd(6位) + 当日刻钟序号(2位)。
@@ -15,6 +16,7 @@ import org.gradle.api.tasks.TaskAction
  *
  * 15 分钟一刻钟，一天 96 个(0-95)，最大 99123195 < Int 上限 2147483647。 同一刻钟内重复构建共享 code（无碍，下一刻钟即递增）。
  */
+@DisableCachingByDefault(because = "versionCode 由当前时间推导，每次执行输出都不同，缓存无意义")
 abstract class VersionCodeTask : DefaultTask() {
 
   @get:OutputFile abstract val versionCodeFile: RegularFileProperty
