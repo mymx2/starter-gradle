@@ -60,7 +60,7 @@ dependencies {
 // Activity 与系统能力：Compose 入口、KTX、启动屏
 dependencies {
   implementation("androidx.activity:activity-compose:1.13.0")
-  implementation("androidx.core:core-ktx:1.19.0")
+  implementation("androidx.core:core-ktx:1.19.1")
   implementation("androidx.core:core-splashscreen:1.2.0")
 }
 
@@ -72,8 +72,8 @@ dependencies {
 
 // 导航：Navigation 3 类型安全路由
 dependencies {
-  implementation("androidx.navigation3:navigation3-runtime:1.1.7")
-  implementation("androidx.navigation3:navigation3-ui:1.1.7")
+  implementation("androidx.navigation3:navigation3-runtime:1.2.0")
+  implementation("androidx.navigation3:navigation3-ui:1.2.0")
 }
 
 // 序列化：@Serializable NavKey 与 DTO
