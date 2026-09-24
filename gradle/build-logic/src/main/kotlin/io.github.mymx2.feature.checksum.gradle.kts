@@ -6,6 +6,7 @@ plugins { java }
 // This is an example for creating and integrating a custom task implementation.
 val resourcesChecksum =
   tasks.register<DirectoryChecksum>("resourcesChecksum") {
+    description = "Generate SHA-256 checksum for resource files"
     inputDirectory.set(layout.projectDirectory.dir("src/main/resources"))
     checksumFile.set(layout.buildDirectory.file("generated-resources/sha256/resources.sha256"))
   }

@@ -15,6 +15,7 @@ tasks.withType<JavaCompile>().configureEach {
 
 val fileContentCheck =
   tasks.register<FileContentCheck>("fileContentCheck") {
+    description = "Validate file content against project rules"
     mustRunAfter(tasks.spotlessCheck)
     mustRunAfter(tasks.spotlessApply)
   }

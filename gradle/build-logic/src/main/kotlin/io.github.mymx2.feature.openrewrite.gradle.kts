@@ -1,5 +1,8 @@
-@file:Suppress("UnstableApiUsage", "detekt:SpreadOperator")
+// OpenRewrite 的 rewrite configuration 由 rewrite-recipe-bom 统一管理版本，不走 libs.versions.toml——有意为之。
+@file:Suppress("UnstableApiUsage", "detekt:SpreadOperator", "UseTomlInstead")
 
+import PluginHelpers.findToolConfig
+import io.github.mymx2.plugin.DefaultExcludes
 import io.github.mymx2.plugin.resetTaskGroup
 
 plugins { id("org.openrewrite.rewrite") }
@@ -22,17 +25,12 @@ dependencies {
   rewrite("org.openrewrite.recipe:rewrite-java-security:latest.release")
 }
 
-val rewriteYml =
-  layout.projectDirectory.file("configs/rewrite/rewrite.yml").asFile.takeIf { it.exists() }
-    ?: isolated.rootProject.projectDirectory
-      .file("gradle/configs/rewrite/rewrite.yml")
-      .asFile
-      .takeIf { it.exists() }
+val rewriteYml = findToolConfig("rewrite", "rewrite.yml")
 val rewriteActiveRecipes = listOf("io.github.mymx2.openrewrite.SanityCheck")
 val rewriteActiveStyles = listOf("io.github.mymx2.openrewrite.SpotlessFormat")
 
 // default excludes.
-val defaultRewriteExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+val defaultRewriteExcludes = DefaultExcludes.GLOB.toTypedArray()
 
 rewrite {
   // https://docs.openrewrite.org/reference/gradle-plugin-configuration#configuring-the-rewrite-dsl

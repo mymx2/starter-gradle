@@ -1,3 +1,5 @@
+// build-logic 运行在 Gradle daemon（JVM），不受 Android minSdk 约束。
+// IDEA 误将项目级 minSdk 29 应用到本模块，产生 URLEncoder/Future.State 等 NewApi 误报——忽略即可。
 @file:Suppress("UnstableApiUsage", "detekt:MaxLineLength")
 
 import io.github.mymx2.plugin.resetTaskGroup
@@ -62,6 +64,10 @@ dependencies {
       libs.plugins.com.github.spotbugs,
       // libs.plugins.org.jetbrains.kotlinx.kover,
       libs.plugins.com.google.devtools.ksp,
+      libs.plugins.com.android.application,
+      libs.plugins.org.jetbrains.kotlin.plugin.compose,
+      libs.plugins.org.jetbrains.kotlin.plugin.serialization,
+      libs.plugins.io.github.takahirom.roborazzi,
       libs.plugins.org.openrewrite.rewrite,
       libs.plugins.org.springframework.boot,
       libs.plugins.org.openapi.generator,

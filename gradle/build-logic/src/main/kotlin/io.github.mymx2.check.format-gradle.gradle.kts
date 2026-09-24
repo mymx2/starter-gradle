@@ -2,6 +2,7 @@
 
 import io.github.mymx2.plugin.spotless.SortDependenciesStep
 import io.github.mymx2.plugin.spotless.SpotlessLicense
+import io.github.mymx2.plugin.spotless.applyProjectKtfmt
 import io.github.mymx2.plugin.spotless.defaultStep
 
 plugins { id("io.github.mymx2.check.format-base") }
@@ -10,7 +11,7 @@ spotless {
   kotlinGradle {
     defaultStep {
       addStep(SortDependenciesStep.create())
-      ktfmt().googleStyle().configure { it.setRemoveUnusedImports(true) }
+      applyProjectKtfmt()
     }
     target(
       isolated.projectDirectory.files("settings.gradle.kts", "build.gradle.kts", "build.gradle.kt")

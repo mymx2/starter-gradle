@@ -12,7 +12,7 @@ object CatalogUtil {
   fun getLibraryPageUrl(module: String, delimiter: Char = ':'): String {
     if (!module.contains(delimiter) || module.count { it == delimiter } != 1)
       error("Invalid module name: $module")
-    val (groupId, artifactId) = module.split(delimiter)
+    val [groupId, artifactId] = module.split(delimiter)
     return "https://search.maven.org/artifact/${groupId}/${artifactId}"
   }
 
@@ -42,7 +42,7 @@ object CatalogUtil {
   fun transformModuleToLibraryMetadata(module: String, delimiter: Char = ':'): String {
     if (!module.contains(delimiter) || module.count { it == delimiter } != 1)
       error("Invalid module name: $module")
-    val (groupId, artifactId) = module.split(delimiter)
+    val [groupId, artifactId] = module.split(delimiter)
     return "${groupId.replace(".", "/")}/$artifactId/maven-metadata.xml"
   }
 

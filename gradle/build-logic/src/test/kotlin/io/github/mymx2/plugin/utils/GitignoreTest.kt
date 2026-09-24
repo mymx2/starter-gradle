@@ -329,7 +329,7 @@ open class GitignoreGitCommandTest {
     val repoDir = setupRepo(gitignoreContent)
 
     try {
-      for ((relativePath, expected) in testCases) {
+      for ([relativePath, expected] in testCases) {
         val file = File(repoDir, relativePath)
         if (relativePath.endsWith("/")) {
           file.mkdirs()

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 网络安全配置：默认禁明文流量（cleartextTrafficPermitted=false），release 强制 HTTPS。
+     证书信任：release 仅系统 CA（user CA 不信任，防抓包/中间人）。
+     debug-overrides 仅调试构建生效——本地调试抓包时信任用户安装的 CA（Charles/mitmproxy 等），release 自动回落系统 CA，无需维护两份配置。 -->
+<network-security-config>
+  <base-config cleartextTrafficPermitted="false">
+    <trust-anchors>
+      <certificates src="system" />
+    </trust-anchors>
+  </base-config>
+  <debug-overrides>
+    <trust-anchors>
+      <certificates src="system" />
+      <certificates src="user" />
+    </trust-anchors>
+  </debug-overrides>
+</network-security-config>

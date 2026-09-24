@@ -2,10 +2,12 @@
 
 package io.github.mymx2.plugin.spotless
 
+import com.diffplug.gradle.spotless.BaseKotlinExtension
 import com.diffplug.gradle.spotless.FormatExtension
 import com.diffplug.spotless.FormatterStep
 import com.diffplug.spotless.generic.ReplaceRegexStep
 import com.diffplug.spotless.npm.NpmPathResolver
+import io.github.mymx2.plugin.DefaultExcludes
 import io.github.mymx2.plugin.GradleExtTool
 import io.github.mymx2.plugin.InternalDependencies
 import io.github.mymx2.plugin.gradle.computedExtension
@@ -35,6 +37,13 @@ fun FormatExtension.defaultStep(step: () -> Unit) {
   // encoding = StandardCharsets.UTF_8
   trimTrailingWhitespace()
   endWithNewline()
+}
+
+/** 项目统一的 ktfmt 配置：googleStyle + 移除未使用 import。 */
+fun BaseKotlinExtension.applyProjectKtfmt() {
+  ktfmt(InternalDependencies.KTFMT_VERSION).googleStyle().configure {
+    it.setRemoveUnusedImports(true)
+  }
 }
 
 internal fun Project.npmFile(path: String? = null): Provider<File> {
@@ -73,8 +82,7 @@ object SpotlessConfig {
     fileTree(isolated.projectDirectory.dir(src)) {
       // default excludes.
       val defaultSpotlessExcludes =
-        GradleExtTool.defaultGitIgnore +
-          listOf("**/nocheck/**", "**/autogen/**", "**/generated/**", "**/node_modules/**")
+        GradleExtTool.defaultGitIgnore + DefaultExcludes.GLOB_WITH_NODE_MODULES
       exclude(defaultSpotlessExcludes)
     }
 

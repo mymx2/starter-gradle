@@ -1,5 +1,3 @@
-import io.github.mymx2.plugin.local.LocalConfig
-import io.github.mymx2.plugin.local.getPropOrDefault
 import io.github.mymx2.plugin.resetTaskGroup
 import io.github.mymx2.plugin.utils.Ansi
 
@@ -26,12 +24,9 @@ tasks.register("qualityGate") {
 // local dev loop. By default (SKIP_QUALITY=false) `check` still depends on `qualityCheck`,
 // preserving the original behavior. Set SKIP_QUALITY=true (gradle.properties or -PSKIP_QUALITY)
 // for fast local builds; CI should keep running `qualityCheck` / `qualityGate` explicitly.
-val skipQuality = project.getPropOrDefault(LocalConfig.Props.SKIP_QUALITY).toBoolean()
 // [perf] SKIP_ALL_LOCAL 等价于同时开启 SKIP_QUALITY + SKIP_COVERAGE + SKIP_E2E，
 // 让本地最快循环只需一个 -PSKIP_ALL_LOCAL=true
-val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
-
-if (!skipQuality && !skipAllLocal) {
+if (!skipFlags.quality) {
   tasks.check { dependsOn(tasks.named("qualityCheck")) }
 }
 

@@ -27,7 +27,7 @@ class JsonParserTest {
     @Order(1)
     fun `parse empty object`() {
       val result = JsonParser.parseMap("{}")
-      assertEquals(emptyMap<String, Any?>(), result)
+      assertEquals(result, emptyMap<String, Any?>())
       consoleLog("✅ PASS: Empty object")
     }
 
@@ -59,7 +59,7 @@ class JsonParserTest {
     @Order(4)
     fun `parse empty array`() {
       val result = JsonParser.parseList("[]")
-      assertEquals(emptyList<Any?>(), result)
+      assertEquals(result, emptyList<Any?>())
       consoleLog("✅ PASS: Empty array")
     }
 

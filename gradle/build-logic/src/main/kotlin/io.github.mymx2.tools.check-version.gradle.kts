@@ -29,6 +29,7 @@ val isVersionProject = project.path == DefaultProjects.versionsPath
 
 val checkVersionConsistency =
   tasks.register<JavaVersionConsistencyCheck>("checkVersionConsistency") {
+    description = "Verify Java version consistency across project configurations"
     definedVersions = provider {
       configurations["api"].dependencyConstraints.associate {
         "${it.group}:${it.name}" to it.version!!
@@ -73,6 +74,7 @@ val latestReleasesPath: NamedDomainObjectProvider<ResolvableConfiguration> =
 
 tasks.register<DependencyVersionUpgradesCheck>("checkVersionUpgrades") {
   group = "toolbox"
+  description = "Check for available dependency version upgrades"
   projectName.set(project.name)
   dependencies.set(
     configurations.named("api").get().dependencies.map { "${it.group}:${it.name}:${it.version}" }
@@ -298,16 +300,22 @@ object CheckVersionPluginConfig {
   }
 
   private fun Task.configureCheckProjectDependencies() {
+    val buildDirProvider = project.layout.buildDirectory
     doLast {
+      val lineUpdates = java.util.concurrent.ConcurrentHashMap<String, String>()
       val jobs = mutableListOf<() -> Unit>()
-      InternalDependencies.libraries.values.forEach {
-        val qualifiedName = it::class.qualifiedName
-        val moduleId = it.module
-        val moduleVersion = it.version
-        val moduleUrl = it.url
+      InternalDependencies.libraries.values.forEach { lib ->
+        val qualifiedName = lib::class.qualifiedName
+        val moduleId = lib.module
+        val moduleVersion = lib.version
+        val moduleUrl = lib.url
         val appendMsg = "\n    $qualifiedName"
         if (moduleUrl.endsWith("/maven-metadata.xml")) {
-          jobs.add { processMetadata(moduleUrl, moduleId, moduleVersion, appendMsg) {} }
+          jobs.add {
+            processMetadata(moduleUrl, moduleId, moduleVersion, appendMsg) { candidate ->
+              lineUpdates[lib.key] = candidate
+            }
+          }
         } else if (moduleUrl.contains("npmjs.org")) {
           jobs.add {
             var jobMsg = moduleUrl
@@ -320,14 +328,14 @@ object CheckVersionPluginConfig {
               }
             if (!metadata.isNullOrBlank()) {
               if (metadata.contains("dist-tags")) {
-                val candidate =
-                  runCatching {
-                      val map = JsonParser.parseMap(metadata)
-                      (map["dist-tags"] as Map<*, *>)["latest"] as String
-                    }
-                    .getOrNull()
-                if (candidate != moduleVersion) {
+                val candidate = runCatching {
+                  val map = JsonParser.parseMap(metadata)
+                  (map["dist-tags"] as Map<*, *>)["latest"] as String
+                }
+                  .getOrNull()
+                if (candidate != null && candidate != moduleVersion) {
                   jobMsg += "\n  ✅ $moduleId:$moduleVersion -> $candidate${appendMsg}"
+                  lineUpdates[lib.key] = candidate
                 }
               } else {
                 jobMsg += "\n  ❌ $moduleId -> can't find metadata${appendMsg}"
@@ -338,6 +346,34 @@ object CheckVersionPluginConfig {
         }
       }
       jobs.chunkedVirtual(size = 300, timeout = Duration.ofMinutes(5)) { it() }
+
+      if (lineUpdates.isNotEmpty()) {
+        val newData =
+          InternalDependencies.data
+            .lines()
+            .joinToString("\n") { line ->
+              val trimmed = line.trim()
+              if (trimmed.isEmpty() || trimmed.startsWith("#") || !trimmed.contains("=")) {
+                return@joinToString line
+              }
+              val key = trimmed.split("=", limit = 2).first().trim()
+              val newVersion = lineUpdates[key] ?: return@joinToString line
+              val versionRegex = Regex("""version\s*=\s*"[^"]+"""")
+              line.replace(versionRegex, """version = "$newVersion"""")
+            }
+        val reportDir =
+          buildDirProvider.dir("reports/checkVersions").get().asFile.apply { mkdirs() }
+        val outFile = File(reportDir, "__InternalDependencies.txt")
+        outFile.writeText(newData + "\n")
+        println(
+          Ansi.color(
+            "✏️ InternalDependencies updates written to: ${outFile.invariantSeparatorsPath}",
+            "32",
+          )
+        )
+      } else {
+        println(Ansi.color("🚩 No changes in InternalDependencies", "32"))
+      }
     }
   }
 

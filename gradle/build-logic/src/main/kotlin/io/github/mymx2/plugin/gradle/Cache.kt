@@ -21,7 +21,10 @@ import org.gradle.kotlin.dsl.setProperty
 @OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
 inline fun <reified T : Any> Project.cachedProvider(crossinline block: () -> T?): Provider<out T> =
-  provider { block() }.cached(objects)
+  provider {
+    block()
+  }
+  .cached(objects)
 
 @JvmName("cachedListProvider")
 inline fun <reified T : Any> Project.cachedProvider(
@@ -137,8 +140,10 @@ inline fun <T : Any, reified S : Any> Provider<out T>.cachedFlatMap(
 inline fun <T : Any, reified K : Any, reified V : Any> Provider<out T>.cachedFlatMap(
   objects: ObjectFactory,
   crossinline transformer: (T) -> Provider<out Map<K, V>>?,
-): Provider<out Map<K, V>> =
-  flatMap { NullUnchecked.markAsNullable(transformer(it)) }.cached(objects)
+): Provider<out Map<K, V>> = flatMap {
+  NullUnchecked.markAsNullable(transformer(it))
+}
+  .cached(objects)
 
 @JvmName("cachedFlatMapToSet")
 inline fun <T : Any, reified S : Any> Provider<out T>.cachedFlatMap(

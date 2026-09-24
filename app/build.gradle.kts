@@ -1,4 +1,5 @@
-@file:Suppress("UnstableApiUsage")
+// slf4j 版本由 gradle/versions 模块的 slf4jBom 统一管理，此处直接写坐标引用——有意为之。
+@file:Suppress("UnstableApiUsage", "UseTomlInstead", "AvoidApplyPluginMethod")
 
 import io.github.mymx2.plugin.local.LocalConfig
 import io.github.mymx2.plugin.local.getPropOrDefault
@@ -17,6 +18,7 @@ val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).to
 
 val isJmh = project.getPropOrDefault(LocalConfig.Props.IS_JMH).toBoolean()
 
+// 条件 apply：plugins{} 块是静态的，无法在运行时按属性决定——apply(plugin=...) 是合法用法，IDE 提示误报。
 if (isJmh) {
   apply(plugin = "io.github.mymx2.feature.benchmark")
 }

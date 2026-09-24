@@ -22,9 +22,9 @@ class DisableRegularExpressionStep {
 
             throw AssertionError(
               buildString {
-                  appendLine("[${regex}]L$lineNumber")
-                  appendLine(snippet)
-                }
+                appendLine("[${regex}]L$lineNumber")
+                appendLine(snippet)
+              }
                 .trim()
             )
           }

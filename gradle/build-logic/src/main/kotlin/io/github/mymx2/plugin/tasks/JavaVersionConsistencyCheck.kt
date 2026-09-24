@@ -40,7 +40,7 @@ abstract class JavaVersionConsistencyCheck : DefaultTask() {
   fun compare() {
     var errors = ""
     var issues = ""
-    definedVersions.get().forEach { (id, version) ->
+    definedVersions.get().forEach { [id, version] ->
       val resolved =
         aggregatedClasspath.get().find {
           val resolvedId = it.id
@@ -70,7 +70,7 @@ abstract class JavaVersionConsistencyCheck : DefaultTask() {
 
     reportFile.get().asFile.writeText(issues)
 
-    if (!errors.isEmpty()) {
+    if (errors.isNotEmpty()) {
       error(errors)
     }
   }

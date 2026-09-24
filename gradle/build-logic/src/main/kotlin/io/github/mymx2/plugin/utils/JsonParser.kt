@@ -144,13 +144,13 @@ object JsonParser {
             index += 4
             col += 4
             val fullCode = 0x10000 + (codePoint - 0xD800) * 0x400 + (lowCode - 0xDC00)
-            sb.append(Character.toChars(fullCode))
+            sb.append(String(Character.toChars(fullCode)))
           }
           in 0xDC00..0xDFFF -> {
             fail("Unexpected low surrogate without preceding high surrogate")
           }
           else -> {
-            sb.append(Character.toChars(codePoint))
+            sb.append(String(Character.toChars(codePoint)))
           }
         }
       } catch (_: NumberFormatException) {

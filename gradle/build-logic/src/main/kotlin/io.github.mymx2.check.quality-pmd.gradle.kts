@@ -1,5 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
+import PluginHelpers.findToolConfig
+
 plugins {
   // https://docs.gradle.org/current/userguide/pmd_plugin.html#pmd_plugin
   pmd
@@ -17,11 +19,7 @@ dependencies {
   //  pmd("io.github.godfather1103.p3c:p3c-pmd:2.1.1-ext-6")
 }
 
-val pmdConfigFile =
-  layout.projectDirectory.files("configs/pmd/pmd.xml").takeIf { it.files.isNotEmpty() }
-    ?: isolated.rootProject.projectDirectory.files("gradle/configs/pmd/pmd.xml").takeIf {
-      it.files.isNotEmpty()
-    }
+val pmdConfigFile = findToolConfig("pmd", "pmd.xml")
 
 tasks {
   pmd {
@@ -31,7 +29,7 @@ tasks {
     incrementalAnalysis = true
     ruleSets = emptyList()
     if (pmdConfigFile != null) {
-      ruleSetFiles = pmdConfigFile
+      ruleSetFiles = files(pmdConfigFile)
     }
     // https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.PmdExtension.html#org.gradle.api.plugins.quality.PmdExtension:reportsDir
     //  reportsDir = reporting.baseDirectory.dir("pmd").get().asFile

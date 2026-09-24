@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Adaptive Icon 背景色：M3 primary 系深色，与白前景星形形成对比 -->
+  <color name="ic_launcher_background">#6750A4</color>
+</resources>

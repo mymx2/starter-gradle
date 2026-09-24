@@ -76,7 +76,7 @@ abstract class FileContentCheck : DefaultTask(), Injected {
     val violations = mutableListOf<String>()
 
     val compiled: List<Pair<Regex, List<Regex>>> by lazy {
-      contentCheckMap.get().map { (pathPattern, contentRegexList) ->
+      contentCheckMap.get().map { [pathPattern, contentRegexList] ->
         val pathRegex = Regex(pathPattern)
         val compiledContentRegexes = contentRegexList.map { Regex(it) }
         pathRegex to compiledContentRegexes
@@ -116,7 +116,7 @@ abstract class FileContentCheck : DefaultTask(), Injected {
     val path = file.invariantSeparatorsPath
     val text = file.readText(StandardCharsets.UTF_8)
 
-    compiledRules.forEach { (pathRegex, contentRegexes) ->
+    compiledRules.forEach { [pathRegex, contentRegexes] ->
       if (pathRegex.containsMatchIn(path)) {
         contentRegexes.forEach { regex ->
           if (regex.containsMatchIn(text)) {

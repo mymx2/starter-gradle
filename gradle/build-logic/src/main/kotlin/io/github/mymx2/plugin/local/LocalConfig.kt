@@ -102,7 +102,7 @@ object LocalConfig {
    * @param script `project` or `settings`.
    * @return The full extraProperties.
    */
-  @Suppress("UnstableApiUsage", "detekt:NestedBlockDepth", "unused")
+  @Suppress("UnstableApiUsage", "detekt:NestedBlockDepth", "unused", "NewApi")
   private fun loadLocalProperties(script: ExtensionAware): ExtraPropertiesExtension {
     val extraProperties = script.extensions.extraProperties
     if (script is Project) {

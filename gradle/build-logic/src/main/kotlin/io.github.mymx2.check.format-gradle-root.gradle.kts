@@ -3,6 +3,7 @@
 import io.github.mymx2.plugin.DefaultProjects
 import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
+import io.github.mymx2.plugin.spotless.applyProjectKtfmt
 import io.github.mymx2.plugin.spotless.defaultStep
 
 plugins { id("io.github.mymx2.check.format-base") }
@@ -19,7 +20,9 @@ if (path == ":") {
     val spotlessLicenseHeader = SpotlessLicense.getComment(project)
 
     kotlinGradle {
-      defaultStep { ktfmt().googleStyle().configure { it.setRemoveUnusedImports(true) } }
+      defaultStep {
+        applyProjectKtfmt()
+      }
       target(
         isolated.projectDirectory.files(
           "settings.gradle.kts",
@@ -34,7 +37,9 @@ if (path == ":") {
       }
     }
     kotlin {
-      defaultStep { ktfmt().googleStyle().configure { it.setRemoveUnusedImports(true) } }
+      defaultStep {
+        applyProjectKtfmt()
+      }
       target(ktAndKtsFiles.matching { include("**/*.kt") })
       if (spotlessLicenseHeader.isNotBlank()) {
         licenseHeader(spotlessLicenseHeader)

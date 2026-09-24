@@ -1,6 +1,7 @@
 import io.github.mymx2.plugin.spotless.SpotlessConfig
 import io.github.mymx2.plugin.spotless.SpotlessConfig.spotlessFileTree
 import io.github.mymx2.plugin.spotless.SpotlessLicense
+import io.github.mymx2.plugin.spotless.applyProjectKtfmt
 import io.github.mymx2.plugin.spotless.defaultStep
 import io.github.mymx2.plugin.tasks.FileContentCheck
 
@@ -10,7 +11,9 @@ val sources: FileTree = spotlessFileTree().matching { include("**/*.kt") }
 
 spotless {
   kotlin {
-    defaultStep { ktfmt().googleStyle().configure { it.setRemoveUnusedImports(true) } }
+    defaultStep {
+      applyProjectKtfmt()
+    }
     target(sources)
     val spotlessLicenseHeader = SpotlessLicense.getComment(project)
     if (spotlessLicenseHeader.isNotBlank()) {

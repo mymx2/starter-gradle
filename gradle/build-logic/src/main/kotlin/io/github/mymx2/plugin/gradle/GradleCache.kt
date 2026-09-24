@@ -14,7 +14,6 @@ import org.gradle.api.plugins.PluginAware
 import org.gradle.api.provider.Provider
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
-import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
 
 /**
  * Computes (registers if absent) a global share cache.
@@ -45,7 +44,7 @@ inline fun <reified T : Any> PluginAware.lazySharedCache(
 ): Provider<T> {
   return sharedCacheProvider.map {
     val cache = it.parameters.storage
-    val value = if (loader == null) cache.get(key) else cache.getOrPut(key) { loader() }
+    val value = if (loader == null) cache[key] else cache.getOrPut(key) { loader() }
     value as T
   }
 }
@@ -108,7 +107,7 @@ fun PluginAware.eagerDiskCache(key: String, loader: (() -> String)? = null): Str
  */
 fun PluginAware.lazyDiskCache(key: String, loader: (() -> String)? = null): Provider<String> {
   val cache = diskCacheProvider.map { it.parameters.storage }
-  return cache.map { if (loader == null) it.get(key)!! else it.getOrPut(key) { loader() } }
+  return cache.map { if (loader == null) it[key]!! else it.getOrPut(key) { loader() } }
 }
 
 /**
@@ -145,7 +144,7 @@ fun PluginAware.computedDiskBuildService(
           cacheFile.delete()
         }
       }
-      cacheFile.ensureParentDirsCreated()
+      cacheFile.parentFile?.mkdirs()
       cache.putAll(DiskCache.loadCache(cacheFile))
       cache["DISK_CACHE"] = cacheFile.absolutePath
     }
@@ -165,7 +164,7 @@ abstract class DiskBuildService : BuildService<DiskBuildService.Params>, AutoClo
   override fun close() {
     val diskCache = parameters.disk
     val cache = parameters.storage
-    val cacheDir = cache.get("DISK_CACHE")
+    val cacheDir = cache["DISK_CACHE"]
     if (cacheDir.isNullOrBlank().not()) {
       if (diskCache != cache) {
         DiskCache.saveCache(cache, File(cacheDir))
@@ -179,7 +178,7 @@ abstract class DiskBuildService : BuildService<DiskBuildService.Params>, AutoClo
 internal object DiskCache {
   fun saveCache(map: Map<String, String>, file: File) {
     val props = Properties()
-    map.forEach { (k, v) -> props[k] = v }
+    map.forEach { [k, v] -> props[k] = v }
     file.parentFile?.mkdirs()
     file.outputStream().use { props.store(it, null) }
   }
@@ -189,6 +188,6 @@ internal object DiskCache {
     if (file.exists()) {
       file.inputStream().use { props.load(it) }
     }
-    return props.entries.associate { (k, v) -> k.toString() to v.toString() }
+    return props.entries.associate { [k, v] -> k.toString() to v.toString() }
   }
 }

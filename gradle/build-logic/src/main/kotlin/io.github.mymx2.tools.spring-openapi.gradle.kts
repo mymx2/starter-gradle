@@ -20,6 +20,7 @@ val templateDirectory: File =
 
 tasks.register<GenerateTask>("openapiTypescriptFetch") {
   group = "toolbox"
+  description = "Generate TypeScript fetch client from OpenAPI spec"
   cleanupOutput = true
   templateDir.set(templateDirectory.path)
   inputSpec.set(inputFile.asFile.invariantSeparatorsPath)

@@ -58,7 +58,6 @@ Check plugins are not necessarily needed to build a working software.
 
 [io.github.mymx2.check.actionlint-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.actionlint-root.gradle.kts)
 [io.github.mymx2.check.dependencies.gradle.kts](src/main/kotlin/io.github.mymx2.check.dependencies.gradle.kts)
-[io.github.mymx2.check.dependencies-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.dependencies-root.gradle.kts)
 [io.github.mymx2.check.format-base.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-base.gradle.kts)
 [io.github.mymx2.check.format-gradle.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-gradle.gradle.kts)
 [io.github.mymx2.check.format-gradle-root.gradle.kts](src/main/kotlin/io.github.mymx2.check.format-gradle-root.gradle.kts)
@@ -126,6 +125,19 @@ _Module_ plugins combine plugins from all categories above to define _Module Typ
 [io.github.mymx2.module.kotlin.gradle.kts](src/main/kotlin/io.github.mymx2.module.kotlin.gradle.kts)
 [io.github.mymx2.module.spring-boot.gradle.kts](src/main/kotlin/io.github.mymx2.module.spring-boot.gradle.kts)
 [io.github.mymx2.module.war.gradle.kts](src/main/kotlin/io.github.mymx2.module.war.gradle.kts)
+
+#### Android Plugins
+
+Android module/feature plugins require **AGP 9+** (built-in Kotlin; do not apply `org.jetbrains.kotlin.android`).
+
+[io.github.mymx2.module.android.gradle.kts](src/main/kotlin/io.github.mymx2.module.android.gradle.kts)
+[io.github.mymx2.module.android.library.gradle.kts](src/main/kotlin/io.github.mymx2.module.android.library.gradle.kts)
+[io.github.mymx2.feature.android-common.gradle.kts](src/main/kotlin/io.github.mymx2.feature.android-common.gradle.kts)
+[io.github.mymx2.feature.android-signing.gradle.kts](src/main/kotlin/io.github.mymx2.feature.android-signing.gradle.kts)
+[io.github.mymx2.feature.android-test-unit.gradle.kts](src/main/kotlin/io.github.mymx2.feature.android-test-unit.gradle.kts)
+[io.github.mymx2.feature.android-test-robolectric.gradle.kts](src/main/kotlin/io.github.mymx2.feature.android-test-robolectric.gradle.kts)
+[io.github.mymx2.feature.android-test-roborazzi.gradle.kts](src/main/kotlin/io.github.mymx2.feature.android-test-roborazzi.gradle.kts)
+[io.github.mymx2.feature.android-test-e2e.gradle.kts](src/main/kotlin/io.github.mymx2.feature.android-test-e2e.gradle.kts)
 
 #### Gradle Testing Plugins
 

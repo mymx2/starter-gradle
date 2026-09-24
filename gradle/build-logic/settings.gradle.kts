@@ -15,9 +15,9 @@ pluginManagement {
     }
     google {
       content {
-        includeGroupAndSubgroups("androidx")
-        includeGroupAndSubgroups("com.android")
-        includeGroupAndSubgroups("com.google")
+        includeGroupByRegex("""androidx.*""")
+        includeGroupByRegex("""com\.android.*""")
+        includeGroupByRegex("""com\.google\..*""")
       }
     }
   }

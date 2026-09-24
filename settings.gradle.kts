@@ -1,6 +1,19 @@
 import io.github.mymx2.plugin.dyIncludeProjects
 
-pluginManagement { includeBuild("gradle/build-logic") }
+pluginManagement {
+  includeBuild("gradle/build-logic")
+  repositories {
+    google {
+      content {
+        includeGroupByRegex("""androidx.*""")
+        includeGroupByRegex("""com\.android.*""")
+        includeGroupByRegex("""com\.google\..*""")
+      }
+    }
+    gradlePluginPortal()
+    mavenCentral()
+  }
+}
 
 plugins {
   id("io.github.mymx2.build")
@@ -17,5 +30,6 @@ dyIncludeProjects(
     ":example-java" to "examples/example-java",
     ":example-kotlin" to "examples/example-kotlin",
     ":example-spring" to "examples/example-spring",
+    ":example-android" to "examples/example-android",
   )
 )

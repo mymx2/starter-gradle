@@ -20,23 +20,23 @@ object ExeFinder {
    */
   fun findExePath(providers: ProviderFactory, layout: ProjectLayout, name: String): String? {
     return runCatching {
-        val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
-        val execCommand =
-          if (isWindows) listOf("C:\\Windows\\System32\\where.exe", name)
-          else listOf("/usr/bin/which", name)
-        val fullCommit =
-          providers
-            .exec {
-              isIgnoreExitValue = true
-              commandLine(execCommand)
-              workingDir = layout.projectDirectory.asFile
-            }
-            .standardOutput
-            .asText
-            .get()
-            .trim()
-        fullCommit.ifBlank { null }
-      }
+      val isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows
+      val execCommand =
+        if (isWindows) listOf("C:\\Windows\\System32\\where.exe", name)
+        else listOf("/usr/bin/which", name)
+      val fullCommit =
+        providers
+          .exec {
+            isIgnoreExitValue = true
+            commandLine(execCommand)
+            workingDir = layout.projectDirectory.asFile
+          }
+          .standardOutput
+          .asText
+          .get()
+          .trim()
+      fullCommit.ifBlank { null }
+    }
       .getOrNull()
   }
 }

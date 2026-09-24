@@ -147,7 +147,7 @@ object HttpUtils {
    */
   fun encodeMapToQuery(map: Map<String, Any?>): String {
     val pairs = buildList {
-      map.forEach { (k, v) ->
+      map.forEach { [k, v] ->
         when (v) {
           null -> add(k to null)
           is Iterable<*> ->
@@ -169,7 +169,7 @@ object HttpUtils {
       }
     }
 
-    return pairs.joinToString("&") { (k, v) ->
+    return pairs.joinToString("&") { [k, v] ->
       val encodedKey = URLEncoder.encode(k, StandardCharsets.UTF_8)
       when (v) {
         null -> encodedKey

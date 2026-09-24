@@ -6,13 +6,13 @@ dependencyResolutionManagement {
       .dir("gradle")
       .asFile
       .listFiles()
-      .filter {
+      ?.filter {
         it.isFile &&
           it.name != "libs.versions.toml" &&
           !it.name.startsWith("__") &&
           it.name.endsWith(".versions.toml")
       }
-      .forEach {
+      ?.forEach {
         val name = it.name.removeSuffix(".versions.toml")
         create(name) { from(layout.settingsDirectory.files(it.path)) }
       }

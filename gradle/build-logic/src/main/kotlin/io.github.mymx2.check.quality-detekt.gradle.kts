@@ -1,9 +1,9 @@
 @file:Suppress("UnstableApiUsage", "detekt:SpreadOperator")
 
+import PluginHelpers.findToolConfig
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.plugin.getSupportedKotlinVersion
-import io.github.mymx2.plugin.local.LocalConfig
-import io.github.mymx2.plugin.local.getPropOrDefault
+import io.github.mymx2.plugin.DefaultExcludes
 
 plugins {
   // https://github.com/detekt/detekt
@@ -20,7 +20,7 @@ tasks.named("qualityCheck") { dependsOn(tasks.detekt) }
 tasks.named("qualityGate") { dependsOn(tasks.detekt) }
 
 // default excludes.
-val defaultDetektExcludes = arrayOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+val defaultDetektExcludes = DefaultExcludes.GLOB.toTypedArray()
 
 tasks.withType<Detekt>().configureEach {
   enabled = true
@@ -32,19 +32,11 @@ tasks.withType<Detekt>().configureEach {
 // enough to keep detekt out of the local dev loop. When SKIP_QUALITY is set, disable all
 // detekt tasks so they drop out of the task graph entirely. CI keeps SKIP_QUALITY=false,
 // so qualityGate / qualityCheck still run detekt there.
-val skipQuality = project.getPropOrDefault(LocalConfig.Props.SKIP_QUALITY).toBoolean()
-val skipAllLocal = project.getPropOrDefault(LocalConfig.Props.SKIP_ALL_LOCAL).toBoolean()
-
-if (skipQuality || skipAllLocal) {
+if (skipFlags.quality) {
   tasks.withType<Detekt>().configureEach { enabled = false }
 }
 
-val detektYml =
-  layout.projectDirectory.file("configs/detekt/detekt.yml").asFile.takeIf { it.exists() }
-    ?: isolated.rootProject.projectDirectory
-      .file("gradle/configs/detekt/detekt.yml")
-      .asFile
-      .takeIf { it.exists() }
+val detektYml = findToolConfig("detekt", "detekt.yml")
 
 detekt {
   debug = false

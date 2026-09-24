@@ -49,6 +49,9 @@ Servers
 .gradle
 !gradle/wrapper/gradle-wrapper.jar
 
+### Android ###
+local.properties
+
 ### maven ###
 *.war
 

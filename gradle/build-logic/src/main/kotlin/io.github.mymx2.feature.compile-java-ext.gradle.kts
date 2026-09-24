@@ -11,6 +11,7 @@ plugins {
 
 val writeGitProperties =
   tasks.register<WriteProperties>("writeGitProperties") {
+    description = "Generate git.properties with build version and commit info"
     property("git.build.version", project.version)
 
     val gitCommit =

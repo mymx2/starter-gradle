@@ -31,7 +31,7 @@ class ConventionPluginTest {
 
     val result = p.help()
 
-    assertEquals(result.task(":help")!!.outcome, SUCCESS)
+    assertEquals(SUCCESS, result.task(":help")!!.outcome)
   }
 
   @Suppress("detekt:LongMethod")

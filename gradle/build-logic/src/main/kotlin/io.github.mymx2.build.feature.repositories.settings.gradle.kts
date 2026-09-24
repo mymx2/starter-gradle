@@ -22,9 +22,9 @@ pluginManagement {
     }
     google {
       content {
-        includeGroupAndSubgroups("androidx")
-        includeGroupAndSubgroups("com.android")
-        includeGroupAndSubgroups("com.google")
+        includeGroupByRegex("""androidx.*""")
+        includeGroupByRegex("""com\.android.*""")
+        includeGroupByRegex("""com\.google\..*""")
       }
     }
   }
@@ -56,6 +56,9 @@ dependencyResolutionManagement {
       }
     }
     google {
+      // 库依赖限定 google() 只服务 androidx/com.android/com.google 系，其余库不去 google() 白查。
+      // 覆盖 androidx.compose/navigation3、com.google.dagger(Hilt)、com.google.devtools.ksp(KSP) 等子
+      // group。
       content {
         includeGroupAndSubgroups("androidx")
         includeGroupAndSubgroups("com.android")

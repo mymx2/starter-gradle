@@ -14,6 +14,12 @@ object DefaultProjects {
   const val docs = "docs"
 }
 
+object DefaultExcludes {
+  /** 不校验的生成/手工豁免目录（nocheck/autogen/generated） */
+  val GLOB = listOf("**/nocheck/**", "**/autogen/**", "**/generated/**")
+  val GLOB_WITH_NODE_MODULES = GLOB + "**/node_modules/**"
+}
+
 /**
  * Create a version catalog from a file.
  *
@@ -22,7 +28,7 @@ object DefaultProjects {
 fun Settings.dyCreateVersionCatalogs(map: Map<String, String>) {
   dependencyResolutionManagement {
     versionCatalogs {
-      map.forEach { (name, path) -> create(name) { from(layout.settingsDirectory.files(path)) } }
+      map.forEach { [name, path] -> create(name) { from(layout.settingsDirectory.files(path)) } }
     }
   }
 }
@@ -33,7 +39,7 @@ fun Settings.dyCreateVersionCatalogs(map: Map<String, String>) {
  * @param map The map of project names and paths.
  */
 fun Settings.dyIncludeProjects(map: Map<String, String>) {
-  map.forEach { (name, path) ->
+  map.forEach { [name, path] ->
     val projectDir = rootDir.resolve(path)
     if (projectDir.exists()) {
       include(name)

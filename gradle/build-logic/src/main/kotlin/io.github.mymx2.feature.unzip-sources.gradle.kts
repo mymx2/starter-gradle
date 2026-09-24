@@ -17,7 +17,9 @@ import org.gradle.api.attributes.DocsType
 import org.gradle.api.attributes.Usage
 import org.gradle.api.plugins.JavaPlugin
 
-plugins { java }
+// 不强制 apply java 插件——Android 模块与 java 插件冲突。
+// Java 模块由调用方（如 compile-java-ext）已 apply java；Android 模块靠后缀匹配。
+// JavaPlugin 常量在此仅作引用，不要求插件已 apply。
 
 // Output to root project's .gradle/gradle_modules — shared across all sub-projects,
 // no need to write into Gradle's own dependency cache.
@@ -28,6 +30,8 @@ val outputDirProvider: Provider<Directory> =
 
 // Resolve source JARs from all four standard classpaths (compile, runtime, testCompile,
 // testRuntime).
+// Android 模块也产 source JAR 索引，配置名模式不同（devDebugCompileClasspath 等），
+// 用后缀匹配替代 Java 插件的固定配置名。
 val classpathNames =
   setOf(
     JavaPlugin.COMPILE_CLASSPATH_CONFIGURATION_NAME,
@@ -35,6 +39,11 @@ val classpathNames =
     JavaPlugin.TEST_COMPILE_CLASSPATH_CONFIGURATION_NAME,
     JavaPlugin.TEST_RUNTIME_CLASSPATH_CONFIGURATION_NAME,
   )
+
+val classpathSuffixes = listOf("CompileClasspath", "RuntimeClasspath")
+
+fun isClasspathConfig(name: String): Boolean =
+  name in classpathNames || classpathSuffixes.any { name.endsWith(it) }
 
 // Build a lazy Provider<Set<String>> that resolves source JARs at execution time.
 // Each entry is "group|artifact|version|absolutePath" — GAV comes from the component
@@ -45,7 +54,7 @@ val classpathNames =
 // Configurations are matched lazily — no afterEvaluate needed.
 val sourceFilesProvider: Provider<Set<String>> = providers.provider {
   configurations
-    .matching { it.name in classpathNames }
+    .matching { isClasspathConfig(it.name) }
     .flatMap { config ->
       config.incoming
         .artifactView {

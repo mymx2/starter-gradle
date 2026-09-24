@@ -1,0 +1,20 @@
+<resources>
+  <!-- 真正的主题：Compose MaterialTheme 中定义（动态配色/深色），这里只做系统窗口承接。
+       继承系统 Theme.Material（非 AppCompat/MaterialComponents），无 View 时代包袱。
+       配合 enableEdgeToEdge()，状态栏/导航栏透明，嵌入刘海区。 -->
+  <style name="Theme.ExampleAndroid" parent="android:Theme.Material.NoActionBar">
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+  </style>
+
+  <!-- 系统闪屏主题：core-splashscreen 提供（API<31 模拟，API 31+ 系统级）。
+       用 windowSplashScreenBackground 填充进程初始化窗口消除白屏（而非 windowBackground=transparent
+       的反模式——透明等于放弃这套机制）；动画图标用应用 star 矢量；退出后切回正常主题。
+       MainActivity.installSplashScreen() 在 super.onCreate() 前调用消费此主题。 -->
+  <style name="Theme.ExampleAndroid.Splash" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
+    <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    <item name="postSplashScreenTheme">@style/Theme.ExampleAndroid</item>
+  </style>
+</resources>

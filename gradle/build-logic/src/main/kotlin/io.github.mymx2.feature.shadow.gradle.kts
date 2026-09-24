@@ -1,3 +1,5 @@
+@file:Suppress("AvoidApplyPluginMethod")
+
 import com.github.jengelman.gradle.plugins.shadow.ShadowBasePlugin
 import com.github.jengelman.gradle.plugins.shadow.ShadowJavaPlugin
 import com.github.jengelman.gradle.plugins.shadow.tasks.DependencyFilter
@@ -5,11 +7,11 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins { id("java") }
 
-// Only apply selected plugins and not 'com.gradleup.shadow' to not have
-// ShadowApplicationPlugin that would add to the 'assemble' task
-plugins.apply(ShadowBasePlugin::class)
+// 只 apply 部分 Shadow 插件（排除 ShadowApplicationPlugin），不能用 plugins{} 静态声明——
+// apply() 是按类精确选择的合法用法，IDE 提示误报。
+pluginManager.apply(ShadowBasePlugin::class)
 
-plugins.apply(ShadowJavaPlugin::class)
+pluginManager.apply(ShadowJavaPlugin::class)
 
 tasks.withType<ShadowJar>().configureEach {
   group = "toolbox"

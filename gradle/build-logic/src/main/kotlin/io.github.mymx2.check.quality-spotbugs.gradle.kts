@@ -1,8 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+import PluginHelpers.findToolConfig
+import PluginHelpers.libsOrInternal
 import com.github.spotbugs.snom.SpotBugsTask
-import io.github.mymx2.plugin.InternalDependencies
-import io.github.mymx2.plugin.libs
 
 plugins {
   java
@@ -12,10 +12,7 @@ plugins {
 }
 
 dependencies {
-  compileOnly(
-    runCatching { libs.findLibrary("spotbugsAnnotations").get().get() }
-      .getOrElse { InternalDependencies.useLibrary("spotbugsAnnotations") }
-  )
+  compileOnly(libsOrInternal("spotbugsAnnotations"))
 }
 
 // auto bind to checks task:
@@ -25,12 +22,7 @@ afterEvaluate {
   tasks.named("qualityCheck") { dependsOn(tasks.spotbugsMain, tasks.spotbugsTest) }
 }
 
-val excludeFilterFile =
-  layout.projectDirectory.file("configs/spotbugs/spotbugs.xml").asFile.takeIf { it.exists() }
-    ?: isolated.rootProject.projectDirectory
-      .file("gradle/configs/spotbugs/spotbugs.xml")
-      .asFile
-      .takeIf { it.exists() }
+val excludeFilterFile = findToolConfig("spotbugs", "spotbugs.xml")
 
 spotbugs {
   ignoreFailures = false
