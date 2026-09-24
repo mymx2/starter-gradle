@@ -64,6 +64,9 @@ jobs:
           java-version: "25"
           distribution: "corretto"
 
+      - name: 🤖 Setup Android SDK
+        uses: android-actions/setup-android@6b9e0b58b381aa9b696864ba39b9ff0b1941433c # v3.2.2
+
       - name: 🐘 Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
         with:
