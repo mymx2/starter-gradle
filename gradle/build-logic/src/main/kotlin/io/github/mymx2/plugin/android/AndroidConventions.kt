@@ -122,10 +122,30 @@ private val PACKAGING_EXCLUDES =
 private fun TestOptions.configureUnitTests() {
   unitTests {
     isIncludeAndroidResources = true
-    all {
-      it.useJUnitPlatform()
+    all { test ->
+      test.useJUnitPlatform()
       // Robolectric 的 conscrypt 本地库在新版 JDK 上需显式允许本地方法加载，消除 restricted method 警告。
-      it.jvmArgs("--enable-native-access=ALL-UNNAMED")
+      test.jvmArgs("--enable-native-access=ALL-UNNAMED")
+      // AGP 9.5.0-alpha built-in Kotlin 的 main classes 输出到 built_in_kotlinc/，但 unit test
+      // runtime classpath 仍指向旧路径（javac/tmp-kotlin-classes），导致 NoClassDefFoundError。
+      // 显式把 main Kotlin 编译产物目录补进 test classpath，等 AGP 修复后移除。
+      // test 任务名格式：test{Variant}UnitTest，提取 {Variant} 映射到 main compile 输出目录。
+      val variantName =
+        test.name.removePrefix("test").removeSuffix("UnitTest").replaceFirstChar {
+          it.lowercase()
+        }
+      val variantCap = variantName.replaceFirstChar { it.uppercase() }
+      // main Kotlin classes（built-in Kotlin）
+      val mainKotlinClassesDir =
+        test.project.layout.buildDirectory.dir(
+          "intermediates/built_in_kotlinc/$variantName/compile${variantCap}Kotlin/classes"
+        )
+      // main Java classes（BuildConfig 等 javac 产物）
+      val mainJavaClassesDir =
+        test.project.layout.buildDirectory.dir(
+          "intermediates/javac/$variantName/compile${variantCap}JavaWithJavac/classes"
+        )
+      test.classpath += test.project.files(mainKotlinClassesDir, mainJavaClassesDir)
     }
   }
 }
