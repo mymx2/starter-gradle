@@ -349,18 +349,16 @@ object CheckVersionPluginConfig {
 
       if (lineUpdates.isNotEmpty()) {
         val newData =
-          InternalDependencies.data
-            .lines()
-            .joinToString("\n") { line ->
-              val trimmed = line.trim()
-              if (trimmed.isEmpty() || trimmed.startsWith("#") || !trimmed.contains("=")) {
-                return@joinToString line
-              }
-              val key = trimmed.split("=", limit = 2).first().trim()
-              val newVersion = lineUpdates[key] ?: return@joinToString line
-              val versionRegex = Regex("""version\s*=\s*"[^"]+"""")
-              line.replace(versionRegex, """version = "$newVersion"""")
+          InternalDependencies.data.lines().joinToString("\n") { line ->
+            val trimmed = line.trim()
+            if (trimmed.isEmpty() || trimmed.startsWith("#") || !trimmed.contains("=")) {
+              return@joinToString line
             }
+            val key = trimmed.split("=", limit = 2).first().trim()
+            val newVersion = lineUpdates[key] ?: return@joinToString line
+            val versionRegex = Regex("""version\s*=\s*"[^"]+"""")
+            line.replace(versionRegex, """version = "$newVersion"""")
+          }
         val reportDir =
           buildDirProvider.dir("reports/checkVersions").get().asFile.apply { mkdirs() }
         val outFile = File(reportDir, "__InternalDependencies.txt")
