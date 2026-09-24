@@ -1,10 +1,13 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+<vector
+  xmlns:android="http://schemas.android.com/apk/res/android"
   android:width="108dp"
   android:height="108dp"
   android:viewportWidth="108"
-  android:viewportHeight="108">
+  android:viewportHeight="108"
+>
   <!-- 居中四角星（✦），Adaptive Icon 前景，简单几何形保证各尺寸清晰 -->
   <path
     android:fillColor="#FFFFFF"
-    android:pathData="M54,34 L60,48 L74,54 L60,60 L54,74 L48,60 L34,54 L48,48 Z" />
+    android:pathData="M54,34 L60,48 L74,54 L60,60 L54,74 L48,60 L34,54 L48,48 Z"
+  />
 </vector>

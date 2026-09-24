@@ -11,7 +11,7 @@ naming:
   MatchingDeclarationName:
     active: false
   FunctionNaming:
-    ignoreAnnotated: ['Composable']
+    ignoreAnnotated: ["Composable"]
 
 style:
   ForbiddenComment:
