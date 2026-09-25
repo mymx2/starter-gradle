@@ -4,9 +4,16 @@ import app.cash.turbine.test
 import io.github.mymx2.android.data.SettingsRepository
 import io.github.mymx2.android.ui.MainViewModel
 import kotlin.test.assertEquals
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -26,6 +33,20 @@ private class FakeSettingsRepository(initialRapid: Boolean = false) : SettingsRe
  */
 @DisplayName("MainViewModel 状态容器")
 class MainViewModelTest {
+
+  // viewModelScope.launch 跑 Main 调度器，runTest 是 Test 调度器；不替换 Main 时 launch 不执行，
+  // setRapidCount 的写入断言挂（Linux CI 必挂，Windows 偶过——竞态窗口不同）。
+  @OptIn(ExperimentalCoroutinesApi::class)
+  @BeforeEach
+  fun setUp() {
+    Dispatchers.setMain(UnconfinedTestDispatcher())
+  }
+
+  @OptIn(ExperimentalCoroutinesApi::class)
+  @AfterEach
+  fun tearDown() {
+    Dispatchers.resetMain()
+  }
 
   @Test
   @DisplayName("打开应用，初始计数为 0")
