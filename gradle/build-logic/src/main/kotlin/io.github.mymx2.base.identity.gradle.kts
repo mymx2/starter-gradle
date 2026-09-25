@@ -34,10 +34,21 @@ val isScheduled = githubEventName == "schedule"
 val isManual = githubEventName == "workflow_dispatch"
 val isGithubTag = githubRefName.startsWith("v")
 
-// release check: push tag should match code version
+// release check: push tag should match code version.
+// 只对发布模块（应用了 maven-publish 系插件）校验；独立版本模块（如 Android app 的 build.properties
+// version=1.0.0）不参与根项目发版，不应被根 tag 阻塞。pluginManager.withPlugin 保证
+// 发布插件在 identity 之前或之后应用都能触发校验。
 if (isCI && githubEventName == "push" && isGithubTag) {
-  require(currVer.toString() == githubRefName.removePrefix("v")) {
-    "CI Release: GitHub tag ($githubRefName) must match Code version (${currVer})"
+  fun verifyTagMatchesVersion() {
+    require(currVer.toString() == githubRefName.removePrefix("v")) {
+      "CI Release: GitHub tag ($githubRefName) must match Code version (${currVer})"
+    }
+  }
+  pluginManager.withPlugin("com.vanniktech.maven.publish") { verifyTagMatchesVersion() }
+  pluginManager.withPlugin("maven-publish") {
+    if (!pluginManager.hasPlugin("com.vanniktech.maven.publish")) {
+      verifyTagMatchesVersion()
+    }
   }
 }
 
