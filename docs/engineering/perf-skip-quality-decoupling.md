@@ -445,6 +445,36 @@ org.gradle.java.installations.paths=/path/to/sdkman/candidates/java/25-open
 - **价值在开发者体验**：把"记住五个属性名 + 敲一长串 `-P`"收敛为单面旗，降低本地快循环的使用门槛；同时保留五旗可独立启停的细粒度（比如只想跳过 e2e、保留质量门禁做 `./gradlew check -PSKIP_E2E=true`）。
 - **收尾定位**：这是配置层（§4.7 / §4.9 / §4.10 / §4.11）与应用层（§4.12）对本地循环的最后一次压榨——任务图层面 `SKIP_*` 五旗已把所有"非编译 / 非单元-集成测试"开销解耦干净，`SKIP_ALL_LOCAL` 是这层优化的收口开关，无新增优化维度。再往下只能靠 §4.1 的远程构建缓存（应用层凭证）。
 
+### 4.14 Android lint 并入 `SKIP_QUALITY` —— 已实施 ✅（Android 引入后的补漏）
+
+9/24 引入 `:example-android`（`db476d4`）后，`check` 任务图新增了 AGP lint 链（`lint` / `lint{Variant}` / `lintAnalyze*` / `lintReport*` / `generate*Lint*Model`），它不在 `check → qualityCheck` 依赖上、既有五旗管不到。lint 非增量（改 1 文件全量重分析），实测 `:example-android` 单变体 `lintDevDebug` 冷跑 48s、改 1 文件 25s；默认 `check`（不带旗）里 `lintVitalAnalyze{Dev,Prod,Staging}Release` 各 ~23s 合计 ~70s 占整条 check 的 84%——是 Android 模块本地循环的最大单一税。
+
+**改动文件：**
+
+1. `gradle/build-logic/.../io/github/mymx2/plugin/android/AndroidConventions.kt`
+   `configureSharedAndroid`（Application 与 Library 两处）在 `lint { configureAndroidLint(project) }` 后调用 `project.skipAndroidLintIfNeeded()`：skip 时按**白名单任务名**禁用全量 lint 链，**不碰 `lintVital*Release`**（release 打包前的致命问题检查，由 AGP `checkReleaseBuilds` 控制、不属于 quality 门控范围），generate 模型按 `contains("Lint") && endsWith("Model") && !contains("LintVital")` 精确匹配（避免吃掉 `generate*LintVitalReportModel`）。
+
+> 踩坑一：AGP 的 lint 模型任务名不规整——除了 `generate{Variant}LintModel`，还有 `generate{Variant}LintReportModel`（报告模型），按 `endsWith("LintModel")` 会漏掉后者导致它仍 UP-TO-DATE 执行。按 `contains("Lint") && endsWith("Model")` 且排除 `LintVital` 才收干净。
+>
+> 踩坑二：`startsWith("lint")` 会误伤 `lintFix*`（自动修复）与 `updateLintBaseline*`（baseline 更新）这两个**显式调用的工具入口**——它们不在 `check` 依赖链上、不该被本地门控切断。匹配式收紧为白名单：`lint` / `lint{Variant}`（lint 后接大写 variant 名）/ `lintAnalyze*` / `lintReport*` / `lintAggregated*`，显式排除 `lintVital`；`lintFix`/`updateLintBaseline` 天然落选，SKIP 旗下 `./gradlew :module:updateLintBaselineDevDebug` 仍可用。
+
+**边界（与其他门控的关键区别）：**
+
+- **门控的是任务执行（`enabled=false`），不是 lint DSL 配置**：`warningsAsErrors`/`NewApi=error`/baseline 始终配置在 lint 任务上，不带旗的默认 `check` 行为零变化（CI 不受影响）。
+- **`lintVital*Release` 不在门控范围**：它是 release 构建自带的致命问题检查（打包前最后一道），且不带旗的 `check` 里它由 AGP `checkReleaseBuilds` 默认拉起、与 SKIP 旗无关——skip 旗开时它已自然退出 `check` 图，无需再门控。
+- **`lintFix*` / `updateLintBaseline*` 不在门控范围**：这两个是显式调用的工具入口（自动修复、baseline 更新），不在 `check` 依赖链上。SKIP 旗下 `./gradlew :module:updateLintBaselineDevDebug` 正常可用；生成/更新 `lint-baseline.xml` 走它而非 `./gradlew :module:lint`（后者在 SKIP 旗下会被跳过）。
+
+**实测（`:example-android:check`，同硬件）：**
+
+| 场景                        | lint 链任务                       | 说明                       |
+| --------------------------- | --------------------------------- | -------------------------- |
+| 默认（不带旗）              | 21 个进图、全部正常执行           | CI 路径，行为零变化        |
+| `-PSKIP_ALL_LOCAL=true`     | 9 个进图、**全部 SKIPPED**        | lint 链退出执行            |
+| `assembleDevRelease` + SKIP | `lintVitalAnalyzeDevRelease` 保留 | release 致命检查不受门控   |
+
+- **确定性收益**：lint 链（非增量、改 1 文件 25s）退出本地快循环，与缓存无关、始终生效；默认 `false` 对 CI 与现有行为零影响。
+- **诚实提示**：跳过的是 `NewApi=error` 这道 minSdk 兼容 crash 的编译期拦截。IDE（IntelliJ/Android Studio）对 Android 模块内置同款 NewApi 实时红波浪线，本地重复度低，CI 全量兜底——与 §4.7 的 detekt 是同一类「独立 verification 任务解耦」。
+
 ---
 
 ## 5. 复现命令

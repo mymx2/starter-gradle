@@ -17,6 +17,7 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
+import skipFlags
 
 /**
  * Android 约定插件的共享构建逻辑，供 application 与 library 两个插件复用。
@@ -171,6 +172,41 @@ private fun com.android.build.api.dsl.Lint.configureAndroidLint(project: Project
 }
 
 /**
+ * [perf] SKIP_QUALITY 门控：本地快循环跳过 Android lint 全量分析（lint / lint{Variant} / lintAnalyze* /
+ * lintReport* / lintAggregated* / generate*Lint*Model），与 detekt/spotbugs 同款「独立 verification 任务退出任务图」语义。
+ * lint 非增量（改 1 文件全量重分析，实测 :example-android 单变体 ~25s），IDE 对 NewApi 有实时红波浪线提示，
+ * CI 仍全量跑（默认 false），本地跳过不损失拦截。
+ *
+ * 匹配白名单（AGP 9.5 任务名枚举自 `lint` global 任务与 variant 后缀）：
+ * - lint / lint{Variant}：全量 lint 汇总与变体出口
+ * - lintAnalyze* / lintReport* / lintAggregated*：分析与报告
+ * - generate*Lint*Model：lint 分析输入模型
+ * 显式排除：lintVital*（release 致命检查，非 quality 门控范围）、lintFix*（自动修复）、updateLintBaseline*（baseline 更新）。
+ * 后两者是显式调用的工具入口，不在 check 依赖链上，本地 SKIP 旗下仍可正常使用（如 ./gradlew :module:updateLintBaseline）。
+ * 任务 enabled=false 只是退出执行；显式 `./gradlew :module:lint` 在带 SKIP 旗时同样被跳过——生成/更新 baseline 走 updateLintBaseline。
+ */
+private fun Project.skipAndroidLintIfNeeded() {
+  if (!skipFlags.quality) return
+  tasks.configureEach {
+    val n = name
+    // lint / lint{Variant}：全量 lint 汇总与变体出口（lint 后接大写开头的 variant 名，排除 lintFix/lintVital/lintAnalyze 等前缀词）
+    val isLintOrVariant =
+      n == "lint" ||
+        (n.startsWith("lint") && n.getOrNull(4)?.isUpperCase() == true && !n.startsWith("lintVital"))
+    // lintAnalyze* / lintReport* / lintAggregated*：分析与报告（排除 lintVital*）
+    val isLintAnalysis =
+      (n.startsWith("lintAnalyze") || n.startsWith("lintReport") || n.startsWith("lintAggregated")) &&
+        !n.startsWith("lintVital")
+    // generate*Lint*Model：lint 分析输入模型（含 generateDevDebugLintReportModel，不吃 lintVital 的 generate*LintVitalReportModel）
+    val isLintModel =
+      n.startsWith("generate") && n.contains("Lint") && n.endsWith("Model") && !n.contains("LintVital")
+    if (isLintOrVariant || isLintAnalysis || isLintModel) {
+      enabled = false
+    }
+  }
+}
+
+/**
  * 环境 flavor 公共配置（application/library 共用）。 ProductFlavor 是 ApplicationProductFlavor 与
  * LibraryProductFlavor 的共同祖先， dimension/buildConfigField 在其上可达；applicationIdSuffix 仅
  * ApplicationProductFlavor 有，由调用方按类型补。
@@ -214,6 +250,7 @@ fun ApplicationExtension.configureSharedAndroid(project: Project) {
   buildFeatures { configureBuildFeatures() }
   testOptions { configureUnitTests() }
   lint { configureAndroidLint(project) }
+  project.skipAndroidLintIfNeeded()
 }
 
 /** Library 版共享配置（与 Application 共用公共段；库无 targetSdk/versionName/versionCode/applicationIdSuffix）。 */
@@ -235,6 +272,7 @@ fun LibraryExtension.configureSharedAndroid(project: Project) {
   buildFeatures { configureBuildFeatures() }
   testOptions { configureUnitTests() }
   lint { configureAndroidLint(project) }
+  project.skipAndroidLintIfNeeded()
 }
 
 /** 在 application 的 onVariants 里接 versionCode 自动递增（仅 application 有 outputs/versionCode）。 */

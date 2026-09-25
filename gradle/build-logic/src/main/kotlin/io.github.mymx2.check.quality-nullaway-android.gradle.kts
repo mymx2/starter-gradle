@@ -38,11 +38,11 @@ afterEvaluate {
 
 configureErrorProneWithNullaway()
 
-// AGP 的 test 编译任务名不同，匹配所有 Test JavaCompile
+// AGP 的 test 编译任务名是 compile{Variant}UnitTestJavaWithJavac（main 为 compile{Variant}JavaWithJavac）。
+// 与 JVM 版 compileTestJava 同款语义：test 编译禁用 errorprone。
+// 注意 AGP 任务名全部以 "Javac" 结尾（不是 "Java"），按 endsWith("UnitTestJavaWithJavac") 匹配。
 tasks
-  .matching {
-    it.name.startsWith("compile") && it.name.contains("Test") && it.name.endsWith("Java")
-  }
+  .matching { it.name.startsWith("compile") && it.name.endsWith("UnitTestJavaWithJavac") }
   .configureEach {
     if (this is JavaCompile) {
       options.errorprone { isEnabled = false }
