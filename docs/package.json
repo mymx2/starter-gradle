@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "up": "taze -r -w -i",
     "dev": "vitepress dev",
     "preview": "vitepress preview",
     "build": "vitepress build"
@@ -13,9 +14,19 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "@typescript/native-preview": "catalog:",
+    "taze": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vite-plus": "catalog:"
   },
-  "packageManager": "pnpm@12.3.4"
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.5.1",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=24.19.0"
+  }
 }
