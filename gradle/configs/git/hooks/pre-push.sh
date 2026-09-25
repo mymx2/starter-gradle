@@ -1,10 +1,17 @@
 #!/bin/sh
 echo "🚀 Pre-push check start"
 
-# Prettier formatting check (via vp, not Gradle)
-vp run check
+# Prettier formatting check (vp > pnpm > skip; remote CI is the gate)
+if command -v vp >/dev/null 2>&1; then
+    vp run check
+elif command -v pnpm >/dev/null 2>&1; then
+    echo "ℹ️  'vp' not found, falling back to 'pnpm run check'"
+    pnpm run check
+else
+    echo "⚠️  Neither 'vp' nor 'pnpm' found, skipping Prettier check (remote CI will verify)"
+fi
 if [ $? -ne 0 ]; then
-    echo "❌ Prettier format check failed. Run 'vp run fmt' to fix."
+    echo "❌ Prettier format check failed. Run 'pnpm run fmt' to fix."
     exit 1
 fi
 
