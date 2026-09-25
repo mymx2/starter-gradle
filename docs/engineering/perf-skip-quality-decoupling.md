@@ -466,11 +466,11 @@ org.gradle.java.installations.paths=/path/to/sdkman/candidates/java/25-open
 
 **实测（`:example-android:check`，同硬件）：**
 
-| 场景                        | lint 链任务                       | 说明                       |
-| --------------------------- | --------------------------------- | -------------------------- |
-| 默认（不带旗）              | 21 个进图、全部正常执行           | CI 路径，行为零变化        |
-| `-PSKIP_ALL_LOCAL=true`     | 9 个进图、**全部 SKIPPED**        | lint 链退出执行            |
-| `assembleDevRelease` + SKIP | `lintVitalAnalyzeDevRelease` 保留 | release 致命检查不受门控   |
+| 场景                        | lint 链任务                       | 说明                     |
+| --------------------------- | --------------------------------- | ------------------------ |
+| 默认（不带旗）              | 21 个进图、全部正常执行           | CI 路径，行为零变化      |
+| `-PSKIP_ALL_LOCAL=true`     | 9 个进图、**全部 SKIPPED**        | lint 链退出执行          |
+| `assembleDevRelease` + SKIP | `lintVitalAnalyzeDevRelease` 保留 | release 致命检查不受门控 |
 
 - **确定性收益**：lint 链（非增量、改 1 文件 25s）退出本地快循环，与缓存无关、始终生效；默认 `false` 对 CI 与现有行为零影响。
 - **诚实提示**：跳过的是 `NewApi=error` 这道 minSdk 兼容 crash 的编译期拦截。IDE（IntelliJ/Android Studio）对 Android 模块内置同款 NewApi 实时红波浪线，本地重复度低，CI 全量兜底——与 §4.7 的 detekt 是同一类「独立 verification 任务解耦」。
