@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import io.github.mymx2.plugin.gradle.CONSISTENT_RESOLUTION_ATTRIBUTE
-import io.github.mymx2.plugin.gradle.applyConsistentResolutionAttributes
 import io.github.mymx2.plugin.gradle.configureSharedResolution
 
 plugins { id("org.gradlex.jvm-dependency-conflict-resolution") }
@@ -11,7 +10,11 @@ plugins { id("org.gradlex.jvm-dependency-conflict-resolution") }
 configurations.create(
   "allDependencies",
   Action {
-    isCanBeConsumed = true
+    // 纯 declarable bucket：只 extendsFrom 收集依赖供 consistent resolution 读取，
+    // 不可被消费也不可被解析。若 isCanBeConsumed=true 且盖 category=library 等 variant 属性，
+    // 会让它对任何 project(...) 解析成为合法候选，挤掉 AGP 9.5.0-alpha 缺 category 属性的
+    // main runtimeElements，导致单测 runtime classpath 完全缺 main classes（NoClassDefFoundError）。
+    isCanBeConsumed = false
     isCanBeResolved = false
     // AGP 配置名模式：devDebugImplementation / prodReleaseApi 等，用后缀匹配
     val target = this
@@ -26,7 +29,6 @@ configurations.create(
           it.name == "runtimeOnly"
       }
       .configureEach { target.extendsFrom(this) }
-    applyConsistentResolutionAttributes(project)
   },
 )
 
