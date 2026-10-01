@@ -33,7 +33,7 @@ object InternalDependencies {
     spotbugsAnnotations = { module = "com.github.spotbugs:spotbugs-annotations", version = "4.10.4", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml" }
     # 与根 gradle/libs.versions.toml 同步——TestKit 测试项目无根 catalog，libsOrInternal 回退需在此登记
     # 版本须与 guava 33.5.0-jre 的 transitive jspecify 对齐（consistent resolution 锁到 1.0.0）
-    jspecify = { module = "org.jspecify:jspecify", version = "1.0.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml" }
+    jspecify = { module = "org.jspecify:jspecify", version = "1.0.1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jspecify/jspecify/maven-metadata.xml" }
 
     # Android 测试坐标（Android 依赖不进 libs.versions.toml——它只放纯 JVM；但版本须纳入 checkVersions 升级检查，故在此登记）
     uiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version = "1.13.0-alpha03", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/androidx/compose/ui/ui-test-junit4/maven-metadata.xml" }
@@ -42,7 +42,7 @@ object InternalDependencies {
     testExtJunit = { module = "androidx.test.ext:junit", version = "1.3.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/androidx/test/ext/junit/maven-metadata.xml" }
     roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version = "1.75.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/io/github/takahirom/roborazzi/roborazzi/maven-metadata.xml" }
     roborazziCompose = { module = "io.github.takahirom.roborazzi:roborazzi-compose", version = "1.75.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/io/github/takahirom/roborazzi/roborazzi-compose/maven-metadata.xml" }
-    kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version = "2.4.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jetbrains/kotlin/kotlin-test/maven-metadata.xml" }
+    kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version = "2.5.0-Beta1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jetbrains/kotlin/kotlin-test/maven-metadata.xml" }
     kotlinxCoroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.11.0", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/org/jetbrains/kotlinx/kotlinx-coroutines-test/maven-metadata.xml" }
     turbine = { module = "app.cash.turbine:turbine", version = "1.2.1", type = "maven", url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/app/cash/turbine/turbine/maven-metadata.xml" }
 
