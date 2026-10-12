@@ -123,8 +123,8 @@ packages:
     peerDependencies:
       prettier: ^3.0.0
 
-  '@xml-tools/parser@1.0.11':
-    resolution: {integrity: sha512-aKqQ077XnR+oQtHJlrAflaZaL7qZsulWc/i/ZEooar5JiWj1eLt0+Wg28cpa+XLney107wXqneC+oG1IZvxkTA==}
+  '@xml-tools/parser@1.0.12':
+    resolution: {integrity: sha512-YNIPbmr/7ClPpWyk0MLImLBLyVLgW+BeOkbd4UDp8w0tCcgU8lmA4karXBF9EQwaQzDTzaBbJtmSA0G2NKKlPA==}
 
   chevrotain@7.1.1:
     resolution: {integrity: sha512-wy3mC1x4ye+O+QkEinVJkPf5u2vsrDIYW9G7ZuwFl6v/Yu0LwUuT2POsb+NUWApebyxfkQq6+yDfRExbnI5rcw==}
@@ -141,10 +141,10 @@ snapshots:
 
   '@prettier/plugin-xml@3.4.2(prettier@3.9.6)':
     dependencies:
-      '@xml-tools/parser': 1.0.11
+      '@xml-tools/parser': 1.0.12
       prettier: 3.9.6
 
-  '@xml-tools/parser@1.0.11':
+  '@xml-tools/parser@1.0.12':
     dependencies:
       chevrotain: 7.1.1
 
