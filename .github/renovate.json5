@@ -14,7 +14,9 @@
   pinDigests: true,
   ignoreUnstable: false,
   minimumReleaseAge: "7 days",
-  dependencyDashboard: true,
+  dependencyDashboard: {
+    enabled: true,
+  },
   env: {
     GRADLE_OPTS: '-Dorg.gradle.jvmargs=-Xmx2048M -Dkotlin.compiler.execution.strategy="in-process"',
   },
@@ -52,7 +54,7 @@
       customType: "regex",
       managerFilePatterns: ["gradle/**/InternalDependencies\\.kt"],
       matchStrings: [
-        '(?<enumName>[a-zA-Z0-9_]+)\\s*=\\s*\\{[^}]*module\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*type\\s*=\\s*\"maven\"[^}]*\\}',
+        '(?<enumName>[a-zA-Z0-9_]+)\\s*=\\s*\\{[^}]*module\\s*=\\s*"(?<depName>[^"]+)"[^}]*version\\s*=\\s*"(?<currentValue>[^"]+)"[^}]*type\\s*=\\s*"maven"[^}]*\\}',
       ],
       depNameTemplate: "{{{depName}}}",
       datasourceTemplate: "maven",
@@ -61,7 +63,7 @@
       customType: "regex",
       managerFilePatterns: ["gradle/**/InternalDependencies\\.kt"],
       matchStrings: [
-        '(?<enumName>[a-zA-Z0-9_]+)\\s*=\\s*\\{[^}]*module\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*version\\s*=\\s*\"(?<currentValue>[^\"]+)\"[^}]*type\\s*=\\s*\"npm\"[^}]*\\}',
+        '(?<enumName>[a-zA-Z0-9_]+)\\s*=\\s*\\{[^}]*module\\s*=\\s*"(?<depName>[^"]+)"[^}]*version\\s*=\\s*"(?<currentValue>[^"]+)"[^}]*type\\s*=\\s*"npm"[^}]*\\}',
       ],
       depNameTemplate: "{{{depName}}}",
       datasourceTemplate: "npm",
